@@ -1,1 +1,1 @@
-# Sistema de gerenciamento de catraca eletrônica de ônibus
+# Sistema de gerenciamento para catraca eletrônica de ônibus
