@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    font-size: calc((1.7vw + 1.2vh) / 2);
+}
+
+
+footer{
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    margin-right: auto;
+    margin-bottom: 0.5em;
+}
+
+footer img{
+    width: 7em;
+}
+
+footer span{
+    font-family: 'Inter', sem serifa;
+    text-transform: uppercase;
+    font-size: 1.3em;
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    width: 45em;
+    height: 27em;
+}
+
+
+main h1{
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 2em;
+    margin-top: 0.2em;
+    font-family: 'Inter', sem serifa;
+    font-weight: 500;
+
+    
+}
+
+main img{
+    width: 20em;
+    margin: auto auto 0 auto;
+    /* margin-top: 0.5em; */
+    
+}
+
+header{
+    display: flex;
+    width: 100%;
+    height: 12%;
+
+}
+
+header h2{
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 2.5em;
+    font-weight: 600;
+    font-family: 'Inter', sem serifa;
+    margin: auto;
+}
+
+header img{
+    position: absolute;
+    right: 0;
+    margin: 1.2em 1.2em 0 0;
+}
+
+
+
+
+
+header .idoso{
+    display: none;
+    width: 6em;
+}
+
+header .estudante{
+    display: none;
+    width: 8em;
+}
+
+header .pcd{
+    /* display: none; */
+    width: 9em;
+}
