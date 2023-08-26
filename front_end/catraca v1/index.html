@@ -5,122 +5,40 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>catraca inicio</title>
-
-    <style>
-      /* GERAL */
-
-      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap");
-
-      * {
-        padding: 0px;
-      }
-
-      .wrapper {
-        display: grid;
-        background-color: #253561;
-        height: calc((5rem * 8));
-        width: calc(5rem * 5.5);
-        font-size: calc(5rem * 0.2);
-        border-radius: 1.5em;
-        grid-template:
-          "header header"
-          "info img"
-          "info img";
-        
-      }
-
-      /* GERAL */
-
-      /* TOPO */
-
-      header {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        grid-area: header;
-        /* padding-top: 5em; */
-      }
-
-      header p {
-        color: #fffafa;
-        text-transform: uppercase;
-        font-size: 2.5em;
-        font-family: "Inter", sem serifa;
-        font-weight: 500;
-      }
-
-      header h1 {
-        color: #fffafa;
-        text-transform: uppercase;
-        font-size: 1.5em;
-        font-family: "Inter", sem serifa;
-        font-weight: 500;
-        margin-top: 1em;
-      }
-
-      /* TOPO */
-
-      /* ICONE */
-
-      main {
-        display: flex;
-        flex: auto;
-        grid-area: img;
-      }
-
-      main img {
-        position: relative;
-        margin: auto 0 0 auto;
-        width: 17em;
-      }
-
-      /* ICONE */
-
-      /* INFO E LOGO */
-
-      footer img {
-        width: 5em;
-      }
-
-      span {
-        color: #fffafa;
-      }
-
-      footer {
-        grid-area: info;
-        display: flex;
-        flex-direction: column-reverse;
-      }
-
-      footer > div {
-        display: flex;
-        flex-wrap: nowrap;
-        flex-direction: row;
-        align-items: end;
-        margin-bottom: 0.2em;
-        margin-left: 1em;
-      }
-      /* INFO E LOGO */
-    </style>
+    <link rel="stylesheet" href="css/style.css">
   </head>
+    <style>
+      main img{
+        position: absolute;
+        bottom: 0px;
+        right: 0px;
+        width: calc(22em + 60px);
+      }
+
+      header{
+        margin-top: 3em;
+      }
+      header h2{
+        margin-top: 0.5em;
+        color: rgb(230, 225, 220);
+        font-weight: 500;
+      }
+    </style>
 
   <body>
-    <div class="wrapper">
+    <div class="wrapper" style="background-color: rgb(31, 45, 170);">
       <header>
-        <h1>aproxime o cartão</h1>
-        <p>Tarifa: R$ 3,50</p>
+        <h2>aproxime o cartão</h2>
+        <h2>Tarifa: R$ 3,50</h2>
       </header>
-
+      
       <main>
         <img src="./img/cartão.png" alt="aproximar cartão" />
       </main>
 
       <footer>
-        <div>
-          <div><img src="./img/Tech pass 1.png" alt="logo" /></div>
-          <span>0.0.0</span>
-        </div>
+        <div><img src="./img/Tech pass 1.png" alt="logo" /></div>
+        <span>0.0.0</span>
       </footer>
     </div>
   </body>
