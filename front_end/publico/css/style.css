@@ -3,20 +3,18 @@
   text-transform: uppercase;
 }
 
-
-main .banner{
-    height: ;
-}
-
 .banner div img{
     width: 65%;
 }
 
-
+.banner div img:hover{
+    animation-duration: 1s;
+}
 
 #img-top-banner{
     margin-left: auto;
 }
+
 
 #img-meio-banner{
     margin-right: auto;
@@ -27,5 +25,12 @@ main .banner{
 #img-bottom-banner{
     margin-top: calc(1vw * -7);
     margin-left: auto;
-
  }
+
+#img-bottom-banner:hover{
+    margin-top: calc(1vw * -5);
+    
+ }
+
+
+
