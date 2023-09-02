@@ -68,7 +68,7 @@ main .banner{
     height: fit-content;
 }
 
-@media (max-width:524px) {
+@media (max-width: 575px) {
     
     #parte1 img{
         width: 80%;
