@@ -12,17 +12,16 @@
 
 
 
-
+/* BANNER */
 
 main .banner{
-    padding-bottom: 6rem;
+    padding-bottom: 8rem;
     padding-top: 3rem;
 }
 
 #texto-banner{
     max-width: 420px;
 }
-
 
 
 .banner{
@@ -54,5 +53,33 @@ main .banner{
     margin-left: auto;
  }
 
+/* BANNER */
 
+/*  */
+
+/* MAIN P1 */
+
+#parte1 div{
+    max-width: 480px;
+}
+
+#parte1 img{
+    margin-top: calc(1vw * -2.8);
+    height: fit-content;
+}
+
+@media (max-width:524px) {
+    
+    #parte1 img{
+        width: 80%;
+        margin-top: calc(1vw * -10);
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+/* MAIN P1 */
+
+
+/*  */
 
