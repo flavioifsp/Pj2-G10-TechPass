@@ -4,24 +4,19 @@
     box-sizing: border-box;
 }
 
-.red {
-    background-color: red;
+#FastTime {
+    width: 58px;
+    height: 50px;
 }
 
-.blue {
-    background-color: rgb(111, 111, 232);
+.icon2 {
+    width: 40px;
+    height: 40px;
 }
 
-.gray {
-    background-color: gray;
-}
-
-.black {
-    background-color: black;
-}
-
-.branco {
-    background-color: white;
+#BlockCreditCard {
+    width: 40px;
+    height: 40px;
 }
 
 .agilidade-icon {
@@ -38,58 +33,118 @@
 }
 
 .tamanho-botoes {
+    width: 215px;
+    height: 125px;
 
-    height: 150px;
 }
 
 .cor-botoes {
-    background-image: linear-gradient(to right, #0075ff, #0066ff, #2653ff, #443aff, #6002ff);
+    background: rgb(0, 117, 255);
+    background: linear-gradient(45deg, rgba(0, 117, 255, 0.7978737027037377) 25%, rgba(96, 2, 255, 0.6970333665692839) 76%);
 }
 
 .bt {
-    background-color: #0000ff;
+    background-color: #6A47F7;
     text-align: center;
     color: white;
     border-radius: 0 5px 5px 0;
+    text-decoration: none;
 }
 
-#FastTime {
-    width: 15px;
-    height: 15px;
+.fontbotoes {
+    font-size: 15px;
+    color: white;
+}
+
+
+
+.tituloCartoes {
+    font-size: 20px;
+    margin: 0;
 }
 
 .subtituloCartoes {
-    font-size: 65%;
+    font-size: 15px;
     margin: 0;
 }
 
-.tituloCartoes {
-    font-size: 100%;
-    margin: 0;
-}
 
 .titulo1 {
     margin-top: 10%;
 }
 
 
-#idCard {
-    width: 15%;
-}
-
-.esse {
-    align-items: center;
-    justify-content: center;
-}
 
 i {
-    margin-left: 5%;
     color: #ffffff;
-    font-size: 35px;
-
+    font-size: 30px;
     text-align: start;
+    margin-top: 10px;
 }
 
-.texto-botao {
-    color: white;
+.barra-pesquisa {
+    width: 70%;
+}
+
+.confiraAsLojas {
+    font-size: 1px;
+}
+
+a {
+    text-decoration: none;
+}
+
+@media (max-width: 578px) {
+
+    /* Estilos para telas menores */
+    .tituloCartoes {
+        font-size: 10px;
+    }
+
+    .subtituloCartoes {
+        font-size: 7px;
+    }
+
+    .icon2 {
+        width: 25px;
+        height: 25px;
+    }
+
+    #BlockCreditCard {
+        width: 25px;
+        height: 25px;
+    }
+
+    #FastTime {
+        width: 30px;
+        height: 30px;
+        margin-top: 4px;
+    }
+
+    .titulo3 {
+        font-size: 15px;
+    }
+
+
+}
+
+
+@media (max-width: 876px) {
+    .tamanho-botoes {
+        width: 130px;
+        height: 100px;
+
+    }
+
+    .fontbotoes {
+        font-size: 10px;
+        color: white;
+    }
+
+    i {
+        color: #ffffff;
+        font-size: 20px;
+        text-align: start;
+        margin-top: 10px;
+    }
 }
