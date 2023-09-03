@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2? family= Inter:wght@400;500 & family= Literata:opsz,wght@7..72,500 & display=swap');
+
+
+.texto-Menu-m {
+  font-size: 1.5rem;
+  text-transform: uppercase;
+}
+
+
+
+
+
+
+
+/* BANNER */
+
+main .banner{
+    padding-bottom: 8rem;
+    padding-top: 3rem;
+}
+
+#texto-banner{
+    max-width: 420px;
+}
+
+
+.banner{
+    font-family: 'Literata', serif;
+}
+
+.banner div img{
+    width: 66%;
+    transition: 0.5s;
+}
+
+.banner div img:hover{
+    transform: translateY(-1rem)
+}
+
+#img-top-banner{
+    margin-left: auto;
+}
+
+
+#img-meio-banner{
+    margin-right: auto;
+    margin-top: calc(1vw * -7);
+}
+
+
+#img-bottom-banner{
+    margin-top: calc(1vw * -5);
+    margin-left: auto;
+ }
+
+/* BANNER */
+
+/*  */
+
+/* MAIN P1 */
+
+#parte1 div{
+    max-width: 480px;
+}
+
+#parte1 img{
+    margin-top: calc(1vw * -2.8);
+    height: fit-content;
+}
+
+@media (max-width: 575px) {
+    
+    #parte1 img{
+        width: 80%;
+        margin-top: calc(1vw * -10);
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+/* MAIN P1 */
+
+
+/*  */
+

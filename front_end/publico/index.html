@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <title>teste menu</title>
+
+
+</head>
+
+<body>
+
+  <div class="wrapper content-fluid">
+
+    <header id="paia"></header>
+
+    <main class="">
+
+      <section class="banner container-fluid bg-dark  d-flex justify-content-center">
+        <div class=" container-md  justify-content-between align-items-center row">
+          <div class="d-flex flex-column row-gap-2  min text-light col-md-6 mr-auto" id="texto-banner">
+            <h4 class=" text-primary">Alto Recarga</h4>
+            <h1 class=" ps-4">Simplifique sua experiencia de transporte</h1>
+            <p class="">Solicite já o seu cartão e pague menos em todas as viagens</p>
+            <a href="#:" class="btn btn-outline-primary mt-3 rounded-pill " href="#" role="button"
+              style="width: fit-content;">Adquirá já</a>
+          </div>
+
+          <div class="d-none  flex-column col-6 col-md-5 d-sm-flex bg-error">
+            <img src="img/card-banner-bottom.png" class="" id="img-top-banner">
+            <img src="img/card-banner-meio.png" class="" id="img-meio-banner">
+            <img src="img/card-banner-bottom.png" class="" id="img-bottom-banner">
+          </div>
+        </div>
+
+      </section>
+
+      <section class="container d-flex justify-content-between flex-column-reverse flex-sm-row flex-wrap " id="parte1">
+        <div class=" mt-5 d-flex flex-wrap col-sm-6  " >
+          <h1 class="">Modernidade para o transporte e facilidade para a sua empresa.</h1>
+          <p class="ps-4  pt-3">Conheça as modalidades oferecidas e as vantagens para sua empresa e seus colaboradores ao adquirir o Vale
+            Transporte BHBUS.</p>
+        </div>
+        <img src="img/carinha com cartão.png" alt="carinha com cartão" class="col-sm-4  ">
+      </section>
+
+
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+    crossorigin="anonymous"></script>
+    
+    <script>
+      // Use JavaScript para carregar e inserir o cabeçalho
+      const headerPlaceholder = document.getElementById('paia');
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', 'reutilizaveis/menu.html', true);
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          headerPlaceholder.innerHTML = xhr.responseText;
+        }
+      };
+      xhr.send();
+    </script>
+</body>
+
+</html>
