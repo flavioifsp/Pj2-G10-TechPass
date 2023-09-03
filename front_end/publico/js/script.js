@@ -4,18 +4,25 @@
 
 
 
-const senhapaia = document.getElementById("senhapaia");
-    const btnpaia = document.getElementById("btnsenha");
-    const ipaiaeye = btnpaia.querySelector("i")
 
-    btnsenha.addEventListener("click", () => {
-      if(senhapaia.type === "password"){
-        senhapaia.type = "text"
-        ipaiaeye.classList.add("bi-eye-slash")
-        ipaiaeye.classList.remove("bi-eye-fill")
-      } else{
-        senhapaia.type = "password"
-        ipaiaeye.classList.remove("bi-eye-slash")
-        ipaiaeye.classList.add("bi-eye-fill")
-      }
-    })
+
+    function senhaeye(senhapaia, btnsenha) {
+        const senhapaia = document.getElementById("senhapaia");
+        const btnsenha = document.getElementById("btnsenha");
+        const logo = btnpaia.querySelector("i")
+
+        btnsenha.addEventListener("click", () => {
+            if(senhapaia.type === "password"){
+              senhapaia.type = "text"
+              logo.classList.add("bi-eye-slash")
+              logo.classList.remove("bi-eye-fill")
+            } else{
+              senhapaia.type = "password"
+              logo.classList.remove("bi-eye-slash")
+              logo.classList.add("bi-eye-fill")
+            }
+        })
+    }
+
+    
+    
