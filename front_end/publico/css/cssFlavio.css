@@ -1,0 +1,95 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.red {
+    background-color: red;
+}
+
+.blue {
+    background-color: rgb(111, 111, 232);
+}
+
+.gray {
+    background-color: gray;
+}
+
+.black {
+    background-color: black;
+}
+
+.branco {
+    background-color: white;
+}
+
+.agilidade-icon {
+    width: 150px;
+    height: 150px;
+}
+
+.img-responsive {
+    width: 150px;
+}
+
+.botoes {
+    background-color: yellow
+}
+
+.tamanho-botoes {
+
+    height: 150px;
+}
+
+.cor-botoes {
+    background-image: linear-gradient(to right, #0075ff, #0066ff, #2653ff, #443aff, #6002ff);
+}
+
+.bt {
+    background-color: #0000ff;
+    text-align: center;
+    color: white;
+    border-radius: 0 5px 5px 0;
+}
+
+#FastTime {
+    width: 15px;
+    height: 15px;
+}
+
+.subtituloCartoes {
+    font-size: 65%;
+    margin: 0;
+}
+
+.tituloCartoes {
+    font-size: 100%;
+    margin: 0;
+}
+
+.titulo1 {
+    margin-top: 10%;
+}
+
+
+#idCard {
+    width: 15%;
+}
+
+.esse {
+    align-items: center;
+    justify-content: center;
+}
+
+i {
+    margin-left: 5%;
+    color: #ffffff;
+    font-size: 35px;
+
+    text-align: start;
+}
+
+.texto-botao {
+    color: white;
+}
