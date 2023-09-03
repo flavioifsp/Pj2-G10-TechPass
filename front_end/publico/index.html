@@ -43,9 +43,10 @@
       </section>
 
       <section class="container d-flex justify-content-between flex-column-reverse flex-sm-row flex-wrap " id="parte1">
-        <div class=" mt-5 d-flex flex-wrap col-sm-6  " >
+        <div class=" mt-5 d-flex flex-wrap col-sm-6  ">
           <h1 class="">Modernidade para o transporte e facilidade para a sua empresa.</h1>
-          <p class="ps-4  pt-3">Conheça as modalidades oferecidas e as vantagens para sua empresa e seus colaboradores ao adquirir o Vale
+          <p class="ps-4  pt-3">Conheça as modalidades oferecidas e as vantagens para sua empresa e seus colaboradores
+            ao adquirir o Vale
             Transporte BHBUS.</p>
         </div>
         <img src="img/carinha com cartão.png" alt="carinha com cartão" class="col-sm-4  ">
@@ -58,19 +59,18 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
     crossorigin="anonymous"></script>
-    
-    <script>
-      // Use JavaScript para carregar e inserir o cabeçalho
-      const headerPlaceholder = document.getElementById('paia');
-      const xhr = new XMLHttpRequest();
-      xhr.open('GET', 'reutilizaveis/menu.html', true);
-      xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-          headerPlaceholder.innerHTML = xhr.responseText;
-        }
-      };
-      xhr.send();
-    </script>
+
+  <script>
+    const headerPlaceholder = document.getElementById('paia');
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', 'reutilizaveis/menu.html', true);
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        headerPlaceholder.innerHTML = xhr.responseText;
+      }
+    };
+    xhr.send();
+  </script>
 </body>
 
 </html>
