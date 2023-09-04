@@ -16,7 +16,7 @@
 </head>
 
 <body>
-  <header id="paia"></header>
+  <header id="menuEX"></header>
 
   <main class="container-fluid d-flex " style="min-height: 85vh">
 
@@ -55,35 +55,10 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 
+  <script src="js/eyesenha.js"></script>
+  <script src="js/importpags.js"></script>
   
-  <script>
-    const headerPlaceholder = document.getElementById('paia');
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', 'reutilizaveis/menu.html', true);
-    xhr.onreadystatechange = function () {
-      if (xhr.readyState === 4 && xhr.status === 200) {
-        headerPlaceholder.innerHTML = xhr.responseText;
-      }
-    };
-    xhr.send();
-
-
-    const senhapaia = document.getElementById("senhapaia");
-    const btnsenha = document.getElementById("btnsenha");
-    const eye = btnsenha.querySelector("i")
-
-    btnsenha.addEventListener("click", () => {
-        if(senhapaia.type === "password"){
-          senhapaia.type = "text"
-          eye.classList.add("bi-eye-slash")
-          eye.classList.remove("bi-eye-fill")
-        } else{
-          senhapaia.type = "password"
-          eye.classList.remove("bi-eye-slash")
-          eye.classList.add("bi-eye-fill")
-        }
-    })
-  </script>
+  
 </body>
 
 </html>
