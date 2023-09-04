@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+    />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+      crossorigin="anonymous"
+    />
+
+    <link rel="stylesheet" href="css/style.css" />
+
+    <title>teste menu</title>
+  </head>
+
+  <body>
+    <header id="paia"></header>
+
+    <main class="container-fluid d-flex pt-2" style="min-height: 90vh" >
+      <section class="container  col-sm-10 col-md-8 col-lg-6 col-xl-4 m-auto align-content-center py-4 rounded shadow bg-light"  >
+        <img src="img/logo.png" alt="" class="pb-3" style="width: 110px" />
+        <!-- <div class="d-flex align-items-center pb-3 justify-content-around">
+      </div> -->
+
+        <form class="container-fluid px-0">
+          <div class="row d-flex flex-column flex-sm-row justify-content-between mx-0">
+            <div class="row container-fluid col-sm-7">
+              <label class="form-label ps-2">nome completo</label>
+              <input class="form-control" type="text" />
+            </div>
+
+            <div class="row container-fluid col-sm-6">
+              <label class="form-label ps-2">telefone</label>
+              <input class="form-control" type="number" />
+            </div>
+          </div>
+
+          <div class="row d-flex flex-column flex-sm-row justify-content-between mx-0">
+            <div class="row container-fluid col-sm-7">
+              <label class="form-label ps-2">data de nascimento</label>
+              <input class="form-control" type="date" />
+            </div>
+
+            <div class="row container-fluid col-sm-6 ">
+              <label class="form-label ps-2">cpf</label>
+              <input class="form-control" type="number" />
+            </div>
+          </div>
+
+          <div class="row container-fluid px-0 mx-0">
+            <label class="form-label ps-2">email</label>
+            <input
+              class="form-control"
+              type="email"
+              placeholder="digite seu email paia aq"
+            />
+          </div>
+
+          <div class="d-flex flex-column container-fluid col- px-0">
+            <label class="form-label ps-2">coloque sua senha</label>
+            <div class="d-flex flex-row">
+              <input
+                class="form-control rounded-end-0"
+                type="password"
+                id="senhapaia"
+                placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+              />
+              <button
+                type="button"
+                class="btn btn-outline-primary rounded-start-0"
+                id="btnsenha"
+              >
+                <span class="m-auto"><i class="bi bi-eye-fill"></i></span>
+              </button>
+            </div>
+          </div>
+
+          <div class="d-flex flex-column container-fluid px-0">
+            <label class="form-label ps-2">confirme sua senha</label>
+            <div class="d-flex flex-row">
+              <input
+                class="form-control"
+                type="password"
+                placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+              />
+            </div>
+          </div>
+
+          <button class="btn btn-primary w-100 mt-3" type="submit">
+            entrar
+          </button>
+
+          <p class="mt-3 text-center">
+            já tem uma conta? <a href="login.html">entre aqui</a>
+          </p>
+        </form>
+      </section>
+    </main>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      const headerPlaceholder = document.getElementById("paia");
+      const xhr = new XMLHttpRequest();
+      xhr.open("GET", "reutilizaveis/menu.html", true);
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          headerPlaceholder.innerHTML = xhr.responseText;
+        }
+      };
+      xhr.send();
+
+      const senhapaia = document.getElementById("senhapaia");
+      const btnsenha = document.getElementById("btnsenha");
+      const eye = btnsenha.querySelector("i");
+
+      btnsenha.addEventListener("click", () => {
+        if (senhapaia.type === "password") {
+          senhapaia.type = "text";
+          eye.classList.add("bi-eye-slash");
+          eye.classList.remove("bi-eye-fill");
+        } else {
+          senhapaia.type = "password";
+          eye.classList.remove("bi-eye-slash");
+          eye.classList.add("bi-eye-fill");
+        }
+      });
+    </script>
+  </body>
+</html>

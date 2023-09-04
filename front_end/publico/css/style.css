@@ -8,9 +8,14 @@
 
 
 
+main{
+    background-color: rgb(218, 222, 221);
+}
 
 
-
+a{
+    text-decoration: none;
+}
 
 /* BANNER */
 
@@ -81,5 +86,26 @@ main .banner{
 /* MAIN P1 */
 
 
-/*  */
+/* cadastro */
+/* 
+.cadastro{
+    display: grid;
+    grid-template-areas: 
+    "nome fcell"
+    "nasc cpf"
+    "email email"
+    "s1 s2"
+    ;
+
+}
+
+#fnome{grid-area: nome;}
+#fcell{grid-area: fcell;}
+#fnasc{grid-area: nasc;}
+#fcpf{grid-area: cpf;}
+#femail{grid-area: email;}
+#fsenha1{grid-area: s1;}
+#fsenha2{grid-area: s2;} */
+
+/* cadastro */
 
