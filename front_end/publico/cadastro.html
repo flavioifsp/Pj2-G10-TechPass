@@ -25,7 +25,7 @@
   </head>
 
   <body>
-    <header id="paia"></header>
+    <header id="menuEX"></header>
 
     <main class="container-fluid d-flex pt-2" style="min-height: 90vh" >
       <section class="container  col-sm-10 col-md-8 col-lg-6 col-xl-4 m-auto align-content-center py-4 rounded shadow bg-light"  >
@@ -114,32 +114,7 @@
       crossorigin="anonymous"
     ></script>
 
-    <script>
-      const headerPlaceholder = document.getElementById("paia");
-      const xhr = new XMLHttpRequest();
-      xhr.open("GET", "reutilizaveis/menu.html", true);
-      xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-          headerPlaceholder.innerHTML = xhr.responseText;
-        }
-      };
-      xhr.send();
-
-      const senhapaia = document.getElementById("senhapaia");
-      const btnsenha = document.getElementById("btnsenha");
-      const eye = btnsenha.querySelector("i");
-
-      btnsenha.addEventListener("click", () => {
-        if (senhapaia.type === "password") {
-          senhapaia.type = "text";
-          eye.classList.add("bi-eye-slash");
-          eye.classList.remove("bi-eye-fill");
-        } else {
-          senhapaia.type = "password";
-          eye.classList.remove("bi-eye-slash");
-          eye.classList.add("bi-eye-fill");
-        }
-      });
-    </script>
+    <script src="js/eyesenha.js"></script>
+    <script src="js/importpags.js"></script>
   </body>
 </html>

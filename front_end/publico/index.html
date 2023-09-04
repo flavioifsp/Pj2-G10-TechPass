@@ -26,8 +26,9 @@
 
   <div class="wrapper content-fluid">
 
-    <header id="paia"></header>
-
+  
+  <header id="menuEX"></header>
+    
     <main class="">
 
       <section class="banner container-fluid bg-dark  d-flex justify-content-center">
@@ -190,7 +191,6 @@
   </div>
 
 
-
   <!-- Footer -->
   <footer class="text-center text-lg-start text-white" style="background-color: #1c2331; ">
     <!-- Section: Social media -->
@@ -318,17 +318,6 @@
     integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
     crossorigin="anonymous"></script>
 
-  <script>
-    const headerPlaceholder = document.getElementById('paia');
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', 'reutilizaveis/menu.html', true);
-    xhr.onreadystatechange = function () {
-      if (xhr.readyState === 4 && xhr.status === 200) {
-        headerPlaceholder.innerHTML = xhr.responseText;
-      }
-    };
-    xhr.send();
-  </script>
 </body>
 
 </html>
