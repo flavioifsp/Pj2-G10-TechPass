@@ -13,4 +13,6 @@ const inserir = (parte, partorigin) => {
 
 
 
-inserir("menuEX", 'reutilizaveis\\menu.html')
+inserir("menuE", 'reutilizaveis\\menu.html')
+
+inserir("footerE", 'reutilizaveis\\footer.html')
