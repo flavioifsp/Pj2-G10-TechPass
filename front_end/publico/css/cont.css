@@ -22,16 +22,17 @@ nav li{
     border-bottom: 1px solid rgb(235, 235, 235) ;
 }
 
+.corcinza{
+    background-color: rgba(186, 192, 192, 0.541);
+}
+
 nav {
     background-color: rgba(186, 192, 192, 0.541);
     height: 100%;
     width: calc( (50% - 25vw) + 200px );
 }
 
-.formas{
-    background-color: rgba(186, 192, 192, 0.541);
-    min-height: 15px;"
-}
+
 
 #menuV{
     width: 100% !important;

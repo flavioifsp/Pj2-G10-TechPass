@@ -13,10 +13,15 @@ const inserir = (parte, partorigin) => {
 
 
 
-inserir("menuE", 'reutilizaveis\\menu.html')
+// inserir("menuE", 'reutilizaveis\\menu.html')
 
 inserir("footerE", 'reutilizaveis\\footer.html')
 
-let formas = ""
 
 
+const btnAddpagamento = document.getElementById("btn-addpagamento");
+  console.log(btnAddpagamento)
+  btnAddpagamento.addEventListener("click", () =>{
+    inserir("info", "reutilizaveis\\footer.html");
+    alert("sadads")
+  });

@@ -1,4 +1,4 @@
-const inserir = (parte) => {
+const inserirconteudo = (parte) => {
   const parte1 = document.getElementById("info");
   const xhr = new XMLHttpRequest();
   xhr.open("GET", parte, true);
@@ -13,15 +13,27 @@ const inserir = (parte) => {
 const ul = document.querySelector("#navs");
 const pags = [...ul.querySelectorAll("li")];
 const h4 = document.querySelector("#nomefoco");
+const myOffcanvas = new bootstrap.Offcanvas(document.getElementById('menuV'));
 
+
+inserirconteudo(`reutilizaveis\\conteudo-da-area-da-conta\\cont-op${1}.html`)
+h4.textContent = pags[1].textContent;
 
 pags.map((elem, indice) => {
-  elem.addEventListener("click", () => {
-      inserir(`reutilizaveis\\cont-op${indice}.html`)
-      h4.textContent = elem.textContent;
-  });
+  if(indice > 0){
+    elem.addEventListener("click", () => {
+        inserirconteudo(`reutilizaveis\\conteudo-da-area-da-conta\\cont-op${indice}.html`)
+        h4.textContent = elem.textContent;
+        myOffcanvas.hide()
+        
+    });
+  }
 });
 
 
 
 
+// btnAddpagamento.addEventListener("click", () =>{
+  // inserir("info", "reutilizaveis\\footer.html");
+  // alert("sadads")
+// });
