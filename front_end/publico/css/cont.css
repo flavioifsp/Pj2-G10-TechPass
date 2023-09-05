@@ -1,10 +1,15 @@
 
 main{
     background-color: rgb(241, 241, 241);
-    
+    height: 96.3vh;
 }
 
 
+
+a{
+    text-decoration: none;
+    color: blue;
+}
 
 header{
     background-color: rgb(228, 228, 228);
@@ -54,7 +59,9 @@ nav {
     }
 
     #menuV{
-        width: 80%;
+        max-width: 80%;
     }
+
+
 }
 

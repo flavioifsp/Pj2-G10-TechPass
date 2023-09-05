@@ -13,15 +13,21 @@ const inserir = (parte, partorigin) => {
 
 
 
-// inserir("menuE", 'reutilizaveis\\menu.html')
+inserir("menuE", 'reutilizaveis\\menu.html')
 
 inserir("footerE", 'reutilizaveis\\footer.html')
 
 
 
-const btnAddpagamento = document.getElementById("btn-addpagamento");
-  console.log(btnAddpagamento)
-  btnAddpagamento.addEventListener("click", () =>{
-    inserir("info", "reutilizaveis\\footer.html");
-    alert("sadads")
-  });
+// const btnAddpagamento = document.getElementById("btn-addpagamento");
+//   console.log(btnAddpagamento)
+//   btnAddpagamento.addEventListener("click", () =>{
+//     inserir("info", "reutilizaveis\\footer.html");
+//     alert("sadads")
+//   });
+
+ 
+  // btnAddpagamento.addEventListener("click", () => {
+  //   inserir("menuE", "reutilizaveis\\footer.html")
+  // })
+

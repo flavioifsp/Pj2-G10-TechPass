@@ -8,14 +8,36 @@
 
 
 
+
 .fundo{
     background-color: rgb(241, 241, 241);
 }
 
+/* article p{
+    font-weight: 400 !important;
+    font-size: 1.5em !important;
+}
+
+article img{
+    font-size: 1.5em !important;
+
+}
+
+article h1{
+    font-size: 1.5em !important;
+
+}
+
+article{
+    background-color: rgba(119, 117, 126, 0.226);
+    font-size: calc( 25px + -2vw); }*/
+
 
 a{
-    text-decoration: none;
+    text-decoration: none !important;
 }
+
+
 
 /* BANNER */
 
