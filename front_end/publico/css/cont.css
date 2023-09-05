@@ -1,10 +1,14 @@
 
-.fundo{
+main{
     background-color: rgb(241, 241, 241);
+    
 }
+
+
 
 header{
     background-color: rgb(228, 228, 228);
+    height: 3rem;
 }
 
 nav li > a{
@@ -24,14 +28,28 @@ nav {
     width: calc( (50% - 25vw) + 200px );
 }
 
+.formas{
+    background-color: rgba(186, 192, 192, 0.541);
+    min-height: 15px;"
+}
+
 #menuV{
     width: 100% !important;
 }
 
+#nomefoco{
+    text-transform: uppercase;
+}
 
-@media (max-width: 719px){
-    nav {height: fit-content;
+@media (max-width: 765px){
+
+    nav {
+        left: 1rem;
+        top: 0.2rem;
+        position: absolute !important;
+        height: fit-content;
         background-color: rgb(228, 228, 228);
+        width: fit-content;
     }
 
     #menuV{

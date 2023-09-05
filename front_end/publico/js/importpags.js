@@ -16,3 +16,7 @@ const inserir = (parte, partorigin) => {
 inserir("menuE", 'reutilizaveis\\menu.html')
 
 inserir("footerE", 'reutilizaveis\\footer.html')
+
+let formas = ""
+
+

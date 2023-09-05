@@ -25,14 +25,17 @@
       <nav class="navbar navbar-expand-md    m-0 p-0 shadow  d-flex flex-column ">
             <div class="offcanvas oculto offcanvas-start navbar-collapse  collapse d-flex flex-column justify-content-start align-items-center p-0 m-0 " id="menuV" >
 
-                <header class="container-fluid shadow px-0">
+                <header class="container-fluid shadow d-flex px-0 justify-content-between">
                   <a href="../index.html" class="navbar-brand p-0">
                     <img src="img/logo.png" alt="passtech" style="width: 75px" />
                   </a>
+
+                  <button type="button" class="btn-close p-4 d-block d-md-none" style="font-size: 20px;" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </header>
       
+
                 <ul 
-                  class="navbar-nav   d-flex container-fluid flex-column align-items-start text-center p-0"
+                  class="navbar-nav   d-flex container-fluid flex-column align-items-start text-center p-0" id="navs"
                 >
                   <li
                     class="nav-item d-inline-flex align-items-center justify-content-center py-4"
@@ -49,7 +52,7 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="#" class="nav-link" id="formaspag">
                       <h4>formas de pagamento</h4>
                     </a>
                   </li>
@@ -59,7 +62,7 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="#" class="nav-link" >
                       <h4>faq</h4>
                     </a>
                   </li>
@@ -79,7 +82,7 @@
         </button>
       </nav>
 
-      <section class="container-fluid p-0">
+      <section class="container-fluid p-0 ">
         <header
           class="container-fluid d-flex flex-row-reverse ps-0 pe-5 mx-0 shadow"
         >
@@ -88,9 +91,17 @@
               Olá, <span>paia</span>
             </p>
             <a href="#"><i class="bi bi-person-circle" style="font-size: 1.6rem"></i></a>
-            
           </div>
         </header>
+
+
+        <section>
+          <h1 class="py-5" style="margin-left: 5rem" id="nomefoco"></h1>
+
+          <div id="info" class="d-flex flex-column"></div>
+        </section>
+
+
       </section>
     </main>
 
@@ -108,5 +119,7 @@
       integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
       crossorigin="anonymous"
     ></script>
+
+    <script src="js/inserirpart.js"></script>
   </body>
 </html>
