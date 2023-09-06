@@ -1,4 +1,10 @@
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 main{
     background-color: rgb(241, 241, 241);
     height: 96.3vh;
@@ -24,7 +30,7 @@ nav li > a{
 
 nav li{
     width: 100%;
-    border-bottom: 1px solid rgb(235, 235, 235) ;
+    border-bottom: 1px solid rgb(12, 10, 10) ;
 }
 
 .corcinza{

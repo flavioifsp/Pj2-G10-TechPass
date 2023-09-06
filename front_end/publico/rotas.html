@@ -25,7 +25,11 @@
   </head>
 
   <body class="fundo">
+
+
     <header id="menuE"></header>
+
+
 
     <main class="container my-4   py-4 rounded " style="height: 80.2vh;">
       <section class="container-fluid">
@@ -40,10 +44,11 @@
         </div>
       </section>
 
+
       <section class="container-fluid my-4 d-flex flex-column row-gap-3 column-grow-1  overflow-y-auto" style="height: 65.2vh;" >
       
-        <a href="#">
-          <article class="d-flex align-items-center column-gap-3 py-1 px-3 rounded-3" >
+        <a href="" id="modal1" data-bs-toggle="modal">
+          <article class="d-flex align-items-center column-gap-3 py-2 border-bottom border-primary px-3 " >
             <div class="flex-shrink-0">
               <img src="./img/icon bus.png" alt="..." />
             </div>
@@ -57,7 +62,21 @@
 
         <a href="#">
             
-            <article class="d-flex align-items-center column-gap-3 py-2 px-3 rounded-3">
+            <article class="d-flex align-items-center column-gap-3 py-2 border-bottom border-primary px-3 ">
+              <div class="flex-shrink-0">
+                <img src="./img/icon bus.png" alt="..." />
+              </div>
+    
+              <div class="flex-grow-1 ms-3">
+                <h1>505</h1>
+                <p class="h4">H REGIONAL – MASSAGUAÇÚ VIA JETUBA</p>
+              </div>
+            </article>
+        </a>
+
+        <a href="modal1">
+            
+            <article class="d-flex align-items-center column-gap-3 py-2 border-bottom border-primary px-3 ">
               <div class="flex-shrink-0">
                 <img src="./img/icon bus.png" alt="..." />
               </div>
@@ -71,7 +90,7 @@
 
         <a href="#">
             
-            <article class="d-flex align-items-center column-gap-3 py-2 px-3 rounded-3">
+            <article class="d-flex align-items-center column-gap-3 py-2 border-bottom border-primary px-3 ">
               <div class="flex-shrink-0">
                 <img src="./img/icon bus.png" alt="..." />
               </div>
@@ -85,7 +104,7 @@
 
         <a href="#">
             
-            <article class="d-flex align-items-center column-gap-3 py-2 px-3 rounded-3">
+            <article class="d-flex align-items-center column-gap-3 py-2 border-bottom border-primary px-3 ">
               <div class="flex-shrink-0">
                 <img src="./img/icon bus.png" alt="..." />
               </div>
@@ -99,7 +118,7 @@
 
         <a href="#">
             
-            <article class="d-flex align-items-center column-gap-3 py-2 px-3 rounded-3">
+            <article class="d-flex align-items-center column-gap-3 py-2 border-bottom border-primary px-3 ">
               <div class="flex-shrink-0">
                 <img src="./img/icon bus.png" alt="..." />
               </div>
@@ -113,7 +132,7 @@
 
         <a href="#">
             
-            <article class="d-flex align-items-center column-gap-3 py-2 px-3 rounded-3">
+            <article class="d-flex align-items-center column-gap-3 py-2 border-bottom border-primary px-3 ">
               <div class="flex-shrink-0">
                 <img src="./img/icon bus.png" alt="..." />
               </div>
@@ -127,7 +146,7 @@
 
         <a href="#">
             
-            <article class="d-flex align-items-center column-gap-3 py-2 px-3 rounded-3">
+            <article class="d-flex align-items-center column-gap-3 py-2 border-bottom border-primary px-3 ">
               <div class="flex-shrink-0">
                 <img src="./img/icon bus.png" alt="..." />
               </div>
@@ -141,21 +160,7 @@
 
         <a href="#">
             
-            <article class="d-flex align-items-center column-gap-3 py-2 px-3 rounded-3">
-              <div class="flex-shrink-0">
-                <img src="./img/icon bus.png" alt="..." />
-              </div>
-    
-              <div class="flex-grow-1 ms-3">
-                <h1>505</h1>
-                <p class="h4">H REGIONAL – MASSAGUAÇÚ VIA JETUBA</p>
-              </div>
-            </article>
-        </a>
-
-        <a href="#">
-            
-            <article class="d-flex align-items-center column-gap-3 py-2 px-3 rounded-3">
+            <article class="d-flex align-items-center column-gap-3 py-2 border-bottom border-primary px-3 ">
               <div class="flex-shrink-0">
                 <img src="./img/icon bus.png" alt="..." />
               </div>
@@ -170,6 +175,27 @@
 
       </section>
     </main>
+
+    <!-- modals-->
+    <div class="modal fade" id="modal1" tabindex="-1" aria-hidden="true" aria-labelledby="exampleModallabel">
+
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            ...
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+
+    </div>
+    <!-- modals-->
 
     <footer id="footerE"></footer>
 
