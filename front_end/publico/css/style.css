@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2? family= Inter:wght@400;500 & family= Literata:opsz,wght@7..72,500 & display=swap');
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
 .texto-Menu-m {
   font-size: 1.5rem;
@@ -8,16 +13,16 @@
 
 
 
-main{
+.fundo{
     background-color: rgb(241, 241, 241);
 }
 
 
 a{
-    text-decoration: none;
+    text-decoration: none !important;
 }
 
-/* BANNER */
+
 
 main .banner{
     padding-bottom: 8rem;
@@ -58,11 +63,6 @@ main .banner{
     margin-left: auto;
  }
 
-/* BANNER */
-
-/*  */
-
-/* MAIN P1 */
 
 #parte1 div{
     max-width: 480px;
@@ -73,6 +73,158 @@ main .banner{
     height: fit-content;
 }
 
+
+
+
+
+#FastTime {
+    width: 58px;
+    height: 50px;
+}
+
+.icon2 {
+    width: 40px;
+    height: 40px;
+}
+
+#BlockCreditCard {
+    width: 40px;
+    height: 40px;
+}
+
+.agilidade-icon {
+    width: 150px;
+    height: 150px;
+}
+
+.img-responsive {
+    width: 150px;
+}
+
+.botoes {
+    background-color: yellow
+}
+
+.tamanho-botoes {
+    width: 215px;
+    height: 125px;
+
+}
+
+
+
+.cor-botoes {
+    background: rgb(0, 117, 255);
+    background: linear-gradient(45deg, rgba(0, 117, 255, 0.7978737027037377) 25%, rgba(96, 2, 255, 0.6970333665692839) 76%);
+}
+
+.bt {
+    background-color: #6A47F7;
+    text-align: center;
+    color: white;
+    border-radius: 0 5px 5px 0;
+    text-decoration: none;
+}
+
+.fontbotoes {
+    font-size: 15px;
+    color: white;
+}
+
+
+
+.tituloCartoes {
+    font-size: 20px;
+    margin: 0;
+}
+
+.subtituloCartoes {
+    font-size: 15px;
+    margin: 0;
+}
+
+
+.titulo1 {
+    margin-top: 10%;
+}
+
+
+
+i {
+    color: #ffffff;
+    font-size: 30px;
+    text-align: start;
+    margin-top: 10px;
+}
+
+.barra-pesquisa {
+    width: 70%;
+}
+
+.confiraAsLojas {
+    font-size: 1px;
+}
+
+a {
+    text-decoration: none;
+}
+
+@media (max-width: 578px) {
+
+    /* Estilos para telas menores */
+    .tituloCartoes {
+        font-size: 10px;
+    }
+
+    .subtituloCartoes {
+        font-size: 7px;
+    }
+
+    .icon2 {
+        width: 25px;
+        height: 25px;
+    }
+
+    #BlockCreditCard {
+        width: 25px;
+        height: 25px;
+    }
+
+    #FastTime {
+        width: 30px;
+        height: 30px;
+        margin-top: 4px;
+    }
+
+    .titulo3 {
+        font-size: 15px;
+    }
+
+
+}
+
+
+@media (max-width: 876px) {
+    .tamanho-botoes {
+        width: 130px;
+        height: 100px;
+
+    }
+
+    .fontbotoes {
+        font-size: 10px;
+        color: white;
+    }
+
+    i {
+        color: #ffffff;
+        font-size: 20px;
+        text-align: start;
+        margin-top: 10px;
+    }
+}
+
+
 @media (max-width: 575px) {
     
     #parte1 img{
@@ -82,30 +234,3 @@ main .banner{
         margin-right: auto;
     }
 }
-
-/* MAIN P1 */
-
-
-/* cadastro */
-/* 
-.cadastro{
-    display: grid;
-    grid-template-areas: 
-    "nome fcell"
-    "nasc cpf"
-    "email email"
-    "s1 s2"
-    ;
-
-}
-
-#fnome{grid-area: nome;}
-#fcell{grid-area: fcell;}
-#fnasc{grid-area: nasc;}
-#fcpf{grid-area: cpf;}
-#femail{grid-area: email;}
-#fsenha1{grid-area: s1;}
-#fsenha2{grid-area: s2;} */
-
-/* cadastro */
-

@@ -1,0 +1,73 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+main{
+    background-color: rgb(241, 241, 241);
+    height: 96.3vh;
+}
+
+
+
+a{
+    text-decoration: none;
+    color: blue;
+}
+
+header{
+    background-color: rgb(228, 228, 228);
+    height: 3rem;
+}
+
+nav li > a{
+    text-transform: capitalize;
+    font-weight: 800;
+    
+}
+
+nav li{
+    width: 100%;
+    border-bottom: 1px solid rgb(12, 10, 10) ;
+}
+
+.corcinza{
+    background-color: rgba(186, 192, 192, 0.541);
+}
+
+nav {
+    background-color: rgba(186, 192, 192, 0.541);
+    height: 100%;
+    width: calc( (50% - 25vw) + 200px );
+}
+
+
+
+#menuV{
+    width: 100% !important;
+}
+
+#nomefoco{
+    text-transform: uppercase;
+}
+
+@media (max-width: 765px){
+
+    nav {
+        left: 1rem;
+        top: 0.2rem;
+        position: absolute !important;
+        height: fit-content;
+        background-color: rgb(228, 228, 228);
+        width: fit-content;
+    }
+
+    #menuV{
+        max-width: 80%;
+    }
+
+
+}
+

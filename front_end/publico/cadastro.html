@@ -18,16 +18,19 @@
       integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
       crossorigin="anonymous"
     />
+    
+  <script src="https://kit.fontawesome.com/80dadb849f.js" crossorigin="anonymous"></script>
+
 
     <link rel="stylesheet" href="css/style.css" />
 
     <title>teste menu</title>
   </head>
 
-  <body>
-    <header id="paia"></header>
+  <body class="fundo">
+    <header id="menuE"></header>
 
-    <main class="container-fluid d-flex pt-2" style="min-height: 90vh" >
+    <main class="container-fluid d-flex pt-2 mb-3" style="min-height: 84vh" >
       <section class="container  col-sm-10 col-md-8 col-lg-6 col-xl-4 m-auto align-content-center py-4 rounded shadow bg-light"  >
         <img src="img/logo.png" alt="" class="pb-3" style="width: 110px" />
         <!-- <div class="d-flex align-items-center pb-3 justify-content-around">
@@ -108,38 +111,15 @@
       </section>
     </main>
 
+    <footer id="footerE"></footer>
+
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
       crossorigin="anonymous"
     ></script>
 
-    <script>
-      const headerPlaceholder = document.getElementById("paia");
-      const xhr = new XMLHttpRequest();
-      xhr.open("GET", "reutilizaveis/menu.html", true);
-      xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-          headerPlaceholder.innerHTML = xhr.responseText;
-        }
-      };
-      xhr.send();
-
-      const senhapaia = document.getElementById("senhapaia");
-      const btnsenha = document.getElementById("btnsenha");
-      const eye = btnsenha.querySelector("i");
-
-      btnsenha.addEventListener("click", () => {
-        if (senhapaia.type === "password") {
-          senhapaia.type = "text";
-          eye.classList.add("bi-eye-slash");
-          eye.classList.remove("bi-eye-fill");
-        } else {
-          senhapaia.type = "password";
-          eye.classList.remove("bi-eye-slash");
-          eye.classList.add("bi-eye-fill");
-        }
-      });
-    </script>
+    <script src="js/eyesenha.js"></script>
+    <script src="js/importpags.js"></script>
   </body>
 </html>
