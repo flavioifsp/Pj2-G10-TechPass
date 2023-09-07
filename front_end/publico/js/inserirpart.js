@@ -10,25 +10,6 @@ const inserirconteudo = (parte) => {
   xhr.send();
 };
 
-const ul = document.querySelector("#navs");
-const pags = [...ul.querySelectorAll("li")];
-const h4 = document.querySelector("#nomefoco");
-const myOffcanvas = new bootstrap.Offcanvas(document.getElementById('menuV'));
-
-
-inserirconteudo(`reutilizaveis\\conteudo-da-area-da-conta\\cont-op${1}.html`)
-h4.textContent = pags[1].textContent;
-
-pags.map((elem, indice) => {
-  if(indice > 0){
-    elem.addEventListener("click", () => {
-        inserirconteudo(`reutilizaveis\\conteudo-da-area-da-conta\\cont-op${indice}.html`)
-        h4.textContent = elem.textContent;
-        myOffcanvas.hide()
-        
-    });
-  }
-});
 
 
 
