@@ -92,7 +92,7 @@
             <!-- Dashboard -->
             <li class="menu-item active">
               <a href="index.html" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                <i class="menu-icon tf-icons bx bx-home-alt"></i>
                 <div data-i18n="Analytics">Dashboard</div>
               </a>
             </li>
@@ -105,20 +105,28 @@
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Cadastros</span></li>
             <!-- Forms -->
             <li class="menu-item">
-              <a href="form-layouts-horizontal.html" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-detail"></i>
-                <div data-i18n="Form Elements">Cadastro Motorista</div>
+              <a href="form-layouts-horizontal.html" class="menu-link" >
+                <i class="bus tf-icons bx bx-bus" ></i>
+                <div data-i18n="Form Elements" class="ps-2">Motoristas</div>
               </a>
 
               
               <!-- Forms -->
               <li class="menu-item">
                 <a href="cadastroPassageiro.html" class="menu-link">
-                  <i class="menu-icon tf-icons bx bx-detail"></i>
-                  <div data-i18n="Form Elements">Cadastro Passageiro</div>
+                  <i class='bx bxs-user-detail' style='color:#6e767c'></i>
+                  <div data-i18n="Form Elements" class="ps-2">Passageiros</div>
                 </a>
               
             </li>
+
+              <li class="menu-item">
+                <a href="linhas.html" class="menu-link">
+                  <i class="transfer tf-transfer bx bx-transfer"></i>
+                  <div data-i18n="Form Elements" class="ps-2">Linhas</div>
+                </a>
+              
+              </li>
           
     
           </ul>
@@ -238,12 +246,8 @@
                       <div class="card">
                         <div class="card-body">
                           <div class="card-title d-flex align-items-start justify-content-between">
-                            <div class="avatar flex-shrink-0">
-                              <img
-                                src="../assets/img/icons/unicons/wallet-info.png"
-                                alt="Credit Card"
-                                class="rounded"
-                              />
+                            <div class="flex-shrink-0">
+                        <span class="fluid">Motoristas</span>
                             </div>
                             <div class="dropdown">
                               <button
@@ -257,12 +261,11 @@
                                 <i class="bx bx-dots-vertical-rounded"></i>
                               </button>
                               <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt6">
-                                <a class="dropdown-item" href="javascript:void(0);">View More</a>
-                                <a class="dropdown-item" href="javascript:void(0);">Delete</a>
+                                <a class="dropdown-item" href="form-layouts-horizontal.html#tabelaMotoristas">View More</a>
                               </div>
                             </div>
                           </div>
-                          <span>Motoristas</span>
+                          
                           <h3 class="card-title text-nowrap mb-1">15</h3>
                           <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> +28.42%</small>
                         </div>
@@ -274,12 +277,8 @@
                       <div class="card">
                         <div class="card-body">
                           <div class="card-title d-flex align-items-start justify-content-between">
-                            <div class="avatar flex-shrink-0">
-                              <img
-                                src="../assets/img/icons/unicons/wallet-info.png"
-                                alt="Credit Card"
-                                class="rounded"
-                              />
+                            <div class=" flex-shrink-0">
+                              <span>Passageiros</span>
                             </div>
                             <div class="dropdown">
                               <button
@@ -293,12 +292,11 @@
                                 <i class="bx bx-dots-vertical-rounded"></i>
                               </button>
                               <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt6">
-                                <a class="dropdown-item" href="javascript:void(0);">View More</a>
-                                <a class="dropdown-item" href="javascript:void(0);">Delete</a>
+                                <a class="dropdown-item" href="cadastroPassageiro.html#tabelaPassageiros">View More</a>
                               </div>
                             </div>
                           </div>
-                          <span>Passageiros</span>
+                         
                           <h3 class="card-title text-nowrap mb-1">150</h3>
                           <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> +28.42%</small>
                         </div>
@@ -340,6 +338,7 @@
                         <div class="text-center fw-semibold pt-3 mb-2">62% Crescimento da Empresa</div>
 
                         <div class="d-flex px-xxl-4 px-lg-2 p-4 gap-xxl-3 gap-lg-1 gap-3 justify-content-between">
+
                           <div class="d-flex">
                             <div class="me-2">
                               <span class="badge bg-label-primary p-2"><i class="bx bx-dollar text-primary"></i></span>
@@ -349,6 +348,7 @@
                               <h6 class="mb-0">15</h6>
                             </div>
                           </div>
+                          
                           <div class="d-flex">
                             <div class="me-2">
                               <span class="badge bg-label-info p-2"><i class="bx bx-wallet text-info"></i></span>
