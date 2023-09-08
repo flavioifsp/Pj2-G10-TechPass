@@ -150,7 +150,7 @@ main .banner{
 
 
 
-i {
+#botoesmenu i {
     color: #ffffff;
     font-size: 30px;
     text-align: start;
@@ -216,7 +216,7 @@ a {
         color: white;
     }
 
-    i {
+    #botoesmenu i {
         color: #ffffff;
         font-size: 20px;
         text-align: start;

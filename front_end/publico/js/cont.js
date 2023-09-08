@@ -1,0 +1,108 @@
+class contTemplate extends HTMLElement{
+    constructor(){
+        super()
+    }
+
+    connectedCallback(){
+        this.innerHTML = `
+        <main class="container-fluid p-0 fundo d-flex align-items-start  ">
+          <nav
+            class="navbar navbar-expand-md  nav  m-0 p-0 shadow  d-flex flex-column ">
+            <div
+              class="offcanvas offcanvas-start navbar-collapse  collapse d-flex flex-column justify-content-start align-items-center p-0 m-0 "
+              id="menuV">
+    
+              <header
+                class="container-fluid shadow d-flex px-0 justify-content-between">
+                <a href="index.html" class="navbar-brand p-0">
+                  <img src="img/logo.png" alt="passtech" style="width: 75px" />
+                </a>
+    
+                <button type="button" class="btn-close p-4 d-block d-md-none"
+                  style="font-size: 20px;" data-bs-dismiss="offcanvas"
+                  aria-label="Close"></button>
+              </header>
+    
+              <ul
+                class="navbar-nav   d-flex container-fluid flex-column align-items-start text-center p-0"
+                id="navs">
+                <li
+                  class="nav-item d-inline-flex align-items-center justify-content-center py-4">
+                  <h4 class="me-2">paiaoso</h4>
+                  <i
+                    class="bi my-auto bi-person-circle"
+                    style="font-size: 3rem"></i>
+                </li>
+                <li class="nav-item">
+                  <a href="faq.html" class="nav-link">
+                    <h4>meus cartões</h4>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="formadePag.html" class="nav-link" id="formaspag">
+                    <h4>formas de pagamento</h4>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="MeuPerfil.html" class="nav-link">
+                    <h4>meu perfil</h4>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="MeusCartoes.html" class="nav-link">
+                    <h4>faq</h4>
+                  </a>
+                </li>
+              </ul>
+    
+            </div>
+    
+            <button
+              class="navbar-toggler mx-auto"
+              type="button"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#menuV"
+              aria-controls="menuV"
+              aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          </nav>
+    
+          <section class="container-fluid p-0 " id="conteudo">
+            <header
+              class="container-fluid d-flex flex-row-reverse ps-0 pe-5 mx-0 shadow">
+              <div class="d-flex column-gap-2 align-items-center">
+                <p class="p-0 m-0 mb-auto" style="font-size: 1rem">
+                  Olá, <span>paia</span>
+                </p>
+                <a href="#"><i class="bi bi-person-circle" style="font-size: 1.6rem"></i></a>
+              </div>
+            </header>
+    
+            <section
+              class="container ps-md-5 d-flex flex-column align-items-center  align-items-md-start">
+              <h1 class="py-5 " id="nomefoco"></h1>
+    
+              <div id="info"
+                class="d-flex flex-column d-flex align-items-center align-items-md-start ps-md-5 w-100 "></div>
+            </section>
+    
+          </section>
+        </main>
+    
+        <footer-paia></footer-paia>
+    
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+          crossorigin="anonymous"></script>
+
+
+        
+        `;
+    }
+} 
+
+
+customElements.define("template-conta", contTemplate)
+
