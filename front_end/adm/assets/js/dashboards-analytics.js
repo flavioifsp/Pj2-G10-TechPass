@@ -78,7 +78,7 @@
         }
       },
       xaxis: {
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+        categories: ['Jan', 'Feb', 'Mar', 'paia', 'May', 'Jun', 'Jul'],
         labels: {
           style: {
             fontSize: '13px',
@@ -140,7 +140,7 @@
             plotOptions: {
               bar: {
                 borderRadius: 10,
-                columnWidth: '48%'
+                columnWidth: '100%'
               }
             }
           }
