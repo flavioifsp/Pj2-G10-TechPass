@@ -93,24 +93,26 @@ menuT.innerHTML = `
         </div>
         </div>
         
-        <script>
-            alert("A")
-        </script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
-      crossorigin="anonymous"></script>
+        
     
     `;
 
-class header extends HTMLElement{
-    constructor(){
+class header extends HTMLElement {
+    constructor() {
         super();
     }
-    
-    connectedCallback(){
-        const shadowroot = this.attachShadow({mode: "open"})
-        // this.innerHTML = menuT.innerHTML
-        shadow.innerHTML = menuT
+
+    connectedCallback() {
+        
+
+        this.innerHTML = menuT.innerHTML
+
+        const script = document.createElement('script');
+        script.src = 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js';
+        script.integrity = 'sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm';
+        script.crossOrigin = 'anonymous';
+        this.appendChild(script);
+
         
     }
 

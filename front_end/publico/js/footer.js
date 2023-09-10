@@ -133,9 +133,13 @@ class footer extends HTMLElement{
     }
 
     connectedCallback(){
-        const shadowroot = this.attachShadow({mode: "open"})
+        const script = document.createElement('script');
+        script.src = 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js';
+        script.integrity = 'sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm';
+        script.crossOrigin = 'anonymous';
+        this.appendChild(script);
 
-        shadowroot.appendChild(footerT.content)
+        this.appendChild(footerT.content)
     }
 }
 
