@@ -19,17 +19,17 @@ footerT.innerHTML = `
   <footer class="text-center text-lg-start text-white" style="background-color: #1c2331; ">
       <!-- Section: Social media -->
       <section class="d-flex justify-content-between p-1 align-items-center "
-        style="background-color: #6351ce; height: 35px;">
+        style="background-color: #6351ce; height: 26px;">
         <!-- Left -->
-        <div class="me-5">
-          <span style="font-size: 14px;">Conecte-se conosco nas redes sociais:</span>
+        <div class="ms-3">
+          <span style="font-size: 13px;">Conecte-se conosco nas redes sociais:</span>
         </div>
         <!-- Left -->
 
         <!-- Right -->
         <div>
           <a href="https://github.com/flavioifsp/Pj2-G10-Gerenciador_de_Catraca"  class="text-white me-4" >
-            <i class="bi bi-github" style="font-size: 1.5em;"></i> 
+            <i class="bi bi-github" style="font-size: 1.2em;"></i> 
           </a>
         </div>
         <!-- Right -->
@@ -42,11 +42,11 @@ footerT.innerHTML = `
           <!-- Grid row -->
           <div class="row mt-3">
             <!-- Grid column -->
-            <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+            <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-2">
               <!-- Content -->
-              <h6 class="text-uppercase fw-bold">Tech Pass</h6>
-              <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: #7c4dff; height: 2px" />
-              <p>
+              <h6 class="text-uppercase fw-bold mb-3" style="font-size: 13px;">Tech Pass</h6>
+              
+              <p style="font-size: 13px;">
                 Here you can use rows and columns to organize your footer
                 content. Lorem ipsum dolor sit amet, consectetur adipisicing
                 elit.
@@ -57,39 +57,31 @@ footerT.innerHTML = `
             <!-- Grid column -->
             <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
               <!-- Links -->
-              <h6 class="text-uppercase fw-bold">Produtos</h6>
-              <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: #7c4dff; height: 2px" />
+              <h6 class="text-uppercase fw-bold mb-3" style="font-size: 13px;">Produtos</h6>
+              
               <p>
-                <a href="#!" class="text-white">MDBootstrap</a>
+                <a href="#!" class="text-white" style="font-size: 13px; text-decoration: none">Cartões TechPass</a>
               </p>
               <p>
-                <a href="#!" class="text-white">MDWordPress</a>
+                <a href="#!" class="text-white" style="font-size: 13px; text-decoration: none">Rotas e Linhas</a>
               </p>
-              <p>
-                <a href="#!" class="text-white">BrandFlow</a>
-              </p>
-              <p>
-                <a href="#!" class="text-white">Bootstrap Angular</a>
-              </p>
+             
             </div>
             <!-- Grid column -->
 
             <!-- Grid column -->
             <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
               <!-- Links -->
-              <h6 class="text-uppercase fw-bold">Redes sociais</h6>
-              <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: #7c4dff; height: 2px" />
+              <h6 class="text-uppercase fw-bold mb-3" style="font-size: 13px">Redes sociais</h6>
+              
               <p>
-                <a href="#!" class="text-white">Facebook</a>
+                <a href="#!" class="text-white" style="font-size: 13px; text-decoration: none">Instagram</a>
               </p>
               <p>
-                <a href="#!" class="text-white">Instagram</a>
+                <a href="#!" class="text-white" style="font-size: 13px; text-decoration: none">Twitter</a>
               </p>
               <p>
-                <a href="#!" class="text-white">Twitter</a>
-              </p>
-              <p>
-                <a href="#!" class="text-white">Linkedin</a>
+                <a href="#!" class="text-white" style="font-size: 13px; text-decoration: none">Linkedin</a>
               </p>
             </div>
             <!-- Grid column -->
@@ -97,11 +89,11 @@ footerT.innerHTML = `
             <!-- Grid column -->
             <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
               <!-- Links -->
-              <h6 class="text-uppercase fw-bold">SAC</h6>
-              <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: #7c4dff; height: 2px" />
+              <h6 class="text-uppercase fw-bold mb-3 " style="font-size: 13px;">SAC</h6>
+              
               <p><i class="fas fa-envelope mr-3"></i> sac@techpass.com.br</p>
-              <p><i class="fa-brands fa-whatsapp"></i> 11 4444-2813</p>
-              <p> Endereço: Av. Bahia, 1739 - Indaiá, Caraguatatuba
+              <p style="font-size: 13px;"><i class="fa-brands fa-whatsapp"></i> 11 4444-2813</p>
+              <p style="font-size: 13px;"> Endereço: Av. Bahia, 1739 - Indaiá, Caraguatatuba
                 - SP,
                 11665-071</p>
             </div>
@@ -113,7 +105,7 @@ footerT.innerHTML = `
       <!-- Section: Links  -->
 
       <!-- Copyright -->
-      <div class="text-center p-2 border-top border-light Copyright" style="background-color: rgba(0, 0, 0, 0.2)">
+      <div class="text-center p-2 border-top border-light Copyright" style="background-color: rgba(0, 0, 0, 0.2); font-size: 13px">
         © 2023 Copyright:
         PASSTECH
       </div>
