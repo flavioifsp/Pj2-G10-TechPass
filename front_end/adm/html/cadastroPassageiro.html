@@ -61,16 +61,19 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../assets/js/config.js"></script>
+
+      <link rel="stylesheet" href="/css/style.css">
   </head>
 
   <body>
+  
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
         <!-- Menu -->
 
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
-          <div class="app-brand demo">
+          <div class="app-brand demo mt-3">
             <a href="index.html" class="app-brand-link">
               <img src="/img/Logo.png" alt="">
             </a>
@@ -85,49 +88,51 @@
         
         
           <div class="menu-inner-shadow"></div>
+        <ul class="menu-inner py-1">
+          <li class="menu-header small text-uppercase"><span class="menu-header-text">Home</span></li>
+          <!-- Dashboard -->
+          <li class="menu-item ">
+            <a href="index.html" class="menu-link">
+              <i class="bar-chart-square tf-icons bx bx-bar-chart-square "></i>
         
-          <ul class="menu-inner py-1">
-            <!-- Dashboard -->
-            <li class="menu-item ">
-              <a href="index.html" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-home-alt"></i>
-                <div data-i18n="Analytics">Dashboard</div>
-              </a>
-            </li>
-        
-        
-        
+              <div data-i18n="Analytics ">Dasboard</div>
+            </a>
+          </li>
         
         
-            <!-- Forms & Tables -->
-            <li class="menu-header small text-uppercase"><span class="menu-header-text">Cadastros</span></li>
+        
+        
+        
+          <!-- Forms & Tables -->
+        
+          <!-- Forms -->
+          <li class="menu-header small text-uppercase"><span class="menu-header-text">Cadastros</span></li>
+          <li class="menu-item">
+            <a href="form-layouts-horizontal.html" class="menu-link">
+              <i class="bus tf-icons bx bx-bus"></i>
+              <div data-i18n="Form Elements" class="ps-2">Motoristas</div>
+            </a>
+        
+        
             <!-- Forms -->
-            <li class="menu-item ">
-              <a href="form-layouts-horizontal.html" class="menu-link">
-                <i class="bus tf-icons bx bx-bus"></i>
-                <div data-i18n="Form Elements" class="ps-2">Motoristas</div>
-              </a>
+          <li class="menu-item active">
+            <a href="cadastroPassageiro.html" class="menu-link">
+              <i class='bx bxs-user-detail' style='color:#6e767c'></i>
+              <div data-i18n="Form Elements" class="ps-2">Passageiros</div>
+            </a>
+        
+          </li>
+        
+          <li class="menu-item">
+            <a href="linhas.html" class="menu-link">
+              <i class="transfer tf-transfer bx bx-transfer"></i>
+              <div data-i18n="Form Elements" class="ps-2">Linhas</div>
+            </a>
+        
+          </li>
         
         
-              <!-- Forms -->
-            <li class="menu-item active">
-              <a href="cadastroPassageiro.html" class="menu-link">
-                <i class='bx bxs-user-detail' style='color:#6e767c'></i>
-                <div data-i18n="Form Elements" class="ps-2">Passageiros</div>
-              </a>
-        
-            </li>
-        
-            <li class="menu-item">
-              <a href="linhas.html" class="menu-link">
-                <i class="transfer tf-transfer bx bx-transfer"></i>
-                <div data-i18n="Form Elements" class="ps-2">Linhas</div>
-              </a>
-        
-            </li>
-        
-        
-          </ul>
+        </ul>
         </aside>
         <!-- / Menu -->
 
@@ -165,63 +170,31 @@
                 
 
                 <!-- User -->
-                <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                  <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                    <div class="avatar avatar-online">
-                      <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
-                    </div>
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-end">
-                    <li>
-                      <a class="dropdown-item" href="#">
-                        <div class="d-flex">
-                          <div class="flex-shrink-0 me-3">
-                            <div class="avatar avatar-online">
-                              <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                  <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                    <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+                      <div class="avatar avatar-online">
+                        <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                      </div>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                      <li>
+                        <a class="dropdown-item" href="#">
+                          <div class="d-flex">
+                            <div class="flex-shrink-0 me-3">
+                              <div class="avatar avatar-online">
+                                <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                              </div>
+                            </div>
+                            <div class="flex-grow-1">
+                              <span class="fw-semibold d-block">John Doe</span>
+                              <small class="text-muted">Admin</small>
                             </div>
                           </div>
-                          <div class="flex-grow-1">
-                            <span class="fw-semibold d-block">John Doe</span>
-                            <small class="text-muted">Admin</small>
-                          </div>
-                        </div>
-                      </a>
-                    </li>
-                    <li>
-                      <div class="dropdown-divider"></div>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="#">
-                        <i class="bx bx-user me-2"></i>
-                        <span class="align-middle">My Profile</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="#">
-                        <i class="bx bx-cog me-2"></i>
-                        <span class="align-middle">Settings</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="#">
-                        <span class="d-flex align-items-center align-middle">
-                          <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
-                          <span class="flex-grow-1 align-middle">Billing</span>
-                          <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <div class="dropdown-divider"></div>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="auth-login-basic.html">
-                        <i class="bx bx-power-off me-2"></i>
-                        <span class="align-middle">Log Out</span>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
+                        </a>
+                      </li>
+                  
+                    </ul>
+                  </li>
                 <!--/ User -->
               </ul>
             </div>
@@ -229,6 +202,10 @@
 
           <!-- / Navbar -->
 
+
+         
+
+            
           <!-- Content wrapper -->
           <div class="content-wrapper">
             <!-- Content -->
@@ -239,87 +216,82 @@
 
 
               <!-- meu  -->
+             
               
+
+
+
+
+
+
                 
-                
-                
+                  <h2 class="accordion-header">
+                    <button type="button" class="btn btn-primary"  data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                      aria-expanded="true" >
+                      Adicionar novo Passageiro
+                    </button>
+                  </h2>
+                  <div id="collapseOne" class="accordion-collapse collapse " data-bs-parent="#accordionExample">
                   <div class="card mb-4">
-                    <div class="card-header d-flex align-items-center justify-content-between">
-                      <h5 class="mb-0 fw-light text-muted">Novo Passageiro</h5>
-                      
-                    </div>
+                  
+                    
                     <div class="card-body">
-                      <form >
+                      <form>
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="basic-default-name">Nome Completo</label>
                           <div class="col-sm-10">
                             <input type="text" class="form-control" id="basic-default-name" placeholder="John Doe" />
                           </div>
                         </div>
-
-                            <div class="row mb-3">
-                              <label class="col-sm-2 col-form-label" for="basic-default-phone">RG</label>
-                              <div class="col-sm-10">
-                                <input type="text" id="basic-default-phone" class="form-control phone-mask" placeholder="516.985.782-47"
-                                  aria-label="658 799 8941" aria-describedby="basic-default-phone" />
-                              </div>
-                            </div>
-
-                            <div class="row mb-3">
-                              <label class="col-sm-2 col-form-label" for="basic-default-phone">CPF</label>
-                              <div class="col-sm-10">
-                                <input type="text" id="basic-default-phone" class="form-control phone-mask" placeholder="62.895.578.-9"
-                                  aria-label="658 799 8941" aria-describedby="basic-default-phone" />
-                              </div>
-                            </div>
-
-
+                  
+                        <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label" for="basic-default-phone">RG</label>
+                          <div class="col-sm-10">
+                            <input type="text" id="basic-default-phone" class="form-control phone-mask" placeholder="516.985.782-47"
+                              aria-label="658 799 8941" aria-describedby="basic-default-phone" />
+                          </div>
+                        </div>
+                  
+                        <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label" for="basic-default-phone">CPF</label>
+                          <div class="col-sm-10">
+                            <input type="text" id="basic-default-phone" class="form-control phone-mask" placeholder="62.895.578.-9"
+                              aria-label="658 799 8941" aria-describedby="basic-default-phone" />
+                          </div>
+                        </div>
+                  
+                  
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="basic-default-email">Email</label>
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
-                              <input
-                                type="text"
-                                id="basic-default-email"
-                                class="form-control"
-                                placeholder="example@example.com"
-                                aria-label="john.doe"
-                                aria-describedby="basic-default-email2"
-                              />
+                              <input type="text" id="basic-default-email" class="form-control" placeholder="example@example.com"
+                                aria-label="john.doe" aria-describedby="basic-default-email2" />
                             </div>
                           </div>
                         </div>
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="basic-default-phone">Telefone</label>
                           <div class="col-sm-10">
-                            <input
-                              type="text"
-                              id="basic-default-phone"
-                              class="form-control phone-mask"
-                              placeholder="(11) 987882440"
-                              aria-label="658 799 8941"
-                              aria-describedby="basic-default-phone"
-                            />
+                            <input type="text" id="basic-default-phone" class="form-control phone-mask" placeholder="(11) 987882440"
+                              aria-label="658 799 8941" aria-describedby="basic-default-phone" />
                           </div>
                         </div>
-
-
-                          
-                        
-
-
-
-
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="basic-default-message">Observações</label>
                           <div class="col-sm-10">
-                            <textarea
-                              id="basic-default-message"
-                              class="form-control"
+                            <textarea id="basic-default-message" class="form-control"
                               placeholder="Se desejar, faça observações sobre o cadastro aqui"
                               aria-label="Se desejar, faça observações sobre o cadastro aqui"
-                              aria-describedby="basic-icon-default-message2"
-                            ></textarea>
+                              aria-describedby="basic-icon-default-message2"></textarea>
                           </div>
                         </div>
                         <div class="row justify-content-end">
@@ -330,12 +302,15 @@
                       </form>
                     </div>
                   </div>
+                  </div>
+                
+                
+                  
                   <!-- fim meu  -->
                 
                 
               
                 
-            </div>
             <!-- / Content -->
 
 

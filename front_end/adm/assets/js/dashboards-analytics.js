@@ -21,10 +21,7 @@
           name: '2021',
           data: [18, 7, 15, 29, 18, 12, 9]
         },
-        {
-          name: '2020',
-          data: [-13, -18, -9, -14, -5, -17, -15]
-        }
+       
       ],
       chart: {
         height: 300,
@@ -41,13 +38,13 @@
           endingShape: 'rounded'
         }
       },
-      colors: [config.colors.primary, config.colors.info],
+      colors: [config.colors.primary],
       dataLabels: {
         enabled: false
       },
       stroke: {
         curve: 'smooth',
-        width: 6,
+        width: 11,
         lineCap: 'round',
         colors: [cardColor]
       },
@@ -162,7 +159,7 @@
             plotOptions: {
               bar: {
                 borderRadius: 11,
-                columnWidth: '48%'
+                columnWidth: '40%'
               }
             }
           }
@@ -173,7 +170,7 @@
             plotOptions: {
               bar: {
                 borderRadius: 10,
-                columnWidth: '30%'
+                columnWidth: '44%'
               }
             }
           }
@@ -184,7 +181,7 @@
             plotOptions: {
               bar: {
                 borderRadius: 10,
-                columnWidth: '35%'
+                columnWidth: '50%'
               }
             }
           }
@@ -195,7 +192,7 @@
             plotOptions: {
               bar: {
                 borderRadius: 10,
-                columnWidth: '28%'
+                columnWidth: '40%'
               }
             }
           }
@@ -206,7 +203,7 @@
             plotOptions: {
               bar: {
                 borderRadius: 10,
-                columnWidth: '32%'
+                columnWidth: '50%'
               }
             }
           }
@@ -217,7 +214,7 @@
             plotOptions: {
               bar: {
                 borderRadius: 10,
-                columnWidth: '37%'
+                columnWidth: '60%'
               }
             }
           }
@@ -228,7 +225,7 @@
             plotOptions: {
               bar: {
                 borderRadius: 10,
-                columnWidth: '45%'
+                columnWidth: '60%'
               }
             }
           }
@@ -239,7 +236,7 @@
             plotOptions: {
               bar: {
                 borderRadius: 10,
-                columnWidth: '52%'
+                columnWidth: '100%'
               }
             }
           }
@@ -250,7 +247,7 @@
             plotOptions: {
               bar: {
                 borderRadius: 10,
-                columnWidth: '60%'
+                columnWidth: '90%'
               }
             }
           }
@@ -278,8 +275,8 @@
   // --------------------------------------------------------------------
   const growthChartEl = document.querySelector('#growthChart'),
     growthChartOptions = {
-      series: [78],
-      labels: ['Growth'],
+      series: [62],
+      labels: ['Crescimento'],
       chart: {
         height: 240,
         type: 'radialBar'
