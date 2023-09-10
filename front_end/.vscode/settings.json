@@ -1,3 +1,4 @@
 {
-    "livePreview.defaultPreviewPath": "/catraca v1/index.html"
+    "livePreview.defaultPreviewPath": "/catraca v1/index.html",
+    "liveServer.settings.port": 5501
 }

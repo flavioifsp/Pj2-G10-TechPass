@@ -29,7 +29,7 @@ menuT.innerHTML = `
                     <a href="rotas.html" class="nav-link">Rotas e linhas</a>
                 </li>
                 <li class="nav-item">
-                    <a href="MeusCartoes.html" class="nav-link">Sua Conta(temporario)</a>
+                    <a href="./conta/MeusCartoes.html" class="nav-link">Sua Conta(temporario)</a>
                 </li>
                 <!-- <li class="nav-item">
                     <a href="#" class="nav-link">Sobre nós</a>
@@ -80,7 +80,7 @@ menuT.innerHTML = `
                 </li> -->
 
                 <li class="nav-item">
-                    <a href="MeusCartoes.html" class="nav-link">Sua Conta(temporario)</a>
+                    <a href="./conta/MeusCartoes.html" class="nav-link">Sua Conta(temporario)</a>
                 </li>
 
                 <li class="navbar-item mt-5">
