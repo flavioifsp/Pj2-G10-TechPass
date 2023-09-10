@@ -6,13 +6,13 @@
 }
 
 
-
-main{
-    background-color: rgb(241, 241, 241);
-    height: 96.3vh;
+body, html{
+    height: 100%;
 }
 
-
+main{
+    height: 96%;
+}
 
 a{
     text-decoration: none;
@@ -20,7 +20,7 @@ a{
 }
 
 header{
-    background-color: rgb(228, 228, 228);
+    
     height: 3rem;
 }
 
@@ -32,15 +32,13 @@ nav li > a{
 
 nav li{
     width: 100%;
-    border-bottom: 1px solid rgb(12, 10, 10) ;
+    
 }
 
-.corcinza{
-    background-color: rgba(186, 192, 192, 0.541);
-}
+
 
 nav {
-    background-color: rgba(186, 192, 192, 0.541);
+    
     height: 100%;
     width: calc( (50% - 25vw) + 200px );
 }
@@ -62,7 +60,7 @@ nav {
         top: 0.2rem;
         position: absolute !important;
         height: fit-content;
-        background-color: rgb(228, 228, 228);
+
         width: fit-content;
     }
 
@@ -73,3 +71,15 @@ nav {
 
 }
 
+@media (max-width: 576px){
+    main{
+        height: max-content;
+    }
+}
+
+
+@media (max-height: 783px){
+    main{
+        height: max-content;
+    }
+}

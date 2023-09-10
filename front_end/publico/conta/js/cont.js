@@ -1,10 +1,10 @@
-class contTemplate extends HTMLElement{
-    constructor(){
-        super()
-    }
-    
-    connectedCallback(){
-      this.innerHTML = `
+class contTemplate extends HTMLElement {
+  constructor() {
+    super()
+  }
+
+  connectedCallback() {
+    this.innerHTML = `
       
       <script src="js/footer.js"></script>
     
@@ -27,15 +27,18 @@ class contTemplate extends HTMLElement{
             </header>
   
             <ul
-              class="navbar-nav   d-flex container-fluid flex-column align-items-start text-center p-0"
+              class="navbar-nav   d-flex container-fluid flex-column align-items-start   p-0"
               id="navs">
+
               <li
                 class="nav-item d-inline-flex align-items-center justify-content-center py-4">
-                <h4 class="me-2">paiaoso</h4>
                 <i
                 class="bi my-auto bi-person-circle"
                 style="font-size: 3rem"></i>
+                <h4 class="ms-3">paiaoso</h4>
                 </li>
+
+
                 <li class="nav-item">
                   <a href="MeuPerfil.html" class="nav-link" id="perfil">
                     <h4>meu perfil</h4>
@@ -51,11 +54,7 @@ class contTemplate extends HTMLElement{
                   <h4>formas de pagamento</h4>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="faq.html" class="nav-link" id="faq">
-                  <h4>faq</h4>
-                </a>
-              </li>
+             
             </ul>
   
           </div>
@@ -71,7 +70,7 @@ class contTemplate extends HTMLElement{
           </button>
         </nav>
   
-        <section class="container-fluid p-0 " id="conteudo">
+        <section class="container-fluid p-0 pb-5" id="conteudo">
           <header
             class="container-fluid d-flex flex-row-reverse ps-0 pe-5 mx-0 shadow">
             <div class="d-flex column-gap-2 align-items-center">
@@ -103,8 +102,8 @@ class contTemplate extends HTMLElement{
         
         
         `;
-        }
-} 
+  }
+}
 
 
 
@@ -115,10 +114,12 @@ const paia = document.querySelector('#entrada')
 entrada.appendChild(paia)
 
 
-function foco(id){  
+function foco(id) {
   const atual = document.getElementById(id)
   const titulo = document.getElementById("nomefoco")
   titulo.textContent = atual.textContent
   atual.classList.add("active")
   // console.log(atual.textContent)
 }
+
+
