@@ -91,16 +91,16 @@ menuT.innerHTML = `
                 </li>
 
         </div>
-    </div>
+        </div>
+        
+        <script>
+            alert("A")
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+      crossorigin="anonymous"></script>
     
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
-      crossorigin="anonymous"
-    ></script>
-
-`;
-
+    `;
 
 class header extends HTMLElement{
     constructor(){
@@ -108,11 +108,14 @@ class header extends HTMLElement{
     }
     
     connectedCallback(){
-        const shadowroot = this.attachShadow({mode: "closed"})
-
-        shadowroot.appendChild(menuT.content)
+        const shadowroot = this.attachShadow({mode: "open"})
+        // this.innerHTML = menuT.innerHTML
+        shadow.innerHTML = menuT
+        
     }
 
 }
 
 customElements.define('header-paia', header)
+
+
