@@ -15,6 +15,7 @@
     integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous" />
 
   <link rel="stylesheet" href="css/cont.css" />
+  <link rel="stylesheet" href="css/meuscartoes.css" />
 </head>
 
 <body style="margin: 0;">
@@ -24,29 +25,119 @@
 
     
     <!-- MEUS CARTÕES inicio-->
-    <section>     
+    <section class="subpag" id="inicio-meuscard">     
           <div class=" d-inline-flex column-gap-3 ">
-            <button class="btn btn-primary rounded-pill ">RECARREGAR</button>
-            <button class="btn btn-primary rounded-pill">CADASTRAR CARTÃO</button>
+            <button class="btn btn-primary rounded-pill" id="b">RECARREGAR</button>
+            <button class="btn btn-primary rounded-pill btn-solicit">Solicitar cartão</button>
           </div>
+          
       
+
           <div class=" d-flex gap-3 pt-5 justify-content-center justify-content-md-start row">
       
-            <a href="#" class="p-1 pt-2 d-flex bg-dark-subtle align-items-center flex-column justify-content-center rounded-4"
+            <a href="#" class="p-1 btn-solicit pt-2 d-flex bg-dark-subtle align-items-center flex-column justify-content-center rounded-4"
               style="width: 16rem; height: 10rem;">
-      
+              
               <IMg src="../img/card.png" class="img-fluid"></IMg>
-            </a>
-      
-            <a href="#" class="p-1 pt-2 d-flex bg-dark-subtle align-items-center flex-column justify-content-center rounded-4"
-              style="width: 16rem; height: 10rem;">
-              <i class="bi bi-plus-lg" style="font-size: 3rem;"></i>
-              <p>CADASTRAR NOVO CARTÃO</p>
             </a>
       
           </div>
     </section>
     <!-- MEUS CARTÕES inicio -->
+
+    <!-- solicitar cartões -->
+    <section class="subpag align-items-center pe-0 align-items-sm-start d-flex flex-column  pe-0 me-0 d-none" id="solicitar">
+      <h3 class="text-uppercase mb-4">selecione o tipo do passe</h3>
+      <div class="row g-2 container align-items-center align-items-sm-start d-flex flex-sm-row  flex-column">
+
+        <div class="col-10 col-sm-5 col-md-4 col-lg-3 ">
+          <button class=" pb-4 btn w-100 h-100 rounded-4 btn-secondary" id="btn-solicit-comum">
+              <h5 class="mb-5">COMUM</h5>
+              <img src="img/passe comum.png" class="img-fluid" alt="">
+          </button>
+        </div>
+     
+        <div class="col-10 col-sm-5 col-md-4 col-lg-3 ">
+          <button class=" pb-4 btn w-100 h-100 rounded-4 btn-secondary">
+              <h5 class="mb-5">ESTUDANTE</h5>
+              <img src="img/passe estudante.png" class="img-fluid"  alt="">
+          </button>
+        </div>
+
+        <div class="col-10 col-sm-5 col-md-4 col-lg-3 ">
+          <button class=" pb-4 btn w-100 h-100 rounded-4 btn-secondary">
+              <h6 class="mb-5">ESPECIAL</h6>
+              <img src="img/passe especial.png" class="img-fluid" alt="">
+          </button>
+        </div>
+       
+      </div>
+    </section>
+    <!-- solicitar cartões -->
+
+
+    <!-- solicitação passe comum -->     
+    <section class="subpag d-none" id="soli-comum">
+      <h3 class="mb-5">FORMULARIO PAIA</h3>
+      <form class="row g-3 ms-3" id="a">
+        <h4 class="text-uppercase mb-3">preencha para solicitar</h4>
+        <div class="col-8">
+          <input type="text" class="form-control" placeholder="N° do cartão">
+        </div>
+
+        <div class="col-4">
+          <input type="text" class="form-control" placeholder="MM/YY">
+        </div>
+
+        <div class="col-12">
+          <input type="text" class="form-control" placeholder="Nome do Titular">
+        </div>
+
+
+        <h4 class="text-uppercase mb-3 mt-5">endereco da entrega</h4>
+
+        <div class="col-lg-8 col-sm-10 col-12 d-inline-flex justify-content-between">
+          <input type="text" class="form-control w-50" placeholder="CEP">
+          <a href="#" class=" my-auto ms-2 w-50">Nao lembro o CEP</a>
+        </div>
+
+        <div class="col-12">
+          <input type="text" class="form-control" placeholder="endereco">
+        </div>
+
+        <div class="col-sm-2 col-4">
+          <input type="text" class="form-control" placeholder="N°">
+        </div>
+
+        <div class="col-sm-4 col-8">
+          <input type="text" class="form-control" placeholder="COMPLEMENTO">
+        </div>
+
+        <div class="col-sm-6 col-12">
+          <input type="text" class="form-control" placeholder="BAIRRO">
+        </div>
+
+        <div class="col-sm-9 col-8">
+          <input type="text" class="form-control" placeholder="CIDADE">
+        </div>
+
+        <div class="col-sm-3 col-4">
+          <select class="form-select" aria-label="Default select example">
+            <option selected>ESTADO</option>
+            <option value="1">SP</option>
+            <option value="2">RJ</option>
+            <option value="3">PAIA</option>
+          </select>
+        </div>
+
+
+        <div class="mt-5">
+          <button type="submit" class="btn  btn-primary me-2"  id="solicitar" style="width: fit-content;">solicitar</button>
+          <button type="button" class="btn btn-secondary " id="btnCancel" style="width: fit-content;">cancelar</button>
+        </div>
+      </form>
+    </section>
+    <!-- solicitação passe comum -->
 
   </div>
 
@@ -56,8 +147,9 @@
   <script src="js/cont.js"></script>
   <script>
     foco("mycard")
-  </script>
+    </script>
   
+  <script src="js/meuscartões.js"></script>
 </body>
 
 
