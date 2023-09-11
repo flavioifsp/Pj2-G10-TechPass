@@ -1,6 +1,6 @@
 class contTemplate extends HTMLElement {
   constructor() {
-    super()
+    super();
   }
 
   connectedCallback() {
@@ -103,70 +103,75 @@ class contTemplate extends HTMLElement {
         
         `;
 
-
-        const script = document.createElement('script');
-        script.src = 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js';
-        script.integrity = 'sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm';
-        script.crossOrigin = 'anonymous';
-        this.appendChild(script);
+    const script = document.createElement("script");
+    script.src =
+      "https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js";
+    script.integrity =
+      "sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm";
+    script.crossOrigin = "anonymous";
+    this.appendChild(script);
   }
 }
 
+customElements.define("template-conta", contTemplate);
 
-
-customElements.define("template-conta", contTemplate)
-
-const entrada = document.querySelector('#info')
-const paia = document.querySelector('#entrada')
-entrada.appendChild(paia)
-
+const entrada = document.querySelector("#info");
+const paia = document.querySelector("#entrada");
+entrada.appendChild(paia);
 
 function foco(id) {
-  const atual = document.getElementById(id)
-  const titulo = document.getElementById("nomefoco")
-  titulo.textContent = atual.textContent
-  atual.classList.add("active")
+  const atual = document.getElementById(id);
+  const titulo = document.getElementById("nomefoco");
+  titulo.textContent = atual.textContent;
+  atual.classList.add("active");
   // console.log(atual.textContent)
 }
 
-
-function locomover(btn, pagAtual, pagFutura){
+function locomover(btn, pagAtual, pagFutura) {
   btn.addEventListener("click", () => {
-      pagAtual.classList.add("d-none")
-      pagFutura.classList.remove("d-none")
-      console.log("a")
-  })
+    pagAtual.classList.add("d-none");
+    pagFutura.classList.remove("d-none");
+  });
 }
 
-
-function locomoverForms(btns, btnconfirm, pagAtual, pagsFutura){
-  btns = [...document.getElementsByClassName]
-  const icone = btn.querySelector(".active-icon")
-  console.log(icone)
-
-  btns.addEventListener("click", () => {
-    btns.classList.toggle("active")
-
-    icone.classList.toggle("bi-check2-circle")
-
-  })
-
-  btn.addEventListener
+function locomoverForms(btns, btnconfirm, pagAtual, pagsFutura) {
+  btns = [...document.querySelectorAll("#containerbutton button")];
   
-  // pagAtual.classList.add("d-none")
-  // pagFutura.classList.remove("d-none")
-  // event.preventDefault();
 
+  btns.map((elem) => {
+    elem.addEventListener("click", (event) => {
+      btns.map((elem1, indice) => {
+        if (elem1 != event.currentTarget) {
+          elem1.classList.remove("active");
+          elem1
+            .querySelector(".active-icon")
+            .classList.remove("bi-check2-circle");
+        } else {
+          elem.classList.add("active");
+          elem.querySelector(".active-icon").classList.add("bi-check2-circle");
+
+          pagsFutura[indice] 
+        }
+      });
+    });
+  });
+
+  btnconfirm.addEventListener("submit", () => {
+    pagAtual.classList.add("d-none");
+    pagEscolhida.classList.remove("d-none");
+  });
 }
 
 
 
-function inicio(btn, pagincial, sub){
-  btn.addEventListener("click", () =>{
-    const pags = [...document.querySelectorAll(sub)]
-    pags.map((elem) =>{elem.classList.add("d-none")})
-      console.log("A")
-    pagincial.classList.remove("d-none")
-  })
 
+function inicio(btn, pagincial, sub) {
+  btn.addEventListener("click", () => {
+    const pags = [...document.querySelectorAll(sub)];
+    pags.map((elem) => {
+      elem.classList.add("d-none");
+    });
+    console.log("A");
+    pagincial.classList.remove("d-none");
+  });
 }
