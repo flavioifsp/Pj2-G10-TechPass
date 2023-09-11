@@ -6,12 +6,10 @@
 }
 
 
-body, html{
-    height: 100%;
-}
+
 
 main{
-    height: 96%;
+    min-height: 100vh;
 }
 
 a{

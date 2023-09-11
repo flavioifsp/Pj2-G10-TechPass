@@ -12,14 +12,6 @@ const formsDebito = document.getElementById("formscardDEBITO")
 const btncancelarformCRE = document.getElementById("btn-cancelarcardCRE")
 const btncancelarformDEB = document.getElementById("btn-cancelarcardDEB")
 
-function locomover(btn, pagAtual, pagFutura){
-    btn.addEventListener("click", () => {
-        pagAtual.classList.add("d-none")
-        pagFutura.classList.remove("d-none")
-        console.log("a")
-    })
-}
-
 locomover(btnaddnovo, iniciopag, addtipocard)
 locomover(btnCredito, addtipocard, formsCredito)
 locomover(btnDebito, addtipocard, formsDebito)

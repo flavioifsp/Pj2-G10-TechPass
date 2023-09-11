@@ -70,7 +70,7 @@ menuT.innerHTML = `
             <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
 
                 <li class="nav-item">
-                    <a href="#" class="nav-link texto-Menu-m">Rotas e linhas</a>
+                    <a href="rotas.html" class="nav-link texto-Menu-m">Rotas e linhas</a>
                 </li>
                 <!-- <li class="nav-item">
                     <a href="#" class="nav-link texto-Menu-m">Sobre nós</a>
@@ -80,14 +80,14 @@ menuT.innerHTML = `
                 </li> -->
 
                 <li class="nav-item">
-                    <a href="./conta/MeusCartoes.html" class="nav-link">Sua Conta(temporario)</a>
+                    <a href="conta/MeusCartoes.html" class="nav-link">Sua Conta(temporario)</a>
                 </li>
 
                 <li class="navbar-item mt-5">
-                    <a href="../login.html" class="nav-link texto-Menu-m">entrar</a>
+                    <a href="login.html" class="nav-link texto-Menu-m">entrar</a>
                 </li>
                 <li class="navbar-item ">
-                    <a href="../cadastro.html" class="nav-link texto-Menu-m" role="button" aria-disabled="true">cadastrar</a>
+                    <a href="cadastro.html" class="nav-link texto-Menu-m" role="button" aria-disabled="true">cadastrar</a>
                 </li>
 
         </div>

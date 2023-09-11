@@ -51,7 +51,7 @@ class contTemplate extends HTMLElement {
               </li>
               <li class="nav-item">
                 <a href="formadePag.html" class="nav-link" id="formaspag">
-                  <h4>formas de pagamento</h4>
+                  <h4 class="d-flex flex-wrap">formas de pagamento</h4>
                 </a>
               </li>
              
@@ -130,3 +130,20 @@ function foco(id) {
 }
 
 
+function locomover(btn, pagAtual, pagFutura){
+  btn.addEventListener("click", () => {
+      pagAtual.classList.add("d-none")
+      pagFutura.classList.remove("d-none")
+      console.log("a")
+  })
+}
+
+function inicio(btn, pagincial, sub){
+  btn.addEventListener("click", () =>{
+    const pags = [...document.querySelectorAll(sub)]
+    pags.map((elem) =>{elem.classList.add("d-none")})
+      console.log("A")
+    pagincial.classList.remove("d-none")
+  })
+
+}
