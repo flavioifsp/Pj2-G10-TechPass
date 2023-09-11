@@ -25,7 +25,7 @@
 
     
     <!-- MEUS CARTÕES inicio-->
-    <section class="subpag" id="inicio-meuscard">     
+    <section class="subpag d-none" id="inicio-meuscard">     
           <div class=" d-inline-flex column-gap-3 ">
             <button class="btn btn-primary rounded-pill" id="b">RECARREGAR</button>
             <button class="btn btn-primary rounded-pill btn-solicit">Solicitar cartão</button>
@@ -46,55 +46,44 @@
     <!-- MEUS CARTÕES inicio -->
 
     <!-- solicitar cartões -->
-    <section class="subpag align-items-center pe-0 align-items-sm-start d-flex flex-column  pe-0 me-0 d-none" id="solicitar">
+    <section class="subpag align-items-center pe-0 align-items-sm-start d-flex flex-column  container " id="solicitar">
       <h3 class="text-uppercase mb-4">selecione o tipo do passe</h3>
-      <div class="row g-2 container align-items-center align-items-sm-start d-flex flex-sm-row  flex-column">
+      <div class="row g-3 container align-items-center align-items-md-start ">
 
-        <div class="col-10 col-sm-5 col-md-4 col-lg-3 ">
-          <button class=" pb-4 btn w-100 h-100 rounded-4 btn-secondary" id="btn-solicit-comum">
-              <h5 class="mb-5">COMUM</h5>
-              <img src="img/passe comum.png" class="img-fluid" alt="">
+        <div class=" col-6 col-md-4 col-lg-3 ">
+          <button class=" pb-4 btn w-100 h-100 rounded-4 btn-secondary px-0" id="btn-solicit-comum">
+            <div class="d-inline-flex container-fluid justify-content-center passesSoli">
+              <h6 class="mb-5 mt-1 ms-auto">COMUM</h6>
+              <i class="bi   p-0  ms-auto fs-4 active-icon" ></i>
+            </div>
+              <img src="img/passe comum.png" class="img-fluid px-2" alt="">
           </button>
         </div>
      
-        <div class="col-10 col-sm-5 col-md-4 col-lg-3 ">
-          <button class=" pb-4 btn w-100 h-100 rounded-4 btn-secondary">
-              <h5 class="mb-5">ESTUDANTE</h5>
-              <img src="img/passe estudante.png" class="img-fluid"  alt="">
+        <div class=" col-6 col-md-4 col-lg-3 ">
+          <button class=" pb-4 btn w-100 h-100 rounded-4 btn-secondary px-0" id="btn-solicit-comum">
+            <div class="d-inline-flex container-fluid justify-content-center passesSoli">
+              <h6 class="mb-5 mt-1 ms-auto">ESTUDANTE</h6>
+              <i class="bi   p-0  ms-auto fs-4 active-icon" ></i>
+            </div>
+              <img src="img/passe estudante.png" class="img-fluid px-2" alt="">
           </button>
         </div>
 
-        <div class="col-10 col-sm-5 col-md-4 col-lg-3 ">
-          <button class=" pb-4 btn w-100 h-100 rounded-4 btn-secondary">
-              <h6 class="mb-5">ESPECIAL</h6>
-              <img src="img/passe especial.png" class="img-fluid" alt="">
+        <div class=" col-6 col-md-4 col-lg-3 ">
+          <button class=" pb-4 btn w-100 h-100 rounded-4 btn-secondary px-0" id="btn-solicit-comum">
+            <div class="d-inline-flex container-fluid justify-content-center passesSoli">
+              <h6 class="mb-5 mt-1 ms-auto">ESPECIAL</h6>
+              <i class="bi   p-0  ms-auto fs-4 active-icon" ></i>
+            </div>
+              <img src="img/passe especial.png" class="img-fluid px-2" alt="">
           </button>
         </div>
        
       </div>
-    </section>
-    <!-- solicitar cartões -->
 
-
-    <!-- solicitação passe comum -->     
-    <section class="subpag d-none" id="soli-comum">
-      <h3 class="mb-5">FORMULARIO PAIA</h3>
-      <form class="row g-3 ms-3" id="a">
-        <h4 class="text-uppercase mb-3">preencha para solicitar</h4>
-        <div class="col-8">
-          <input type="text" class="form-control" placeholder="N° do cartão">
-        </div>
-
-        <div class="col-4">
-          <input type="text" class="form-control" placeholder="MM/YY">
-        </div>
-
-        <div class="col-12">
-          <input type="text" class="form-control" placeholder="Nome do Titular">
-        </div>
-
-
-        <h4 class="text-uppercase mb-3 mt-5">endereco da entrega</h4>
+      <form action="" class="row g-3 mt-3 forms-endereco">
+        <h3 class="text-uppercase mb-3 mt-5">endereco da entrega</h3>
 
         <div class="col-lg-8 col-sm-10 col-12 d-inline-flex justify-content-between">
           <input type="text" class="form-control w-50" placeholder="CEP">
@@ -128,6 +117,35 @@
             <option value="2">RJ</option>
             <option value="3">PAIA</option>
           </select>
+        </div>
+
+
+        <div class="mt-5">
+          <button type="submit" class="btn  btn-primary me-2"  id="avancar-soli" style="width: fit-content;">avançar</button>
+          <button type="button" class="btn btn-secondary " id="btnCancel" style="width: fit-content;">voltar</button>
+        </div>
+      </form>
+
+
+    </section>
+    <!-- solicitar cartões -->
+
+
+    <!-- solicitação passe comum -->     
+    <section class="subpag d-none" id="soli-comum">
+      <h3 class="mb-5">FORMULARIO PAIA</h3>
+      <form class="row g-3 ms-3" id="a">
+        <h4 class="text-uppercase mb-3">preencha para solicitar</h4>
+        <div class="col-8">
+          <input type="number" class="form-control" placeholder="N° do cartão">
+        </div>
+
+        <div class="col-4">
+          <input type="date" class="form-control" placeholder="MM/YY">
+        </div>
+
+        <div class="col-12">
+          <input type="text" class="form-control" placeholder="Nome do Titular">
         </div>
 
 

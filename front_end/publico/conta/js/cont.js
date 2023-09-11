@@ -138,6 +138,29 @@ function locomover(btn, pagAtual, pagFutura){
   })
 }
 
+
+function locomoverForms(btns, btnconfirm, pagAtual, pagsFutura){
+  btns = [...document.getElementsByClassName]
+  const icone = btn.querySelector(".active-icon")
+  console.log(icone)
+
+  btns.addEventListener("click", () => {
+    btns.classList.toggle("active")
+
+    icone.classList.toggle("bi-check2-circle")
+
+  })
+
+  btn.addEventListener
+  
+  // pagAtual.classList.add("d-none")
+  // pagFutura.classList.remove("d-none")
+  // event.preventDefault();
+
+}
+
+
+
 function inicio(btn, pagincial, sub){
   btn.addEventListener("click", () =>{
     const pags = [...document.querySelectorAll(sub)]
