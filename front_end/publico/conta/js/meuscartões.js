@@ -6,11 +6,12 @@ const btnSoliComum = document.getElementById("btn-solicit-comum")
 
 const soliComum = document.getElementById("soli-comum")
 const btnCancel = document.getElementById("btnCancel")
+const avançarSolici = document.getElementById("avancar-soli")
 
 locomover(btnsolicitar, iniciomycard, solicitar)
 
-locomover(btnSoliComum, solicitar, soliComum)
+locomoverForms(btnSoliComum, avançarSolici, solicitar, soliComum)
 
-
+ 
 
 inicio(btnCancel, iniciomycard, ".subpag")
