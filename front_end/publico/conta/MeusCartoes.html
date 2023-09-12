@@ -27,26 +27,27 @@
     <!-- MEUS CARTÕES inicio-->
     <section class="subpag d-none" id="inicio-meuscard">     
           <div class=" d-inline-flex column-gap-3 ">
-            <button class="btn btn-primary rounded-pill" id="b">RECARREGAR</button>
-            <button class="btn btn-primary rounded-pill btn-solicit">Solicitar cartão</button>
+            <button class="btn btn-primary rounded-pill" id="recarregar-btn">RECARREGAR</button>
+            <button class="btn btn-primary rounded-pill " id="btn-solicit">Solicitar cartão</button>
           </div>
           
       
 
           <div class=" d-flex gap-3 pt-5 justify-content-center justify-content-md-start row">
       
-            <a href="#" class="p-1 btn-solicit pt-2 d-flex bg-dark-subtle align-items-center flex-column justify-content-center rounded-4"
+            <a href="" class="p-1 text-decoration-none pt-2 d-flex  bg-dark-subtle align-items-center flex-column justify-content-center rounded-4" id="btn-solicit-card"
               style="width: 16rem; height: 10rem;">
-              
-              <IMg src="../img/card.png" class="img-fluid"></IMg>
+              <i class="bi bi-plus-lg" style="font-size: 3rem;"></i>
+              <p class="">SOLICITAR NOVO CARTÃO</p>
             </a>
+
       
           </div>
     </section>
     <!-- MEUS CARTÕES inicio -->
 
     <!-- solicitar cartões -->
-    <section class="subpag align-items-center pe-0 align-items-sm-start d-flex flex-column  container " id="solicitar">
+    <section class="subpag align-items-center pe-0 align-items-sm-start d-flex flex-column d-none  container " id="solicitar">
       <h3 class="text-uppercase mb-4">selecione o tipo do passe</h3>
       <div class="row g-3 container align-items-center align-items-md-start " id="containerbutton">
 
@@ -82,12 +83,12 @@
        
       </div>
 
-      <form action="" class="row g-3 mt-3 forms-endereco">
+      <form action="" class="row g-3 mt-3 " id="forms-endereco">
         <h3 class="text-uppercase mb-3 mt-5">endereco da entrega</h3>
 
         <div class="col-lg-8 col-sm-10 col-12 d-inline-flex justify-content-between">
           <input type="text" class="form-control w-50" placeholder="CEP">
-          <a href="#" class=" my-auto ms-2 w-50">Nao lembro o CEP</a>
+          <a href="#" class=" my-auto ms-2 w-50 text-decoration-none">Nao lembro o CEP</a>
         </div>
 
         <div class="col-12">
@@ -121,8 +122,8 @@
 
 
         <div class="mt-5">
-          <button type="submit" class="btn  btn-primary me-2"  id="avancar-soli" style="width: fit-content;">avançar</button>
-          <button type="button" class="btn btn-secondary " id="btnCancel" style="width: fit-content;">voltar</button>
+          <button type="submit" class="btn  btn-primary me-2"  id="avancar-solibtn" style="width: fit-content;">avançar</button>
+          <button type="button" class="btn btn-secondary " id="btnCancel-soli" style="width: fit-content;">voltar</button>
         </div>
       </form>
 
@@ -133,16 +134,18 @@
 
     <!-- solicitação passe comum -->     
     <section class="subpag d-none" id="soli-comum">
-      <h3 class="mb-5">FORMULARIO PAIA</h3>
-      <form class="row g-3 ms-3" id="a">
-        <h4 class="text-uppercase mb-3">preencha para solicitar</h4>
+      <h3 class="mb-5">FORMULARIO PARA PASSE COMUM</h3>
+      <form class="row g-3 ms-3" id="forms-soli-comum">
         <div class="col-8">
-          <input type="number" class="form-control" placeholder="N° do cartão">
+          <label class="form-label" for="cpf">CPF</label>
+          <input name="cpf" type="number" class="form-control" placeholder="">
         </div>
 
-        <div class="col-4">
-          <input type="date" class="form-control" placeholder="MM/YY">
+        <div class="col-8">
+          <label class="form-label" for="rg">RG</label>
+          <input name="rg" type="number" class="form-control" placeholder="">
         </div>
+  
 
         <div class="col-12">
           <input type="text" class="form-control" placeholder="Nome do Titular">
@@ -151,11 +154,115 @@
 
         <div class="mt-5">
           <button type="submit" class="btn  btn-primary me-2"  id="solicitar" style="width: fit-content;">solicitar</button>
-          <button type="button" class="btn btn-secondary " id="btnCancel" style="width: fit-content;">cancelar</button>
+          <button type="button" class="btn btn-secondary " id="btnCancel-solicomum" style="width: fit-content;">voltar</button>
         </div>
       </form>
     </section>
     <!-- solicitação passe comum -->
+
+    <!-- solicitação passe estudante -->     
+       <section class="subpag d-none" id="soli-estudante">
+        <h3 class="mb-5">FORMULARIO PARA PASSE DE ESTUDANTE</h3>
+        <form class="row g-3 ms-3" id="forms-soli-comum">
+          <div class="col-8">
+            <label class="form-label" for="cpf">CPF</label>
+            <input name="cpf" type="number" class="form-control" placeholder="">
+          </div>
+  
+          <div class="col-8">
+            <label class="form-label" for="rg">RG</label>
+            <input name="rg" type="number" class="form-control" placeholder="">
+          </div>
+    
+  
+          <div class="col-12">
+            <input type="text" class="form-control" placeholder="Nome do Titular">
+          </div>
+  
+  
+          <div class="mt-5">
+            <button type="submit" class="btn  btn-primary me-2"  id="solicitar" style="width: fit-content;">solicitar</button>
+            <button type="button" class="btn btn-secondary " id="btnCancel-soliestudante" style="width: fit-content;">voltar</button>
+          </div>
+        </form>
+      </section>
+    <!-- solicitação passe estudante -->
+       
+    <!-- solicitação passe especial -->     
+       <section class="subpag d-none" id="soli-especial">
+        <h3 class="mb-5">FORMULARIO PARA PASSE ESPECIAL</h3>
+        <form class="row g-3 ms-3" id="forms-soli-comum">
+          <div class="col-8">
+            <label class="form-label" for="cpf">CPF</label>
+            <input name="cpf" type="number" class="form-control" placeholder="">
+          </div>
+  
+          <div class="col-8">
+            <label class="form-label" for="rg">RG</label>
+            <input name="rg" type="number" class="form-control" placeholder="">
+          </div>
+    
+  
+          <div class="col-12">
+            <input type="text" class="form-control" placeholder="Nome do Titular">
+          </div>
+  
+  
+          <div class="mt-5">
+            <button type="submit" class="btn  btn-primary me-2"  id="solicitar" style="width: fit-content;">solicitar</button>
+            <button type="button" class="btn btn-secondary " id="btnCancel-soliespecial" style="width: fit-content;">voltar</button>
+          </div>
+        </form>
+      </section>
+    <!-- solicitação passe especial -->
+
+    <!-- recarregar -->
+    <section class="subpag " id="recarregar">
+      <h2 class="mb-3">RECARGA</h2>
+      <form action="" class="row g-4 ms-2">
+
+        <div class="row g-3 col-7">
+          <h4>ESCOLHA O CARTÃO</h4>
+          
+          <div class="col-5">
+              <BUtton type="button" class="btn pt-0 pb-3 btn-secondary d-flex flex-column">
+                <h3 class="text-uppercase pt-2 fs-6">adicionar</h3>
+                <img src="img/passe comum.png" class="img-fluid mt-auto" alt="">
+              </BUtton>
+            </div>
+        </div>
+        
+        
+        <div class="row g-3 col-7">
+          <h4>METODO DE PAGAMENTO</h4>
+          <div class="col-4">
+            <button class="btn btn-primary h-100 w-100 px-4 py-2 ">
+              <h4>PIX</h4>
+              <img src="img/icons8-pix-48.png" alt="">
+            </button>
+          </div>
+          
+          <div class="col-4">
+            <BUtton type="button" class="btn btn-secondary">
+                <p class="text-uppercase pt-2 fs-6">adicionar</h5>
+                <i class="bi bi-credit-card-fill fs-1"></i>
+              </BUtton>
+          </div>
+        </div>
+
+        <div class="col-6 ">
+            <label class="form-label h6" for="valor"><h4>VALOR DA RECARGA</h4> </label>
+            <input type="number" name="valor" id="" class="form-control" placeholder="R$: 00,00">
+        </div>
+
+        <div class="mt-5">
+          <button type="submit" class="btn  btn-primary me-2"  id="solicitar" style="width: fit-content;">RECARREGAR</button>
+          <button type="button" class="btn btn-secondary " id="btnCancel-recarga" style="width: fit-content;">cancelar</button>
+        </div>
+
+      </form>
+    </section>
+    <!-- recarregar -->
 
   </div>
 

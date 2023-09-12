@@ -134,44 +134,22 @@ function locomover(btn, pagAtual, pagFutura) {
   });
 }
 
-function locomoverForms(btns, btnconfirm, pagAtual, pagsFutura) {
-  btns = [...document.querySelectorAll("#containerbutton button")];
-  
-
-  btns.map((elem) => {
-    elem.addEventListener("click", (event) => {
-      btns.map((elem1, indice) => {
-        if (elem1 != event.currentTarget) {
-          elem1.classList.remove("active");
-          elem1
-            .querySelector(".active-icon")
-            .classList.remove("bi-check2-circle");
-        } else {
-          elem.classList.add("active");
-          elem.querySelector(".active-icon").classList.add("bi-check2-circle");
-
-          pagsFutura[indice] 
-        }
-      });
-    });
-  });
-
-  btnconfirm.addEventListener("submit", () => {
-    pagAtual.classList.add("d-none");
-    pagEscolhida.classList.remove("d-none");
-  });
-}
-
 
 
 
 function inicio(btn, pagincial, sub) {
-  btn.addEventListener("click", () => {
+  const btnextraido = document.querySelector(btn)
+  const pagincialextraido = document.querySelector(pagincial)
+
+
+
+  btnextraido.addEventListener("click", () => {
     const pags = [...document.querySelectorAll(sub)];
     pags.map((elem) => {
       elem.classList.add("d-none");
+
     });
-    console.log("A");
-    pagincial.classList.remove("d-none");
+
+    pagincialextraido.classList.remove("d-none");
   });
 }
