@@ -33,17 +33,18 @@ const btnRecarregarMeuCartao = document.getElementById("btnRecarregarMeuCartao")
 const btnBloquearMeuCartao = document.getElementById("btnBloquearMeuCartao")
 const subNossosCartoes = document.getElementById("subNossosCartoes")
 const subRecarregarCartoes = document.getElementById("subRecarregarCartoes")
+const subBloquearCartoes = document.getElementById("subBloquearCartoes")
 
 
 function inicio(btn, pagInicial, sub){
     btn.addEventListener("click", () => {
-        const pags = [...document.querySelectorAll (sub)]
-        pags.map((elem)=>{elem.classList.add(
-            "d-none")})
-        pagInicial.classList.remove("d-none")
-        
+        const pags = [...document.querySelectorAll(sub)]
+        pags.map((elem)=>{elem.classList.add("d-none")})
+        pagInicial.classList.toggle("d-none")
+       
     })
 }
 
-inicio(btnNossosCartoes,subNossosCartoes)
-inicio(btnRecarregarMeuCartao,subRecarregarCartoes)
+inicio(btnNossosCartoes,subNossosCartoes, ".sub")
+inicio(btnRecarregarMeuCartao,subRecarregarCartoes, ".sub")
+inicio(btnBloquearMeuCartao,subBloquearCartoes, ".sub")
