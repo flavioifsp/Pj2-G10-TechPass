@@ -37,13 +37,12 @@ const subRecarregarCartoes = document.getElementById("subRecarregarCartoes")
 
 function inicio(btn, pagInicial, sub){
     btn.addEventListener("click", () => {
-        const pags = [...document.querySelectorAll (sub)]
-        pags.map((elem)=>{elem.classList.add(
-            "d-none")})
-        pagInicial.classList.remove("d-none")
-        
+        const pags = [...document.querySelectorAll(sub)]
+        pags.map((elem)=>{elem.classList.add("d-none")})
+        pagInicial.classList.toggle("d-none")
+       
     })
 }
 
-inicio(btnNossosCartoes,subNossosCartoes)
-inicio(btnRecarregarMeuCartao,subRecarregarCartoes)
+inicio(btnNossosCartoes,subNossosCartoes, ".sub")
+inicio(btnRecarregarMeuCartao,subRecarregarCartoes, ".sub")
