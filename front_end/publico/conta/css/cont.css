@@ -66,15 +66,3 @@ main nav {
 
 }
 
-@media (max-width: 576px){
-    main{
-        height: max-content;
-    }
-}
-
-
-@media (max-height: 783px){
-    main{
-        height: max-content;
-    }
-}

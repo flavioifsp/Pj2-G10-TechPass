@@ -29,7 +29,9 @@ menuT.innerHTML = `
                     <a href="rotas.html" class="nav-link">Rotas e linhas</a>
                 </li>
 
-
+                <li class="nav-item">
+                    <a href="conta/MeuPerfil.html" class="nav-link">Sua Conta(temporario)</a>
+                </li>
             </ul>
 
             <ul class="navbar-nav align-items-center column-gap-1">
@@ -61,41 +63,30 @@ menuT.innerHTML = `
             aria-label="Close"></button>
     </div>
 
-    <div class="offcanvas-body">
-        <div class="nav-item d-inline-flex align-items-center  pb-3">
-            <i class="bi my-auto bi-person-circle" style="font-size: 3rem"></i>
-            <h4 class="ms-3">PAIOSO CABRAL</h4>
-        </div>
+    <div class="offcanvas-body ">
+    
+    
+    <ul class="navbar-nav justify-content-end flex-grow-1 ps-3">
+    
+    
+    <li class="nav-item">
+    <a href="index.html" class="nav-link texto-Menu-m fs-4">Inicio</a>
+    </li>
+    <li class="nav-item">
+    <a href="rotas.html" class="nav-link texto-Menu-m fs-4">Rotas e linhas</a>
+    </li>
+    
+    <li class="nav-item">
+    <a href="conta/MeusCartoes.html" class="nav-link texto-Menu-m fs-4">Sua Conta(temporario)</a>
+    </li>
+    </ul>
 
-        <h3 class="mt-3 mb-1">CONTA</h3>
-        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+    <div class="nav-item d-flex row gap-1 ps-3 mt-5 ">
+        <a href="login.html" class="btn btn-primary  me-2 " style="font-size: 1rem; width: 100px">entrar</a>
+   
+        <a href="cadastro.html" class="btn btn-secondary  " " style="font-size: 1rem; width: 100px" >cadastrar</a>
+    </div>
 
-
-            <li class="nav-item">
-                <a href="conta/MeuPerfil.html" class="nav-link fs-3" id="perfil">meu perfil</a>
-            </li>
-            <li class="nav-item">
-                <a href="conta/MeusCartoes.html" class="nav-link fs-3" id="mycard">meus cartões</a>
-            </li>
-            <li class="nav-item">
-                <a href="conta/formadePag.html" class="nav-link fs-3" id="formaspag">formas de pagamento</a>
-            </li>
-
-
-        </ul>
-
-        <h2 class="mt-5 mb-1">SITE PRINCIPAL</h3>
-            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-
-
-                <li class="nav-item">
-                    <a href="index.html" class="nav-link texto-Menu-m fs-3">inicio</a>
-                </li>
-                <li class="nav-item">
-                    <a href="rotas.html" class="nav-link texto-Menu-m fs-3">Rotas e linhas</a>
-                </li>
-
-            </ul>
     </div>
 </div>
         
