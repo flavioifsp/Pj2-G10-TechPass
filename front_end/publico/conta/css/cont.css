@@ -8,34 +8,31 @@
 
 
 
-main{
-    min-height: 100vh;
+main{ 
+    height: 1000px;
 }
 
-a{
+main a{
     text-decoration: none;
     color: blue;
 }
 
-header{
-    
-    height: 3rem;
-}
 
-nav li > a{
+
+main nav li > a{
     text-transform: capitalize;
     font-weight: 800;
     
 }
 
-nav li{
+main nav li{
     width: 100%;
     
 }
 
 
 
-nav {
+main nav {
     
     height: 100%;
     width: calc( (50% - 25vw) + 200px );
@@ -53,7 +50,7 @@ nav {
 
 @media (max-width: 765px){
 
-    nav {
+    main nav {
         left: 1rem;
         top: 0.2rem;
         position: absolute !important;
@@ -69,15 +66,3 @@ nav {
 
 }
 
-@media (max-width: 576px){
-    main{
-        height: max-content;
-    }
-}
-
-
-@media (max-height: 783px){
-    main{
-        height: max-content;
-    }
-}

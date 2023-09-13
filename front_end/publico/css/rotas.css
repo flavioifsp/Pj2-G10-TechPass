@@ -28,3 +28,7 @@ article img{
 aside{
     height: fit-content;
 }
+
+article{
+    cursor: pointer;
+}

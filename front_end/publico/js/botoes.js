@@ -45,6 +45,10 @@ function inicio(btn, pagInicial, sub){
     })
 }
 
-inicio(btnNossosCartoes,subNossosCartoes, ".sub")
+
+
+inicio(btnRecarregarMeuCartao,subRecarregarCartoes, ".sub")
+
 inicio(btnRecarregarMeuCartao,subRecarregarCartoes, ".sub")
 inicio(btnBloquearMeuCartao,subBloquearCartoes, ".sub")
+
