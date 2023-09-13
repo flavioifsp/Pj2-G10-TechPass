@@ -33,6 +33,7 @@ const btnRecarregarMeuCartao = document.getElementById("btnRecarregarMeuCartao")
 const btnBloquearMeuCartao = document.getElementById("btnBloquearMeuCartao")
 const subNossosCartoes = document.getElementById("subNossosCartoes")
 const subRecarregarCartoes = document.getElementById("subRecarregarCartoes")
+const subBloquearCartoes = document.getElementById("subBloquearCartoes")
 
 
 function inicio(btn, pagInicial, sub){
@@ -44,5 +45,10 @@ function inicio(btn, pagInicial, sub){
     })
 }
 
-inicio(btnNossosCartoes,subNossosCartoes, ".sub")
+
+
 inicio(btnRecarregarMeuCartao,subRecarregarCartoes, ".sub")
+
+inicio(btnRecarregarMeuCartao,subRecarregarCartoes, ".sub")
+inicio(btnBloquearMeuCartao,subBloquearCartoes, ".sub")
+
