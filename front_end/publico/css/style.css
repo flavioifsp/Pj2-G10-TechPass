@@ -74,7 +74,7 @@ main .banner{
 
 
 
-#FastTime {
+#fastTime {
 width: 100px;
     height: 100px;
 }
@@ -168,9 +168,24 @@ a {
     text-decoration: none;
 }
 
+
+
+@media (max-width: 575px) {
+
+  
+}
+
+
 @media (max-width: 578px) {
 
-    /* Estilos para telas menores */
+    /* Estilos para telas menores */ 
+    
+    #parte1 img {
+        width: 80%;
+        margin-top: calc(1vw * -10);
+        margin-left: auto;
+        margin-right: auto;
+    }
     .tituloCartoes {
         font-size: 10px;
     }
@@ -189,7 +204,7 @@ a {
         height: 25px;
     }
 
-    #FastTime {
+    #fastTime {
         width: 30px;
         height: 30px;
         margin-top: 4px;
@@ -198,6 +213,15 @@ a {
     .titulo3 {
         font-size: 15px;
     }
+
+
+}
+
+@media (max-width: 768px) {
+ 
+   #iconFacilidade,#iconSegurança,#fastTime,.tituloCartoes,.subtituloCartoes{
+    display: none;
+   }
 
 
 }
@@ -220,16 +244,5 @@ a {
         font-size: 20px;
         text-align: start;
         margin-top: 10px;
-    }
-}
-
-
-@media (max-width: 575px) {
-    
-    #parte1 img{
-        width: 80%;
-        margin-top: calc(1vw * -10);
-        margin-left: auto;
-        margin-right: auto;
     }
 }
