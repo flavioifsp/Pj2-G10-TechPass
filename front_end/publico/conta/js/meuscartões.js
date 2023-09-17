@@ -70,3 +70,4 @@ inicio("#btnCancel-recarga", "#inicio-meuscard", ".subpag")
 inicio("#btnCancel-solicomum", "#solicitar", ".subpag")
 inicio("#btnCancel-soliestudante", "#solicitar", ".subpag")
 inicio("#btnCancel-soliespecial", "#solicitar", ".subpag")
+

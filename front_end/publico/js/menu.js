@@ -16,12 +16,12 @@ menuT.innerHTML = `
 
 
 
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark justify-content-center  " style="margin-bottom: -1px;">
+    <nav class="navbar p-0 navbar-expand-md py-2 navbar-dark bg-dark justify-content-center  ">
 
-    <div class="container" id="menu">
-        <a href="index.html" class="navbar-brand ">
-            <img src="img/logo.png" alt="passtech" style="width: 140px;">
-        </a>
+            <div class="container" id="menu">
+                <a href="index.html" class="navbar-brand ">
+                    <img src="img/logo.png" alt="passtech" class="img-fluid w-100">
+                </a>
 
         <div class="collapse navbar-collapse column-gap-4" id="aaaa">
             <ul class="navbar-nav  column-gap-1 ms-auto">

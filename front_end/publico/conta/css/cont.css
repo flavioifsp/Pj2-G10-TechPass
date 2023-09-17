@@ -7,10 +7,9 @@
 
 
 
-
 main{ 
-    height: 1000px;
-}
+    height: 950px;
+} 
 
 main a{
     text-decoration: none;
@@ -32,10 +31,9 @@ main nav li{
 
 
 
+
 main nav {
-    
-    height: 100%;
-    width: calc( (50% - 25vw) + 200px );
+    width: 260px;
 }
 
 
@@ -46,23 +44,6 @@ main nav {
 
 #nomefoco{
     text-transform: uppercase;
-}
-
-@media (max-width: 765px){
-
-    main nav {
-        left: 1rem;
-        top: 0.2rem;
-        position: absolute !important;
-        height: fit-content;
-
-        width: fit-content;
-    }
-
-    #menuV{
-        max-width: 80%;
-    }
-
-
+    width: fit-content;
 }
 
