@@ -9,7 +9,7 @@
 
 
 main{ 
-    height: 1000px;
+    height: 900px;
 }
 
 main a{
@@ -30,12 +30,16 @@ main nav li{
     
 }
 
+#info{
+    min-height: 70%;
+    min-width: 100%;
+      
+}
+
 
 
 main nav {
-    
-    height: 100%;
-    width: calc( (50% - 25vw) + 200px );
+    width: 260px;
 }
 
 
