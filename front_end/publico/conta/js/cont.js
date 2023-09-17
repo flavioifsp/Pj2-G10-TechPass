@@ -12,7 +12,7 @@ connectedCallback() {
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous" />
 
     <header>
-        <nav class="navbar p-0 navbar-expand-md navbar-dark bg-dark justify-content-center  ">
+        <nav class="navbar p-0 py-2 navbar-expand-md navbar-dark bg-dark justify-content-center  ">
 
             <div class="container" id="menu">
                 <a href="../index.html" class="navbar-brand ">
@@ -96,8 +96,8 @@ connectedCallback() {
         </div>
     </header>
 
-    <main class=" p-0  d-flex align-items-start justify-content-between container-fluid bg-body-secondary me-5  ms-0">
-        <nav class="d-md-flex flex-column   d-none  flex-shrink-0 p-3 bg-light  shadow nav   h-100   ">
+    <main class=" p-0  d-flex align-items-start justify-content-between container-fluid bg-body-secondary me-5  ms-0" id="mainpaia">
+        <nav class="d-md-flex flex-column   d-none  flex-shrink-0 p-3 bg-light  shadow nav h-100" >
 
             <div class="nav-item d-inline-flex align-items-center justify-content-center">
                 <i class="bi my-auto bi-person-circle" style="font-size: 2.6rem"></i>
@@ -129,33 +129,39 @@ connectedCallback() {
             </ul>
         </nav>
 
-        <section class=" d-flex flex-column align-items-center mx-auto align-items-md-start col-sm-10 col-11 col-md-8  h-100">
-            <h2 class="py-4 mb-0 mt-1 ms-3 " id="nomefoco"></h2>
+        <section class=" d-flex pb-5  flex-column align-items-end mx-auto  col-sm-10 col-11 col-md-8  ">
 
-            <div id="info" class=" rounded-4 p-3 bg-light  bg-light shadow mx-md-2 mx-3 "></div>
+            <div style="width: 90%;" class="mt-2 me-5">
+                <h2 class="py-4 mb-0 mt-1 ms-3 " id="nomefoco"></h2>
+
+
+                <div id="info" class=" rounded-4 px-3 py-4 bg-light  bg-light shadow  mx-md-2 mx-3 "></div> 
+            </div>
         </section>
-    </main>
-
-    <footer-paia></footer-paia>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
-        crossorigin="anonymous"></script>
-    <script src="../js/footer.js"></script>
-
-
-      
-   `
-
-  }
-}
-
-customElements.define("template-conta", contTemplate);
-
-const entrada = document.querySelector("#info");
-const paia = document.querySelector("#entrada");
-
-entrada.appendChild(paia);
+            </main>
+            
+            <footer-paia></footer-paia>
+            
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+            crossorigin="anonymous"></script>
+            <script src="../js/footer.js"></script>
+            
+            
+            
+            `
+            
+        }
+    }
+    
+    customElements.define("template-conta", contTemplate);
+    
+    const entrada = document.querySelector("#info");
+    const paia = document.querySelector("#entrada");
+    const mainpaia = document.querySelector("#mainpaia");
+    const section = document.querySelector("#sectionpaia")
+    entrada.appendChild(paia);
+    
 
 function foco(id) {
   const atual = document.getElementById(id);
@@ -164,37 +170,39 @@ function foco(id) {
   titulo.textContent = atual.textContent;
   atual.classList.add("active");
   atual.setAttribute('aria-current', 'page')
-  console.log(atual)
- 
-
+  
+  
+  
   
   
 }
 
 function locomover(btn, pagAtual, pagFutura) {
-  btn.addEventListener("click", () => {
-    pagAtual.classList.add("d-none");
-    pagFutura.classList.remove("d-none");
-
-  });
+    btn.addEventListener("click", () => {
+        pagAtual.classList.add("d-none");
+        pagFutura.classList.remove("d-none");
+        
+    });
 }
 
 
 
 
 function inicio(btn, pagincial, sub) {
-  const btnextraido = document.querySelector(btn)
+    const btnextraido = document.querySelector(btn)
   const pagincialextraido = document.querySelector(pagincial)
-
-
-
+  
+  
   btnextraido.addEventListener("click", () => {
-    const pags = [...document.querySelectorAll(sub)];
-    pags.map((elem) => {
-      elem.classList.add("d-none");
-
+      const pags = [...document.querySelectorAll(sub)];
+      pags.map((elem) => {
+          elem.classList.add("d-none");
+          
+        });
+        
+        pagincialextraido.classList.remove("d-none");
     });
-
-    pagincialextraido.classList.remove("d-none");
-  });
 }
+
+
+
