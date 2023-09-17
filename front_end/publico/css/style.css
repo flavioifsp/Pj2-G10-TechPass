@@ -219,7 +219,7 @@ a {
 
 @media (max-width: 768px) {
  
-   #iconFacilidade,#iconSegurança,#fastTime,.tituloCartoes,.subtituloCartoes{
+   #icones{
     display: none;
    }
 
