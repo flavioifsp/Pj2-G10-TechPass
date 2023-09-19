@@ -53,9 +53,8 @@ function locomoverForms(btns, forms, paginaAtual, pagsFutura) {
 
 
 locomover(btnsolicitar, iniciomycard, solicitar)
-locomover(btnsolicitar2, iniciomycard, solicitar)
-locomover(btnrecarregar, iniciomycard, recarregar)
 
+locomover(btnrecarregar, iniciomycard, recarregar)
 
 
 locomoverForms("btnsSoli", "forms-endereco", "solicitar", [

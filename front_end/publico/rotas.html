@@ -36,32 +36,21 @@
   <main class="container d-flex my-4 px-0 py-4 justify-content-between flex-column flex-md-row" >
     <section class="container-fluid ps-0 col-md-9 mx-0" >
 
-      <div class="container-fluid">
-        <label class="form-label"><h3>Digite o número ou nome da linha desejada</h3></label>
+      <form class="container-fluid">
+        <legend class="h3">Digite o número ou nome da linha desejada</label>
         <div class="d-inline-flex container-fluid p-0">
           <input type="text" class="form-control rounded-end-0" placeholder="505 H REGIONAL - MASSAGUAÇÚ VIA JETUBA"/>
           <button type="submit" class="btn btn-primary rounded-start-0">
             buscar
           </button>
         </div>
-      </div>
-  
+      </form>
+   
   
   
       <div class="container-fluid my-4 d-flex flex-column row-gap-3 column-grow-1 overflow-hidden " id="lista-linha">
   
-        <article class="bg-dark-subtle rounded-5 d-flex flex-column  flex-lg-row px-3" id="linhapaia">
-          <div class="d-flex align-items-center column-gap-md-3 column-gap-2 py-2">
-            <div class="" id="btn-linha">
-              <img src="./img/icon bus.png" alt="..." />
-            </div>
-    
-            <div class="">
-              <h5 class="mb-0">505</h5>
-              <p class="fs-6 mb-0">H REGIONAL - MASSAGUAÇÚ VIA JETUBA</p>
-            </div>
-          </div>
-        </article>
+        
  
       </div>
   
@@ -95,64 +84,9 @@
 
 
 
-
-
-
-  <div class="modal fade " id="horario-onibus" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">horario da linha</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          
-
-
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal fade " id="Itinerario-onibus" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Itinerario</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          
-
-
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-
-
-
-  <script>
+  <div id="modais">
     
-
-
-  //   linhaS.map((elem) => {
-  //       elem.addEventListener("click", (event) => {
-  //       const div = event.currentTarget
-  //       div.classList.toggle("modal")
-  //       div.classList.
-  //     })
-  //   })
-  // </script>
-
+  </div>
   
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"

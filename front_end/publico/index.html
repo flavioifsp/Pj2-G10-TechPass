@@ -373,8 +373,7 @@
       <div class="d-none sub" id="subRecarregarCartoes">
 
 
-        <div class=" container-fluid d-sm-flex align-items-center justify-content-center " style=" margin-bottom:
-                        1rem;" id="botoesMenu">
+        <div class=" container-fluid d-sm-flex align-items-center justify-content-center " style=" margin-bottom: 1rem;" id="botoesMenu">
 
 
 
@@ -531,48 +530,46 @@
         </div>
       </div>
 
-  </div>
 
   <!-- fim 2subpg -->
+  
+    <section class="container d-flex flex-column align-items-center row-gap-5 px-lg-5" >
+      <form class="container-fluid  px-md-5">
+        <legend class="h3 text-center">Confira as lojas ou os locais de recarga perto de você.</legend>
+        <div class="d-inline-flex container-fluid p-0">
+          <input type="text" class="form-control rounded-end-0"/>
+          <button type="submit" class="btn btn-primary rounded-start-0">
+            buscar
+          </button>
+        </div>
+      </form>
+    
+      <div class=" border  ratio ratio-16x9" style='color: #0095eb; width: 100%; ' id="mapapaia">
+        <div id='gmap_canvas' class="h-100"></div>
+        <style>
+          #gmap_canvas img {
+            max-width: none !important;
+            background: none !important
+          }
+    
+          .gm-ui-hover-effect {
+            display: none !important;
+          }
+        </style>
+      </div>
+    </section>
+    
 
 
 
 
 
 
-
-
-  <h2 class="text-center mb-4 titulo3" style="margin-top: 50px;">Confira as lojas ou os locais de
-    recarga
-    perto de você.
-  </h2>
-  <div class="container-fluid d-flex justify-content-center " style="margin-bottom: 45px;">
-    <div class="barra-pesquisa">
-      <input type="text" style="width: 100%; height: 100%;" class="rounded-1 rounded-end-0">
-    </div>
-    <a href="#" class="bt p-1 rounded-start-0" style="width: 90px;">Buscar</a>
-
-  </div>
-
-
-
-  <div class="container mx-auto  w-75 border ratio  ratio-4x3" style='color: #0095eb; height: 450px;'>
-    <div id='gmap_canvas'></div>
-    <style>
-      #gmap_canvas img {
-        max-width: none !important;
-        background: none !important
-      }
-
-      .gm-ui-hover-effect {
-        display: none !important;
-      }
-    </style>
-  </div>
 
   </main>
 
-  </div>
+</div>
+  
 
 
   <footer-paia></footer-paia>

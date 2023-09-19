@@ -11,7 +11,7 @@ main{
 a{
     text-decoration: none !important;
     padding-bottom: 0;
-    text-transform: ;
+    
 }
 
 
@@ -21,7 +21,7 @@ a{
 
 }
 
-article img{
+#linhapaia img{
     width: 60px;
 }
 
@@ -29,6 +29,6 @@ aside{
     height: fit-content;
 }
 
-article{
+#linhapaia{
     cursor: pointer;
 }
