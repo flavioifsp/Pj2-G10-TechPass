@@ -66,7 +66,7 @@
 
 
 
-      <div class="container-fluid d-flex justify-content-center ">
+      <div class="container-fluid d-flex justify-content-center " style="margin-top: 9rem;">
 
 
 
@@ -144,11 +144,15 @@
 
 
 
-      <div class="texto titulo1 d-sm-block d-none  d-flex justify-content-center ">
-        <h3 class="text-center pt-2 mb-3">Ja adquiriu seu cartâo TECH PASS?</h3>
-        <p class=" text-center h6">Confira nosso serviços disponiveis para você</p>
+      <div class="texto titulo1 d-sm-block d-none  d-flex justify-content-center " style="margin-bottom: 3rem;">
+
+        <h1 class="text-center pt-2 mb-3">Ja adquiriu seu cartâo TECH PASS?</h1>
+        <p class="h5 text-center h5">Confira nosso serviços disponiveis para você</p>
 
       </div>
+      <h1>
+
+      </h1>
 
 
       <!-- botoes -->
@@ -159,18 +163,22 @@
 
 
 
-          <button type="button" class="btn m-auto cor-botoes rounded-3 tamanho-botoes p-3" id="btnNossosCartoes">
+
+          <button type="button" class="btn m-auto cor-botoes rounded-3 p-3" id="btnNossosCartoes"
+            style=" width: 283.818182px; height: 143.818182px; ">
             <i class="fa-regular fa-credit-card "></i>
             <h2 class="text-start mt-2 mb-0 fontbotoes">NOSSOS </h2>
             <h2 class="text-start mt-0 mb-0 fontbotoes">CARTÔES</h2>
 
           </button>
 
+
         </div>
 
         <div class=" mx-5  my-5">
 
-          <button type="button" class="btn  m-auto cor-botoes rounded-3 tamanho-botoes p-3" id="btnRecarregarMeuCartao">
+          <button type="button" class="btn  m-auto cor-botoes rounded-3  p-3" id="btnRecarregarMeuCartao"
+            style=" width: 283.818182px; height: 143.818182px; ">
 
             <i class="fa-regular fa-address-card text-start"></i>
             <h2 class="text-start mt-2 mb-0 fontbotoes">RECARREGAR</h2>
@@ -181,7 +189,8 @@
 
         <div class="mx-5  my-5 ">
 
-          <button type="button" class="col m-auto cor-botoes rounded-3 tamanho-botoes p-3 " id="btnBloquearMeuCartao">
+          <button type="button" class="col m-auto cor-botoes rounded-3 tamanho-botoes p-3 " id="btnBloquearMeuCartao"
+            style=" width: 283.818182px; height: 143.818182px; ">
 
             <i class="fa-solid fa-lock"></i>
             <h2 class="text-start mt-2 mb-0 fontbotoes">BLOQUEAR</h2>
@@ -373,7 +382,8 @@
       <div class="d-none sub" id="subRecarregarCartoes">
 
 
-        <div class=" container-fluid d-sm-flex align-items-center justify-content-center " style=" margin-bottom: 1rem;" id="botoesMenu">
+        <div class=" container-fluid d-sm-flex align-items-center justify-content-center " style=" margin-bottom: 1rem;"
+          id="botoesMenu">
 
 
 
@@ -519,7 +529,7 @@
               </svg>
             </div>
 
-            <h4 class="text-start" style="font-size: 14px;">Para bloquear o seu cartão <br> identificado entre em
+            <h4 class="text-start" style="font-size: 14px;">Para bloquear o seu cartão <br>entre em
               contato com
               <br>
               o Whatsapp,<a href="https://api.whatsapp.com/send?phone=5555898878575&text=Ol%C3%A1.">clicando aqui.</a>
@@ -531,34 +541,33 @@
       </div>
 
 
-  <!-- fim 2subpg -->
-  
-    <section class="container d-flex flex-column align-items-center row-gap-5 px-lg-5" >
-      <form class="container-fluid  px-md-5">
-        <legend class="h3 text-center">Confira as lojas ou os locais de recarga perto de você.</legend>
-        <div class="d-inline-flex container-fluid p-0">
-          <input type="text" class="form-control rounded-end-0"/>
-          <button type="submit" class="btn btn-primary rounded-start-0">
-            buscar
-          </button>
+      <!-- fim 2subpg -->
+
+      <section class="container d-flex flex-column align-items-center row-gap-5 px-lg-5" style="margin-top: 15rem;">
+        <form class="container-fluid  px-md-5">
+          <legend class="h3 text-center mb-5">Confira as lojas ou os locais de recarga perto de você.</legend>
+          <div class="d-inline-flex container-fluid p-0">
+            <input type="text" class="form-control rounded-end-0" />
+            <button type="submit" class="btn btn-primary rounded-start-0">
+              buscar
+            </button>
+          </div>
+        </form>
+
+        <div class=" border  ratio ratio-16x9" style='color: #0095eb; width: 100%; ' id="mapapaia">
+          <div id='gmap_canvas' class="h-100"></div>
+          <style>
+            #gmap_canvas img {
+              max-width: none !important;
+              background: none !important
+            }
+
+            .gm-ui-hover-effect {
+              display: none !important;
+            }
+          </style>
         </div>
-      </form>
-    
-      <div class=" border  ratio ratio-16x9" style='color: #0095eb; width: 100%; ' id="mapapaia">
-        <div id='gmap_canvas' class="h-100"></div>
-        <style>
-          #gmap_canvas img {
-            max-width: none !important;
-            background: none !important
-          }
-    
-          .gm-ui-hover-effect {
-            display: none !important;
-          }
-        </style>
-      </div>
-    </section>
-    
+      </section>
 
 
 
@@ -566,10 +575,11 @@
 
 
 
-  </main>
 
-</div>
-  
+    </main>
+
+  </div>
+
 
 
   <footer-paia></footer-paia>
