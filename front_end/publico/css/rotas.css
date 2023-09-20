@@ -8,12 +8,6 @@ main{
     min-height: 90vh;
 }
 
-a{
-    text-decoration: none !important;
-    padding-bottom: 0;
-    
-}
-
 
 #lista-linha{
     height: 550px;
@@ -21,14 +15,9 @@ a{
 
 }
 
-#linhapaia img{
-    width: 60px;
-}
+
 
 aside{
     height: fit-content;
 }
 
-#linhapaia{
-    cursor: pointer;
-}
