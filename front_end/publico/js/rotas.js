@@ -10,39 +10,33 @@ const linha = (num, bairroI, bairroEnd, horarioI, horarioEnd, ItinerarioI, Itine
     const idmodal2 = `L${num}2`
     const horasI = `horasI${num}`
     const horasEnd = `horasEnd${num}`
-
-
-  
-    horarioI = horarioI.trim().split(",")
-    horarioEnd = horarioEnd.trim().split(",")
-
-
-    horarioI.forEach((elem) => {
-        const horario = document.createElement("li")
-        horario.classList.add("list-group-item", "rounded-end-0", "fs-4")
-        horario.innerHTML = elem
-        console.log(document.querySelector("#"+horasI))
-        document.querySelector("#"+horasI).appendChild(horario)
-    });
-
-    horarioEnd.forEach((elem) => {
-        const horario = document.createElement("li")
-        horario.classList.add("list-group-item", "rounded-end-0", "fs-4")
-        horario.innerHTML = elem
-        document.querySelector("#"+horasEnd).appendChild(horario)
-    });
-
-
-
+    const itiI = `itiI${num}`
+    const itiEnd = `itiEnd${num}`
     bairroEnd = bairroEnd.toUpperCase()
     bairroI = bairroI.toUpperCase()
-   
 
+ 
+
+    // transformar a string em uma array separando por "," > cd vetor do array será transformado em um elemento (li) e dps sera colocada em uma lista(ul)
+    const addLista = (string, lista, rounded) => {
+        string = string.trim().split(",")
+        
+        for(x of string){
+            const substring = document.createElement("li")
+            substring.classList.add("list-group-item", rounded, "fs-4")
+            substring.innerHTML = x
+            molde.querySelector("#"+lista).appendChild(substring)
+        }
+
+    }
+
+
+    // o molde da lista em html e css
     molde.innerHTML = ` 
         <div class="bg-dark-subtle rounded-4 d-flex flex-column  flex-lg-row px-3" data-bs-toggle="modal"
         data-bs-target="#${idmodal1}" style="cursor: pointer; height: 70px;">
         <div class="d-flex align-items-center column-gap-md-3 column-gap-2 py-2">
-            <img src="./img/icon bus.png" alt="..." class="img-fluid" style="width: 22%" />
+            <img src="./img/icon bus.png" alt="..." class="img-fluid" style="width: 12%" />
 
             <div class="">
             <h5 class="mb-0">${num}</h5>
@@ -81,7 +75,7 @@ const linha = (num, bairroI, bairroEnd, horarioI, horarioEnd, ItinerarioI, Itine
 
             </div>
             <div class="modal-footer border-0 px-4">
-                <button type="button" class="btn btn-primary " data-bs-target="#${idmodal2}" data-bs-toggle="modal">Itinerario</button>
+                <button type="button" class="btn btn-primary btnalternar" data-bs-target="#${idmodal2}" data-bs-toggle="modal">Itinerario</button>
 
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
             </div>
@@ -104,46 +98,71 @@ const linha = (num, bairroI, bairroEnd, horarioI, horarioEnd, ItinerarioI, Itine
 
 
                 <!--bairro inicio -->
-                <ul class="list-group  col  pe-0">
+                <ul class="list-group  col  pe-0" id="${itiI}">
 
                     <li class="list-group-item rounded-end-0 fs-3">${bairroI}</li>
-                    <li class="list-group-item rounded-end-0 fs-6 ">RUA TADEU LIBERATO DE CARVALHO, 141</li>
-            
+                   
                 </ul>
 
                 <!--bairro fim -->
-                <ul class="list-group  col  ps-0">
+                <ul class="list-group  col  ps-0" id="${itiEnd}">
                     <li class="list-group-item rounded-start-0 fs-3">${bairroEnd}</li>
-                    <li class="list-group-item rounded-start-0 fs-6 ">rua TADEU LIBERATO DE CARVALHO, 141</li>
-                
+                   
                 </ul>
 
                 </div>
 
             </div>
             <div class="modal-footer border-0 px-4">
-                <button  type="button" class="btn btn-primary " data-bs-target="#${idmodal1}" data-bs-toggle="modal">Horario</button>
+                <button  type="button" class="btn btn-primary btnalternar" data-bs-target="#${idmodal1}" data-bs-toggle="modal">Horario</button>
 
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
             </div>
             </div>
         </div>
         </div>
-    `
+    `   
+    
+    molde.querySelector(".btnalternar").addEventListener("click", (elem) => {
+        elem.hide()
+    })
+    
+    
+    addLista(horarioI, horasI, "rounded-end-0")
+    addLista(horarioEnd, horasEnd, "rounded-start-0")
+    
+    addLista(ItinerarioI, itiI, "rounded-end-0")
+    addLista(ItinerarioEnd, itiEnd, "rounded-start-0")
+
+
     document.querySelector(divpai).appendChild(molde)
 }
 
 
-linha(100, "paia", "paioso", 
+linha(
+// numero da linha
+100, 
+// bairro incial e bairro final
+"bairro paia", "paioso", 
+// horario do bairro incial 
 "11:11, 11:11, 11:11, 11:11", 
+// horario do bairro final
 "11:11, 11:11, 11:11, 11:11", 
-"paia, paia", "paia, paia",
- "#lista-linha")
+// itinerario do bairro inicial
+"paia, paia",
+// itinerario do bairro final
+"paia, paia",
+// div em q estára
+"#lista-linha"
+)
+
+
 
 linha(120, "paida", "padioso", 
 "11:11, 11:11, 11:11, 11:11", 
 "11:11, 11:11, 11:11, 11:11",
- "paia, paia", "paia, paia",
- "#lista-linha")
+"paia, paia", "paia, paia",
+"#lista-linha")
+
 
 
