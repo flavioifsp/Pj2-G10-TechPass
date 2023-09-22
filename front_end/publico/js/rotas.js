@@ -12,6 +12,8 @@ const linha = (num, bairroI, bairroEnd, horarioI, horarioEnd, ItinerarioI, Itine
     const horasEnd = `horasEnd${num}`
     const itiI = `itiI${num}`
     const itiEnd = `itiEnd${num}`
+    const btnalternar1 = `btnal${idmodal1}`
+    const btnalternar2 = `btnal${idmodal2}`
     bairroEnd = bairroEnd.toUpperCase()
     bairroI = bairroI.toUpperCase()
 
@@ -30,6 +32,23 @@ const linha = (num, bairroI, bairroEnd, horarioI, horarioEnd, ItinerarioI, Itine
 
     }
 
+
+    
+    function alternarmodal(btn, modal, modalfuturo, a){        
+        modal = a.querySelector("#"+modal)
+        modalfuturo = a.querySelector("#"+modalfuturo)
+        btn = a.querySelector("#"+btn)
+        
+        const myModal = new bootstrap.Modal(modal)
+        const myModalfuturo = new bootstrap.Modal(modalfuturo)
+        
+        console.log(modal.querySelector(btn) )
+        modal.querySelector(btn).addEventListener("click", (elem) => {
+            myModal.hide()
+            document.querySelector("modal-backdrop").remove()
+            myModalfuturo.show()
+        })
+    }
 
     // o molde da lista em html e css
     molde.innerHTML = ` 
@@ -75,7 +94,7 @@ const linha = (num, bairroI, bairroEnd, horarioI, horarioEnd, ItinerarioI, Itine
 
             </div>
             <div class="modal-footer border-0 px-4">
-                <button type="button" class="btn btn-primary btnalternar" data-bs-target="#${idmodal2}" data-bs-toggle="modal">Itinerario</button>
+                <button type="button" class="btn btn-primary btnalternar" id="${btnalternar1}">Itinerario</button>
 
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
             </div>
@@ -84,7 +103,7 @@ const linha = (num, bairroI, bairroEnd, horarioI, horarioEnd, ItinerarioI, Itine
         </div>
 
 
-        <div class="modal fade" id="${idmodal2}" tabindex="-1" aria-labelledby="a"
+        <div class="modal fade " id="${idmodal2}" tabindex="-1" aria-labelledby="a"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
             <div class="modal-content">
@@ -114,7 +133,7 @@ const linha = (num, bairroI, bairroEnd, horarioI, horarioEnd, ItinerarioI, Itine
 
             </div>
             <div class="modal-footer border-0 px-4">
-                <button  type="button" class="btn btn-primary btnalternar" data-bs-target="#${idmodal1}" data-bs-toggle="modal">Horario</button>
+                <button  type="button" class="btn btn-primary " id="${btnalternar2}">Horario</button>
 
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
             </div>
@@ -123,11 +142,11 @@ const linha = (num, bairroI, bairroEnd, horarioI, horarioEnd, ItinerarioI, Itine
         </div>
     `   
     
-    molde.querySelector(".btnalternar").addEventListener("click", (elem) => {
-        elem.hide()
-    })
+
     
-    
+
+    alternarmodal(btnalternar2, idmodal1, idmodal2, molde)
+
     addLista(horarioI, horasI, "rounded-end-0")
     addLista(horarioEnd, horasEnd, "rounded-start-0")
     
