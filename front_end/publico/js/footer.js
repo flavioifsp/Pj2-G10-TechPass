@@ -125,13 +125,21 @@ class footer extends HTMLElement{
     }
 
     connectedCallback(){
+        this.appendChild(footerT.content)
+
         const script = document.createElement('script');
         script.src = 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js';
         script.integrity = 'sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm';
         script.crossOrigin = 'anonymous';
-        this.appendChild(script);
 
-        this.appendChild(footerT.content)
+        let scri = true
+        for (let x of [...document.querySelectorAll("script")]) {
+            if (x.src == "https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js") {
+                scri = false
+                break
+            }
+        }
+        if (scri) this.appendChild(script);
     }
 }
 

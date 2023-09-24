@@ -90,8 +90,7 @@ menuT.innerHTML = `
     </div>
 </div>
         
-        
-    
+
     `;
 
 class header extends HTMLElement {
@@ -100,21 +99,24 @@ class header extends HTMLElement {
     }
 
     connectedCallback() {
-        
-
         this.innerHTML = menuT.innerHTML
 
         const script = document.createElement('script');
         script.src = 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js';
         script.integrity = 'sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm';
         script.crossOrigin = 'anonymous';
-        this.appendChild(script);
 
+        let scri = true
+        for (let x of [...document.querySelectorAll("script")]) {
+            if (x.src == "https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js") {
+                scri = false
+                break
+            }
+        }
+        if (scri) this.appendChild(script);
         
     }
-
 }
 
 customElements.define('header-paia', header)
-
 
