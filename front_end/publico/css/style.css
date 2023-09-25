@@ -153,10 +153,8 @@ a {
 }
 
 
-
-@media (max-width: 575px) {
-
-  
+.btnimgpaias{
+    width: 70% ;
 }
 
 
@@ -205,21 +203,16 @@ a {
 
 @media (max-width: 767px) {
     .btnimgpaias{
-        width: 25%;
+        width: 30% !important;
     }
 
    #icones{
-    display: none;
+     display: none;
    }
 
 
 }
 
-@media (min-width: 1080px){
-    #subNossosCartoes{
-        width: 75%;
-    }
-}
 
 
 /* @media (min-width: 900px){
