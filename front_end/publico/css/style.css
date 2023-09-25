@@ -1,5 +1,5 @@
 
-* {
+*{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -45,18 +45,21 @@ main .banner{
 
 #img-top-banner{
     margin-left: auto;
+    z-index: 1;
 }
 
 
 #img-meio-banner{
     margin-right: auto;
-    margin-top: calc(1vw * -7);
+    margin-top: calc(1vw * -5);
+    z-index: 2;
 }
 
 
 #img-bottom-banner{
-    margin-top: calc(1vw * -5);
+    margin-top: calc(1vw * -4);
     margin-left: auto;
+    z-index: 1;
  }
 
 
@@ -117,10 +120,6 @@ width: 100px;
     text-decoration: none;
 }
 
-.fontbotoes {
-    font-size: 15px;
-    color: white;
-}
 
 
 
@@ -140,13 +139,6 @@ width: 100px;
 }
 
 
-
-#botoesmenu i {
-    color: #ffffff;
-    font-size: 30px;
-    text-align: start;
-    margin-top: 10px;
-}
 
 .barra-pesquisa {
     width: 70%;
@@ -209,8 +201,13 @@ a {
 
 }
 
-@media (max-width: 768px) {
- 
+
+
+@media (max-width: 767px) {
+    .btnimgpaias{
+        width: 25%;
+    }
+
    #icones{
     display: none;
    }
@@ -218,24 +215,9 @@ a {
 
 }
 
-
-@media (max-width: 876px) {
-    .tamanho-botoes {
-        width: 130px;
-        height: 100px;
-
-    }
-
-    .fontbotoes {
-        font-size: 10px;
-        color: white;
-    }
-
-    #botoesmenu i {
-        color: #ffffff;
-        font-size: 20px;
-        text-align: start;
-        margin-top: 10px;
+@media (min-width: 1080px){
+    #subNossosCartoes{
+        width: 75%;
     }
 }
 
