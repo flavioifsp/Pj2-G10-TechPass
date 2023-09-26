@@ -36,18 +36,35 @@ const subRecarregarCartoes = document.getElementById("subRecarregarCartoes")
 const subBloquearCartoes = document.getElementById("subBloquearCartoes")
 
 
-function inicio(btn, pagInicial, sub){
+const btns = [btnBloquearMeuCartao, btnNossosCartoes, btnRecarregarMeuCartao]
+
+function inicio(btn, pagInicial, sub, btns){
     btn.addEventListener("click", () => {
         const pags = [...document.querySelectorAll(sub)]
-        pags.map((elem)=>{elem.classList.add("d-none")})
-        pagInicial.classList.toggle("d-none")
+        pags.map((elem, indi)=>{
+            elem.style.transform = `translateX(120%)`
+
        
+            elem.addEventListener("transitionend", () => {
+                elem.classList.add("d-none")
+
+                if(elem == pagInicial){
+               
+                    pagInicial.classList.toggle("d-none")
+                    pagInicial.style.transform = `translateX(-100px)`
+                }
+            })
+            btns[indi].style.background = "linear-gradient(45deg, rgba(0, 117, 255, 0.7978737027037377) 25%, rgba(96, 2, 255, 0.6970333665692839) 76%)"
+            
+        })
+        btn.style.background = "#6000CF"
+
     })
 }
 
 
 
-inicio(btnNossosCartoes,subNossosCartoes, ".sub")
-inicio(btnRecarregarMeuCartao,subRecarregarCartoes, ".sub")
-inicio(btnBloquearMeuCartao,subBloquearCartoes, ".sub")
+inicio(btnNossosCartoes,subNossosCartoes, ".sub", btns)
+inicio(btnRecarregarMeuCartao,subRecarregarCartoes, ".sub", btns)
+inicio(btnBloquearMeuCartao,subBloquearCartoes, ".sub", btns)
 
