@@ -157,14 +157,6 @@ a {
 
 
 
-.sub{
-    transition: transform 1s; 
-}
-
-.paiasub{
-    width: 0px;
-}
-
 
 #faleConosco {
     scrollbar-width: thin;
@@ -183,6 +175,10 @@ a {
     background-color: rgb(79, 73, 126);
     border-radius: 10px;
  
+}
+
+#sectioncartoes{
+    min-height: 664px;
 }
 
 @media (max-width: 578px) {
