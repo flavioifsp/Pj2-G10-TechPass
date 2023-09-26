@@ -12,8 +12,6 @@
 
 
 
-
-
 a{
     text-decoration: none !important;
 }
@@ -35,7 +33,7 @@ main .banner{
 }
 
 .banner div img{
-    width: 66%;
+    width: 60%;
     transition: 0.5s;
 }
 
@@ -45,24 +43,26 @@ main .banner{
 
 #img-top-banner{
     margin-left: auto;
-    z-index: 1;
+    z-index: 2;
 }
 
 
 #img-meio-banner{
     margin-right: auto;
-    margin-top: calc(1vw * -5);
-    z-index: 2;
+    margin-left: 15%;
+    margin-top: calc(1vw * -4);
+z-index: 2;
 }
 
 
 #img-bottom-banner{
     margin-top: calc(1vw * -4);
     margin-left: auto;
-    z-index: 1;
- }
+    z-index:1;
+}
+ 
 
-
+ 
 #parte1 div{
     max-width: 480px;
 }
@@ -100,9 +100,6 @@ width: 100px;
     width: 150px;
 }
 
-.botoes {
-    background-color: yellow
-}
 
 
 .cor-botoes {
@@ -159,12 +156,33 @@ a {
 }
 
 
+
 .sub{
     transition: transform 1s; 
 }
 
 .paiasub{
     width: 0px;
+}
+
+
+#faleConosco {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(30, 0, 255) ;
+}
+
+
+#faleConosco::-webkit-scrollbar {
+    width: 5px;
+        
+}
+
+
+
+#faleConosco::-webkit-scrollbar-thumb {
+    background-color: rgb(79, 73, 126);
+    border-radius: 10px;
+ 
 }
 
 @media (max-width: 578px) {
