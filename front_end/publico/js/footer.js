@@ -92,7 +92,7 @@ footerT.innerHTML = `
               <h6 class="text-uppercase fw-bold mb-3 " style="font-size: 13px;">SAC</h6>
               
               <p><i class="fas fa-envelope mr-3"></i> sac@techpass.com.br</p>
-              <p style="font-size: 13px;"><i class="fa-brands fa-whatsapp"></i> 11 4444-2813</p>
+              <p style="font-size: 13px;"><i class="fa-brands fa-whatsapp"></i> (11) 98878-5750</p>
               <p style="font-size: 13px;"> Endereço: Av. Bahia, 1739 - Indaiá, Caraguatatuba
                 - SP,
                 11665-071</p>
