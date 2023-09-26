@@ -20,7 +20,7 @@ menuT.innerHTML = `
 
             <div class="container" id="menu">
                 <a href="index.html" class="navbar-brand ">
-                    <img src="img/logo.png" alt="passtech" class="img-fluid w-100">
+                    <img src="img/logo.png" alt="passtech" class="img-fluid w-900 m-2">
                 </a>
 
         <div class="collapse navbar-collapse column-gap-4" id="aaaa">
@@ -36,11 +36,11 @@ menuT.innerHTML = `
 
             <ul class="navbar-nav align-items-center column-gap-1">
                 <li class="navbar-item ">
-                    <a href="login.html" class="nav-link" style="font-size: 1rem;">entrar</a>
+                    <a href="login.html" class="nav-link" style="font-size: 1rem;">Entrar</a>
                 </li>
                 <li class="navbar-item ">
                     <a href="cadastro.html" class="btn btn-primary  btn" role="button"
-                        aria-disabled="true">cadastrar</a>
+                        aria-disabled="true">Cadastrar</a>
                 </li>
             </ul>
         </div>

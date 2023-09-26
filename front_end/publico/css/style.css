@@ -50,13 +50,13 @@ main .banner{
 #img-meio-banner{
     margin-right: auto;
     margin-left: 15%;
-    margin-top: calc(1vw * -5);
+    margin-top: calc(1vw * -4);
 z-index: 2;
 }
 
 
 #img-bottom-banner{
-    margin-top: calc(1vw * -6);
+    margin-top: calc(1vw * -4);
     margin-left: auto;
     z-index:1;
 }
@@ -100,9 +100,6 @@ width: 100px;
     width: 150px;
 }
 
-.botoes {
-    background-color: yellow
-}
 
 
 .cor-botoes {
@@ -155,6 +152,26 @@ a {
 
 .btnimgpaias{
     width: 70% ;
+}
+
+
+#faleConosco {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(30, 0, 255) ;
+}
+
+
+#faleConosco::-webkit-scrollbar {
+    width: 5px;
+        
+}
+
+
+
+#faleConosco::-webkit-scrollbar-thumb {
+    background-color: rgb(79, 73, 126);
+    border-radius: 10px;
+ 
 }
 
 
