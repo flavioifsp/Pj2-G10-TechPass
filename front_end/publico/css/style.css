@@ -245,3 +245,119 @@ a {
         width: 90% !important;
     }
 } */
+
+
+
+.infos {
+    align-items: center;
+    background-color: #FFFFFF;
+    border-radius: 50%;
+    color: #263238;
+    display: flex;
+    font-size: 14px;
+    gap: 15px;
+    height: 30px;
+    justify-content: center;
+    padding: 4px;
+    position: relative;
+    position: relative;
+    transition: all 0.3s ease-out;
+    width: 30px;
+  }
+  
+  .infos::after {
+    border-left: 9px solid transparent;
+    border-right: 9px solid transparent;
+    border-top: 9px solid #FFFFFF;
+    content: "";
+    height: 0;
+    left: 50%;
+    position: absolute;
+    top: 95%;
+    transform: translate(-50%, 0);
+    transition: all 0.3s ease-out;
+    width: 0;
+    z-index: 1;
+  }
+  
+  .infos .icon {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    color: #FFFFFF;
+  }
+  
+  .infos .icon svg {
+    height: 30px;
+    width: auto;
+  }
+  
+  .infos .details {
+    display: none;
+    flex-direction: column;
+    flex: 1;
+  }
+  
+  .infos .address {
+    color: #9E9E9E;
+    font-size: 10px;
+    margin-bottom: 10px;
+    margin-top: 5px;
+  }
+  
+  .infos .features {
+    align-items: flex-end;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+  }
+  
+  .infos .features > div {
+    align-items: center;
+    background: #F5F5F5;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    display: flex;
+    font-size: 10px;
+    gap: 5px;
+    padding: 5px;
+  }
+  
+  /*
+   * infos styles in abertoed state.
+   */
+  .infos.aberto {
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.2);
+    height: 80px;
+    padding: 8px 15px;
+    width: auto;
+  }
+  
+  .infos.aberto::after {
+    border-top: 9px solid #FFFFFF;
+  }
+  
+  .infos.aberto .details {
+    display: flex;
+  }
+  
+  .infos.aberto .icon svg {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .infos .bed {
+    color: #FFA000;
+  }
+  
+  .infos .bath {
+    color: #03A9F4;
+  }
+  
+  .infos .size {
+    color: #388E3C;
+  }
+  
+

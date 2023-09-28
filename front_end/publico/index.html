@@ -539,58 +539,15 @@
             </form>
 
 
-            <ul class="list-group mt-3 h-100">
-
-              <li class="list-group-item list-group-item-action " aria-current="true">
-                <div class="d-flex w-100 justify-content-between">
-                  <h5 class="mb-1">Indaia</h5>
-                </div>
-                <p class="mb-1">502 R. Dr. Pérsio Brasil Arruda.</p>
-                <small>Ponto de recarga da Tech Pass</small>
-              </li>
-
-              <li class="list-group-item list-group-item-action " aria-current="true">
-                <div class="d-flex w-100 justify-content-between">
-                  <h5 class="mb-1">Massaguaçú</h5>
-                </div>
-                <p class="mb-1">601 Av. Kunio Nishi</p>
-                <small>Ponto de recarga da Tech Pass</small>
-              </li>
-
-              <li class="list-group-item list-group-item-action " aria-current="true">
-                <div class="d-flex w-100 justify-content-between">
-                  <h5 class="mb-1">Martim de Sá</h5>
-                </div>
-                <p class="mb-1">1091 Av. Dr. Aldino Schiavi</p>
-                <small>Ponto de recarga da Tech Pass</small>
-              </li>
-
-              <li class="list-group-item list-group-item-action " aria-current="true">
-                <div class="d-flex w-100 justify-content-between">
-                  <h5 class="mb-1">Martim de Sá</h5>
-                </div>
-                <p class="mb-1">1091 Av. Dr. Aldino Schiavi</p>
-                <small>Ponto de recarga da Tech Pass</small>
-              </li>
-
-            </ul>
+            <ul class="list-group mt-3 h-100" id="lista-de-pontos"></ul>
 
           </div>
 
           <div class=" pe-lg-0 col-lg-8 col-12 " style='color: #0095eb;'>
-            <div id='gmap_canvas' class=" border ratio ratio-4x3"></div>
-            <style>
-              #gmap_canvas img {
-                max-width: none !important;
-                background: none !important
-              }
-
-              .gm-ui-hover-effect {
-                display: none !important;
-              }
-            </style>
+            <div id='divmapa' class=" border ratio ratio-4x3" style="img {max-width: none !important; background: none !important}"></div>
           </div>
         </div>
+
       </section>
 
 
@@ -712,9 +669,9 @@
 
 
 
-  <script src='http://maps.google.com/maps/api/js?key=AIzaSyDv7YRz1WWPhkr6aim8wEm4WDPBdk81z54'></script>
-
-  <script src="js/botoes-mapa.js"></script>
+  <!-- <script src='http://maps.google.com/maps/api/js?key=AIzaSyDv7YRz1WWPhkr6aim8wEm4WDPBdk81z54'></script> -->
+  <script src="js/mapa.js"></script>
+  <script src="js/botoescards.js"></script>
 
 
 </body>
