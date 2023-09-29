@@ -17,7 +17,25 @@ function getDistanceBetweenPoints(latitude1, longitude1, latitude2, longitude2, 
     }
 }
 
-
+async function cep(cep) {
+    try {
+      const response = await fetch(`https://brasilapi.com.br/api/cep/v2/${cep}`);
+      if (response.status != 200) {
+      }
+      const data = await response.json();
+  
+      console.log(cep);
+      const endereco = data.state;
+      const bairro = data.neighborhood;
+      const coord = data.coordinates;
+  
+      return [endereco, bairro, coord];
+    } catch (error) {
+      error;
+    }
+  }
+  
+  
 
 let map;
 async function initMap(pontos, divmapa, listapai) {
@@ -27,7 +45,26 @@ async function initMap(pontos, divmapa, listapai) {
 
     listapai = document.getElementById(listapai)
     divmapa = document.getElementById(divmapa)
-    const bairro = "paia"
+    
+    pontos.map((elem, i) => {
+        const infoslocal = cep(elem.cep)
+
+        if (infoslocal[0] == undefined) {
+              
+        } else  pontos[i].endereco = infoslocal[0]
+        
+        
+        if (infoslocal[1] == undefined) {
+
+        } else  pontos[i].bairro = infoslocal[1];
+    
+        
+        if (infoslocal[2] == undefined) {
+
+        } else pontos[i].coord = infoslocal[2];
+    }) 
+
+
 
 
     map = new Map(divmapa, {
@@ -139,20 +176,21 @@ initMap(
             nome: "paia",
             endereco: "502 R. Dr. Pérsio Brasil Arruda.",
             descricao: "Ponto de recarga da Tech Pass",
+            cep: 11660380,
             coordenadas: { lat: -23.6384809, lng: -45.4461392 }
         },
-        {
-            nome: "paia2",
-            endereco: "502 R. Dr. Pérsio Brasil Arruda.",
-            descricao: "Ponto de recarga da Tech Pass",
-            coordenadas: { lat: -23.6042504, lng: -45.3488857 }
-        },
-        {
-            nome: "paia3",
-            endereco: "502 R. Dr. Pérsio Brasil Arruda.",
-            descricao: "Ponto de recarga da Tech Pass",
-            coordenadas: { lat: -23.6070944, lng: -45.354988 }
-        },
+        // {
+        //     nome: "paia2",
+        //     endereco: "502 R. Dr. Pérsio Brasil Arruda.",
+        //     descricao: "Ponto de recarga da Tech Pass",
+        //     coordenadas: { lat: -23.6042504, lng: -45.3488857 }
+        // },
+        // {
+        //     nome: "paia3",
+        //     endereco: "502 R. Dr. Pérsio Brasil Arruda.",
+        //     descricao: "Ponto de recarga da Tech Pass",
+        //     coordenadas: { lat: -23.6070944, lng: -45.354988 }
+        // },
     ],
     divmapa = "divmapa",
     listapai = "lista-de-pontos"
