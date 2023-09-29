@@ -6,9 +6,9 @@
 //site em que peguei a função: https://pt.martech.zone/calculate-great-circle-distance/#:~:text=A%20maneira%20simples%20de%20calcular,%C3%A9%20conhecido%20como%20Dist%C3%A2ncia%20euclidiana.
 function getDistanceBetweenPoints(latitude1, longitude1, latitude2, longitude2, unit = 'miles') {
     let theta = longitude1 - longitude2;
-    let distance = 60 * 1.1515 * (180/Math.PI) * Math.acos(
-        Math.sin(latitude1 * (Math.PI/180)) * Math.sin(latitude2 * (Math.PI/180)) + 
-        Math.cos(latitude1 * (Math.PI/180)) * Math.cos(latitude2 * (Math.PI/180)) * Math.cos(theta * (Math.PI/180))
+    let distance = 60 * 1.1515 * (180 / Math.PI) * Math.acos(
+        Math.sin(latitude1 * (Math.PI / 180)) * Math.sin(latitude2 * (Math.PI / 180)) +
+        Math.cos(latitude1 * (Math.PI / 180)) * Math.cos(latitude2 * (Math.PI / 180)) * Math.cos(theta * (Math.PI / 180))
     );
     if (unit == 'miles') {
         return Math.round(distance, 2);
@@ -27,6 +27,7 @@ async function initMap(pontos, divmapa, listapai) {
 
     listapai = document.getElementById(listapai)
     divmapa = document.getElementById(divmapa)
+    const bairro = "paia"
 
 
     map = new Map(divmapa, {
@@ -39,6 +40,7 @@ async function initMap(pontos, divmapa, listapai) {
         fullscreenControl: false
     });
 
+    const infowindow = []
     pontos.map((umPonto, i) => {
         const rowlista = document.createElement("li")
         rowlista.classList.add("list-group-item", "list-group-item-action")
@@ -53,39 +55,42 @@ async function initMap(pontos, divmapa, listapai) {
 
         if (i == 0) { rowlista.classList.add("active") }
 
-
+        const makericon = document.createElement("img")
+        makericon.src = ("img/map.png")
+        makericon.style.width = "50px"
+        makericon.style.height = "auto"
         const marker = new AdvancedMarkerView({
             map: map,
             position: umPonto.coordenadas,
-            title: umPonto.nome,
+            content: makericon,
+            collisionBehavior: "REQUIRED_AND_HIDES_OPTIONAL"
+
         });
 
 
 
-        const infowindow = new google.maps.InfoWindow({
-            content: `<small>${umPonto.descricao}</small>`,
+
+        infowindow[i] = new google.maps.InfoWindow({
+            content: `
+                <div class="p-0 m-0 text-dark">
+                    <h4 class=" p-0 m-0">Tech Pass</h4>
+                    <p class=" p-0 m-0">ponto de recarga em ${bairro}</p>
+                </div>
+            `,
             ariaLabel: "Tech Pass",
         });
 
         rowlista.addEventListener("click", () => {
-            for (li of [...listapai.querySelectorAll("li")]) {
-                if (li == rowlista) {
-                    rowlista.classList.add("active")
-                } else {
-                    li.classList.remove("active")
-                }
-            }
-
 
             const distancia = getDistanceBetweenPoints(map.getCenter().lat(), map.getCenter().lng(), umPonto.coordenadas.lat, umPonto.coordenadas.lng, "kilometers")
 
             let zoom, transicaoS
-            if(distancia>9){
+            if (distancia > 9) {
                 zoom = 12
-                transicaoS =  800
-            }   else {
+                transicaoS = 800
+            } else {
                 zoom = 14
-                transicaoS =  500
+                transicaoS = 500
             }
 
 
@@ -94,14 +99,29 @@ async function initMap(pontos, divmapa, listapai) {
                 map.panTo(umPonto.coordenadas);
                 map.setZoom(15)
             }, transicaoS);
-          
-            
 
-            
-            // infowindow.open({
-            //     anchor: marker,
-            //     map,
-            // });
+
+            infowindow.map((elem) => {
+                if (elem == infowindow[i]) {
+                    window.setTimeout(() => {
+                        elem.open({
+                            anchor: marker,
+                            map, 
+                        });
+                    }, transicaoS+200)
+                } else {
+                    elem.close()
+                }
+            })
+
+
+            for (li of [...listapai.querySelectorAll("li")]) {
+                if (li == rowlista) {
+                    rowlista.classList.add("active")
+                } else {
+                    li.classList.remove("active")
+                }
+            }
         })
 
 
