@@ -27,7 +27,6 @@ async function initMap(pontos, divmapa, listapai) {
 
     listapai = document.getElementById(listapai)
     divmapa = document.getElementById(divmapa)
-    const bairro = "paia"
 
 
     map = new Map(divmapa, {
@@ -74,7 +73,7 @@ async function initMap(pontos, divmapa, listapai) {
             content: `
                 <div class="p-0 m-0 text-dark">
                     <h4 class=" p-0 m-0">Tech Pass</h4>
-                    <p class=" p-0 m-0">ponto de recarga em ${bairro}</p>
+                    <p class=" p-0 m-0">ponto de recarga em ${umPonto.bairro}</p>
                 </div>
             `,
             ariaLabel: "Tech Pass",
@@ -139,18 +138,21 @@ initMap(
             nome: "paia",
             endereco: "502 R. Dr. Pérsio Brasil Arruda.",
             descricao: "Ponto de recarga da Tech Pass",
+            bairro: "umBairroQualquer",
             coordenadas: { lat: -23.6384809, lng: -45.4461392 }
         },
         {
             nome: "paia2",
             endereco: "502 R. Dr. Pérsio Brasil Arruda.",
             descricao: "Ponto de recarga da Tech Pass",
+            bairro: "umBairroQualquer",
             coordenadas: { lat: -23.6042504, lng: -45.3488857 }
         },
         {
             nome: "paia3",
             endereco: "502 R. Dr. Pérsio Brasil Arruda.",
             descricao: "Ponto de recarga da Tech Pass",
+            bairro: "umBairroQualquer",
             coordenadas: { lat: -23.6070944, lng: -45.354988 }
         },
     ],
