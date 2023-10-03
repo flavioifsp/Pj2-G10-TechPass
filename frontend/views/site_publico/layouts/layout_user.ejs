@@ -1,0 +1,60 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous" />
+
+
+
+<main class=" p-0  d-flex align-items-start justify-content-between container-fluid bg-body-secondary me-5  ms-0"
+    id="mainpaia">
+    <nav class="d-md-flex flex-column   d-none  flex-shrink-0 p-3 bg-light  shadow nav h-100">
+
+        <div class="nav-item d-inline-flex align-items-center justify-content-center">
+            <i class="bi my-auto bi-person-circle" style="font-size: 2.6rem"></i>
+            <h5 class="ms-3">PAIOSO CABRAL</h5>
+        </div>
+
+
+        <hr>
+        <ul class="nav nav-pills  gap-1 flex-column mb-auto">
+            <li class="nav-item">
+                <a href="MeuPerfil.html" class="nav-link text-dark" id="perfil">
+                    <i class="bi bi-person-circle"></i>
+                    MEU PERFIL
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="MeusCartoes.html" class="nav-link text-dark" id="mycard">
+                    <i class="bi bi-wallet2"></i>
+                    MEUS CARTÕES
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="formadePag.html" class="nav-link text-dark pe-0" id="formaspag">
+                    <i class="bi bi-credit-card-2-back"></i>
+                    FORMAS DE PAGAMENTO
+                </a>
+            </li>
+
+        </ul>
+    </nav>
+
+    <section class=" d-flex pb-5  flex-column align-items-end mx-auto  col-sm-10 col-11 col-md-8  ">
+
+        <div style="width: 90%;" class="mt-2 me-5">
+            <h2 class="py-4 mb-0 mt-1 ms-3 " id="nomefoco"></h2>
+
+           
+            <div id="info" class=" rounded-4 px-3 py-4 bg-light  bg-light shadow  mx-md-2 mx-3 ">
+                 <%- body %>
+            </div>
+        </div>
+    </section>
+</main>
+
+
+<%- include('../partials/_headerUser.ejs'); %>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+    crossorigin="anonymous"></script>
