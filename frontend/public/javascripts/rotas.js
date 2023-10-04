@@ -183,7 +183,7 @@ class linha{
 
 
 for(i = 0, array = []; i<6; i++){
-    array[i] = new linha(i+100, "paiaa", "paiaaa", "#lista-linha")
+    array[i] = new linha(i+100, "olaria", "tinga", "#lista-linha")
     array[i].addModalHorario("11:11, 11:11, 11:11, 11:11, 11:11, 11:11, 11:11", "11:11, 11:11, 11:11, 11:11, 11:11, 11:11, 11:11")
     array[i].addModalItinerario("paertertertretereteria, paietrerterterta, paertertertretereteria, paietrerterterta", " patertertertertia, paiareteterterterpa, ertertertretereteria, paietrerterterta")
     array[i].alternarmodals()
