@@ -1,0 +1,17 @@
+<h2>passe a catraca, <%=nome%></h2>
+<div class="text-start pt-3">
+    <h3>saldo restante: R$<%=SaldoRestante%></h1>
+    <h3>saldo gasto: R$<%=SaldoGasto%></h1>
+</div>
+
+<%let modalidadeIcon%>
+
+<%if(modalidade == "I"){modalidadeIcon = "../images/idoso.svg"%>
+<%} else if(modalidade == "E"){modalidadeIcon = "../images/estudante.svg"%>
+<%} else if(modalidade == "P"){modalidadeIcon = "../images/pcd.svg"%>
+<%} else{modalidadeIcon = ""}%>
+
+
+<div class="position-absolute top-0 end-0  col-3 col-sm-2 col-md-2 col-xl-2 d-flex">
+    <img src="<%= modalidadeIcon %>" class="img-fluid w-50 ms-auto pt-4">
+</div>
