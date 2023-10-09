@@ -25,16 +25,29 @@
     <main class=" d-flex w-75 position-absolute bottom-0 end-0">
       <img src="../images/cartao.png" alt="" class="img-fluid ms-auto">
     </main>
-  
-  
+    
     <%- include('../partials/_logo.ejs'); %>
   </div>
-
   
-  <form >
-      <input class="z-n1 position-absolute top-0" type="text" name="idCard" id="idCard">
+  
+  <form id="formpaia">
+    <input class="z-n1 position-absolute top-0" type="text" name="idCard" id="idCard">
   </form>
+ 
+  <script>
+    const campo = document.querySelector("#idCard")
+    const forms = document.querySelector("#formpaia")
+    
+    campo.focus()
+    document.addEventListener("click", () => {
+      campo.focus()
+    })
 
+    forms.addEventListener("submit", (evt) =>{
+      evt.preventDefault()
+      
+    })
+  </script>
 </body>
 
 </html>
