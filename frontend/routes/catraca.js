@@ -2,12 +2,27 @@ var express = require('express');
 var router = express.Router();
 
 /* GET home page. */
-router.get( '/', function(req, res, next) {
-  res.render( 'catraca/pages/CatracaIndex.ejs', {layout: false});
+router.get('/', function (req, res, next) {
+  res.render('catraca/pages/CatracaIndex.ejs', { layout: false });
+
+  
 });
 
+
+
+
+// erro
+router.get('/erro', function (req, res, next) {
+  res.render('catraca/pages/erro.ejs', {
+    layout: "catraca/layouts/layoutCatraca.ejs",
+    iconimg: "../images/aviso.png", corback: "#E2E45C", title: "Catraca erro"
+  });
+});
+
+
+
 // sucesso
-router.get( '/success', function(req, res, next) {
+router.get('/success', function (req, res, next) {
   const nome = "leopaia"
   const SaldoRestante = "11,12"
   const SaldoGasto = "3"
@@ -20,8 +35,24 @@ router.get( '/success', function(req, res, next) {
   // pcd (ex: cadeirante)
   const modalidade = "P"
 
-  res.render( 'catraca/pages/success.ejs', {layout: "catraca/layouts/layoutCatraca.ejs", iconimg: "../images/ok.png", corback: "#73D271", title: "sucesso", nome, SaldoRestante, SaldoGasto, modalidade})
+
+  res.render('catraca/pages/success.ejs', {
+    layout: "catraca/layouts/layoutCatraca.ejs", iconimg: "../images/ok.png",
+    corback: "#73D271", title: "Catraca sucesso", nome, SaldoRestante, SaldoGasto, modalidade
+  })
 })
+
+
+// saldo insuficiente
+router.get('/saldoOff', function (req, res, next) {
+  const saldo = 2
+  const tarifa = 3
+
+  res.render('catraca/pages/saldoOff.ejs', {
+    layout: "catraca/layouts/layoutCatraca.ejs",
+    iconimg: "../images/insuficiente.png", corback: "#df4a29", title: "saldo insuficiente", saldo, tarifa
+  });
+});
 
 
 

@@ -10,22 +10,31 @@
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 
-<body class="container-fluid  p-0 vh-100" style="background-color: rgb(31, 45, 170);">
 
-  <header class="text-center d-flex flex-column pt-5 text-white text-uppercase h-25">
-    <h1>aproxime o cartão</h1>
+<body class="  " >
 
-    <h3 class="pt-2">Tarifa: R$ 3,50</h3>
-  </header>
-
+  <div class="z-1 container-fluid  p-0 vh-100" style="background-color: rgb(31, 45, 170);">
+    <header class="text-center d-flex flex-column pt-5 text-white text-uppercase h-25">
+      <h1>aproxime o cartão</h1>
+  
+      <h3 class="pt-2">Tarifa: R$ 3,50</h3>
+    </header>
+  
+  
+  
+    <main class=" d-flex w-75 position-absolute bottom-0 end-0">
+      <img src="../images/cartao.png" alt="" class="img-fluid ms-auto">
+    </main>
+  
+  
+    <%- include('../partials/_logo.ejs'); %>
+  </div>
 
   
-  <main class=" d-flex w-75 position-absolute bottom-0 end-0">
-      <img src="images/cartão.png" alt="" class="img-fluid ms-auto">
-  </main>
+  <form >
+      <input class="z-n1 position-absolute top-0" type="text" name="idCard" id="idCard">
+  </form>
 
-  
-  <%- include('../partials/_logo.ejs'); %>
 </body>
 
 </html>
