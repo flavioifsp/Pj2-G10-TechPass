@@ -3,10 +3,11 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  res.render('catraca/pages/CatracaIndex.ejs', { layout: false });
 
-  
-});
+  res.render('catraca/pages/CatracaIndex.ejs', { layout: false});
+
+
+}); 
 
 
 
@@ -50,7 +51,7 @@ router.get('/saldoOff', function (req, res, next) {
 
   res.render('catraca/pages/saldoOff.ejs', {
     layout: "catraca/layouts/layoutCatraca.ejs",
-    iconimg: "../images/insuficiente.png", corback: "#df4a29", title: "saldo insuficiente", saldo, tarifa
+    iconimg: "../images/insuficiente.png", corback: "#df4a29", title: "saldo insuficiente"
   });
 });
 

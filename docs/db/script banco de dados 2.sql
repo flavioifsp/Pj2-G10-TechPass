@@ -8,28 +8,28 @@ CREATE TABLE onibus(
 );
 
 CREATE TABLE motorista(
-  registro INT PRIMARY KEY AUTO_INCREMENT,
-  CPF VARCHAR(45) NOT NULL,
-  foto VARCHAR(200) NOT NULL,
-  nascimento DATE NOT NULL,
-  salario INT NOT NULL,
-  telefone INT NULL
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  CPF VARCHAR(45) ,
+  foto VARCHAR(200) ,
+  nascimento DATE ,
+  salario INT ,
+  telefone INT 
 );
 
 CREATE TABLE usuario(
-  cliente_id INT NOT NULL PRIMARY KEY,
-  nome VARCHAR(45) not null,
-  email VARCHAR(150) NOT NULL,
-  senha VARCHAR(45) NOT NULL,
-  telefone INT NULL,
-  token VARCHAR(45) NULL
+  id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  nome VARCHAR(45) ,
+  email VARCHAR(150),
+  senha VARCHAR(45) ,
+  telefone INT ,
+  token VARCHAR(45) 
 );
 
 CREATE TABLE linha(
   id INT PRIMARY KEY AUTO_INCREMENT,
-  numero_linha INT NULL,
-  bairroIda VARCHAR(45) NULL,
-  BairroVolta VARCHAR(45) NULL
+  numero_linha INT ,
+  bairroIda VARCHAR(45) ,
+  BairroVolta VARCHAR(45) 
 );
   
 CREATE TABLE HorarioSaidaBairro(
@@ -41,70 +41,70 @@ CREATE TABLE HorarioSaidaBairro(
 );
 
 CREATE TABLE viagem(
-  idviagem INT PRIMARY KEY AUTO_INCREMENT,
-  inicio DATETIME NOT NULL,
-  fim DATETIME NOT NULL,
-  onibus_id INT NOT NULL,
-  motorista_registro INT NOT NULL,
-  linha_id INT NOT NULL,
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  inicio DATETIME ,
+  duracao time  ,
+  onibus_id INT ,
+  motorista_registro INT ,
+  linha_id INT ,
   CONSTRAINT fk_viagem_onibus FOREIGN KEY (onibus_id) REFERENCES onibus(id),
   CONSTRAINT fk_viagem_motorista1 FOREIGN KEY (motorista_registro) REFERENCES motorista(registro),
   CONSTRAINT fk_viagem_linha1 FOREIGN KEY (linha_id) REFERENCES linha (`id`)
 );
  
 CREATE TABLE Loja_Recarga(
-  idLoja INT PRIMARY KEY AUTO_INCREMENT,
-  nome VARCHAR(45) NOT NULL DEFAULT 'Tech Pass',
-  cep VARCHAR(8) NOT NULL,
-  coordenadas VARCHAR(45) NOT NULL
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  nome VARCHAR(45)  DEFAULT 'Tech Pass',
+  cep VARCHAR(8) ,
+  coordenadas VARCHAR(45) 
 );
   
 CREATE TABLE cartao_passe(
   id INT PRIMARY KEY,
-  modalidade VARCHAR(45) NOT NULL,
-  desconto INT NOT NULL
+  modalidade VARCHAR(45) ,
+  desconto INT 
 );
   
 CREATE TABLE atendente(
-  registro INT PRIMARY KEY AUTO_INCREMENT,
-  cpf VARCHAR(11) NOT NULL,
-  salario INT NULL,
-  senha VARCHAR(45) NULL,
-  token VARCHAR(45) NULL
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  cpf VARCHAR(11) ,
+  salario INT ,
+  senha VARCHAR(45) ,
+  token VARCHAR(45) 
 );
   
 CREATE TABLE gerente(
-  registro INT PRIMARY KEY AUTO_INCREMENT,
-  cpf VARCHAR(45) NOT NULL,
-  salario INT NULL,
-  senha VARCHAR(45) NULL,
-  token VARCHAR(45) NULL
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  cpf VARCHAR(45) ,
+  salario INT ,
+  senha VARCHAR(45) ,
+  token VARCHAR(45) 
 );
   
   
 CREATE TABLE clientes(
   id INT PRIMARY KEY AUTO_INCREMENT,
-  cpf VARCHAR(45) NOT NULL unique,
-  nome VARCHAR(45) not NULL,
-  nascimento DATE not NULL,
-  saldo DECIMAL(5,3)  not NULL,
-  cadastrado_cliente INT NOT NULL,
+  cpf VARCHAR(45) ,
+  nome VARCHAR(45) ,
+  nascimento DATE ,
+  saldo DECIMAL(5,3)  ,
+  cadastrado_cliente INT ,
   CONSTRAINT fk_clientes_usuario1 FOREIGN KEY (cadastrado_cliente) REFERENCES usuario(cliente_id)
 );
   
 CREATE TABLE clientes_has_cartao_passe(
   id int primary key auto_increment,
-  clientes_id INT not null,
-  cartao_passe_id INT not null ,
+  clientes_id INT ,
+  cartao_passe_id INT  ,
   CONSTRAINT fk_clientes_has_cartao_passe_clientes FOREIGN KEY (clientes_id) REFERENCES clientes(id),
   CONSTRAINT fk_clientes_has_cartao_passe_cartao_passe FOREIGN KEY (cartao_passe_id) REFERENCES cartao_passe(id)
 );
   
 CREATE TABLE viagem_has_cliente_cartão(
   viagem_idviagem INT  PRIMARY KEY,
-  clientes_has_cartao_passe_id INT NOT NULL,
-  tarifa DECIMAL(3,2) NOT NULL,
-  data DATETIME NOT NULL,
+  clientes_has_cartao_passe_id INT ,
+  tarifa DECIMAL(3,2) ,
+  data DATETIME ,
   
   CONSTRAINT fk_viagem_has_cliente_has_cartao_passe_viagem1 FOREIGN KEY (viagem_idviagem) REFERENCES viagem(idviagem),
   CONSTRAINT fk_viagem_has_cliente_cartão_clientes_has_cartao_passe1 FOREIGN KEY (clientes_has_cartao_passe_id) REFERENCES clientes_has_cartao_passe(id)
@@ -112,16 +112,16 @@ CREATE TABLE viagem_has_cliente_cartão(
   
 CREATE TABLE ponto_de_onibus(
   id INT PRIMARY KEY,
-  endereco VARCHAR(45) not NULL
+  endereco VARCHAR(45) 
 );
   
   
 CREATE TABLE trajeto_paradas(
   id int primary key auto_increment, 
-  linha_id INT not null,
-  ponto_de_onibus_id INT not null,
-  bairroSaida VARCHAR(25) NOT NULL,
-  caminho INT NOT NULL,
+  linha_id INT ,
+  ponto_de_onibus_id INT ,
+  bairroSaida VARCHAR(25) ,
+  caminho INT ,
   CONSTRAINT fk_linha_has_ponto_de_onibus_linha FOREIGN KEY (linha_id) REFERENCES linha(id),
   CONSTRAINT fk_linha_has_ponto_de_onibus_ponto_de_onibus FOREIGN KEY (ponto_de_onibus_id) REFERENCES ponto_de_onibus(id)
 );
