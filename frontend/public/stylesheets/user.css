@@ -1,0 +1,61 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+
+main{ 
+    height: 950px;
+} 
+
+main a{
+    text-decoration: none;
+    color: blue;
+}
+
+
+
+main nav li > a{
+    text-transform: capitalize;
+    font-weight: 800;
+    
+}
+
+main nav li{
+    width: 100%;
+    
+}
+
+
+
+
+main nav {
+    width: 260px;
+}
+
+
+
+#menuV{
+    width: 100% !important;
+}
+
+#nomefoco{
+    text-transform: uppercase;
+    width: fit-content;
+}
+
+
+#botao-cardcredit{
+    font-size: 130px;
+}
+
+#bg-info{
+    height: 50px;
+}
+
+fieldset{
+    width: fit-content;
+}

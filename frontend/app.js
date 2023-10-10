@@ -6,7 +6,7 @@ const logger = require('morgan');
 const expressLayouts = require("express-ejs-layouts")
 
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
+const userRouter = require('./routes/user');
 const catraca = require('./routes/catraca')
 
 const app = express();
@@ -23,7 +23,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/user', userRouter);
 app.use('/catraca', catraca);
 
 // catch 404 and forward to error handler
