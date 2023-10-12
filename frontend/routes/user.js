@@ -20,6 +20,8 @@ class Menu{
 
             menu[indi].active = "active"
             res.render( endereco , { title: nome, layout: 'site_publico/layouts/layout_user.ejs', menu});
+            
+            res.render( "site_publico/pages/user/meuPerfil/solicitarPasseEspecial.ejs" , { title: nome, layout: 'site_publico/layouts/layout_user.ejs', menu});
             menu[indi].active = ""
         });
     }
@@ -31,7 +33,7 @@ const elemenu = new Menu()
 
 elemenu.addpag("site_publico/pages/user/MeuPerfil.ejs", "/", "bi bi-person-circle", "Meu Perfil")
 elemenu.addpag("site_publico/pages/user/formadepag.ejs","/formasdepagamento", "bi bi-wallet2", "Formas de Pagamento")
-elemenu.addpag("site_publico/pages/user/meucartoes.ejs","/mycard", "bi bi-credit-card-2-back", "Meus Cartões")
+elemenu.addpag("site_publico/pages/user/mycard.ejs","/mycard", "bi bi-credit-card-2-back", "Meus Cartões")
 
 
 

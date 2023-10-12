@@ -1,0 +1,17 @@
+
+
+
+<%- include('mycard/selecionarTipoPasse.ejs') %>
+<%- include('mycard/solicitarPasseComum.ejs') %>
+<div id="teste"></div>
+<%- include('mycard/solicitarPasseEstudante.ejs') %>
+<%- include('mycard/solicitarPasseEspecial.ejs') %>
+<%- include('mycard/recarregarPasse.ejs') %>
+
+
+
+<script>
+  const a = document.querySelector("#teste")
+
+  a.innerHTML = `<%- include('mycard/MeuPerfil.ejs') %>`
+</script>
