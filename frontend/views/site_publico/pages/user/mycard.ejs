@@ -1,17 +1,32 @@
-
-
-
-<%- include('mycard/selecionarTipoPasse.ejs') %>
-<%- include('mycard/solicitarPasseComum.ejs') %>
-<div id="teste"></div>
-<%- include('mycard/solicitarPasseEstudante.ejs') %>
-<%- include('mycard/solicitarPasseEspecial.ejs') %>
-<%- include('mycard/recarregarPasse.ejs') %>
-
+<button id="paia" class="btn btn-primary">paia</button>
+<div id="teste">
+</div>
 
 
 <script>
-  const a = document.querySelector("#teste")
+  const partials = [
+    `<%- include('partialsUser/mycard/_MeuPerfil.ejs') %>`,
+    `<%- include('partialsUser/mycard/_selecionarTipoPasse.ejs') %>`,
+    `<%- include('partialsUser/mycard/_solicitarPasseComum.ejs') %>`,
+    `<%- include('partialsUser/mycard/_solicitarPasseEstudante.ejs') %>`,
+    `<%- include('partialsUser/mycard/_solicitarPasseEspecial.ejs') %>`,
+    `<%- include('partialsUser/mycard/_recarregarPasse.ejs') %>`
+  ]
 
-  a.innerHTML = `<%- include('mycard/MeuPerfil.ejs') %>`
+
+  const btn = document.querySelector("#paia")
+
+
+  btn.addEventListener("click", async () => {
+
+    let i = 0
+    setInterval(() => {
+      document.querySelector("#teste").innerHTML = partials[i]
+      i++
+      if (i == partials.length) i = 0
+    }, 3000)
+
+
+
+  })
 </script>

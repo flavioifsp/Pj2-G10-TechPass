@@ -6,7 +6,7 @@ const fs = require('fs')
 //   "MeuPerfil"
 
 const ejs = [
-    ["MeuPerfil", `
+  ["MeuPerfil", `
   <!-- MEUS CARTÕES inicio-->
   <section class="subpag " id="inicio-meuscard">
     <div class="d-inline-flex column-gap-3 ps-2">
@@ -24,7 +24,7 @@ const ejs = [
   <!-- MEUS CARTÕES inicio -->
 `],
 
-    ["selecionarTipoPasse", `
+  ["selecionarTipoPasse", `
     <!-- solicitar cartões -->
     <section class="subpag d-none align-items-center pe-0 align-items-sm-start d-flex flex-column container" id="solicitar">
       <h3 class="text-uppercase mb-4">selecione o tipo do passe</h3>
@@ -94,7 +94,7 @@ const ejs = [
     </section>
 `],
 
-    ["solicitarPasseComum", `
+  ["solicitarPasseComum", `
 <!-- solicitação passe comum -->
 <section class="subpag d-none" id="soli-comum">
   <h3 class="mb-5">FORMULARIO PARA PASSE COMUM</h3>
@@ -114,8 +114,8 @@ const ejs = [
   </form>
 </section>
 `]
-    ,
-    ["solicitarPasseEstudante", `
+  ,
+  ["solicitarPasseEstudante", `
 <!-- solicitação passe estudante -->
 <section class="subpag d-none" id="soli-estudante">
   <h3 class="mb-5">FORMULARIO PARA PASSE DE ESTUDANTE</h3>
@@ -135,8 +135,8 @@ const ejs = [
   </form>
 </section>
 `]
-    ,
-    ["solicitarPasseEspecial", `
+  ,
+  ["solicitarPasseEspecial", `
 <!-- solicitação passe especial -->
 <section class="subpag d-none" id="soli-especial">
   <h3 class="mb-5">FORMULARIO PARA PASSE ESPECIAL</h3>
@@ -156,8 +156,8 @@ const ejs = [
   </form>
 </section>
 `]
-    ,
-    ["recarregarPasse", `
+  ,
+  ["recarregarPasse", `
 <!-- recarregar -->
 <section class="subpag d-none" id="recarregar">
   <form action="" class="row g-5 ms-2">
@@ -210,18 +210,28 @@ const index = "mycard"
 
 
 
-const caminho = path.join(__dirname, `/${index}`)
+
 ejs.map((elem) => {
 
+  let caminho = path.join(__dirname, "/partialsUser")
+  fs.access(caminho,fs.constants.F_OK, async (err1) => {
+    if(err1 != null){
+       await fs.mkdir(caminho, () => { console.log("a") })
+    }
+
+
+    caminho = path.join(caminho, `/${index}`)
     fs.access(caminho, fs.constants.F_OK, (err) => {
-        if (err != null) {
-            fs.mkdir(caminho, () => { console.log("a") })
-        }
+      if (err != null) {
+        fs.mkdir(caminho, () => { console.log("a") })
+      }
 
-        const novoarquivo = path.join(caminho, elem[0] + ".ejs")
-        fs.writeFile(novoarquivo, elem[1], () => { })
+      const novoarquivo = path.join(caminho, "_" + elem[0] + ".ejs")
 
-        fs.appendFile(caminho+".ejs", `<%- include('${path.relative(__dirname, novoarquivo)}') %>\n`.replace(/\\/g, '/'), () =>{ })
+      fs.writeFile(novoarquivo, elem[1], () => { })
+
+      fs.appendFile(path.join(__dirname, `/${index}`) + ".ejs", `<%- include('${path.relative(__dirname, novoarquivo)}') %>\n`.replace(/\\/g, '/'), () => { })
     });
+  })
 
 })
