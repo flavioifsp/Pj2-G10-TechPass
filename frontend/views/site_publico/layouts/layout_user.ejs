@@ -36,9 +36,9 @@
 
                 <%menu.map((elem) => { %>
                     <li class="nav-item">
-                        <a href="<%=elem.href%>" class="nav-link text-dark <%-elem.active%>" id="perfil">
+                        <a href="/user<%=elem.href%>" class="nav-link text-dark <%-elem.active%>" id="perfil">
                             <i class="<%=elem.icon%>"></i>
-                            <%-elem.text%>
+                            <%-elem.nome%>
                         </a>
                     </li>
                 <% }) %>%>

@@ -7,49 +7,32 @@ class Menu{
         this.array = []   
     }
     
-    
 
-    addpag(endereco, href, icon, text){
-        const hrefM = href
+    addpag(endereco, href, icon, nome){
+ 
         const indi = this.array.length
         const menu = this.array
-        menu.push({ href:hrefM, icon, text, active: ""})
+        menu.push({ href, icon, nome, active: ""})
 
 
 
         router.get(href, function(req, res, next) {
-            console.log(menu)
+
             menu[indi].active = "active"
-            res.render( endereco , { title: 'Perfil', layout: 'site_publico/layouts/layout_user.ejs', menu});
+            res.render( endereco , { title: nome, layout: 'site_publico/layouts/layout_user.ejs', menu});
+            menu[indi].active = ""
         });
     }
-
+  
 } 
 
 
 const elemenu = new Menu()
 
-elemenu.addpag("site_publico/pages/user/MeuPerfil.ejs", "/", "bi bi-person-circle", "MEU PERFIL")
-elemenu.addpag("site_publico/pages/user/formadepag.ejs","/formasdepagamento", "bi bi-wallet2", "FORMAS DE PAGAMENTO")
-// elemenu.addpag("site_publico/pages/user/MeuPerfil.ejs","/", "bi bi-credit-card-2-back", "FORMAS DE PAGAMENTO")
+elemenu.addpag("site_publico/pages/user/MeuPerfil.ejs", "/", "bi bi-person-circle", "Meu Perfil")
+elemenu.addpag("site_publico/pages/user/formadepag.ejs","/formasdepagamento", "bi bi-wallet2", "Formas de Pagamento")
+elemenu.addpag("site_publico/pages/user/meucartoes.ejs","/mycard", "bi bi-credit-card-2-back", "Meus Cartões")
 
-
-   
-
-
-// /* GET User. */
-// router.get( '/', function(req, res, next) {
-//     const menu = elemenu.lista()
-//     elemenu.active(0)
-//     res.render( 'site_publico/pages/user/MeuPerfil.ejs' , { title: 'Perfil', layout: 'site_publico/layouts/layout_user.ejs', menu});
-// });
-
-// /* GET formas de pagamento. */
-// router.get( '/formasdepagamento', function(req, res, next) {
-//     const menu = elemenu.lista()
-//     elemenu.active(1)
-//     res.render( 'site_publico/pages/user/MeuPerfil.ejs' , { title: 'Perfil', layout: 'site_publico/layouts/layout_user.ejs', menu});
-// });
 
 
 module.exports = router;

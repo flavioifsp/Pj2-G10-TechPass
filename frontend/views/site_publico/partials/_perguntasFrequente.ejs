@@ -1,104 +1,130 @@
-<section class="container d-flex flex-column align-items-center " style="margin-top: 6rem; min-height: 600px;">
+ <%const acord= [
+["Quais são os canais de atendimento da TechPass?", `
+<p>Oferecemos várias opções de canais de atendimento para melhor atendê-lo:</p>
+<ul>
+  <li>Whatsapp: <a
+      href="https://api.whatsapp.com/send?phone=5511988785750&text=Ol%C3%A1."
+      target="_blank">(11) 98878-5750</a> - Chatbot 24h, 7 dias da semana.</li>
+  <li>Atendimento telefônico: Segunda-feira à sexta-feira de 08h às 21h, exceto
+    feriados.</li>
+  <li>E-mail: <a href="mailto:sac@techpass.com.br">sac@techpass.com.br</a></li>
+  <li>Atendimento presencial: Av. Bahia, 1739 - Indaiá, Caraguatatuba - SP,
+    11665-071</li>
+</ul>
+`],
+["Como posso recarregar meu cartão TechPass?", `
+<p>Você pode recarregar seu cartão TechPass de várias maneiras:</p>
+<ul>
+  <li>Nos pontos de recarga autorizados em Caraguatatuba.</li>
+  <li>Através do nosso aplicativo móvel.</li>
+  <li>No atendimento presencial em nossa sede.</li>
+</ul>
+<p>Verifique nossos pontos de recarga autorizados e mais informações em nosso
+  site.</p>
+`],
+["Quais são as modalidades de cartão disponíveis?", `
+<p>Oferecemos várias modalidades de cartão para atender às suas necessidades:</p>
+<ul>
+  <li>Comum</li>
+  <li>Estudante</li>
+  <li>Idoso</li>
+  <li>Pessoa com Deficiência (PCD)</li>
+</ul>
+<p>Escolha a modalidade que melhor se adapta a você e aproveite os benefícios.</p>
+`],
+["Quais são os horários de operação dos ônibus TechPass?", `
+<p>Nossos ônibus operam nos seguintes horários:</p>
+<ul>
+  <li>Segunda-feira a sábado: Das 06h00 às 22h00.</li>
+  <li>Domingos e feriados: Das 07h00 às 20h00.</li>
+</ul>
+<p>Observe que esses horários podem variar, verifique nosso site para
+  informações atualizadas.</p>
+`],
+["Como posso solicitar um cartão/passe TechPass?", `
+<p>Para solicitar um cartão TechPass, siga os seguintes passos:</p>
+<ol>
+  <li>Preencha o formulário de solicitação online em nosso site.</li>
+  <li>Visite nossa sede para retirar seu cartão.</li>
+  <li>Carregue seu cartão e comece a usá-lo.</li>
+</ol>
+<p>Nossos representantes terão prazer em ajudá-lo com o processo.</p>
+`],
+["Qual é a política de desconto para cartões de estudante?", `
+<p>Oferecemos descontos especiais para cartões de estudante. Para obter um
+  cartão de estudante, siga as etapas:</p>
+<ol>
+  <li>Prove sua elegibilidade com um comprovante de matrícula válido.</li>
+  <li>Visite nossa sede para solicitar seu cartão de estudante.</li>
+  <li>Carregue seu cartão com créditos estudantis.</li>
+</ol>
+<p>Desfrute de tarifas reduzidas enquanto estiver matriculado em uma instituição
+  de ensino.</p>
+`],
+["Posso usar dinheiro para pagar a passagem nos ônibus TechPass?", `
+<p>Sim, aceitamos pagamento em dinheiro nos ônibus TechPass. Basta pagar a
+  tarifa ao motorista ao entrar no ônibus.</p>
+`],
+["O que devo fazer em caso de perda ou roubo do meu cartão TechPass?", `
+<p>Em caso de perda ou roubo do seu cartão TechPass, entre em contato com nossa
+  equipe de atendimento imediatamente. Podemos bloquear seu cartão para evitar o
+  uso não autorizado e ajudá-lo a solicitar um novo cartão.</p>
+`],
+["Quais são as rotas de ônibus da TechPass em Caraguatatuba?", `
+<p>Temos uma variedade de rotas de ônibus em Caraguatatuba que cobrem diferentes
+  bairros e áreas da cidade. Verifique nosso site ou entre em contato conosco
+  para obter informações detalhadas sobre as rotas, horários e paradas.</p>
+`],
+["A TechPass oferece assistência para pessoas com deficiência (PCD)?", `
+<p>Sim, a TechPass está comprometida em oferecer assistência para pessoas com
+  deficiência (PCD). Nossos ônibus são acessíveis e possuem recursos para
+  acomodar passageiros com mobilidade reduzida. Além disso, oferecemos tarifas
+  especiais para pessoas com deficiência.</p>
+`],
+]%>
+
+
+
+<section class="container d-flex flex-column align-items-center "
+  style="margin-top: 6rem; min-height: 600px;">
 
   <h3 class="text-center mb-5 gx-3">Perguntas Frequentes</h3>
 
-  <div class=" p-3 g-3 bg-light row rounded flex-column-reverse flex-lg-row w-100" style="height: 500px; overflow: auto" id="faleConosco">
-    
+  <div
+    class=" p-3 g-3 bg-light row rounded flex-column-reverse flex-lg-row w-100"
+    style="height: 500px; overflow: auto" id="faleConosco">
+
     <div class="card-body ps ps--active-y" id="vertical-example">
       <div class="accordion" id="accordionExample">
-
-
-
-
-        <%const acord= [
-          ["Quais são os canais de atendimento da TechPass?", `
-            <p>Oferecemos várias opções de canais de atendimento para melhor atendê-lo:</p>
-            <ul>
-                <li>Whatsapp: <a href="https://api.whatsapp.com/send?phone=5511988785750&text=Ol%C3%A1."
-                    target="_blank">(11) 98878-5750</a> - Chatbot 24h, 7 dias da semana.</li>
-                <li>Atendimento telefônico: Segunda-feira à sexta-feira de 08h às 21h, exceto feriados.</li>
-                <li>E-mail: <a href="mailto:sac@techpass.com.br">sac@techpass.com.br</a></li>
-                <li>Atendimento presencial: Av. Bahia, 1739 - Indaiá, Caraguatatuba - SP, 11665-071</li>
-            </ul>
-          `],
-          ["Como posso recarregar meu cartão TechPass?", `
-              <p>Você pode recarregar seu cartão TechPass de várias maneiras:</p>
-              <ul>
-                  <li>Nos pontos de recarga autorizados em Caraguatatuba.</li>
-                  <li>Através do nosso aplicativo móvel.</li>
-                  <li>No atendimento presencial em nossa sede.</li>
-              </ul>
-              <p>Verifique nossos pontos de recarga autorizados e mais informações em nosso site.</p>
-          `],
-          ["Quais são as modalidades de cartão disponíveis?", `
-              <p>Oferecemos várias modalidades de cartão para atender às suas necessidades:</p>
-              <ul>
-                  <li>Comum</li>
-                  <li>Estudante</li>
-                  <li>Idoso</li>
-                  <li>Pessoa com Deficiência (PCD)</li>
-              </ul>
-              <p>Escolha a modalidade que melhor se adapta a você e aproveite os benefícios.</p>
-          `],
-          ["Quais são os horários de operação dos ônibus TechPass?", `
-              <p>Nossos ônibus operam nos seguintes horários:</p>
-              <ul>
-                  <li>Segunda-feira a sábado: Das 06h00 às 22h00.</li>
-                  <li>Domingos e feriados: Das 07h00 às 20h00.</li>
-              </ul>
-              <p>Observe que esses horários podem variar, verifique nosso site para informações atualizadas.</p>
-          `],
-          ["Como posso solicitar um cartão/passe TechPass?", `
-              <p>Para solicitar um cartão TechPass, siga os seguintes passos:</p>
-              <ol>
-                  <li>Preencha o formulário de solicitação online em nosso site.</li>
-                  <li>Visite nossa sede para retirar seu cartão.</li>
-                  <li>Carregue seu cartão e comece a usá-lo.</li>
-              </ol>
-              <p>Nossos representantes terão prazer em ajudá-lo com o processo.</p>
-          `],
-          ["Qual é a política de desconto para cartões de estudante?", `
-              <p>Oferecemos descontos especiais para cartões de estudante. Para obter um cartão de estudante, siga as etapas:</p>
-              <ol>
-                  <li>Prove sua elegibilidade com um comprovante de matrícula válido.</li>
-                  <li>Visite nossa sede para solicitar seu cartão de estudante.</li>
-                  <li>Carregue seu cartão com créditos estudantis.</li>
-              </ol>
-              <p>Desfrute de tarifas reduzidas enquanto estiver matriculado em uma instituição de ensino.</p>
-          `],
-          ["Posso usar dinheiro para pagar a passagem nos ônibus TechPass?", `
-              <p>Sim, aceitamos pagamento em dinheiro nos ônibus TechPass. Basta pagar a tarifa ao motorista ao entrar no ônibus.</p>
-          `],
-          ["O que devo fazer em caso de perda ou roubo do meu cartão TechPass?", `
-              <p>Em caso de perda ou roubo do seu cartão TechPass, entre em contato com nossa equipe de atendimento imediatamente. Podemos bloquear seu cartão para evitar o uso não autorizado e ajudá-lo a solicitar um novo cartão.</p>
-          `],
-          ["Quais são as rotas de ônibus da TechPass em Caraguatatuba?", `
-              <p>Temos uma variedade de rotas de ônibus em Caraguatatuba que cobrem diferentes bairros e áreas da cidade. Verifique nosso site ou entre em contato conosco para obter informações detalhadas sobre as rotas, horários e paradas.</p>
-          `],
-          ["A TechPass oferece assistência para pessoas com deficiência (PCD)?", `
-              <p>Sim, a TechPass está comprometida em oferecer assistência para pessoas com deficiência (PCD). Nossos ônibus são acessíveis e possuem recursos para acomodar passageiros com mobilidade reduzida. Além disso, oferecemos tarifas especiais para pessoas com deficiência.</p>
-          `],
-        ]%>
 
         <%acord.map((elem, i) =>{ %>
 
         <div class="accordion-item">
           <h2 class="accordion-header">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="<%="#collapseOne"+i%>" aria-expanded="false" aria-controls="collapseOne">
-              <svg width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80" fill="none" xmlns="http://www.w3.org/2000/svg" class="pr-5">
+            <button class="accordion-button collapsed" type="button"
+              data-bs-toggle="collapse" data-bs-target="<%="#faq"+i%>"
+              aria-expanded="false" aria-controls="faq">
+              <svg width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80"
+                fill="none" xmlns="http://www.w3.org/2000/svg" class="pr-5">
                 <g id="SVGRepo_bgCarrier" stroke-width="0">
-                  <rect x="-2.4" y="-2.4" width="28.80" height="28.80" rx="14.4" fill="#7ed0ec" strokewidth="0">
+                  <rect x="-2.4" y="-2.4" width="28.80" height="28.80" rx="14.4"
+                    fill="#7ed0ec" strokewidth="0">
                   </rect>
                 </g>
-                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                  stroke-linejoin="round"></g>
                 <g id="SVGRepo_iconCarrier">
-                  <path d="M12 19H12.01M8.21704 7.69689C8.75753 6.12753 10.2471 5 12 5C14.2091 5 16 6.79086 16 9C16 10.6565 14.9931 12.0778 13.558 12.6852C12.8172 12.9988 12.4468 13.1556 12.3172 13.2767C12.1629 13.4209 12.1336 13.4651 12.061 13.6634C12 13.8299 12 14.0866 12 14.6L12 16" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                  <path
+                    d="M12 19H12.01M8.21704 7.69689C8.75753 6.12753 10.2471 5 12 5C14.2091 5 16 6.79086 16 9C16 10.6565 14.9931 12.0778 13.558 12.6852C12.8172 12.9988 12.4468 13.1556 12.3172 13.2767C12.1629 13.4209 12.1336 13.4651 12.061 13.6634C12 13.8299 12 14.0866 12 14.6L12 16"
+                    stroke="#000000" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round"></path>
                 </g>
               </svg>
               <h5 class="ps-3"><%=elem[0]%></h5>
             </button>
           </h2>
-          <div id="<%="collapseOne"+i%>" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+          <div id="<%="faq"+i%>" class="accordion-collapse collapse"
+            data-bs-parent="#accordionExample">
             <div class="accordion-body" style="font-size: medium;">
               <%-elem[1]%>
 
@@ -108,10 +134,9 @@
 
         <% }) %>
 
-
-
       </div>
     </div>
   </div>
 
 </section>
+
