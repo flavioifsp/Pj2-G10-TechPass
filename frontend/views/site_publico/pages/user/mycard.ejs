@@ -1,32 +1,20 @@
-<button id="paia" class="btn btn-primary">paia</button>
-<div id="teste">
-</div>
+<%const alternar = (pag) => {%>
+  <%-include(`partialsUser/mycard/_${pag}.ejs`)%>
+<%} -%>
 
+
+
+
+
+
+<% alternar("MeuPerfil") %>
 
 <script>
-  const partials = [
-    `<%- include('partialsUser/mycard/_MeuPerfil.ejs') %>`,
-    `<%- include('partialsUser/mycard/_selecionarTipoPasse.ejs') %>`,
-    `<%- include('partialsUser/mycard/_solicitarPasseComum.ejs') %>`,
-    `<%- include('partialsUser/mycard/_solicitarPasseEstudante.ejs') %>`,
-    `<%- include('partialsUser/mycard/_solicitarPasseEspecial.ejs') %>`,
-    `<%- include('partialsUser/mycard/_recarregarPasse.ejs') %>`
-  ]
 
 
-  const btn = document.querySelector("#paia")
-
-
-  btn.addEventListener("click", async () => {
-
-    let i = 0
-    setInterval(() => {
-      document.querySelector("#teste").innerHTML = partials[i]
-      i++
-      if (i == partials.length) i = 0
-    }, 3000)
-
-
-
-  })
+  alternarbtn("recarregar-btn", `<%- alternar('recarregarPasse') %>`)
+  alternarbtn("btn-solicit", `<%- alternar('selecionarTipoPasse') %>`)
+ 
+ 
 </script>
+

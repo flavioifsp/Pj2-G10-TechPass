@@ -210,13 +210,16 @@ const index = "mycard"
 
 
 
+let chamar = "\n<%const alternar = (pag) => {%>\n<%-include(`partialsUser/"+index+"/_${pag}.ejs`)%>\n<%}%>\n"
 
-ejs.map((elem) => {
 
+
+ejs.map((elem, ind) => {
+ console.log(elem)
   let caminho = path.join(__dirname, "/partialsUser")
-  fs.access(caminho,fs.constants.F_OK, async (err1) => {
-    if(err1 != null){
-       await fs.mkdir(caminho, () => { console.log("a") })
+  fs.access(caminho, fs.constants.F_OK, async (err1) => {
+    if (err1 != null) {
+      await fs.mkdir(caminho, () => { console.log("a") })
     }
 
 
@@ -230,7 +233,14 @@ ejs.map((elem) => {
 
       fs.writeFile(novoarquivo, elem[1], () => { })
 
-      fs.appendFile(path.join(__dirname, `/${index}`) + ".ejs", `<%- include('${path.relative(__dirname, novoarquivo)}') %>\n`.replace(/\\/g, '/'), () => { })
+
+
+      chamar += `<%- alternar('${elem[0]}') %>\n`.replace(/\\/g, '/')
+
+
+      if (ejs.length == ind + 1) {
+        fs.appendFile(path.join(__dirname, `/${index}`) + ".ejs", chamar, () => { })
+      }
     });
   })
 
