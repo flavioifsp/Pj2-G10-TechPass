@@ -1,0 +1,159 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model atendente {
+  id      Int     @id @default(autoincrement())
+  cpf     String? @db.VarChar(11)
+  salario Int?
+  senha   String? @db.VarChar(45)
+  token   String? @db.VarChar(45)
+}
+
+model cartao_passe {
+  id                        Int                         @id
+  modalidade                String?                     @db.VarChar(45)
+  desconto                  Int?
+  clientes_has_cartao_passe clientes_has_cartao_passe[]
+}
+
+model clientes {
+  id                        Int                         @id @default(autoincrement())
+  cpf                       String?                     @db.VarChar(45)
+  nome                      String?                     @db.VarChar(45)
+  nascimento                DateTime?                   @db.Date
+  saldo                     Decimal?                    @db.Decimal(5, 3)
+  cadastrado_cliente        Int?
+  usuario                   usuario?                    @relation(fields: [cadastrado_cliente], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_clientes_usuario1")
+  clientes_has_cartao_passe clientes_has_cartao_passe[]
+
+  @@index([cadastrado_cliente], map: "fk_clientes_usuario1")
+}
+
+model clientes_has_cartao_passe {
+  id                        Int                         @id @default(autoincrement())
+  clientes_id               Int?
+  cartao_passe_id           Int?
+  cartao_passe              cartao_passe?               @relation(fields: [cartao_passe_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_clientes_has_cartao_passe_cartao_passe")
+  clientes                  clientes?                   @relation(fields: [clientes_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_clientes_has_cartao_passe_clientes")
+  viagem_has_cliente_cart_o viagem_has_cliente_cart_o[]
+
+  @@index([cartao_passe_id], map: "fk_clientes_has_cartao_passe_cartao_passe")
+  @@index([clientes_id], map: "fk_clientes_has_cartao_passe_clientes")
+}
+
+model gerente {
+  id      Int     @id @default(autoincrement())
+  cpf     String? @db.VarChar(45)
+  salario Int?
+  senha   String? @db.VarChar(45)
+  token   String? @db.VarChar(45)
+}
+
+model horariosaidabairro {
+  id          Int       @id @default(autoincrement())
+  saida       DateTime? @db.DateTime(0)
+  bairroSaida String?   @db.VarChar(45)
+  linha_id    Int?
+  linha       linha?    @relation(fields: [linha_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_HorarioSaidaBairro_linha1")
+
+  @@index([linha_id], map: "fk_HorarioSaidaBairro_linha1")
+}
+
+model linha {
+  id                 Int                  @id @default(autoincrement())
+  numero_linha       Int?
+  bairroIda          String?              @db.VarChar(45)
+  BairroVolta        String?              @db.VarChar(45)
+  horariosaidabairro horariosaidabairro[]
+  trajeto_paradas    trajeto_paradas[]
+  viagem             viagem[]
+}
+
+model loja_recarga {
+  id          Int     @id @default(autoincrement())
+  nome        String? @default("Tech Pass") @db.VarChar(45)
+  cep         String? @db.VarChar(8)
+  coordenadas String? @db.VarChar(45)
+}
+
+model motorista {
+  id         Int       @id @default(autoincrement())
+  CPF        String?   @db.VarChar(45)
+  foto       String?   @db.VarChar(200)
+  nascimento DateTime? @db.Date
+  salario    Int?
+  telefone   Int?
+  viagem     viagem[]
+}
+
+model onibus {
+  id     Int      @id
+  placa  String   @db.VarChar(8)
+  viagem viagem[]
+}
+
+model ponto_de_onibus {
+  id              Int               @id
+  endereco        String?           @db.VarChar(45)
+  trajeto_paradas trajeto_paradas[]
+}
+
+model trajeto_paradas {
+  id                 Int              @id @default(autoincrement())
+  linha_id           Int?
+  ponto_de_onibus_id Int?
+  bairroSaida        String?          @db.VarChar(25)
+  caminho            Int?
+  linha              linha?           @relation(fields: [linha_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_linha_has_ponto_de_onibus_linha")
+  ponto_de_onibus    ponto_de_onibus? @relation(fields: [ponto_de_onibus_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_linha_has_ponto_de_onibus_ponto_de_onibus")
+
+  @@index([linha_id], map: "fk_linha_has_ponto_de_onibus_linha")
+  @@index([ponto_de_onibus_id], map: "fk_linha_has_ponto_de_onibus_ponto_de_onibus")
+}
+
+model usuario {
+  id       Int        @id @default(autoincrement())
+  nome     String?    @db.VarChar(45)
+  email    String?    @db.VarChar(150)
+  senha    String?    @db.VarChar(45)
+  telefone Int?
+  token    String?    @db.VarChar(45)
+  clientes clientes[]
+}
+
+model viagem {
+  id                        Int                         @id @default(autoincrement())
+  inicio                    DateTime?                   @db.DateTime(0)
+  duracao                   DateTime?                   @db.Time(0)
+  onibus_id                 Int?
+  motorista_id              Int?
+  linha_id                  Int?
+  linha                     linha?                      @relation(fields: [linha_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_viagem_linha1")
+  motorista                 motorista?                  @relation(fields: [motorista_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_viagem_motorista1")
+  onibus                    onibus?                     @relation(fields: [onibus_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_viagem_onibus")
+  viagem_has_cliente_cart_o viagem_has_cliente_cart_o[]
+
+  @@index([linha_id], map: "fk_viagem_linha1")
+  @@index([motorista_id], map: "fk_viagem_motorista1")
+  @@index([onibus_id], map: "fk_viagem_onibus")
+}
+
+model viagem_has_cliente_cart_o {
+  id                           Int                        @id @default(autoincrement())
+  viagem_id                    Int?
+  clientes_has_cartao_passe_id Int?
+  tarifa                       Decimal?                   @db.Decimal(3, 2)
+  data                         DateTime?                  @db.DateTime(0)
+  clientes_has_cartao_passe    clientes_has_cartao_passe? @relation(fields: [clientes_has_cartao_passe_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_viagem_has_cliente_cartão_clientes_has_cartao_passe1")
+  viagem                       viagem?                    @relation(fields: [viagem_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "fk_viagem_has_cliente_has_cartao_passe_viagem1")
+
+  @@index([clientes_has_cartao_passe_id], map: "fk_viagem_has_cliente_cartão_clientes_has_cartao_passe1")
+  @@index([viagem_id], map: "fk_viagem_has_cliente_has_cartao_passe_viagem1")
+  @@map("viagem_has_cliente_cartão")
+}
