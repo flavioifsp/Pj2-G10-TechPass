@@ -1,5 +1,5 @@
-const { Prisma } = require("@prisma/client")
 
+const { Prisma } = require("@prisma/client")
 function exception(e) {
     let error = {
       code: 500,
