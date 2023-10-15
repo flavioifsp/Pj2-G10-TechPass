@@ -17,13 +17,13 @@
     <header class="text-center d-flex flex-column pt-5 text-white text-uppercase h-25">
       <h1>aproxime o cartão</h1>
   
-      <h3 class="pt-2">Tarifa: R$ 3,50</h3>
+      <h3 class="pt-2">Tarifa: R$<%=tarifa%></h3>
     </header>
   
   
   
-    <main class=" d-flex w-75 position-absolute bottom-0 end-0">
-      <img src="../images/cartao.png" alt="" class="img-fluid ms-auto">
+    <main class=" d-flex  position-absolute bottom-0 end-0 col-7 col-sm-5 col-md-4 col-lg-4 col-xl-3">
+      <img src="../images/cartao.png" alt="" class="img-fluid ms-auto w-100"  style=" max-width: 50vh;">
     </main>
     
     <%- include('../partials/_logo.ejs'); %>
@@ -31,7 +31,7 @@
   
   
   <form id="formpaia">
-    <input class="z-n1 position-absolute top-0" type="text" name="idCard" id="idCard">
+    <input class="z-n1 w-25 position-absolute top-0" type="text" name="idCard" id="idCard">
   </form>
 
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

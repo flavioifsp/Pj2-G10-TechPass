@@ -1,13 +1,23 @@
+const { default: axios } = require('axios');
 var express = require('express');
 var router = express.Router();
 
 /* GET home page. */
-router.get('/', function (req, res, next) {
+router.get('/', async function (req, res, next) {
+  try {
 
-  res.render('catraca/pages/CatracaIndex.ejs', { layout: false});
+    const { data: { tarifa }, status } = (await axios.get(" http://localhost:9000/api/catraca/tarifa"))
+    
+    console.log(status)
+    console.log(tarifa)
 
+    res.render('catraca/pages/CatracaIndex.ejs', { layout: false, tarifa });
+  } catch (error) {
+    const msg = "o servidor nâo está respondendo"
+    res.render('erro.ejs', { layout: false, statuscode: 500, msg});
+  }
 
-}); 
+});
 
 
 

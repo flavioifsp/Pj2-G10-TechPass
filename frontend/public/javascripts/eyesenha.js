@@ -8,7 +8,7 @@ btnsenha.addEventListener("click", () => {
       senhapaia.type = "text"
       logo.classList.add("bi-eye-slash")
       logo.classList.remove("bi-eye-fill")
-    } else{
+    } else{ 
       senhapaia.type = "password"
       logo.classList.remove("bi-eye-slash")
       logo.classList.add("bi-eye-fill")

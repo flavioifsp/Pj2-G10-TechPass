@@ -3,7 +3,7 @@
 
 
 class linha{
-
+ 
     constructor(num, bairroI, bairroEnd, divpai){
         this.num = num
         this.bairroI = bairroI.toUpperCase()
