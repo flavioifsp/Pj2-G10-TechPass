@@ -6,7 +6,7 @@ var router = express.Router();
 router.get('/', async function (req, res, next) {
   try {
 
-    const { data: { tarifa }, status } = (await axios.get(" http://localhost:9000/api/catraca/tarifa"))
+    const { data: { tarifa }, status } = (await axios.get("http://localhost:3001/api/catraca/tarifa"))
     
     console.log(status)
     console.log(tarifa)
