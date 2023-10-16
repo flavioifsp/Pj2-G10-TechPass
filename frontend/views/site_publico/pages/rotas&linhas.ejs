@@ -1,61 +1,124 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 
 
-    <section class="container-fluid bg-dark pt-5 pb-4">
-        <div class="text-white container">
-            <h3>ROTAS E LINHAS</h3>
-            <p class="ps-3">CONFIRA O ITINERARIO E ROTAS</p>
-        </div>
-    </section>
+<section class="container-fluid bg-dark pt-5 pb-4">
+  <div class="text-white container">
+    <h3>ROTAS E LINHAS</h3>
+    <p class="ps-3">CONFIRA O ITINERARIO E ROTAS</p>
+  </div>
+</section>
 
 
 
 <div class="container d-flex my-4 px-0 py-4 justify-content-between flex-column flex-md-row">
-    <section class="container-fluid ps-0 col-md-9 mx-0">
+  <section class="container-fluid ps-0 col-md-9 mx-0">
 
-        <form class="container-fluid">
-            <legend class="h3">Digite o número ou nome da linha desejada</label>
-                <div class="d-inline-flex container-fluid p-0">
-                    <input type="text" class="form-control rounded-end-0"
-                        placeholder="505 H REGIONAL - MASSAGUAÇÚ VIA JETUBA" />
-                    <button type="submit" class="btn btn-primary rounded-start-0">
-                        buscar
-                    </button>
-                </div>
-        </form>
-
-
-
-        <div class="container-fluid my-4 d-flex flex-column row-gap-3 column-grow-1  " id="lista-linha">
-
-
-
+    <form class="container-fluid">
+      <legend class="h3">Digite o número ou nome da linha desejada</label>
+        <div class="d-inline-flex container-fluid p-0">
+          <input type="text" class="form-control rounded-end-0" placeholder="505 H REGIONAL - MASSAGUAÇÚ VIA JETUBA" />
+          <button type="submit" class="btn btn-primary rounded-start-0">
+            buscar
+          </button>
         </div>
-
-    </section>
-
+    </form>
 
 
-    <aside class="container-fluid col-md-3 mx-0 bg-primary-subtle my-2 rounded py-2">
-        <h2 class="mb-4">BAIRROS</h2>
-        <ul class="nav flex-column ps-lg-4">
-            <li class="nav-item">
-                <a href="#" class="nav-link link-dark fs-5 fw-medium text-capitalize">Paia-paioso</a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link link-dark fs-5 fw-medium text-capitalize">Paia-paioso</a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link link-dark fs-5 fw-medium text-capitalize">Paia-paioso</a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link link-dark fs-5 fw-medium text-capitalize">Paia-paioso</a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link link-dark fs-5 fw-medium text-capitalize">Paia-paioso</a>
-            </li>
-        </ul>
-    </aside>
+
+    <div class="container-fluid my-4 d-flex flex-column row-gap-3 column-grow-1  " id="lista-linha">
+
+        <!-- uma linha -->
+        <div>
+            
+            <!-- elem na lista  -->
+            <% linhas.map((elem) => { %>
+            <div class="bg-dark-subtle rounded-4 d-flex flex-column flex-lg-row px-3" style="cursor: pointer; height: 70px;">
+              <div class="d-flex align-items-center column-gap-md-3 column-gap-2 py-2">
+                <img src="./images/icon bus.png" alt="..." class="img-fluid" style="width: 50px" />
+      
+                <div class="">
+                  <h5 class="mb-0"><%= elem.numLinha %>></h5>
+                  <p class="fs-5 mb-0">saida <%= elem.bairro1 %> / saida <%= elem.bairro2 %></p>
+                </div>
+              </div>
+            </div>
+      
+      
+            <!-- modals -->
+            <% for(modal of elem.modals){%>
+            <div class=" modal fade">
+              <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable <%= tamanhoModal  %>>">
+                <div class="modal-content">
+                  <div class="modal-header px-4">
+                    <h1 class="modal-title "><i class="bi bi-clock-history pe-2"></i> <%= modal.modalnome %> </h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body px-4  ">
+      
+                    <div class="container-fluid p-0 mx-auto row">
+      
+                      <!--bairro1 -->
+                      <ul class="list-group  col text-center pe-0" id="${horas1}">
+                        <li class="list-group-item rounded-end-0 fs-3"><%= elem.bairro1 %></li>
+      
+                        <% modal.infosB1.forEach(info => { %>
+                        <li class="list-group-item fs-4 rounded-end-0 "> <%= info %> </li>
+                        <% }); %>
+      
+                      </ul>
+      
+                      <!--bairro2 -->
+                      <ul class="list-group  col text-center ps-0" id="${horas2}">
+                        <li class="list-group-item rounded-start-0  fs-3"><%= elem.bairro2 %></li>
+      
+                        <% modal.infosB2.forEach(info => { %>
+                        <li class="list-group-item fs-4 rounded-end-0 "> <%= info %> </li>
+                        <% }); %>
+      
+                      </ul>
+      
+                    </div>
+      
+                  </div>
+                  <div class="modal-footer border-0 px-4">
+                    <button type="button" class="btn btn-primary" id="${this.btnalternarmodalsI}">Itinerario</button>
+      
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <% } %>
+      
+      
+            <% }) %>
+        </div>
+    </div>
+
+  </section>
+
+
+
+  <aside class="container-fluid col-md-3 mx-0 bg-primary-subtle my-2 rounded py-2">
+    <h2 class="mb-4">BAIRROS</h2>
+    <ul class="nav flex-column ps-lg-4">
+      <li class="nav-item">
+        <a href="#" class="nav-link link-dark fs-5 fw-medium text-capitalize">Paia-paioso</a>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link link-dark fs-5 fw-medium text-capitalize">Paia-paioso</a>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link link-dark fs-5 fw-medium text-capitalize">Paia-paioso</a>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link link-dark fs-5 fw-medium text-capitalize">Paia-paioso</a>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link link-dark fs-5 fw-medium text-capitalize">Paia-paioso</a>
+      </li>
+    </ul>
+  </aside>
 </div>
 
 
