@@ -29,11 +29,11 @@ class linha{
 
     btnelemlista = false
  
-    // transformar a string em uma array separando por "," > cd vetor do array será transformado em um elemento (li) e dps sera colocada em uma lista(ul)
-    addLista = (string, lista, rounded, modal) => {
-        string = string.trim().split(",")
+    // recebe um array com as info e  transforma em um elemento (li) e dps sera colocada em uma lista(ul)
+    addLista = (arrayinfo, lista, rounded, modal) => {
         
-        for(let x of string){
+        
+        for(let x of arrayinfo){
             const substring = document.createElement("li")
             substring.classList.add("list-group-item", rounded, "fs-4")
             substring.innerHTML = x
@@ -184,7 +184,7 @@ class linha{
 
 for(i = 0, array = []; i<6; i++){
     array[i] = new linha(i+100, "olaria", "tinga", "#lista-linha")
-    array[i].addModalHorario("11:11, 11:11, 11:11, 11:11, 11:11, 11:11, 11:11", "11:11, 11:11, 11:11, 11:11, 11:11, 11:11, 11:11")
-    array[i].addModalItinerario("paertertertretereteria, paietrerterterta, paertertertretereteria, paietrerterterta", " patertertertertia, paiareteterterterpa, ertertertretereteria, paietrerterterta")
+    array[i].addModalHorario(["11:11", "11:11", "11:11", "11:11", "11:11", "11:11", "11:11"], ["11:11", "11:11", "11:11", "11:11", "11:11", "11:11", "11:11"])
+    array[i].addModalItinerario(["paertertertretereteria" , "paietrerterterta", "paertertertretereteria"], ["paertertertretereteria" , "paietrerterterta", "paertertertretereteria"])
     array[i].alternarmodals()
 }
