@@ -1,13 +1,12 @@
-<% if(er){ 
+<%
+  if(er){ 
 
-  let statuscode =  404
+  let statuscode =  500
   let msg = er
   if(er.response != undefined ){
     statuscode = er.response.status
     msg = er.response.data
   }
-
-
 %>
 
 <div class="modal fade " data-bs-theme="dark" tabindex="-1" id="modalerro" data-bs-backdrop="static" data-bs-keyboard="false">

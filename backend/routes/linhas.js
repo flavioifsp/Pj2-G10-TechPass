@@ -19,8 +19,8 @@ router.get("/allLinhas", async function (req, res, next) {
 
       {
         bairro1: "olaria", bairro2: "tinga", num_linha: 100, 
-        horario_b1: ["11:11", "11:11", "11:11", "11:11", "11:11", "11:11", "11:11", "11:11", "11:11", "11:11", "11:11"],
-        horario_b2: ["11:11", "11:11", "11:11", "11:11", "11:11", "11:11", "11:11", "11:11", "11:11", "11:11", "11:11"],
+        horario_b1: ["11:111", "11:11", "11:11", "11:11", "11:11", "11:11", "11:11", "11:11", "11:11", "11:11", "11:11"],
+        horario_b2: ["11. :11", "11:11", "11:11", "11:11", "11:11", "11:11", "11:11", "11:11", "11:11", "11:11", "11:11"],
         itinerario_b1: ["kaSdnfjkaslfnojksdnfjs", "kaSdnfjkaslfnojksdnfjs", "kaSdnfjkaslfnojksdnfjs", "kaSdnfjkaslfnojksdnfjs",
           "kaSdnfjkaslfnojksdnfjs", "kaSdnfjkaslfnojksdnfjs", "kaSdnfjkaslfnojksdnfjs", "kaSdnfjkaslfnojksdnfjs", "kaSdnfjkaslfnojksdnfjs"],
         itinerario_b2: ["kaSdnfjkaslfnojksdnfjs", "kaSdnfjkaslfnojksdnfjs", "kaSdnfjkaslfnojksdnfjs", "kaSdnfjkaslfnojksdnfjs",
@@ -39,7 +39,7 @@ router.get("/allLinhas", async function (req, res, next) {
         infos_da_linha: [
           {
             infosB1: elem.horario_b1,
-            infosB2: elem.horario_b1,
+            infosB2: elem.horario_b2,
           },
           {
             infosB1: elem.itinerario_b1,
