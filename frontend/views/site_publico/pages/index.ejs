@@ -473,34 +473,9 @@
 
 
 
-<section class="container d-flex flex-column align-items-center " style="margin-top: 6rem; min-height: 600px;">
-
-  <h3 class="text-center mb-5 gx-3">Confira as lojas ou os locais de recarga perto de você.</h3>
-
-  <div class=" p-3 g-3 bg-light row rounded flex-column-reverse flex-lg-row w-100 h-100">
-    <div class=" ps-lg-0 col-lg-4 col-12">
-      <form class=" d-inline-flex w-100">
-        <input type="text" class="form-control rounded-end-0" placeholder="DIGITE UM PONTO" />
-        <button type="submit" class="btn btn-primary rounded-start-0">
-          buscar
-        </button>
-      </form>
-
-
-      <ul class="list-group mt-3 h-100" id="lista-de-pontos"></ul>
-
-    </div>
-
-    <div class=" pe-lg-0 col-lg-8 col-12 " style='color: #0095eb;'>
-      <div id='divmapa' class=" border ratio ratio-4x3"></div>
-    </div>
-  </div>
-
-</section>
-
+<%- include('../partials/_mapa.ejs') %>
 
 <%-include('../partials/_perguntasFrequente.ejs') %>
 
 
-<script src="javascripts/mapa.js"></script>
 <script src="javascripts/botoescards.js"></script>
