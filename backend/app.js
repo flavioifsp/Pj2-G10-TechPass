@@ -10,12 +10,9 @@ const catraca = require("./routes/catraca");
 
 const app = express();
 
-var corsOptions = {
-  origin: "http://example.com",
-  optionsSuccessStatus: 200, 
-};
 
-app.use(cors(corsOptions));
+
+app.use(cors());
 
 app.use(logger("dev"));
 app.use(express.json());

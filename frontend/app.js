@@ -6,7 +6,7 @@ const logger = require('morgan');
 const expressLayouts = require("express-ejs-layouts")
 const dotenv = require('dotenv').config()
 
-const indexRouter = require('./routes/index');
+const sitepublicoRouter = require('./routes/sitepublico');
 const userRouter = require('./routes/user');
 const catraca = require('./routes/catraca')
 
@@ -26,7 +26,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
  
 
-app.use('/', indexRouter);
+app.use('/', sitepublicoRouter);
 app.use('/user', userRouter);
 app.use('/catraca', catraca);
 
