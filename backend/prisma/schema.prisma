@@ -8,37 +8,30 @@ datasource db {
 }
 
 model atendente {
-  id                   Int          @id @default(autoincrement())
+  id                   Int       @id @default(autoincrement())
   local_de_trabalho_id Int
-  superUser_id         Int          @db.UnsignedInt
-  cpf                  String       @unique(map: "cpf_UNIQUE") @db.VarChar(14)
-  turno                String?      @db.VarChar(45)
-  nascimento           DateTime?    @db.Date
-  telefone             String?      @db.VarChar(13)
-  endereco             String?      @db.VarChar(255)
-  loja_recarga         loja_recarga @relation(fields: [local_de_trabalho_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_atendente_loja_recarga1")
-  superuser            superuser    @relation(fields: [superUser_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_atendente_superUser1")
+  superUser_id         Int       @db.UnsignedInt
+  cpf                  String    @unique(map: "cpf_UNIQUE") @db.VarChar(14)
+  turno                String?   @db.VarChar(45)
+  nascimento           DateTime? @db.Date
+  telefone             String?   @db.VarChar(13)
+  endereco             String?   @db.VarChar(255)
 
   @@index([local_de_trabalho_id], map: "fk_atendente_loja_recarga1_idx")
   @@index([superUser_id], map: "fk_atendente_superUser1_idx")
 }
 
 model clientes {
-  id                  Int                   @id @default(autoincrement())
-  cpf                 String                @unique(map: "cpf_UNIQUE") @db.VarChar(14)
-  nome                String?               @db.VarChar(120)
-  nascimento          DateTime?             @db.Date
-  saldo               Decimal?              @db.Decimal(5, 3)
-  clliente_tem_cartao clliente_tem_cartao[]
-  usuario             usuario?
+  id         Int       @id @default(autoincrement())
+  cpf        String    @unique(map: "cpf_UNIQUE") @db.VarChar(14)
+  nome       String?   @db.VarChar(120)
+  nascimento DateTime? @db.Date
+  saldo      Decimal?  @db.Decimal(5, 3)
 }
 
 model loja_recarga {
-  id        Int         @id @default(autoincrement())
-  nome      String?     @default("Tech Pass") @db.VarChar(45)
-  cep       String?     @db.VarChar(9)
-  endereco  String?     @db.VarChar(255)
-  atendente atendente[]
+  id   Int     @id @default(autoincrement())
+  nome String? @default("Tech Pass") @db.VarChar(45)
 }
 
 model motorista {
@@ -47,34 +40,27 @@ model motorista {
   foto       String?   @db.VarChar(200)
   nascimento DateTime? @db.Date
   cnh        String?   @db.VarChar(11)
-  viagem     viagem[]
 }
 
 model onibus {
-  id     Int      @id
-  placa  String   @db.VarChar(15)
-  viagem viagem[]
+  id    Int    @id
+  placa String @db.VarChar(15)
 }
 
 model usuario {
-  clientes_id Int      @id
-  username    String?  @db.VarChar(90)
-  email       String   @unique(map: "email_UNIQUE") @db.VarChar(64)
-  senha       String?  @db.VarChar(200)
-  clientes    clientes @relation(fields: [clientes_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_usuario_clientes1")
+  clientes_id Int     @id
+  username    String? @db.VarChar(90)
+  email       String  @unique(map: "email_UNIQUE") @db.VarChar(64)
+  senha       String? @db.VarChar(200)
 }
 
 model viagem {
-  id           Int        @id @default(autoincrement())
-  inicio       DateTime?  @db.DateTime(0)
-  duracao      DateTime?  @db.Time(0)
-  linhas_id    Int        @db.UnsignedInt
+  id           Int       @id @default(autoincrement())
+  inicio       DateTime? @db.DateTime(0)
+  duracao      DateTime? @db.Time(0)
+  linhas_id    Int       @db.UnsignedInt
   onibus_id    Int
   motorista_id Int
-  embarque     embarque[]
-  linhas       linhas     @relation(fields: [linhas_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_viagem_linhas1")
-  motorista    motorista  @relation(fields: [motorista_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_viagem_motorista1")
-  onibus       onibus     @relation(fields: [onibus_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_viagem_onibus")
 
   @@index([linhas_id], map: "fk_viagem_linhas1_idx")
   @@index([motorista_id], map: "fk_viagem_motorista1_idx")
@@ -87,39 +73,32 @@ model adm {
   cpf          String?   @db.VarChar(14)
   nascimento   DateTime? @db.Date
   telefone     String?   @db.VarChar(13)
-  superuser    superuser @relation(fields: [superUser_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_ADM_superUser1")
 
   @@index([superUser_id], map: "fk_ADM_superUser1_idx")
 }
 
 model cartao {
-  id                  Int                   @id
-  modalidade          String                @db.VarChar(45)
-  desconto            Int?
-  clliente_tem_cartao clliente_tem_cartao[]
+  id         Int    @id
+  modalidade String @db.VarChar(45)
+  desconto   Int?
 }
 
 model clliente_tem_cartao {
-  id           Int        @id @default(autoincrement())
+  id           Int  @id @default(autoincrement())
   clientes_id  Int
   cartao_id    Int
   limiteDiario Int?
-  clientes     clientes   @relation(fields: [clientes_id], references: [id], onUpdate: Restrict, map: "fk_clientes_has_cartao_passe_clientes")
-  cartao       cartao     @relation(fields: [cartao_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_clliente_tem_cartao_cartao1")
-  embarque     embarque[]
 
   @@index([clientes_id], map: "fk_clientes_has_cartao_passe_clientes")
   @@index([cartao_id], map: "fk_clliente_tem_cartao_cartao1_idx")
 }
 
 model embarque {
-  id                     Int                 @id @default(autoincrement())
+  id                     Int       @id @default(autoincrement())
   viagem_id              Int
   clliente_tem_cartao_id Int
-  tarifa                 Decimal?            @db.Decimal(3, 2)
-  data                   DateTime?           @default(now()) @db.DateTime(0)
-  clliente_tem_cartao    clliente_tem_cartao @relation(fields: [clliente_tem_cartao_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_embarque_clliente_tem_cartao1")
-  viagem                 viagem              @relation(fields: [viagem_id], references: [id], onUpdate: Restrict, map: "fk_viagem_has_cliente_has_cartao_passe_viagem1")
+  tarifa                 Decimal?  @db.Decimal(3, 2)
+  data                   DateTime? @default(now()) @db.DateTime(0)
 
   @@index([clliente_tem_cartao_id], map: "fk_embarque_clliente_tem_cartao1_idx")
   @@index([viagem_id], map: "fk_viagem_has_cliente_has_cartao_passe_viagem1")
@@ -132,34 +111,37 @@ model linhas {
   bairroDestino String    @db.VarChar(45)
   inicio        DateTime? @db.Time(0)
   fim           DateTime? @db.Time(0)
-  rotas         rotas[]
-  viagem        viagem[]
 }
 
 model pontoonibus {
   id       Int     @id @default(autoincrement()) @db.UnsignedInt
   endereco String? @db.VarChar(255)
   cep      Int?
-  rotas    rotas[]
 }
 
 model rotas {
-  id             Int         @id @default(autoincrement()) @db.UnsignedInt
+  id             Int  @id @default(autoincrement()) @db.UnsignedInt
   percurso       Int?
-  pontoOnibus_id Int         @db.UnsignedInt
-  linha_id       Int         @db.UnsignedInt
-  linhas         linhas      @relation(fields: [linha_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_trajeto_paradas_linha1")
-  pontoonibus    pontoonibus @relation(fields: [pontoOnibus_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_trajeto_paradas_ponto_de_onibus1")
+  pontoOnibus_id Int  @db.UnsignedInt
+  linha_id       Int  @db.UnsignedInt
 
   @@index([linha_id], map: "fk_trajeto_paradas_linha1_idx")
   @@index([pontoOnibus_id], map: "fk_trajeto_paradas_ponto_de_onibus1")
 }
 
 model superuser {
-  id        Int         @id @default(autoincrement()) @db.UnsignedInt
-  email     String      @unique(map: "email_UNIQUE") @db.VarChar(64)
-  senha     String?     @db.VarChar(100)
-  username  String?     @db.VarChar(45)
-  adm       adm[]
-  atendente atendente[]
+  id       Int     @id @default(autoincrement()) @db.UnsignedInt
+  email    String  @unique(map: "email_UNIQUE") @db.VarChar(64)
+  senha    String? @db.VarChar(100)
+  username String? @db.VarChar(45)
+}
+
+model local_loja {
+  loja_recarga_id Int     @id
+  bairro          String? @db.VarChar(45)
+  rua             String? @db.VarChar(45)
+  numero          Int?
+  lat             Int?
+  long            Int?
+  cep             String? @db.VarChar(9)
 }

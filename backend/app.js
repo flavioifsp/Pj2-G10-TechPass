@@ -7,6 +7,7 @@ const logger = require("morgan");
 
 const linhas = require("./routes/linhas");
 const catraca = require("./routes/catraca");
+const maps = require("./routes/mapa");
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/api/linhas", linhas);
 app.use("/api/catraca/", catraca);
+app.use("/api/maps/", maps);
 
 app.all("*", (req, res) => {
   res.status(501).end();

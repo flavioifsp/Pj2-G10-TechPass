@@ -30,6 +30,12 @@ app.use('/', sitepublicoRouter);
 app.use('/user', userRouter);
 app.use('/catraca', catraca);
 
+// lembrar de fazer um meio para aparecer uma msg de erro quando é redirecionado
+app.all("*", (req, res) => {
+  res.redirect("/")
+});
+
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
@@ -47,3 +53,4 @@ app.use(function(err, req, res, next) {
 });
  
 module.exports = app;
+  
