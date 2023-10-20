@@ -1,14 +1,3 @@
-<%
-  if(er){ 
-
-  let statuscode =  500
-  let msg = er
-  if(er.response != undefined ){
-    statuscode = er.response.status
-    msg = er.response.data
-  }
-%>
-
 <div class="modal fade " data-bs-theme="dark" tabindex="-1" id="modalerro" data-bs-backdrop="static" data-bs-keyboard="false">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content   text-white">
@@ -24,16 +13,17 @@
           <div class="accordion accordion-flush " id="acordeao-detalhar-erro">
             <div class="accordion-item">
               <h2 class="accordion-header ">
-                <button class="accordion-button collapsed bg-dark-subtle border  border-bottom-0 rounded-top-1 px-3 py-2" type="button" data-bs-toggle="collapse" data-bs-target="#acordeao-detalhar-erro_conteudo" aria-expanded="false" aria-controls="acordeao-detalhar-erro_conteudo" style="width: 190px;">detalhe do erro </button>
+                <button class="accordion-button collapsed bg-dark-subtle border  border-bottom-0 rounded-top-1 px-3 py-2" type="button" data-bs-toggle="collapse" data-bs-target="#acordeao-detalhar-erro_conteudo" aria-expanded="false" aria-controls="acordeao-detalhar-erro_conteudo" style="width: 190px;">detalhe do
+                  erro </button>
               </h2>
               <div id="acordeao-detalhar-erro_conteudo" class="accordion-collapse collapse" data-bs-parent="#acordeao-detalhar-erro">
-                <div class="accordion-body bg-dark-subtle rounded-1"><%=msg%></div>
+                <div class="accordion-body bg-dark-subtle rounded-1" id="msgErro"></div>
               </div>
             </div>
           </div>
         </div>
 
-        <img src="https://http.cat/<%=statuscode%>" class="fluid-img p-0 m-0 w-100 rounded-1">
+        <img id="imgErro" class="fluid-img p-0 m-0 w-100 rounded-1">
 
       </div>
 
@@ -43,7 +33,30 @@
 
 <script>
   const modalerro = new bootstrap.Modal('#modalerro')
-  modalerro.show()
-</script>
+ 
+  
 
-<% } %>
+  <%
+    if(er){
+      let statuscode = 500
+      let msg = er
+      if (er.response != undefined) {
+        statuscode = er.response.status
+        msg = er.response.data
+      }
+
+      %>
+        const erCode = <%=statuscode%>
+        const msgEr = `<%-msg%>`
+      <%
+    }
+  %>
+   
+  
+    if(typeof erCode   !== 'undefined'){
+      document.querySelector("#msgErro").innerHTML = msgEr
+      document.querySelector("#imgErro").src= `https://http.cat/${erCode}`
+      modalerro.show()  
+    }
+  
+</script>      

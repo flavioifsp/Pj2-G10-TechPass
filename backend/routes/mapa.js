@@ -6,11 +6,9 @@ const exception = require('../js/erro')
 
 
 /* retorna todas as lojas. */
-router.get("/allLojas", async function (req, res, next) {
+router.get("/allMapaLojas", async function (req, res, next) {
   try {
-    const lojas = await prisma.linhas.findFirst({
-      include:{horario_diario_saida}
-    }) 
+    const lojas = await prisma.loja_recarga.findMany() 
 
     // const lojas = 
     //   [
@@ -22,12 +20,14 @@ router.get("/allLojas", async function (req, res, next) {
           
     //     }
     //   ]
- 
+  
     res.send(JSON.stringify(lojas))
 
   } catch (er) {
-    const erro = exception(er)
-    res.status(erro.code).send(erro.msg)
+    console.log(er)
+      const erro = exception(er)
+      
+      res.status(erro.code).send(erro.msg)
   }
 });
 
