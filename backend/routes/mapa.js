@@ -9,9 +9,7 @@ const exception = require('../js/erro')
 router.get("/allLojas", async function (req, res, next) {
   try {
     const lojas = await prisma.linhas.findFirst({
-      select:{
-        bairroDestino:true
-      }
+      include:{horario_diario_saida}
     }) 
 
     // const lojas = 
