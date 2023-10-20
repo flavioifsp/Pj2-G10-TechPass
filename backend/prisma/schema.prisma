@@ -7,6 +7,16 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model adm {
+  id           Int       @id @default(autoincrement())
+  superUser_id Int       @db.UnsignedInt
+  cpf          String?   @db.VarChar(14)
+  nascimento   DateTime? @db.Date
+  telefone     String?   @db.VarChar(13)
+
+  @@index([superUser_id], map: "fk_ADM_superUser1_idx")
+}
+
 model atendente {
   id                   Int       @id @default(autoincrement())
   local_de_trabalho_id Int
@@ -21,6 +31,12 @@ model atendente {
   @@index([superUser_id], map: "fk_atendente_superUser1_idx")
 }
 
+model cartao {
+  id         Int    @id
+  modalidade String @db.VarChar(45)
+  desconto   Int?
+}
+
 model clientes {
   id         Int       @id @default(autoincrement())
   cpf        String    @unique(map: "cpf_UNIQUE") @db.VarChar(14)
@@ -30,57 +46,17 @@ model clientes {
 }
 
 model loja_recarga {
-  id   Int     @id @default(autoincrement())
-  nome String? @default("Tech Pass") @db.VarChar(45)
+  id       Int     @id @default(autoincrement())
+  nome     String? @default("Tech Pass") @db.VarChar(45)
+  cep      String? @db.VarChar(9)
+  endereco String? @db.VarChar(255)
 }
 
-model motorista {
-  id         Int       @id @default(autoincrement())
-  cpf        String?   @db.VarChar(14)
-  foto       String?   @db.VarChar(200)
-  nascimento DateTime? @db.Date
-  cnh        String?   @db.VarChar(11)
-}
-
-model onibus {
-  id    Int    @id
-  placa String @db.VarChar(15)
-}
-
-model usuario {
-  clientes_id Int     @id
-  username    String? @db.VarChar(90)
-  email       String  @unique(map: "email_UNIQUE") @db.VarChar(64)
-  senha       String? @db.VarChar(200)
-}
-
-model viagem {
-  id           Int       @id @default(autoincrement())
-  inicio       DateTime? @db.DateTime(0)
-  duracao      DateTime? @db.Time(0)
-  linhas_id    Int       @db.UnsignedInt
-  onibus_id    Int
-  motorista_id Int
-
-  @@index([linhas_id], map: "fk_viagem_linhas1_idx")
-  @@index([motorista_id], map: "fk_viagem_motorista1_idx")
-  @@index([onibus_id], map: "fk_viagem_onibus1_idx")
-}
-
-model adm {
-  id           Int       @id @default(autoincrement())
-  superUser_id Int       @db.UnsignedInt
-  cpf          String?   @db.VarChar(14)
-  nascimento   DateTime? @db.Date
-  telefone     String?   @db.VarChar(13)
-
-  @@index([superUser_id], map: "fk_ADM_superUser1_idx")
-}
-
-model cartao {
-  id         Int    @id
-  modalidade String @db.VarChar(45)
-  desconto   Int?
+model superuser {
+  id       Int     @id @default(autoincrement()) @db.UnsignedInt
+  email    String  @unique(map: "email_UNIQUE") @db.VarChar(64)
+  senha    String? @db.VarChar(100)
+  username String? @db.VarChar(45)
 }
 
 model clliente_tem_cartao {
@@ -113,6 +89,19 @@ model linhas {
   fim           DateTime? @db.Time(0)
 }
 
+model motorista {
+  id         Int       @id @default(autoincrement())
+  cpf        String?   @db.VarChar(14)
+  foto       String?   @db.VarChar(200)
+  nascimento DateTime? @db.Date
+  cnh        String?   @db.VarChar(11)
+}
+
+model onibus {
+  id    Int    @id
+  placa String @db.VarChar(15)
+}
+
 model pontoonibus {
   id       Int     @id @default(autoincrement()) @db.UnsignedInt
   endereco String? @db.VarChar(255)
@@ -129,19 +118,22 @@ model rotas {
   @@index([pontoOnibus_id], map: "fk_trajeto_paradas_ponto_de_onibus1")
 }
 
-model superuser {
-  id       Int     @id @default(autoincrement()) @db.UnsignedInt
-  email    String  @unique(map: "email_UNIQUE") @db.VarChar(64)
-  senha    String? @db.VarChar(100)
-  username String? @db.VarChar(45)
+model usuario {
+  clientes_id Int     @id
+  username    String? @db.VarChar(90)
+  email       String  @unique(map: "email_UNIQUE") @db.VarChar(64)
+  senha       String? @db.VarChar(200)
 }
 
-model local_loja {
-  loja_recarga_id Int     @id
-  bairro          String? @db.VarChar(45)
-  rua             String? @db.VarChar(45)
-  numero          Int?
-  lat             Int?
-  long            Int?
-  cep             String? @db.VarChar(9)
+model viagem {
+  id           Int       @id @default(autoincrement())
+  inicio       DateTime? @db.DateTime(0)
+  duracao      DateTime? @db.Time(0)
+  linhas_id    Int       @db.UnsignedInt
+  onibus_id    Int
+  motorista_id Int
+
+  @@index([linhas_id], map: "fk_viagem_linhas1_idx")
+  @@index([motorista_id], map: "fk_viagem_motorista1_idx")
+  @@index([onibus_id], map: "fk_viagem_onibus1_idx")
 }
