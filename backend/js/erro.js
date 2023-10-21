@@ -19,6 +19,6 @@ function exception(e) {
     } 
       
     return error
-  }
+  } 
 
   module.exports =  exception

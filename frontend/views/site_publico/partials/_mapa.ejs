@@ -5,22 +5,27 @@
         perto de você.</h3>
 
     <div
-        class=" p-3 g-3 bg-light row rounded flex-column-reverse flex-lg-row w-100 h-100">
-        <div class=" ps-lg-0 col-lg-4 col-12">
-            <form class=" d-inline-flex w-100">
+        class=" p-3 g-3 bg-light row rounded d-flex flex-column-reverse flex-lg-row w-100 " >
+        <div class=" ps-lg-0 col-lg-4 col-12 h-100 " >
+
+            <form class=" d-inline-flex w-100" id="pesquisaLoja">
                 <input type="text" class="form-control rounded-end-0"
-                    placeholder="DIGITE UM PONTO" />
+                    placeholder="Digite um bairro" />
                 <button type="submit" class="btn btn-primary rounded-start-0">
                     buscar
                 </button>
             </form>
 
-            <ul class="list-group mt-3 h-100" id="lista-de-pontos"></ul>
+            <div class=" " style="aspect-ratio: 65/90;">
+                <ul class="list-group mt-3 overflow-auto w-100 h-100" id="lista-de-pontos"></ul>
+            </div>
 
         </div>
 
-        <div class=" pe-lg-0 col-lg-8 col-12 " style='color: #0095eb;'>
+        <div class=" pe-lg-0 col-lg-8 col-12 " style='color: #0095eb; ' > 
+
             <div id='divmapa' class=" border ratio ratio-4x3"></div>
+
         </div>
     </div>
 
@@ -60,10 +65,10 @@ async function initMap(pontos, divmapa, listapai) {
     listapai = document.getElementById(listapai)
     divmapa = document.getElementById(divmapa)
 
-
+    
     map = new Map(divmapa, {
         zoom: 16,
-        center: pontos[0].coordenadas,
+        center: {lat: parseFloat(pontos[0].lat), lng: parseFloat(pontos[0].lng)},
         mapId: "DEMO_MAP_ID",
         mapTypeControl: false,
         streetViewControl: false,
@@ -74,15 +79,16 @@ async function initMap(pontos, divmapa, listapai) {
     const infowindow = []
     pontos.map((umPonto, i) => {
         const rowlista = document.createElement("li")
-        rowlista.classList.add("list-group-item", "list-group-item-action")
+        rowlista.classList.add("list-group-item", "list-group-item-action", "rounded-end-0")
+        rowlista.setAttribute("style", "min-height: 100px")
         rowlista.innerHTML = `
-        <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">${umPonto.nome}</h5>
-        </div>
-        <p class="mb-1">${umPonto.endereco}</p>
-        <small>${umPonto.descricao}</small>
+        <h5 class="mb-1">${umPonto.nome}</h5>
+        <p class="mb-1 fs-6">${umPonto.endereco}</p>
+        <small>CEP: ${umPonto.cep}</small>
         `
         listapai.appendChild(rowlista)
+
+
 
         if (i == 0) { rowlista.classList.add("active") }
 
@@ -92,7 +98,7 @@ async function initMap(pontos, divmapa, listapai) {
         makericon.style.height = "auto"
         const marker = new AdvancedMarkerView({
             map: map,
-            position: umPonto.coordenadas,
+            position: {lat: parseFloat(umPonto.lat), lng: parseFloat(umPonto.lng)},
             content: makericon,
             collisionBehavior: "REQUIRED_AND_HIDES_OPTIONAL"
 
@@ -105,7 +111,7 @@ async function initMap(pontos, divmapa, listapai) {
             content: `
                 <div class="p-0 m-0 text-dark">
                     <h4 class=" p-0 m-0">Tech Pass</h4>
-                    <p class=" p-0 m-0">ponto de recarga em ${umPonto.bairro}</p>
+                    <p class=" p-0 m-0">ponto de recarga no ${umPonto.endereco.split(",")[2]}</p>
                 </div>
             `,
             ariaLabel: "Tech Pass",
@@ -113,7 +119,7 @@ async function initMap(pontos, divmapa, listapai) {
 
         rowlista.addEventListener("click", () => {
 
-            const distancia = getDistanceBetweenPoints(map.getCenter().lat(), map.getCenter().lng(), umPonto.coordenadas.lat, umPonto.coordenadas.lng, "kilometers")
+            const distancia = getDistanceBetweenPoints(map.getCenter().lat(), map.getCenter().lng(), {lat: parseFloat(umPonto.lat), lng: parseFloat(umPonto.lng)}.lat, {lat: parseFloat(umPonto.lat), lng: parseFloat(umPonto.lng)}.lng, "kilometers")
 
             let zoom, transicaoS
             if (distancia > 9) {
@@ -127,7 +133,7 @@ async function initMap(pontos, divmapa, listapai) {
 
             map.setZoom(zoom)
             window.setTimeout(() => {
-                map.panTo(umPonto.coordenadas);
+                map.panTo({lat: parseFloat(umPonto.lat), lng: parseFloat(umPonto.lng)});
                 map.setZoom(15)
             }, transicaoS);
 
@@ -158,15 +164,44 @@ async function initMap(pontos, divmapa, listapai) {
 
 
     })
+
+
+    const lista = [...document.querySelector("#lista-de-pontos").querySelectorAll("li")]
+    const formsPesquisar = document.querySelector("#pesquisaLoja")
+    const input = formsPesquisar.querySelector("input")
+
+    formsPesquisar.addEventListener("input", (evt) =>{
+        evt.preventDefault()
+
+        lista.map((elem)=>{
+            
+            const bairro = elem.querySelector("p").textContent.split(",")[2].toLowerCase().trim().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "")
+            const resultado = input.value.toLowerCase().trim().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "")
+            console.log(bairro, resultado)
+            if(!bairro.startsWith(resultado)){
+                elem.classList.add("d-none")
+                console.log("--------------------")
+            } else{
+                elem.classList.remove("d-none")
+            }
+        })
+    })
+
+    
 } 
 
 
-console.log("<%= data.nome%>")
+
+
+
 initMap(
-    "a",
+    <%-data%>,
     divmapa = "divmapa",
     listapai = "lista-de-pontos"
 )
+
+
+
 
 
 </script>

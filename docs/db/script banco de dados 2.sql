@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS `techpassdb`.`loja_recarga` (
   `cep` VARCHAR(9) NULL DEFAULT NULL,
   `endereco` VARCHAR(255) NULL,
   `lat` DECIMAL(9,6) NULL,
-  `long` DECIMAL(9,6) NULL,
+  `lng` DECIMAL(9,6) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4;
@@ -194,7 +194,7 @@ CREATE TABLE IF NOT EXISTS `techpassdb`.`ponto_de_onibus` (
   `endereco` VARCHAR(255) NULL,
   `cep` VARCHAR(9) NULL,
   `lat` DECIMAL(9,6) NULL,
-  `long` DECIMAL(9,6) NULL,
+  `lng` DECIMAL(9,6) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 

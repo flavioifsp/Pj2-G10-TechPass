@@ -7,7 +7,6 @@ async function axiosGet(url) {
     } catch (erro) {
         er = erro
     }
-
     return {data, er}
 }
 

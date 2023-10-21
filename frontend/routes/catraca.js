@@ -30,7 +30,7 @@ router.get('/erro', function (req, res, next) {
   });
 });
 
-
+ 
 
 // sucesso
 router.get('/success', function (req, res, next) {
@@ -52,7 +52,7 @@ router.get('/success', function (req, res, next) {
     corback: "#73D271", title: "Catraca sucesso", nome, SaldoRestante, SaldoGasto, modalidade
   })
 })
-
+ 
 
 // saldo insuficiente
 router.get('/saldoOff', function (req, res, next) {

@@ -103,7 +103,7 @@ model loja_recarga {
   cep       String?     @db.VarChar(9)
   endereco  String?     @db.VarChar(255)
   lat       Decimal?    @db.Decimal(9, 6)
-  long      Decimal?    @db.Decimal(9, 6)
+  lng       Decimal?    @db.Decimal(9, 6)
   atendente atendente[]
 }
 
@@ -130,7 +130,7 @@ model ponto_de_onibus {
   endereco String?  @db.VarChar(255)
   cep      String?  @db.VarChar(9)
   lat      Decimal? @db.Decimal(9, 6)
-  long     Decimal? @db.Decimal(9, 6)
+  lng      Decimal? @db.Decimal(9, 6)
   rotas    rotas[]
 }
 

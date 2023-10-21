@@ -10,7 +10,7 @@ const catraca = require("./routes/catraca");
 const maps = require("./routes/mapa");
 
 const app = express();
-
+  
 app.use(cors());
 
 app.use(logger("dev"));

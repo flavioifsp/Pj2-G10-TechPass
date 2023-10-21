@@ -1,0 +1,41 @@
+// Variable overrides first
+// $primary: #900;
+// $enable-shadows: true;
+// $prefix: "mo-";
+
+// Then import Bootstrap
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
+
+$aspect-ratios: (
+  "1x1": calc(4 / 3 * 100%),
+  "4x3": calc(3 / 4 * 100%),
+  "16x9": calc(9 / 16 * 100%),
+  "21x9": calc(9 / 21 * 100%)
+);
+
+/* Estilizando a barra de rolagem para um elemento específico */
+
+#lista-de-pontos::-webkit-scrollbar {
+  width: 12px;
+}
+
+#lista-de-pontos {
+  &::-webkit-scrollbar{
+    width: 6px;
+    
+  }
+
+  &::-webkit-scrollbar-button {
+    display: none;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #3e0763;
+    border-radius: 10px;
+  }
+}

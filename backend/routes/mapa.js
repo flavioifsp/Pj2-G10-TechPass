@@ -20,8 +20,8 @@ router.get("/allMapaLojas", async function (req, res, next) {
           
     //     }
     //   ]
-  
-    res.send(JSON.stringify(lojas))
+    lojas.map((elem) => {console.log(elem)})
+    res.send(lojas)
 
   } catch (er) {
     console.log(er)
@@ -32,4 +32,4 @@ router.get("/allMapaLojas", async function (req, res, next) {
 });
 
 module.exports = router;
- 
+  
