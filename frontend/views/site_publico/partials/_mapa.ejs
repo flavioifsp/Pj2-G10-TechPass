@@ -11,12 +11,12 @@
             <form class=" d-inline-flex w-100" id="pesquisaLoja">
                 <input type="text" class="form-control rounded-end-0"
                     placeholder="Digite um bairro" />
-                <button type="submit" class="btn btn-primary rounded-start-0">
+                <div  class="btn btn-primary rounded-start-0">
                     buscar
-                </button>
+                </div>
             </form>
 
-            <div class=" " style="aspect-ratio: 65/90;">
+            <div class="" style="aspect-ratio: 65/90;">
                 <ul class="list-group mt-3 overflow-auto w-100 h-100" id="lista-de-pontos"></ul>
             </div>
 
@@ -80,11 +80,14 @@ async function initMap(pontos, divmapa, listapai) {
     pontos.map((umPonto, i) => {
         const rowlista = document.createElement("li")
         rowlista.classList.add("list-group-item", "list-group-item-action", "rounded-end-0")
-        rowlista.setAttribute("style", "min-height: 100px")
+        rowlista.setAttribute("style", "")
+        // rowlista.setAttribute("href", "#divmapa")
         rowlista.innerHTML = `
+        <a href="#divmapa" class="text-dark h-100" style="min-height: 100px">
         <h5 class="mb-1">${umPonto.nome}</h5>
         <p class="mb-1 fs-6">${umPonto.endereco}</p>
         <small>CEP: ${umPonto.cep}</small>
+        </a>
         `
         listapai.appendChild(rowlista)
 

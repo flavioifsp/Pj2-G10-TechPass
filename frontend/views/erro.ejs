@@ -34,10 +34,16 @@
 <script>
   const modalerro = new bootstrap.Modal('#modalerro')
  
+ 
+    function acionarerro(msgEr, erCode){
+    document.querySelector("#msgErro").innerHTML = msgEr
+      document.querySelector("#imgErro").src= `https://http.cat/${erCode}`
+      modalerro.show()  
+    }
   
 
   <%
-    if(er){
+    if(typeof er   !== 'undefined'){
       let statuscode = 500
       let msg = er
       if (er.response != undefined) {
@@ -45,18 +51,10 @@
         msg = er.response.data
       }
 
-      %>
-        const erCode = <%=statuscode%>
-        const msgEr = `<%-msg%>`
-      <%
+      %> acionarerro(`<%-msg%>`, <%=statuscode%>) <%
     }
   %>
-   
-  
-    if(typeof erCode   !== 'undefined'){
-      document.querySelector("#msgErro").innerHTML = msgEr
-      document.querySelector("#imgErro").src= `https://http.cat/${erCode}`
-      modalerro.show()  
-    }
+
+    
   
 </script>      

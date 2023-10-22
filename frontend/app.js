@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const expressLayouts = require("express-ejs-layouts")
 const dotenv = require('dotenv').config()
+const cors = require('cors')
 
 
 const sitepublicoRouter = require('./routes/sitepublico');
@@ -19,7 +20,7 @@ const app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-
+app.use(cors())
 app.use(expressLayouts) 
 app.use(logger('dev'));
 app.use(express.json());
@@ -33,9 +34,9 @@ app.use('/user', userRouter);
 app.use('/catraca', catraca);
 
 // lembrar de fazer um meio para aparecer uma msg de erro quando é redirecionado
-app.all("*", (req, res) => {
-  res.redirect("/")
-});
+// app.all("*", (req, res) => {
+//   res.redirect("/")
+// });
     
    
 // catch 404 and forward to error handler
