@@ -20,7 +20,7 @@ router.get("/allMapaLojas", async function (req, res, next) {
           
     //     }
     //   ]
-    lojas.map((elem) => {console.log(elem)})
+
     res.send(lojas)
 
   } catch (er) {

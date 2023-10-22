@@ -38,14 +38,14 @@ router.get('/rotas&linhas', async function (req, res, next) {
 
 /* GET login. */
 router.get('/login', function (req, res, next) {
-  res.render('site_publico/pages/login', { title: 'Entrar', layout: 'site_publico/layouts/layout_auth.ejs', er: null });
+  res.render('site_publico/pages/login', { title: 'Entrar', layout: 'site_publico/layouts/layout_auth.ejs',  });
 });
 
 
 
 /* GET cadastrar. */
 router.get('/cadastrar', function (req, res, next) {
-  res.render('site_publico/pages/cadastrar', { title: 'cadastrar', layout: 'site_publico/layouts/layout_auth.ejs', er: null });
+  res.render('site_publico/pages/cadastrar', { title: 'cadastrar', layout: 'site_publico/layouts/layout_auth.ejs' });
 }); 
 
 

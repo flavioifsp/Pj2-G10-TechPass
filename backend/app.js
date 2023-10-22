@@ -8,9 +8,10 @@ const dotenv = require('dotenv').config();
 const linhas = require("./routes/linhas");
 const catraca = require("./routes/catraca");
 const maps = require("./routes/mapa");
+const users = require("./routes/users");
 
 const app = express();
-  
+   
 app.use(cors());
 
 app.use(logger("dev"));
@@ -21,6 +22,8 @@ app.use(cookieParser());
 app.use("/api/linhas", linhas);
 app.use("/api/catraca", catraca);
 app.use("/api/maps", maps);
+app.use("/api/user", users);
+
 
 app.all("*", (req, res) => {
   res.status(501).end();
