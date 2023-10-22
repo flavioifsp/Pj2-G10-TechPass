@@ -1,16 +1,19 @@
+<!-- adicionar forma  de pagamento-->
+<section class="container-fluid h-100 " id="addtipocard">
+  <h2 class="text-uppercase">adicionar</h2>
+  <div class="mt-4 d-flex flex-row gap-4">
+    <button type="button" id="btncredito" class="btn btn-secondary">
+      <h5 class="text-uppercase pt-2">cartao de credito</h5>
+      <i class="bi bi-credit-card-fill " id="botao-cardcredit"></i>
+    </button>
+    <button type="button" id="btndebito" class="btn btn-secondary">
+      <h5 class="text-uppercase pt-2">cartao de debito</h5>
+      <i class="bi bi-credit-card-fill " id="botao-cardcredit"></i>
+    </button>
+  </div>
+</section>
 
-  <!-- adicionar forma  de pagamento-->
-  <section class="container-fluid h-100 " id="addtipocard">
-    <h2 class="text-uppercase">adicionar</h2>
-    <div class="mt-4 d-flex flex-row gap-4">
-      <button type="button" id="btncredito" class="btn btn-secondary">
-        <h5 class="text-uppercase pt-2">cartao de credito</h5>
-        <i class="bi bi-credit-card-fill " id="botao-cardcredit"></i>
-      </button>
-      <button type="button" id="btndebito" class="btn btn-secondary">
-        <h5 class="text-uppercase pt-2">cartao de debito</h5>
-        <i class="bi bi-credit-card-fill " id="botao-cardcredit"></i>
-      </button>
-    </div>
-  </section>
-
+<script>
+  AlternarDePag("btncredito", "payment", "formscardcredito")
+  AlternarDePag("btndebito", "payment", "formscardDEBITO")
+</script>
