@@ -15,15 +15,21 @@ router.post('/cadastrar/', async function (req, res, next) {
     let { username, email, senha,
       cpf, nome, nascimento } = req.body;
 
+   
+    let dadosinvalidos = `o(s) `
     // verifica se os dados estão corretos
-    if (typeof username !== "string") { return res.status(400).send("dados invalidos!") }
-    if (typeof senha !== "string") { return res.status(400).send("dados invalidos!") }
-    if (typeof nome !== "string") { return res.status(400).send("dados invalidos!") }
-    if (typeof nascimento !== "string") { return res.status(400).send("dados invalidos!") }
-    if (typeof email !== "string") { return res.status(400).send("dados invalidos!") }
-    if (typeof cpf !== "string") { return res.status(400).send("dados invalidos!") }
-
-
+    if (typeof username !== "string") { dadosinvalidos += "username, " }
+    if (typeof senha !== "string") { dadosinvalidos +="senha, " }
+    if (typeof nome !== "string") { dadosinvalidos +="nome, " }
+    if (typeof nascimento !== "string") { dadosinvalidos +="nascimento, " }
+    if (typeof email !== "string") { dadosinvalidos +="email, " }
+    if (typeof cpf !== "string") { dadosinvalidos +="cpf, " }
+ 
+    dadosinvalidos += "estâo invalidos"
+    if(dadosinvalidos !== `o(s) estâo invalidos`){
+      console.log(dadosinvalidos)
+      return res.status(400).send(dadosinvalidos)
+    }
     // codifica a senha
     senha = await bcry.hash(senha, 10)
 

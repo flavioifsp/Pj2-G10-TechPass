@@ -1,4 +1,4 @@
-<section class="container col-11 border border-light col-md-9 col-lg-7 col-xl-5 m-auto align-content-center py-4 px-2 rounded bg-light shadow">
+<section class="container col-11  border border-light col-md-9 col-lg-7 col-xl-5 m-auto align-content-center py-4 px-2 rounded bg-light shadow">
   <img src="images/logo.png" alt="" class="pb-3" style="width: 110px" />
   <!-- <div class="d-flex align-items-center pb-3 justify-content-around">
 </div> -->
@@ -8,22 +8,22 @@
   <form class="container-fluid m-auto row g-3 needs-validation" novalidate id="formscadastro">
     <!-- nome real -->
     <div class="  col-12">
-      <label for="nomeR " class="form-label mb-1 ps-2" maxlength="100" required>Nome Completo</label>
-      <input class="form-control" id="nomeR" name="nomeR" type="text" />
+      <label for="nome " class="form-label mb-1 ps-2" maxlength="100" required>Nome Completo</label>
+      <input class="form-control" id="nome" name="nome" type="text" />
       <div class="invalid-feedback">Duração da viagem é um campo obrigatório.</div>
     </div>
 
-    <!-- nomeuser -->
+    <!-- username -->
     <div class="col-12">
-      <label for="nomeUser" class="form-label mb-1 ps-2" maxlength="100" required>Nome de Usuario</label>
-      <input name="nomeUser" id="nomeUser" class="form-control" type="text" />
+      <label for="username" class="form-label mb-1 ps-2" maxlength="100" required>Nome de Usuario</label>
+      <input name="username" id="username" class="form-control" type="text" />
       <div class="invalid-feedback">Duração da viagem é um campo obrigatório.</div>
     </div>
 
     <!-- email -->
     <div class=" col-12">
       <label for="email" class="form-label mb-1 ps-2" maxlength="100" required>Email</label>
-      <input name="email" class="form-control" type="email" placeholder="digite seu email" />
+      <input name="email" id="email" class="form-control" type="email" placeholder="digite seu email" />
       <div class="invalid-feedback">Duração da viagem é um campo obrigatório.</div>
     </div>
 
@@ -36,8 +36,8 @@
 
     <!-- nasc -->
     <div class="  col-sm-4 col-12">
-      <label for="nasc" class="form-label mb-1 ps-2" maxlength="100" required>Data de Nascimento</label>
-      <input name="nasc" class="form-control" type="date" />
+      <label for="nascimento" class="form-label mb-1 ps-2" maxlength="100" required>Data de Nascimento</label>
+      <input name="nascimento" id="nascimento" class="form-control" type="date" />
       <div class="invalid-feedback">Duração da viagem é um campo obrigatório.</div>
     </div>
 
@@ -83,16 +83,20 @@
   document.addEventListener("DOMContentLoaded", () => {
     const cadastro = document.querySelector("#formscadastro")
 
-    const nomeR = cadastro.querySelector("#nomeR ")
-    const nomeUser = cadastro.querySelector("#nomeUser")
-    const email = cadastro.querySelector("#email")
-    const cpf = cadastro.querySelector("#cpf")
-    const nasc = cadastro.querySelector("#nasc")
-    const senha = cadastro.querySelector("#senha")
-    const senha2 = cadastro.querySelector("#senha2")
-
-    cadastro.addEventListener("submit", () => {
+   
+    // cria um objeto contendo cada input com seu nome e o valor dele
+    
+    
+    cadastro.addEventListener("submit", async () => {
       event.preventDefault();
+
+      const data = {}
+      for(x of [...cadastro.querySelectorAll("input")]){
+        data[x.name] = x.value
+      }
+      console.log(data)
+      const cadastrar = await axios.post("http://localhost:9000/api/user/cadastrar", data)
+      
     })
 
   })
