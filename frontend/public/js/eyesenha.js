@@ -1,19 +1,23 @@
 
-const senhapaia = document.getElementById("senhapaia");
-const btnsenha = document.getElementById("btnsenha");
-const logo = btnsenha.querySelector("i")
+const senhaspaia = [...document.querySelectorAll(".senhapaia")];
 
-btnsenha.addEventListener("click", () => {
-    if(senhapaia.type === "password"){
-      senhapaia.type = "text"
-      logo.classList.add("bi-eye-slash")
-      logo.classList.remove("bi-eye-fill")
-    } else{ 
-      senhapaia.type = "password"
-      logo.classList.remove("bi-eye-slash")
-      logo.classList.add("bi-eye-fill")
-    }
+
+senhaspaia.map((senhapaia) =>{
+  
+  const btnsenha = senhapaia.querySelector(".btnsenha");
+  const inputsenha = senhapaia.querySelector(".inputsenha");
+  const logo = senhapaia.querySelector("i")
+  
+  btnsenha.addEventListener("click", () => {
+      if(inputsenha.type === "password"){
+        inputsenha.type = "text"
+        logo.classList.add("bi-eye-slash")
+        logo.classList.remove("bi-eye-fill")
+      } else{ 
+        inputsenha.type = "password"
+        logo.classList.remove("bi-eye-slash")
+        logo.classList.add("bi-eye-fill")
+      }
+  })
+     
 })
-
- 
- 

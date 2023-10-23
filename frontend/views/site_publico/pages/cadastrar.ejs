@@ -1,59 +1,99 @@
-<section
-    class="container  col-sm-10 col-md-8 col-lg-6 col-xl-4 m-auto align-content-center py-4 rounded bg-light shadow">
-    <img src="images/logo.png" alt="" class="pb-3" style="width: 110px" />
-    <!-- <div class="d-flex align-items-center pb-3 justify-content-around">
+<section class="container col-11 border border-light col-md-9 col-lg-7 col-xl-5 m-auto align-content-center py-4 px-2 rounded bg-light shadow">
+  <img src="images/logo.png" alt="" class="pb-3" style="width: 110px" />
+  <!-- <div class="d-flex align-items-center pb-3 justify-content-around">
 </div> -->
 
 
 
-    <form class="container-fluid row g-3">  
+  <form class="container-fluid m-auto row g-3 needs-validation" novalidate id="formscadastro">
+    <!-- nome real -->
+    <div class="  col-12">
+      <label for="nomeR " class="form-label mb-1 ps-2" maxlength="100" required>Nome Completo</label>
+      <input class="form-control" id="nomeR" name="nomeR" type="text" />
+      <div class="invalid-feedback">Duração da viagem é um campo obrigatório.</div>
+    </div>
 
+    <!-- nomeuser -->
+    <div class="col-12">
+      <label for="nomeUser" class="form-label mb-1 ps-2" maxlength="100" required>Nome de Usuario</label>
+      <input name="nomeUser" id="nomeUser" class="form-control" type="text" />
+      <div class="invalid-feedback">Duração da viagem é um campo obrigatório.</div>
+    </div>
 
-        <div class="  col-12">
-            <label for="nome" class="form-label ps-2">nome completo</label>
-            <input class="form-control" name="nome" type="text" />
-        </div>
+    <!-- email -->
+    <div class=" col-12">
+      <label for="email" class="form-label mb-1 ps-2" maxlength="100" required>Email</label>
+      <input name="email" class="form-control" type="email" placeholder="digite seu email" />
+      <div class="invalid-feedback">Duração da viagem é um campo obrigatório.</div>
+    </div>
 
-        <div class="   col-sm-6 col-12">
-            <label for="cell" class="form-label ps-2">telefone</label>
-            <input name="cell" class="form-control" type="number" />
-        </div>
-  
+    <!-- cpf -->
+    <div class="  col-sm-8 col-12">
+      <label for="cpf" class="form-label mb-1 ps-2" maxlength="100" required>CPF</label>
+      <input class="form-control" id="cpf" name="cpf" type="text" />
+      <div class="invalid-feedback">Duração da viagem é um campo obrigatório.</div>
+    </div>
 
-        <div class="  col-sm-6 col-12">
-            <label for="nasc" class="form-label ps-2">data de nascimento</label>
-            <input name="nasc" class="form-control" type="date" />
-        </div>      
+    <!-- nasc -->
+    <div class="  col-sm-4 col-12">
+      <label for="nasc" class="form-label mb-1 ps-2" maxlength="100" required>Data de Nascimento</label>
+      <input name="nasc" class="form-control" type="date" />
+      <div class="invalid-feedback">Duração da viagem é um campo obrigatório.</div>
+    </div>
 
- 
-        <div class=" col-12">
-            <label for="email" class="form-label ps-2">email</label>
-            <input name="email" class="form-control" type="email" placeholder="digite seu email" />
-        </div>
-
-        <div class="d-flex flex-column col-12">
-            <label for="senha" class="form-label ps-2">coloque sua senha</label>
-            <div class="d-flex flex-row">
-                <input name="senha" class="form-control rounded-end-0" type="password" id="senhapaia"
-                    placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" />
-                <button type="button" class="btn btn-outline-primary rounded-start-0" id="btnsenha">
-                    <span class="m-auto"><i class="bi bi-eye-fill"></i></span>
-                </button>
-            </div>
-        </div>
-
-        <div class="d-flex flex-column  col-12">
-            <label for="senha2" class="form-label ps-2">confirme sua senha</label>
-            <input name="senha2" class="form-control" type="password"
-                placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" />
-        </div>
-
-        <button class="btn btn-primary w-100 mt-3" type="submit">
-            entrar
+    <!-- senha -->
+    <div class="d-flex flex-column col-md-6 col-12">
+      <label for="senha" class="form-label mb-1 ps-2">Insira sua senha</label>
+      <div class="d-flex flex-row senhapaia">
+        <input name="senha" id="senha" class="form-control rounded-end-0 inputsenha" type="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" />
+        <button type="button" class="btn btn-outline-primary rounded-start-0 btnsenha">
+          <span class="m-auto"><i class="bi bi-eye-fill"></i></span>
         </button>
+      </div>
+      <div class="invalid-feedback">Duração da viagem é um campo obrigatório.</div>
 
-        <p class="mt-3 text-center">
-            já tem uma conta? <a href="login.html">entre aqui</a>
-        </p>
-    </form>
+    </div>
+
+    <!-- senha2 -->
+    <div class="d-flex flex-column  col-md-6 col-12">
+      <label for="senha2" class="form-label mb-1 ps-2">Repita sua senha</label>
+      <div class="d-flex flex-row senhapaia" >
+        <input name="senha2" id="senha2" class="form-control rounded-end inputsenha" type="password"  placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" />
+        <button type="button" class="btn btn-outline-primary rounded-start-0 btnsenha">
+          <span class="m-auto"><i class="bi bi-eye-fill"></i></span>
+        </button>
+      </div>
+
+      <div class="invalid-feedback">Duração da viagem é um campo obrigatório.</div>
+    </div>
+
+    <div class="col-12 mt-3">
+      <button class="btn btn-primary w-100 py-2 " type="submit">
+        <h5 class="m-0">Cadastrar</h5>
+      </button>
+    </div>
+
+    <p class="mt-3 text-center">
+      já tem uma conta? <a href="/login">entre aqui</a>
+    </p>
+  </form>
 </section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const cadastro = document.querySelector("#formscadastro")
+
+    const nomeR = cadastro.querySelector("#nomeR ")
+    const nomeUser = cadastro.querySelector("#nomeUser")
+    const email = cadastro.querySelector("#email")
+    const cpf = cadastro.querySelector("#cpf")
+    const nasc = cadastro.querySelector("#nasc")
+    const senha = cadastro.querySelector("#senha")
+    const senha2 = cadastro.querySelector("#senha2")
+
+    cadastro.addEventListener("submit", () => {
+      event.preventDefault();
+    })
+
+  })
+</script>

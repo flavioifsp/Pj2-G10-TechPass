@@ -81,7 +81,7 @@ router.post('/cadastrar/', async function (req, res, next) {
       return res.send(username);
 
 
-    } else if (!Teste_UserEmail && !Teste_clienteUser) {
+    } else if (!Teste_UserEmail && Teste_clienteUser.usuario === null) {
       // cria apenas o usuario se ja existir um cliente com esse cpf, mas sem usuario
       await prisma.usuario.create({
 
@@ -123,14 +123,14 @@ router.get('/cadastrar/', async function (req, res, next) {
     if (typeof cpf == "string") {
       if (
         // se esse cliente tem um usuario
-        await prisma.clientes.findUnique({
+        (await prisma.clientes.findUnique({
           where: {
             cpf: cpf
           },
           select: {
             usuario: true
           },
-        })
+        })).usuario !== null
       ) {
         verificacoes.usuario = true
       } else {

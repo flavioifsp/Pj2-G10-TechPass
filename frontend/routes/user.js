@@ -20,6 +20,7 @@ class Menu {
 
         router.get(href, function (req, res, next) {
 
+
             menu[indi].active = "active"
             res.render(endereco, { title: nome, layout: 'site_publico/layouts/layout_user.ejs', menu  });
             menu[indi].active = ""

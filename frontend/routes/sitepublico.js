@@ -5,7 +5,6 @@ const axiosGet = require('../public/js/req_get_axios')
 /* GET home page. */
 router.get('/',async function (req, res, next) {
   let {er, data} = await axiosGet("http://localhost:9000/api/maps/allMapaLojas")
-   
   data = JSON.stringify(data)
   res.render('site_publico/pages/index', {
     title: 'Tech Pass',
@@ -22,6 +21,7 @@ router.get('/',async function (req, res, next) {
 /* GET rotas e linhas. */
 router.get('/rotas&linhas', async function (req, res, next) {
   const {er, data} = await axiosGet("http://localhost:9000/api/linhas/allLinhas")
+
   res.render('site_publico/pages/rotas&linhas', {
     title: 'Rotas e Linhas',
     layout: 'site_publico/layouts/layout_index.ejs',
