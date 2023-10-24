@@ -19,7 +19,7 @@
       series: [
         {
           name: '2021',
-          data: [18, 7, 15, 29, 18, 12, 9]
+          data: [18, 7, 15, 29, 18, 12, 9,12,15,12,15]
         },
        
       ],
@@ -32,7 +32,7 @@
       plotOptions: {
         bar: {
           horizontal: false,
-          columnWidth: '33%',
+          columnWidth: '20%',
           borderRadius: 12,
           startingShape: 'rounded',
           endingShape: 'rounded'
@@ -44,13 +44,13 @@
       },
       stroke: {
         curve: 'smooth',
-        width: 11,
+        width: 6,
         lineCap: 'round',
         colors: [cardColor]
       },
       legend: {
-        show: true,
-        horizontalAlign: 'left',
+        show: false,
+        horizontalAlign: 'center',
         position: 'top',
         markers: {
           height: 8,
@@ -75,7 +75,7 @@
         }
       },
       xaxis: {
-        categories: ['Jan', 'Feb', 'Mar', 'paia', 'May', 'Jun', 'Jul'],
+        categories: ['Jan', 'Fev', 'Mar', 'Abr', 'Maio', 'Jun', 'Jul','Ago','Out','Nov','Dez'],
         labels: {
           style: {
             fontSize: '13px',
@@ -137,7 +137,7 @@
             plotOptions: {
               bar: {
                 borderRadius: 10,
-                columnWidth: '100%'
+                columnWidth: '48%'
               }
             }
           }
@@ -159,7 +159,7 @@
             plotOptions: {
               bar: {
                 borderRadius: 11,
-                columnWidth: '40%'
+                columnWidth: '48%'
               }
             }
           }
@@ -170,7 +170,7 @@
             plotOptions: {
               bar: {
                 borderRadius: 10,
-                columnWidth: '44%'
+                columnWidth: '30%'
               }
             }
           }
@@ -181,7 +181,7 @@
             plotOptions: {
               bar: {
                 borderRadius: 10,
-                columnWidth: '50%'
+                columnWidth: '35%'
               }
             }
           }
@@ -192,7 +192,7 @@
             plotOptions: {
               bar: {
                 borderRadius: 10,
-                columnWidth: '40%'
+                columnWidth: '28%'
               }
             }
           }
@@ -203,7 +203,7 @@
             plotOptions: {
               bar: {
                 borderRadius: 10,
-                columnWidth: '50%'
+                columnWidth: '32%'
               }
             }
           }
@@ -214,7 +214,7 @@
             plotOptions: {
               bar: {
                 borderRadius: 10,
-                columnWidth: '60%'
+                columnWidth: '37%'
               }
             }
           }
@@ -225,7 +225,7 @@
             plotOptions: {
               bar: {
                 borderRadius: 10,
-                columnWidth: '60%'
+                columnWidth: '70%'
               }
             }
           }
@@ -236,7 +236,7 @@
             plotOptions: {
               bar: {
                 borderRadius: 10,
-                columnWidth: '100%'
+                columnWidth: '52%'
               }
             }
           }
@@ -247,7 +247,7 @@
             plotOptions: {
               bar: {
                 borderRadius: 10,
-                columnWidth: '90%'
+                columnWidth: '96%'
               }
             }
           }
@@ -273,84 +273,7 @@
 
   // Growth Chart - Radial Bar Chart
   // --------------------------------------------------------------------
-  const growthChartEl = document.querySelector('#growthChart'),
-    growthChartOptions = {
-      series: [62],
-      labels: ['Crescimento'],
-      chart: {
-        height: 240,
-        type: 'radialBar'
-      },
-      plotOptions: {
-        radialBar: {
-          size: 150,
-          offsetY: 10,
-          startAngle: -150,
-          endAngle: 150,
-          hollow: {
-            size: '55%'
-          },
-          track: {
-            background: cardColor,
-            strokeWidth: '100%'
-          },
-          dataLabels: {
-            name: {
-              offsetY: 15,
-              color: headingColor,
-              fontSize: '15px',
-              fontWeight: '600',
-              fontFamily: 'Public Sans'
-            },
-            value: {
-              offsetY: -25,
-              color: headingColor,
-              fontSize: '22px',
-              fontWeight: '500',
-              fontFamily: 'Public Sans'
-            }
-          }
-        }
-      },
-      colors: [config.colors.primary],
-      fill: {
-        type: 'gradient',
-        gradient: {
-          shade: 'dark',
-          shadeIntensity: 0.5,
-          gradientToColors: [config.colors.primary],
-          inverseColors: true,
-          opacityFrom: 1,
-          opacityTo: 0.6,
-          stops: [30, 70, 100]
-        }
-      },
-      stroke: {
-        dashArray: 5
-      },
-      grid: {
-        padding: {
-          top: -35,
-          bottom: -10
-        }
-      },
-      states: {
-        hover: {
-          filter: {
-            type: 'none'
-          }
-        },
-        active: {
-          filter: {
-            type: 'none'
-          }
-        }
-      }
-    };
-  if (typeof growthChartEl !== undefined && growthChartEl !== null) {
-    const growthChart = new ApexCharts(growthChartEl, growthChartOptions);
-    growthChart.render();
-  }
+ 
 
   // Profit Report Line Chart
   // --------------------------------------------------------------------
@@ -555,7 +478,7 @@
         }
       },
       xaxis: {
-        categories: ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+        categories:  ['', 'Jan', 'Fev', 'Mar', 'Abr', 'Ma', 'Jun', 'Jul','Jul','Jul'],
         axisBorder: {
           show: false
         },

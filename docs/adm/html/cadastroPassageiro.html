@@ -27,12 +27,12 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Horizontal Layouts - Forms | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>Cadastro - Passageiro</title>
 
     <meta name="description" content="" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="../assets/img/icon/logoicon.png" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -75,7 +75,7 @@
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo mt-3">
             <a href="index.html" class="app-brand-link">
-              <img src="/img/Logo.png" alt="">
+              <img src="../img/Logo.png" alt="">
             </a>
         
             <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -140,63 +140,55 @@
         <div class="layout-page">
           <!-- Navbar -->
 
-          <nav
-            class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
-            id="layout-navbar"
-          >
+          <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center " id="layout-navbar">
             <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
               <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
                 <i class="bx bx-menu bx-sm"></i>
               </a>
             </div>
-
+          
             <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
               <!-- Search -->
               <div class="navbar-nav align-items-center">
                 <div class="nav-item d-flex align-items-center">
-                  <i class="bx bx-search fs-4 lh-0"></i>
-                  <input
-                    type="text"
-                    class="form-control border-0 shadow-none"
-                    placeholder="Search..."
-                    aria-label="Search..."
-                  />
+          
+                  <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown"
+                    style="background-color: rgb(255, 255, 255);">
+          
+                    <div class="d-flex">
+                      <div class="flex-shrink-0 me-3">
+                        <div class="avatar avatar-online">
+                          <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                        </div>
+                      </div>
+                      <div class="flex-grow-1">
+                        <span class="fw-semibold d-block">John Doe</span>
+                        <small class="text-muted">Admin</small>
+                      </div>
+                    </div>
+                  </a>
+          
+                  <!--/ User -->
+          
                 </div>
               </div>
-              <!-- /Search -->
-
-              <ul class="navbar-nav flex-row align-items-center ms-auto">
-                <!-- Place this tag where you want the button to render. -->
-                
-
-                <!-- User -->
-                  <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                    <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                      <div class="avatar avatar-online">
-                        <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
-                      </div>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                      <li>
-                        <a class="dropdown-item" href="#">
-                          <div class="d-flex">
-                            <div class="flex-shrink-0 me-3">
-                              <div class="avatar avatar-online">
-                                <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
-                              </div>
-                            </div>
-                            <div class="flex-grow-1">
-                              <span class="fw-semibold d-block">John Doe</span>
-                              <small class="text-muted">Admin</small>
-                            </div>
-                          </div>
-                        </a>
-                      </li>
-                  
-                    </ul>
-                  </li>
-                <!--/ User -->
-              </ul>
+          
+              <div class="navbar-nav-right d-flex align-items-center justify-content-end" id="navbar-collapse">
+                <!-- Search -->
+                <div class="navbar-nav align-items-center">
+                  <div class="nav-item d-flex align-items-center">
+                    <li>
+                      <a class="dropdown-item" href="#">
+                        <i class="bx bx-power-off me-2"></i>
+                        <span class="align-middle">Log Out</span>
+                      </a>
+                    </li>
+                  </div>
+                </div>
+                <!-- /Search -->
+          
+          
+              </div>
             </div>
           </nav>
 
@@ -303,6 +295,8 @@
                     </div>
                   </div>
                   </div>
+                  </div>
+                  </div>
                 
                 
                   
@@ -321,9 +315,9 @@
                 <h4 class="fw-bold py-3 mb-4" ><span class="text-muted fw-light">Passageiros atuais</h4>
             
                 <!-- Basic Bootstrap Table -->
-                <div class="card">
+                <div class="card"  style="height: 380px; overflow: auto" >
             
-                  <div class="table-responsive text-nowrap">
+                  <div class="table-responsive text-nowrap" >
                     <table class="table" id="tabelaPassageiros">
                       <thead>
                         <tr>
@@ -405,31 +399,246 @@
                         </tr>
             
                         <tr>
+
+                          <tr>
+                          
+                            <td>Barry Hunter</td>
+                            <td>
+                              <ul class="list-unstyled users-list m-0 d-flex align-items-center">
+                                <span class="badge bg-info">150,00</span>
+                                </li>
+                          
+                              </ul>
+                            </td>
+                            <td>
+                              <div class="dropdown">
+                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                  <i class="bx bx-cog"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                  <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-edit-alt me-2"></i> Edit</a>
+                                  <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-trash me-2"></i> Delete</a>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                          
+                            <td>Trevor Baker</td>
+                            <td>
+                              <ul class="list-unstyled users-list m-0 d-flex align-items-center">
+                                <span class="badge bg-info">10,00</span>
+                                </li>
+                          
+                              </ul>
+                            </td>
+                          
+                            <td>
+                              <div class="dropdown">
+                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                  <i class="bx bx-cog"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                  <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-edit-alt me-2"></i> Edit</a>
+                                  <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-trash me-2"></i> Delete</a>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                          
+                          <tr>
+                          <tr>
+                          
+                            <td>Barry Hunter</td>
+                            <td>
+                              <ul class="list-unstyled users-list m-0 d-flex align-items-center">
+                                <span class="badge bg-info">150,00</span>
+                                </li>
+                          
+                              </ul>
+                            </td>
+                            <td>
+                              <div class="dropdown">
+                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                  <i class="bx bx-cog"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                  <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-edit-alt me-2"></i> Edit</a>
+                                  <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-trash me-2"></i> Delete</a>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                          
+                            <td>Trevor Baker</td>
+                            <td>
+                              <ul class="list-unstyled users-list m-0 d-flex align-items-center">
+                                <span class="badge bg-info">10,00</span>
+                                </li>
+                          
+                              </ul>
+                            </td>
+                          
+                            <td>
+                              <div class="dropdown">
+                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                  <i class="bx bx-cog"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                  <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-edit-alt me-2"></i> Edit</a>
+                                  <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-trash me-2"></i> Delete</a>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                          
+                          <tr>
+                            <tr>
+                            
+                              <td>Barry Hunter</td>
+                              <td>
+                                <ul class="list-unstyled users-list m-0 d-flex align-items-center">
+                                  <span class="badge bg-info">150,00</span>
+                                  </li>
+                            
+                                </ul>
+                              </td>
+                              <td>
+                                <div class="dropdown">
+                                  <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                    <i class="bx bx-cog"></i>
+                                  </button>
+                                  <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-edit-alt me-2"></i> Edit</a>
+                                    <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-trash me-2"></i> Delete</a>
+                                  </div>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                            
+                              <td>Trevor Baker</td>
+                              <td>
+                                <ul class="list-unstyled users-list m-0 d-flex align-items-center">
+                                  <span class="badge bg-info">10,00</span>
+                                  </li>
+                            
+                                </ul>
+                              </td>
+                            
+                              <td>
+                                <div class="dropdown">
+                                  <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                    <i class="bx bx-cog"></i>
+                                  </button>
+                                  <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-edit-alt me-2"></i> Edit</a>
+                                    <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-trash me-2"></i> Delete</a>
+                                  </div>
+                                </div>
+                              </td>
+                            </tr>
+                            
+                            <tr>
+                            <tr>
+                            
+                              <td>Barry Hunter</td>
+                              <td>
+                                <ul class="list-unstyled users-list m-0 d-flex align-items-center">
+                                  <span class="badge bg-info">150,00</span>
+                                  </li>
+                            
+                                </ul>
+                              </td>
+                              <td>
+                                <div class="dropdown">
+                                  <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                    <i class="bx bx-cog"></i>
+                                  </button>
+                                  <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-edit-alt me-2"></i> Edit</a>
+                                    <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-trash me-2"></i> Delete</a>
+                                  </div>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                            
+                              <td>Trevor Baker</td>
+                              <td>
+                                <ul class="list-unstyled users-list m-0 d-flex align-items-center">
+                                  <span class="badge bg-info">10,00</span>
+                                  </li>
+                            
+                                </ul>
+                              </td>
+                            
+                              <td>
+                                <div class="dropdown">
+                                  <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                    <i class="bx bx-cog"></i>
+                                  </button>
+                                  <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-edit-alt me-2"></i> Edit</a>
+                                    <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-trash me-2"></i> Delete</a>
+                                  </div>
+                                </div>
+                              </td>
+                            </tr>
+                            
+                            <tr>
+                              <tr>
+                              
+                                <td>Barry Hunter</td>
+                                <td>
+                                  <ul class="list-unstyled users-list m-0 d-flex align-items-center">
+                                    <span class="badge bg-info">150,00</span>
+                                    </li>
+                              
+                                  </ul>
+                                </td>
+                                <td>
+                                  <div class="dropdown">
+                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                      <i class="bx bx-cog"></i>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                      <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-edit-alt me-2"></i> Edit</a>
+                                      <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-trash me-2"></i> Delete</a>
+                                    </div>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                              
+                                <td>Trevor Baker</td>
+                                <td>
+                                  <ul class="list-unstyled users-list m-0 d-flex align-items-center">
+                                    <span class="badge bg-info">10,00</span>
+                                    </li>
+                              
+                                  </ul>
+                                </td>
+                              
+                                <td>
+                                  <div class="dropdown">
+                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                      <i class="bx bx-cog"></i>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                      <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-edit-alt me-2"></i> Edit</a>
+                                      <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-trash me-2"></i> Delete</a>
+                                    </div>
+                                  </div>
+                                </td>
+                              </tr>
+                              
+                              <tr>
                          
-                          <td>Jerry Milton</td>
-                          <td>
-                            <ul class="list-unstyled users-list m-0 d-flex align-items-center">
-                              <span class="badge bg-info">300,00</span>
-                              </li>
-            
-                            </ul>
-                          </td>
-            
-            
-                  </div>
-            
-                  <td>
-                    <div class="dropdown">
-                      <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                        <i class="bx bx-cog"></i>
-                      </button>
-                      <div class="dropdown-menu">
-                        <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-edit-alt me-2"></i> Edit</a>
-                        <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-trash me-2"></i> Delete</a>
-                      </div>
-                    </div>
-                  </td>
-                  </tr>
+                       
+                  
+                
                   </tbody>
                   </table>
                 </div>
