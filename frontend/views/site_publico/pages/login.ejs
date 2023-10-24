@@ -1,31 +1,61 @@
+<section class="container  col-sm-8 col-md-6 col-lg-5 col-xl-3 m-auto align-content-center py-4 rounded bg-light shadow">
 
-  <section class="container  col-sm-8 col-md-6 col-lg-5 col-xl-3 m-auto align-content-center py-4 rounded bg-light shadow">
-          
-      <img src="images/logo.png" alt="" class="pb-3" style="width: 110px;">
-      <!-- <div class="d-flex align-items-center pb-3 justify-content-around">
+  <img src="images/logo.png" alt="" class="pb-3" style="width: 110px;">
+  <!-- <div class="d-flex align-items-center pb-3 justify-content-around">
       </div> -->
-      
-      <form class="container-fluid">
-        <div class="row my-3 container-fluid mx-auto px-0">
-          <label class="form-label ps-2">email</label>
-          <input class="form-control" type="email" placeholder="digite seu email paia aq">
-        </div>
-        
-        <div class=" d-flex flex-column my-3 container-fluid px-0">
-          <label class="form-label ps-2">senha</label>
-          <div class="d-flex flex-row ">
-            <input class="form-control rounded-end-0 " id="senhapaia"
-            type="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;">
-            <button type="button" class="btn btn-outline-primary   rounded-start-0" id="btnsenha">
-              <span class="m-auto"><i class="bi bi-eye-fill "></i></span>
-            </button> 
-          </div>
-        </div>
-        
-        <button class="btn btn-primary  w-100 mt-3" type="submit">entrar</button>
-        
-        <p class="mt-3 text-center">ainda não cadastrado? <a href="cadastro.html">crie sua conta aqui</a></p>
-      </form>
-  </section>
+
+  <form class="container-fluid" id="formslogin">
+    <div class="row my-3 container-fluid mx-auto px-0">
+      <label class="form-label ps-2">email</label>
+      <input class="form-control" type="email" placeholder="digite seu email " name="email">
+    </div>
+
+    <div class=" d-flex flex-column my-3 container-fluid px-0">
+      <label class="form-label ps-2">senha</label>
+      <div class="d-flex flex-row senhapaia">
+        <input name="senha" id="senha" class="form-control rounded-end-0 inputsenha" type="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" />
+        <button type="button" class="btn btn-outline-primary rounded-start-0 btnsenha">
+          <span class="m-auto"><i class="bi bi-eye-fill"></i></span>
+        </button>
+      </div>
+
+      <button class="btn btn-primary  w-100 mt-4" type="submit">entrar</button>
+
+      <p class="mt-3 text-center">ainda não cadastrado? <a href="cadastro.html">crie sua conta aqui</a></p>
+  </form>
+</section>
 
 
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const login = document.querySelector("#formslogin")
+
+
+
+
+    login.addEventListener("submit", async () => {
+      event.preventDefault();
+
+      // cria um objeto contendo cada input com seu nome e o valor dele
+      const data = {}
+      for (x of [...login.querySelectorAll("input")]) {
+        data[x.name] = x.value
+      }
+
+      try {
+
+        const login = await axios.post("http://localhost:9000/api/user/login", data)
+
+        localStorage.setItem('token', login.data)
+
+        
+
+      } catch (error) {
+        console.log(error)
+
+        acionarerro(error.response.data, error.response.status)
+      }
+    })
+
+  })
+</script>

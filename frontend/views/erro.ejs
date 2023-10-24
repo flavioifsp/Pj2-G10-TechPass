@@ -1,4 +1,4 @@
-<div class="modal fade " data-bs-theme="dark" tabindex="-1" id="modalerro" data-bs-backdrop="static" data-bs-keyboard="false">
+<div class="modal fade " data-bs-theme="dark" tabindex="-1" id="modalerro"  data-bs-keyboard="false">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content   text-white">
       <div class="modal-header border-secondary">
@@ -39,6 +39,9 @@
     document.querySelector("#msgErro").innerHTML = msgEr
       document.querySelector("#imgErro").src= `https://http.cat/${erCode}`
       modalerro.show()  
+      setTimeout(() =>{
+        modalerro.hide()
+      }, 3300)
     }
   
 
@@ -51,7 +54,8 @@
         msg = er.response.data
       }
 
-      %> acionarerro(`<%-msg%>`, <%=statuscode%>) <%
+      
+      %> acionarerro(`<%-msg.replaceAll("\`","\""); %>`, <%=statuscode%>) <%
     }
   %>
 

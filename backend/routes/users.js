@@ -2,8 +2,8 @@ var express = require('express');
 var router = express.Router();
 const prisma = new (require("@prisma/client")).PrismaClient()
 const exception = require('../js/erro')
-const functionJWT = require('../js/functionJWT')
-const bcry = require('bcryptjs')
+const { gerarJWT, autenticar } = require('../js/functionJWT')
+const bcry = require('bcryptjs');
 
 
 /* POST cadastrar usuario no site publico */
@@ -15,20 +15,21 @@ router.post('/cadastrar/', async function (req, res, next) {
     let { username, email, senha,
       cpf, nome, nascimento } = req.body;
 
-   
-    let dadosinvalidos = `o(s) `
+
+
+    let dadosinvalidos = `os seguintes parametros estão invalidos: `
     // verifica se os dados estão corretos
-    if (typeof username !== "string") { dadosinvalidos += "username, " }
-    if (typeof senha !== "string") { dadosinvalidos +="senha, " }
-    if (typeof nome !== "string") { dadosinvalidos +="nome, " }
-    if (typeof nascimento !== "string") { dadosinvalidos +="nascimento, " }
-    if (typeof email !== "string") { dadosinvalidos +="email, " }
-    if (typeof cpf !== "string") { dadosinvalidos +="cpf, " }
- 
-    dadosinvalidos += "estâo invalidos"
-    if(dadosinvalidos !== `o(s) estâo invalidos`){
+    if (typeof username !== "string" || username === "") { dadosinvalidos += "Username " }
+    if (typeof senha !== "string" || senha === "") { dadosinvalidos += "Senha " }
+    if (typeof nome !== "string" || nome === "") { dadosinvalidos += "Nome " }
+    if (typeof nascimento !== "string" || nascimento === "") { dadosinvalidos += "Nascimento " }
+    if (typeof email !== "string" || email == "") { dadosinvalidos += "Email " }
+    if (typeof cpf !== "string" || cpf === "") { dadosinvalidos += "Cpf " }
+
+
+    if (dadosinvalidos !== `os seguintes parametros estão invalidos: `) {
       console.log(dadosinvalidos)
-      return res.status(400).send(dadosinvalidos)
+      return res.status(406).send(dadosinvalidos)
     }
     // codifica a senha
     senha = await bcry.hash(senha, 10)
@@ -84,7 +85,7 @@ router.post('/cadastrar/', async function (req, res, next) {
         },
 
       })
-      return res.send(username);
+      return res.status(201).send(username);
 
 
     } else if (!Teste_UserEmail && Teste_clienteUser.usuario === null) {
@@ -104,9 +105,9 @@ router.post('/cadastrar/', async function (req, res, next) {
         },
 
       })
-      return res.json(username);
+      return res.status(201).send(username);
     } else {
-      return res.status(400).send("esse cpf ou email já estão registrados")
+      return res.status(406).send("esse cpf ou email já estão registrados")
     }
 
 
@@ -180,7 +181,7 @@ router.get('/cadastrar/', async function (req, res, next) {
       return res.status(400).send("dados invalidos!")
     }
 
-    res.json(verificacoes)
+    res.status(200).json(verificacoes)
 
 
   } catch (er) {
@@ -191,6 +192,45 @@ router.get('/cadastrar/', async function (req, res, next) {
   }
 });
 
+
+// post para login
+router.post("/login", async (req, res, next) => {
+  const { email, senha } = req.body
+
+
+  try {
+    const user = await prisma.usuario.findUnique({
+      where: {
+        email: email
+      },
+      select: {
+        clientes_id: true,
+        email: true,
+        senha: true
+      }
+    })
+
+    // volta true ou false
+    
+    
+    if (!user) return res.status(401).send("Email ou Senha invalidos!")
+
+    const senhapaia = await bcry.compare(senha, user.senha)
+    if (!senhapaia) return res.status(401).send("Email ou Senha invalidos!")
+
+
+     
+    res.json(gerarJWT(user.clientes_id, 15000))
+
+
+
+  } catch (error) {
+    console.log(error)
+    res.status(400).json(error)
+  }
+
+
+})
 
 
 module.exports = router;

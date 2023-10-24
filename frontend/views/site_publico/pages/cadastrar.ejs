@@ -57,8 +57,8 @@
     <!-- senha2 -->
     <div class="d-flex flex-column  col-md-6 col-12">
       <label for="senha2" class="form-label mb-1 ps-2">Repita sua senha</label>
-      <div class="d-flex flex-row senhapaia" >
-        <input name="senha2" id="senha2" class="form-control rounded-end inputsenha" type="password"  placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" />
+      <div class="d-flex flex-row senhapaia">
+        <input name="senha2" id="senha2" class="form-control rounded-end inputsenha" type="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" />
         <button type="button" class="btn btn-outline-primary rounded-start-0 btnsenha">
           <span class="m-auto"><i class="bi bi-eye-fill"></i></span>
         </button>
@@ -83,20 +83,24 @@
   document.addEventListener("DOMContentLoaded", () => {
     const cadastro = document.querySelector("#formscadastro")
 
-   
+
     // cria um objeto contendo cada input com seu nome e o valor dele
-    
-    
+
+
     cadastro.addEventListener("submit", async () => {
       event.preventDefault();
 
       const data = {}
-      for(x of [...cadastro.querySelectorAll("input")]){
+      for (x of [...cadastro.querySelectorAll("input")]) {
         data[x.name] = x.value
       }
-      console.log(data)
-      const cadastrar = await axios.post("http://localhost:9000/api/user/cadastrar", data)
-      
+
+      try {
+        const cadastrar = await axios.post("http://localhost:9000/api/user/cadastrar", data)
+        
+      } catch (error) {
+        acionarerro(error.response.data, error.response.status)
+      }
     })
 
   })
