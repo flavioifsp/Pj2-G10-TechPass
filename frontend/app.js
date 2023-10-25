@@ -9,7 +9,7 @@ const cors = require('cors')
 
 
 const sitepublicoRouter = require('./routes/sitepublico');
-const userRouter = require('./routes/user');
+const profileRouter = require('./routes/profile');
 const catraca = require('./routes/catraca')
   
 
@@ -30,13 +30,13 @@ app.use(express.static(path.join(__dirname, 'public')));
    
   
 app.use('/', sitepublicoRouter);
-app.use('/user', userRouter);
+app.use('/profile', profileRouter);
 app.use('/catraca', catraca);
 
 // lembrar de fazer um meio para aparecer uma msg de erro quando é redirecionado
-// app.all("*", (req, res) => {
-//   res.redirect("/")
-// });
+app.all("*", (req, res) => {
+  res.redirect("/")
+});
     
    
 // catch 404 and forward to error handler
