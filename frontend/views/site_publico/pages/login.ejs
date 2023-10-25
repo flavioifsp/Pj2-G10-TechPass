@@ -48,12 +48,11 @@
 
         localStorage.setItem('token', login.data)
 
-        
+
 
       } catch (error) {
-        console.log(error)
 
-        acionarerro(error.response.data, error.response.status)
+        acionarerro(error)
       }
     })
 

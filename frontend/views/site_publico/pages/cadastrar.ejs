@@ -99,7 +99,7 @@
         const cadastrar = await axios.post("http://localhost:9000/api/user/cadastrar", data)
         
       } catch (error) {
-        acionarerro(error.response.data, error.response.status)
+        acionarerro(error)
       }
     })
 

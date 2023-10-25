@@ -29,7 +29,7 @@ router.post('/cadastrar/', async function (req, res, next) {
 
     if (dadosinvalidos !== `os seguintes parametros estão invalidos: `) {
       console.log(dadosinvalidos)
-      return res.status(406).send(dadosinvalidos)
+      return res.status(406).json({name: "valores incorretos", detalhes: dadosinvalidos})
     }
     // codifica a senha
     senha = await bcry.hash(senha, 10)
