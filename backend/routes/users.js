@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 const prisma = new (require("@prisma/client")).PrismaClient()
 const exception = require('../js/erro')
-const { gerarCookieToken , autenticar } = require('../js/functionJWT')
+const { gerarCookieToken, autenticar } = require('../js/functionJWT')
 const bcry = require('bcryptjs');
 
 
@@ -29,7 +29,7 @@ router.post('/cadastrar/', async function (req, res, next) {
 
     if (dadosinvalidos !== `os seguintes parametros estão invalidos: `) {
       console.log(dadosinvalidos)
-      return res.status(406).json({name: "valores incorretos", detalhes: dadosinvalidos})
+      return res.status(406).json({ name: "valores incorretos", detalhes: dadosinvalidos })
     }
     // codifica a senha
     senha = await bcry.hash(senha, 10)
@@ -211,17 +211,17 @@ router.post("/login", async (req, res, next) => {
     })
 
     // volta true ou false
-    
-    
+
+
     if (!user) return res.status(401).send("Email ou Senha invalidos!")
 
     const senhapaia = await bcry.compare(senha, user.senha)
     if (!senhapaia) return res.status(401).send("Email ou Senha invalidos!")
 
 
-   
-     res.status(200).json({token:gerarCookieToken(user.clientes_id, 15000)})
-  
+
+    res.status(200).json({ token: gerarCookieToken(user.clientes_id, 15000) })
+
 
   } catch (error) {
     console.log(error)
@@ -232,6 +232,32 @@ router.post("/login", async (req, res, next) => {
 })
 
 
+
+//  para info basicas do user
+router.get("/infos/", autenticar, async (req, res) => {
+
+  const infos = {}
+  for (const [qualinfo] of Object.entries(req.query)) {
+    infos[qualinfo] = true
+  }
+
+  console.log(infos)
+  try {
+    console.log(infos)
+    res.json(
+      await prisma.usuario.findUniqueOrThrow({
+        where: {
+          clientes_id: req.userId
+        },
+        select: infos
+      })
+      )
+
+    } catch (error) {
+      res.status(401).json({ message: "n encontrado", erro: error})
+      console.log(error)
+    }
+})
 
 
 

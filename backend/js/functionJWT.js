@@ -5,14 +5,13 @@ function gerarCookieToken(id, miliSeg = 15000) {
 }
 
 function autenticar(req, res, next) {    
-  const token = req.cookies.access_token;
-
+  const token = req.cookies.token;
   if (!token) {
     return res.status(403).send("token nâo fornecido");
   }
 
   jwt.verify(token, process.env.SECRET_KEY, (er, decoded) => {
-    if (er) return res.status(401).sen("falha na autenticacâo do token");
+    if (er) return res.status(401).send("falha na autenticacâo do token");
 
 
     req.userId = decoded.id;
