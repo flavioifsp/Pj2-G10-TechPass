@@ -29,10 +29,7 @@
 <script>
   document.addEventListener("DOMContentLoaded", () => {
 
-
-
     const login = document.querySelector("#formslogin")
-
 
     login.addEventListener("submit", async () => {
       event.preventDefault();
@@ -48,6 +45,7 @@
         const login = await axios.post("http://localhost:9000/api/user/login", data)
         document.cookie = login.data.token
 
+        location.href = "/profile/"
         console.log("logado com sucesso")
 
         

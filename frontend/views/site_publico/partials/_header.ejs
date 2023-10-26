@@ -1,86 +1,146 @@
-<nav class="navbar p-0 navbar-expand-md py-2 navbar-dark bg-dark justify-content-center  ">
-
+<nav
+  class="navbar p-0 navbar-expand-md py-2 navbar-dark bg-dark justify-content-center"
+>
   <div class="container" id="menu">
-    <a href="/" class="navbar-brand ">
-      <img src="images/logo.png" alt="passtech" class="img-fluid w-100 m-2">
+    <a href="/" class="navbar-brand">
+      <img src="images/logo.png" alt="passtech" class="img-fluid w-100 m-2" />
     </a>
 
     <div class="collapse navbar-collapse column-gap-5 text-light" id="aaaa">
-      <ul class="navbar-nav  column-gap-1 ms-auto">
+      <ul class="navbar-nav column-gap-1 ms-auto">
         <li class="nav-item">
           <a href="rotas&linhas" class="nav-link">Rotas e linhas</a>
         </li>
       </ul>
 
       <!-- Login  -->
-      <ul class="navbar-nav align-items-center " id=" loginCadastro">
-        <li class="navbar-item  pe-2">
-          <a href="login" class="nav-link " style="font-size: 1rem;">Entrar</a>
+      <% if(!navUser){ %>
+      <ul class="navbar-nav align-items-center" id=" loginCadastro">
+        <li class="navbar-item pe-2">
+          <a href="login" class="nav-link" style="font-size: 1rem">Entrar</a>
         </li>
-        <li class="navbar-item ">
-          <a href="cadastrar" class="btn btn-primary  btn" role="button" aria-disabled="true">Cadastrar</a>
+        <li class="navbar-item">
+          <a
+            href="cadastrar"
+            class="btn btn-primary btn"
+            role="button"
+            aria-disabled="true"
+            >Cadastrar</a
+          >
         </li>
       </ul>
-
-      <div class="dropdown text-end" data-bs-theme="dark" id="profile"> 
-        <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle"  data-bs-toggle="dropdown" aria-expanded="false">
-          Olá, Paioso Cabral
+      <% } else{ %>
+      <div class="dropdown text-end" data-bs-theme="dark" id="profile">
+        <a
+          href="#"
+          class="d-block link-body-emphasis text-decoration-none dropdown-toggle"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          Olá, <%= navUser.username%>
         </a>
-        <ul class="dropdown-menu text-small" >
-          <li><a class="dropdown-item" href="/profile/"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Perfil</font></font></a></li>
-          <li><a class="dropdown-item" href="/profile/payment"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Formas de Pagamento</font></font></a></li>
-          <li><a class="dropdown-item" href="/profile/mycard"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Meus Cartões</font></font></a></li>
-          <li><hr class="dropdown-divider"></li>
-          <li><a class="dropdown-item" href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">sair</font></font></a></li>
+        <ul class="dropdown-menu text-small">
+          <li>
+            <a class="dropdown-item" href="/profile/"
+              ><font style="vertical-align: inherit"
+                ><font style="vertical-align: inherit">Perfil</font></font
+              ></a
+            >
+          </li>
+          <li>
+            <a class="dropdown-item" href="/profile/payment"
+              ><font style="vertical-align: inherit"
+                ><font style="vertical-align: inherit"
+                  >Formas de Pagamento</font
+                ></font
+              ></a
+            >
+          </li>
+          <li>
+            <a class="dropdown-item" href="/profile/mycard"
+              ><font style="vertical-align: inherit"
+                ><font style="vertical-align: inherit">Meus Cartões</font></font
+              ></a
+            >
+          </li>
+          <li><hr class="dropdown-divider" /></li>
+          <li>
+            <a class="dropdown-item" id="logout"
+              ><font style="vertical-align: inherit"
+                ><font style="vertical-align: inherit">sair</font></font
+              ></a
+            >
+          </li>
         </ul>
       </div>
+
+      <script>
+        
+         const profile = document.querySelector("#profile")
+      
+          profile.querySelector("#logout").addEventListener("click", () =>{
+            document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+            location.reload();
+          })
+      
+      </script>
+      <% } %>
+      
+
       <!-- login -->
- 
     </div>
 
-    <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="offcanvas" data-bs-target="#menumobi" aria-controls="aaaa" aria-label="Toggle navigation">
+    <button
+      class="navbar-toggler ms-auto"
+      type="button"
+      data-bs-toggle="offcanvas"
+      data-bs-target="#menumobi"
+      aria-controls="aaaa"
+      aria-label="Toggle navigation"
+    >
       <span class="navbar-toggler-icon"></span>
     </button>
   </div>
-
-
 </nav>
-
-
 
 <div class="offcanvas offcanvas-end text-bg-dark" id="menumobi">
   <div class="offcanvas-header">
     <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">PassTech</h5>
-    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    <button
+      type="button"
+      class="btn-close btn-close-white"
+      data-bs-dismiss="offcanvas"
+      aria-label="Close"
+    ></button>
   </div>
 
-  <div class="offcanvas-body ">
-
-
+  <div class="offcanvas-body">
     <ul class="navbar-nav justify-content-end flex-grow-1 ps-3">
-
-
       <li class="nav-item">
         <a href="/" class="nav-link texto-Menu-m fs-4">Inicio</a>
       </li>
       <li class="nav-item">
-        <a href="rotas&linhas" class="nav-link texto-Menu-m fs-4">Rotas e linhas</a>
+        <a href="rotas&linhas" class="nav-link texto-Menu-m fs-4"
+          >Rotas e linhas</a
+        >
       </li>
-
-
     </ul>
 
-    <div class="nav-item d-flex row gap-1 ps-3 mt-5 ">
-      <a href="login" class="btn btn-primary  me-2 " style="font-size: 1rem; width: 100px">entrar</a>
+    <div class="nav-item d-flex row gap-1 ps-3 mt-5">
+      <a
+        href="login"
+        class="btn btn-primary me-2"
+        style="font-size: 1rem; width: 100px"
+        >entrar</a
+      >
 
-      <a href="cadastrar" class="btn btn-secondary" style=" font-size: 1rem; width: 100px">cadastrar</a>
+      <a
+        href="cadastrar"
+        class="btn btn-secondary"
+        style="font-size: 1rem; width: 100px"
+        >cadastrar</a
+      >
     </div>
-
   </div>
 </div>
 
-
-
-<script>
-
-</script>
