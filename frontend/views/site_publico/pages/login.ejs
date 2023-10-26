@@ -7,13 +7,13 @@
   <form class="container-fluid" id="formslogin">
     <div class="row my-3 container-fluid mx-auto px-0">
       <label class="form-label ps-2">email</label>
-      <input class="form-control" type="email" placeholder="digite seu email " name="email">
+      <input class="form-control" value="123@gmail.com" type="email" placeholder="digite seu email " name="email">
     </div>
 
     <div class=" d-flex flex-column my-3 container-fluid px-0">
       <label class="form-label ps-2">senha</label>
       <div class="d-flex flex-row senhapaia">
-        <input name="senha" id="senha" class="form-control rounded-end-0 inputsenha" type="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" />
+        <input name="senha" value="123" id="senha" class="form-control rounded-end-0 inputsenha" type="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" />
         <button type="button" class="btn btn-outline-primary rounded-start-0 btnsenha">
           <span class="m-auto"><i class="bi bi-eye-fill"></i></span>
         </button>
@@ -28,9 +28,10 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
+
+
+
     const login = document.querySelector("#formslogin")
-
-
 
 
     login.addEventListener("submit", async () => {
@@ -43,15 +44,14 @@
       }
 
       try {
-
+        // add cookie
         const login = await axios.post("http://localhost:9000/api/user/login", data)
+        document.cookie = login.data.token
 
-        localStorage.setItem('token', login.data)
+        console.log("logado com sucesso")
 
-
-
+        
       } catch (error) {
-
         acionarerro(error)
       }
     })

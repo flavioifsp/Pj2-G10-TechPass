@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
-const path = require("path");
 const cookieParser = require("cookie-parser");
+const path = require("path");
 const logger = require("morgan");
 const dotenv = require('dotenv').config();
 
@@ -12,6 +12,18 @@ const users = require("./routes/users");
 
 const app = express();
    
+// var whitelist = ['http://127.0.0.1:3000', 'http://localhost:3000']
+// var corsOptions = {
+//   origin: function (origin, callback) {
+//     if (whitelist.indexOf(origin) !== -1 || !origin) {
+//       callback(null, true)
+//     } else {
+//       callback(new Error('Not allowed by CORS'))
+//     }
+//   },
+//   credentials: true
+// }
+
 app.use(cors());
 
 app.use(logger("dev"));

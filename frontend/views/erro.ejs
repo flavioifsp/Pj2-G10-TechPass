@@ -62,7 +62,8 @@
       subtitulo = Erro.response.data.name
     }
 
-
+    
+    console.error(subtitulo, msgEr.toString())
 
     document.querySelector("#subtitulo").innerHTML = subtitulo
     document.querySelector("#msgErro").innerHTML = msgEr.toString()

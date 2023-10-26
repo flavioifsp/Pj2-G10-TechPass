@@ -1,16 +1,7 @@
 const jwt = require("jsonwebtoken");
 
-function gerarJWT(id, miliSeg = 15000) {
-  res
-    .status(201)
-    .cookie(
-      "token",
-      jwt.sign({ id }, process.env.SECRET_KEY, { expiresIn: seg }),
-      {
-        httpOnly: true,
-        maxAge: seg,
-      }
-    );
+function gerarCookieToken(id, miliSeg = 15000) {
+  return `token = ${jwt.sign({ id }, process.env.SECRET_KEY, { expiresIn: miliSeg })}; max-age=${miliSeg}`
 }
 
 function autenticar(req, res, next) {    
@@ -31,4 +22,4 @@ function autenticar(req, res, next) {
 
 }
 
-module.exports = { gerarJWT, autenticar };
+module.exports = { gerarCookieToken, autenticar };

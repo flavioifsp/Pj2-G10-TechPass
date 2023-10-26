@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 const prisma = new (require("@prisma/client")).PrismaClient()
 const exception = require('../js/erro')
-const { gerarJWT, autenticar } = require('../js/functionJWT')
+const { gerarCookieToken , autenticar } = require('../js/functionJWT')
 const bcry = require('bcryptjs');
 
 
@@ -219,10 +219,9 @@ router.post("/login", async (req, res, next) => {
     if (!senhapaia) return res.status(401).send("Email ou Senha invalidos!")
 
 
-     
-    res.json(gerarJWT(user.clientes_id, 15000))
-
-
+   
+     res.status(200).json({token:gerarCookieToken(user.clientes_id, 15000)})
+  
 
   } catch (error) {
     console.log(error)
@@ -231,6 +230,9 @@ router.post("/login", async (req, res, next) => {
 
 
 })
+
+
+
 
 
 module.exports = router;
