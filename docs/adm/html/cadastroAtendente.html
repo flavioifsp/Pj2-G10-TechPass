@@ -27,7 +27,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Cadastro - Passageiro</title>
+    <title>Cadastro - Atendente</title>
 
     <meta name="description" content="" />
 
@@ -228,7 +228,7 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4" ><span class="text-muted fw-light">Cadastro/</span> Passageiro</h4>
+              <h4 class="fw-bold py-3 mb-4" ><span class="text-muted fw-light">Cadastro/</span> Atendente</h4>
 
 
 
@@ -270,38 +270,51 @@
                 <input type="text" class="form-control" id="basic-default-name" placeholder="John Doe" />
               </div>
             </div>
-          
-          
-          
+       
             <div class="row mb-3">
-              <label class="col-sm-2 col-form-label" for="basic-default-phone">CPF</label>
+              <label class="col-sm-2 col-form-label" for="basic-default-name">CPF</label>
               <div class="col-sm-10">
-                <input type="text" id="basic-default-phone" class="form-control phone-mask" placeholder="62.895.578.-9"
-                  aria-label="658 799 8941" aria-describedby="basic-default-phone" />
+                <input type="number" class="form-control" id="basic-default-name" placeholder="548985228523" />
               </div>
             </div>
-          
-          
             <div class="row mb-3">
-              <label class="col-sm-2 col-form-label" for="basic-default-email">Email</label>
+              <label class="col-sm-2 col-form-label" for="basic-default-name">Data de Nascimento</label>
               <div class="col-sm-10">
-                <div class="input-group input-group-merge">
-                  <input type="text" id="basic-default-email" class="form-control" placeholder="example@example.com"
-                    aria-label="john.doe" aria-describedby="basic-default-email2">
-                </div>
+               
+              <input type="date" id="birthday" class="form-control dob-picker flatpickr-input" name="birthday">
               </div>
             </div>
-          
-            <div class="row mb-3">
-              <label class="col-sm-2 col-form-label" for="basic-default-email">Saldo R$</label>
+       
+            <div class="row mb-3 d-flex">
+              <label class="col-sm-2 col-form-label" for="basic-default-name"> Endereço</label>
               <div class="col-sm-10">
-                <div class="input-group input-group-merge">
-                  <input type="number" id="basic-default-phone" class="form-control phone-mask" placeholder="R$10,00"
-                    aria-label="658 799 8941" aria-describedby="basic-default-phone" />
-                </div>
+                <input type="text" class="form-control" id="basic-default-name" placeholder="Av Brasilia, 546" />
               </div>
             </div>
-          
+       
+            
+            <div class="row mb-3">
+              <label class="col-sm-2 col-form-label" for="basic-default-phone">Telefone</label>
+              <div class="col-sm-10">
+                <input type="number" id="basic-default-phone" class="form-control phone-mask" placeholder="1198788-2440"
+                  aria-label="658 799 8941" aria-describedby="basic-default-phone" >
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <label class="col-sm-2 col-form-label" for="basic-default-phone">Turno</label>
+              <div class="col-sm-10">
+                <input type="number" id="basic-default-phone" class="form-control phone-mask" placeholder="1198788-2440"
+                  aria-label="658 799 8941" aria-describedby="basic-default-phone" >
+              </div>
+            </div>
+       
+        
+       
+       
+       
+       
+           
          
           </form>
         </div>
@@ -344,7 +357,7 @@
               <!-- Content -->
             
               <div class="container-xxl flex-grow-1 container-p-y">
-                <h4 class="fw-bold py-3 mb-4" ><span class="text-muted fw-light">Passageiros atuais</h4>
+                <h4 class="fw-bold py-3 mb-4" ><span class="text-muted fw-light">Atendentes atuais</h4>
             
                 <!-- Basic Bootstrap Table -->
                 <div class="card"  style="height: 380px; overflow: auto" >
@@ -364,8 +377,9 @@
                          
                           <th>Nome</th>
                           <th>CPF</th>
-                          <th>Email</th>
-                          <th>Saldo</th>
+                          <th>Nascimento</th>
+                          <th>Ebdereço</th>
+                          <th>Telefone</th>
                           
                           <th>Config</th>
                         </tr>
@@ -379,6 +393,7 @@
                           <td>61</td>
                           <td>fm68464@dasnfdaslk.com</td>
                               <td>$170,750</td>
+                              <td>1451651</td>
                        
 
 
@@ -469,15 +484,6 @@
                                   <td>$170,750</td>
                              
                           <td>$170,750</td>
-                        </tr>
-                        <tr>
-                        
-                          <td>System Architect</td>
-                        
-                          <td>61321322322</td>
-                          <td>sfsg@dwaçsdi.com</td>
-                          <td>$170,750</td>
-                        
                           <td>$170,750</td>
                         </tr>
                         <tr>
@@ -489,8 +495,8 @@
                           <td>$170,750</td>
                         
                           <td>$170,750</td>
+                          <td>$170,750</td>
                         </tr>
-                       
                         <tr>
                         
                           <td>System Architect</td>
@@ -499,6 +505,7 @@
                           <td>sfsg@dwaçsdi.com</td>
                           <td>$170,750</td>
                         
+                          <td>$170,750</td>
                           <td>$170,750</td>
                         </tr>
                        
@@ -511,6 +518,21 @@
                           <td>$170,750</td>
                         
                           <td>$170,750</td>
+                          <td>$170,750</td> 
+                        </tr>
+                        </tr> 
+                       
+                        
+                        <tr>
+                          <td>System Architect</td>
+                        
+                          <td>61321322322</td>
+                          <td>sfsg@dwaçsdi.com</td>
+                          <td>$170,750</td>
+                          
+                          <td>$170,750</td>
+                          <td>$170,750</td>
+                     
                         </tr>
                   <tr>
                   
@@ -521,6 +543,7 @@
                     <td>$170,750</td>
                   
                     <td>$170,750</td>
+                    <td>$170,750</td> 
                   </tr>
                         <tr>
                         
@@ -531,6 +554,7 @@
                           <td>$170,750</td>
                         
                           <td>$170,750</td>
+                          <td>$170,750</td> 
                         </tr> 
 
 
