@@ -27,7 +27,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Cadastro - Passageiro</title>
+    <title>Cadastro - Lojas</title>
 
     <meta name="description" content="" />
 
@@ -107,29 +107,54 @@
         
           <!-- Forms -->
           <li class="menu-header small text-uppercase"><span class="menu-header-text">Cadastros</span></li>
-          <li class="menu-item">
+          <li class="menu-item  mb-2">
+            <a href="cadastroAtendente.html" class="menu-link">
+              <i class='bx bx-id-card'></i>
+              <div data-i18n="Form Elements" class="ps-2">Atendentes</div>
+            </a>
+        
+          </li>
+        
+          <li class="menu-item mb-2">
             <a href="cadastroMotorista.html" class="menu-link">
               <i class="bus tf-icons bx bx-bus"></i>
               <div data-i18n="Form Elements" class="ps-2">Motoristas</div>
             </a>
+          </li>
         
+          <li class="menu-item mb-2">
+            <a href="#" class="menu-link">
+              <i class='bx bx-location-plus'></i>
+              <div data-i18n="Form Elements" class="ps-2">Pontos De Ônibus</div>
+            </a>
         
-            <!-- Forms -->
-          <li class="menu-item active">
+          </li>
+        
+          <!-- Forms -->
+          <li class="menu-item mb-2">
             <a href="cadastroPassageiro.html" class="menu-link">
               <i class='bx bxs-user-detail' style='color:#6e767c'></i>
               <div data-i18n="Form Elements" class="ps-2">Passageiros</div>
             </a>
         
-          </li>
         
-          <li class="menu-item">
+        
+          <li class="menu-item mb-2">
             <a href="linhas.html" class="menu-link">
               <i class="transfer tf-transfer bx bx-transfer"></i>
               <div data-i18n="Form Elements" class="ps-2">Linhas</div>
             </a>
         
           </li>
+          <li class="menu-item active mb-2">
+            <a href="#" class="menu-link">
+              <i class='bx bxs-store-alt'></i>
+              <div data-i18n="Form Elements" class="ps-2">Lojas</div>
+            </a>
+        
+          </li>
+        
+        
         
         
         </ul>
@@ -203,7 +228,7 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4" ><span class="text-muted fw-light">Cadastro/</span> Passageiro</h4>
+              <h4 class="fw-bold py-3 mb-4" ><span class="text-muted fw-light">Cadastro/</span> Lojas</h4>
 
 
 
@@ -234,7 +259,7 @@
     <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header mb-3">
-          <h5 class="modal-title" id="exampleModalLabel4">Novo Passageiro</h5>
+          <h5 class="modal-title" id="exampleModalLabel4">Nova Loja</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -289,7 +314,7 @@
   </div>
 
   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exLargeModal">
-    Adicionar Novo Passageiro
+    Adicionar Nova Loja
   </button>
 
 
@@ -319,7 +344,7 @@
               <!-- Content -->
             
               <div class="container-xxl flex-grow-1 container-p-y">
-                <h4 class="fw-bold py-3 mb-4" ><span class="text-muted fw-light">Passageiros atuais</h4>
+                <h4 class="fw-bold py-3 mb-4" ><span class="text-muted fw-light">Lojas atuais</h4>
             
                 <!-- Basic Bootstrap Table -->
                 <div class="card"  style="height: 380px; overflow: auto" >
