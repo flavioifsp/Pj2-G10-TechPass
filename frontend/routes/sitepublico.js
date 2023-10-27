@@ -43,6 +43,7 @@ router.get("/rotas&linhas", async function (req, res, next) {
     "http://localhost:9000/api/linhas/allLinhas"
   );
 
+  
   res.render("site_publico/pages/rotas&linhas", {
     title: "Rotas e Linhas",
     layout: "site_publico/layouts/layout_index.ejs",

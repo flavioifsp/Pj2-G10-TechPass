@@ -1,8 +1,6 @@
 <h4 class="mb-4">Informaçôes Pessoais</h4>
-<form class="needs-validation" novalidate="">
+<form class="needs-validation" novalidate="" id="formsPATCHuser">
   <div class="row g-3">
-
-
     <!-- <div class="col-12">
       <label for="Nome" class="form-label">Nome Completo </label>
       <input type="text" class="form-control" id="email" >
@@ -14,10 +12,14 @@
     <div class="col-12">
       <label for="username" class="form-label">Username</label>
       <div class="input-group has-validation">
-        <input type="text" class="form-control" id="username" placeholder="Username" required="">
-        <div class="invalid-feedback">
-          Your username is required.
-        </div>
+        <input
+          type="text"
+          class="form-control"
+          id="username"
+          name="username"
+          required=""
+        />
+        <div class="invalid-feedback">Your username is required.</div>
       </div>
     </div>
 
@@ -39,39 +41,103 @@
 
     <div class="col-12">
       <label for="email" class="form-label">Email </label>
-      <input type="email" class="form-control" id="email" placeholder="you@example.com">
+      <input
+        type="email"
+        class="form-control"
+        id="email"
+        name="email"
+        value=""
+      />
       <div class="invalid-feedback">
         Please enter a valid email address for shipping updates.
       </div>
     </div>
 
-
-    <div class="col-12 ">
-      <label for="address" class="form-label">Senha atual</label>
-      <input type="password" class="form-control" id="address" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" required="">
-      <div class="invalid-feedback">
-        Please enter your shipping address.
-      </div>
+    <div class="col-12">
+      <label for="password" class="form-label">Senha atual</label>
+      <input
+        type="password"
+        class="form-control"
+        id="password"
+        placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+        required=""
+      />
+      <div class="invalid-feedback">Please enter your shipping address.</div>
     </div>
 
     <div class="col-12">
-      <label for="address" class="form-label">Nova senha</label>
-      <input type="password" class="form-control" id="address" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" required="">
-      <div class="invalid-feedback">
-        Please enter your shipping address.
-      </div>
+      <label for="password2" class="form-label">Nova senha</label>
+      <input
+        type="password"
+        class="form-control"
+        id="password2"
+        placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+        required=""
+      />
+      <div class="invalid-feedback">Please enter your shipping address.</div>
     </div>
-
-
-
   </div>
 
-  <hr class="my-4">
+  <hr class="my-4" />
 
   <div class="d-flex px-1">
-    <button type="submit" class="btn  btn-success  " id="avancar-solibtn" style="width: fit-content;">SALVAR</button>
-    
-    <button type="submit" class="btn btn btn-warning  ms-auto" style="width: fit-content;">Resetar</button>
-    <button type="button" class="btn btn btn-danger ms-2" id="btnCancel-soli" style="width: fit-content;">Cancelar</button>
+    <button
+      type="submit"
+      class="btn btn-success"
+      id="btn-salvar"
+      style="width: fit-content"
+    >
+      SALVAR
+    </button>
+
+    <button
+      type="button"
+      class="btn btn btn-warning ms-auto"
+      id="btnRESET"
+      style="width: fit-content"
+    >
+      Resetar
+    </button>
+    <button
+      type="button"
+      class="btn btn btn-danger ms-2"
+      id="btnCancel"
+      style="width: fit-content"
+    >
+      Cancelar
+    </button>
   </div>
 </form>
+
+<script>
+  
+    AlternarDePag("btnCancel", "perfil", "inicio");
+
+    const formsPATCHuser = document.querySelector("#formsPATCHuser");
+
+    // colocar as info do user no forms na primeira vez
+    requisitarInfoPforms("#formsPATCHuser");
+
+    // resetar os form para a info do user
+    formsPATCHuser.querySelector("#btnRESET").addEventListener("click", () => {
+      // requisitar as infos dnv
+      requisitarInfoPforms("#formsPATCHuser");
+
+      // limpar senhas
+      formsPATCHuser.querySelector("#password").value = "";
+      formsPATCHuser.querySelector("#password2").value = "";
+    });
+
+    
+
+    // enviar dados para a api para atualizar
+    formsPATCHuser.addEventListener("submit", (evt) => {
+      evt.preventDefault();
+      const valoresforms = arrayComValueForms("#formsPATCHuser")
+
+      if(valoresforms.password !== valoresforms.password2){
+        return 
+      }
+    });
+
+</script>
