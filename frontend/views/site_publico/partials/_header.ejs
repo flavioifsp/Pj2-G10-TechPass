@@ -32,7 +32,6 @@
       <% } else{ %>
       <div class="dropdown text-end" data-bs-theme="dark" id="profile">
         <a
-          href="#"
           class="d-block link-body-emphasis text-decoration-none dropdown-toggle"
           data-bs-toggle="dropdown"
           aria-expanded="false"
@@ -127,6 +126,8 @@
     </ul>
 
     <div class="nav-item d-flex row gap-1 ps-3 mt-5">
+      <% if(!navUser){ %>
+
       <a
         href="login"
         class="btn btn-primary me-2"
@@ -140,6 +141,60 @@
         style="font-size: 1rem; width: 100px"
         >cadastrar</a
       >
+
+      <% } else{ %>
+        <div id="profile">
+          <span
+            class="d-block link-body-emphasis text-decoration-none dropdown-toggle"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Olá, <%= navUser.username%>
+          </span>
+     
+              <a class="" href="/profile/"
+                ><font style="vertical-align: inherit"
+                  ><font style="vertical-align: inherit">Perfil</font></font
+                ></a
+              >
+          
+              <a class="" href="/profile/payment"
+                ><font style="vertical-align: inherit"
+                  ><font style="vertical-align: inherit"
+                    >Formas de Pagamento</font
+                  ></font
+                ></a
+              >
+            
+              <a class="" href="/profile/mycard"
+                ><font style="vertical-align: inherit"
+                  ><font style="vertical-align: inherit">Meus Cartões</font></font
+                ></a
+              >
+          
+              <a class="" id="logout"
+                ><font style="vertical-align: inherit"
+                  ><font style="vertical-align: inherit">sair</font></font
+                ></a
+              >
+           
+        </div>
+  
+        <script>
+          
+           const profile = document.querySelector("#profile")
+        
+            profile.querySelector("#logout").addEventListener("click", () =>{
+              document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+              location.reload();
+            })
+        
+        </script>
+        <% } %>
+        
+  
+        <!-- login -->
+      </div>
     </div>
   </div>
 </div>

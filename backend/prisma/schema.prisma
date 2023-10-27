@@ -56,12 +56,14 @@ model cliente_tem_cartao {
 
 model clientes {
   id                 Int                  @id @default(autoincrement())
+  email              String               @unique(map: "email_UNIQUE") @db.VarChar(64)
   cpf                String               @unique(map: "cpf_UNIQUE") @db.VarChar(14)
+  username           String?              @db.VarChar(90)
+  senha              String?              @db.VarChar(200)
   nome               String?              @db.VarChar(120)
   nascimento         DateTime?            @db.Date
   saldo              Decimal?             @db.Decimal(5, 3)
   cliente_tem_cartao cliente_tem_cartao[]
-  usuario            usuario?
 }
 
 model embarque {
@@ -153,14 +155,6 @@ model superuser {
   username  String?     @db.VarChar(45)
   adm       adm[]
   atendente atendente[]
-}
-
-model usuario {
-  clientes_id Int      @id
-  username    String?  @db.VarChar(90)
-  email       String   @unique(map: "email_UNIQUE") @db.VarChar(64)
-  senha       String?  @db.VarChar(200)
-  clientes    clientes @relation(fields: [clientes_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_usuario_clientes1")
 }
 
 model viagem {

@@ -11,13 +11,12 @@ async function UserInfoPagNav(token, headers) {
 
   try {
     const UserAtual = await axios.get(
-      "http://localhost:9000/api/user/infos/?username=true&clientes_id=true",
+      "http://localhost:9000/api/user/infos/?username=true&id=true",
       {
         headers: headers,
       }
     );
 
-    console.log(UserAtual.data);
     return UserAtual.data;
   } catch (error) {}
 }

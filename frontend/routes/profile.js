@@ -27,12 +27,13 @@ class Menu {
             
         });
 
-        // router.get(`${href}/subpags/:pags`, function (req, res, next) {
-        //     const { pags } = req.params
-        //     if (href == "/") { href = "perfil" }
-        //     const caminho = `site_publico/pages/profile/partialsprofile${href}/_${pags}`
-        //     res.render(caminho, {layout: false})
-        // });
+        if (href == "/") { href = "/perfil" }
+        router.get(`${href}/subpags/:pags`, function (req, res, next) {
+            const { pags } = req.params
+            const caminho = `site_publico/pages/profile/partialsprofile${href}/_${pags}`
+            
+            res.render(caminho, {layout: false})
+        });
 
     }
 
