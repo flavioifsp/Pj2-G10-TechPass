@@ -8,10 +8,6 @@ function autenticar(req, res, next) {
   let  token = req.cookies.token
   if(!req.cookies.token) token = req.headers['authorization'].split(' ')[1]
 
-
-
-
-
   if (!token) {
     return res.status(403).send("token nâo fornecido");
   }

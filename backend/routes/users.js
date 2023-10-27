@@ -170,6 +170,8 @@ router.get("/infos/", autenticar, async (req, res) => {
   }
 });
 
+
+// atualizar clientes
 router.patch("/patch/", autenticar, async (req, res) => {
   const {password, password2, email, username} = req.body
   
@@ -192,7 +194,7 @@ router.patch("/patch/", autenticar, async (req, res) => {
       username: username
     }
 
-    if(password2 !== ""){data.senha = password2}
+    if(password2 !== ""){data.senha = await bcry.hash(password2, 10)}
 
     const user = await prisma.clientes.update({
       where:{
