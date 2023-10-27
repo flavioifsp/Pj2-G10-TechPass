@@ -1,5 +1,5 @@
 
-function AlternarDePag(btn, pag, proxima_subpag) {
+async function AlternarDePag(btn, pag, proxima_subpag) {
 
     document.querySelector("#" + btn).addEventListener("click", async () => {
         try {
@@ -9,7 +9,7 @@ function AlternarDePag(btn, pag, proxima_subpag) {
             divpai.innerHTML = subpag
             
             for( elem of [...divpai.querySelectorAll('script')]) {
-                eval(elem.innerText);
+               eval(elem.innerText);
             }
             
         } catch (erro) {

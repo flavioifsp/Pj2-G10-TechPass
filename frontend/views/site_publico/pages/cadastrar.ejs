@@ -97,7 +97,7 @@
 
       try {
         const cadastrar = await axios.post("http://localhost:9000/api/user/cadastrar", data)
-        
+        location.href= "/login"
       } catch (error) {
         acionarerro(error)
       }

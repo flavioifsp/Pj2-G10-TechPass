@@ -170,4 +170,44 @@ router.get("/infos/", autenticar, async (req, res) => {
   }
 });
 
+router.patch("/patch/", autenticar, async (req, res) => {
+  const {password, password2, email, username} = req.body
+  
+  try {
+    const senhaatual =  (await prisma.clientes.findUniqueOrThrow({
+      where:{
+        id: req.userId
+      },
+      select:{
+        senha: true
+      }
+    })).senha
+
+    
+    if(!await bcry.compare(password, senhaatual)){ return res.status(401).json({"msg": "senha invalida"})}
+    
+
+    const data =  {
+      email: email,
+      username: username
+    }
+
+    if(password2 !== ""){data.senha = password2}
+
+    const user = await prisma.clientes.update({
+      where:{
+        id: req.userId,
+      },
+      data: data
+    })
+
+    
+    res.json({message: "atualizado com sucesso"})
+
+  } catch (error) {
+    res.status(401).json({ message: "falha ao atualizar", erro: error });
+    console.log(error);
+  }
+})
+
 module.exports = router;

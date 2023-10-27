@@ -54,11 +54,11 @@
     </div>
 
     <div class="col-12">
-      <label for="password" class="form-label">Senha atual</label>
+      <label for="password2" class="form-label">Nova senha</label>
       <input
         type="password"
         class="form-control"
-        id="password"
+        id="password2"
         placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
         required=""
       />
@@ -66,11 +66,11 @@
     </div>
 
     <div class="col-12">
-      <label for="password2" class="form-label">Nova senha</label>
+      <label for="password" class="form-label">Senha atual (obrigatorio)</label>
       <input
         type="password"
         class="form-control"
-        id="password2"
+        id="password"
         placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
         required=""
       />
@@ -110,34 +110,39 @@
 </form>
 
 <script>
-  
-    AlternarDePag("btnCancel", "perfil", "inicio");
+  AlternarDePag("btnCancel", "perfil", "inicio");
 
-    const formsPATCHuser = document.querySelector("#formsPATCHuser");
+  const formsPATCHuser = document.querySelector("#formsPATCHuser");
 
-    // colocar as info do user no forms na primeira vez
+  // colocar as info do user no forms na primeira vez
+  requisitarInfoPforms("#formsPATCHuser");
+
+  // resetar os form para a info do user
+  formsPATCHuser.querySelector("#btnRESET").addEventListener("click", () => {
+    // requisitar as infos dnv
     requisitarInfoPforms("#formsPATCHuser");
 
-    // resetar os form para a info do user
-    formsPATCHuser.querySelector("#btnRESET").addEventListener("click", () => {
-      // requisitar as infos dnv
-      requisitarInfoPforms("#formsPATCHuser");
+    // limpar senhas
+    formsPATCHuser.querySelector("#password").value = "";
+    formsPATCHuser.querySelector("#password2").value = "";
+  });
 
-      // limpar senhas
-      formsPATCHuser.querySelector("#password").value = "";
-      formsPATCHuser.querySelector("#password2").value = "";
-    });
+  // enviar dados para a api para atualizar
+  formsPATCHuser.addEventListener("submit", async (evt) => {
+    evt.preventDefault();
+    const valoresforms = arrayComValueForms("#formsPATCHuser");
 
-    
+    try {
+      const paia = await axios.patch(
+        `http://localhost:9000/api/user/patch/`, valoresforms, 
+        getCookie("token")
+      );
 
-    // enviar dados para a api para atualizar
-    formsPATCHuser.addEventListener("submit", (evt) => {
-      evt.preventDefault();
-      const valoresforms = arrayComValueForms("#formsPATCHuser")
+      location.href = "/profile"
+    } catch (error) {
+      
+    }
 
-      if(valoresforms.password !== valoresforms.password2){
-        return 
-      }
-    });
 
+  });
 </script>
