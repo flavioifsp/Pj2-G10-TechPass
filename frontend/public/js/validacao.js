@@ -51,30 +51,13 @@ class Inputs {
               inputvalida.caractereNpermitido
             );
 
-            const erropadrao = () => {
-              if (alertDeErro && el.inputType != "insertFromPaste") {
-                input.classList.add("is-invalid");
-                validdiv.classList.add("invalid-feedback");
+            if (alertDeErro && el.inputType != "insertFromPaste") {
+              input.classList.add("is-invalid");
+              validdiv.classList.add("invalid-feedback");
 
-                validdiv.innerText = `o caractere "${el.data}" não é permitido neste campo. Ele será apagado`;
-              } else {
-                input.classList.remove("is-invalid");
-              }
-            };
-
-            if (inputvalida.customerro) {
-              inputvalida.customerro.map((elem) => {
-                const customerro = elem(input.value);
-                if (customerro) {
-                  validdiv.innerText = customerro;
-                  input.classList.add("is-invalid");
-                  validdiv.classList.add("invalid-feedback");
-                } else {
-                  erropadrao();
-                }
-              });
+              validdiv.innerText = `o caractere "${el.data}" não é permitido neste campo. Ele será apagado`;
             } else {
-              erropadrao();
+              input.classList.remove("is-invalid");
             }
 
             input.value = input.value.replace(
@@ -84,16 +67,9 @@ class Inputs {
           });
         }
 
-        // // erros
-        // if (inputvalida.erros) {
-        //   inputvalida.erros.map((elem) => {
-        //     input.addEventListener("input", () => {
-        //       console.log(input.value.matchAll(/123/g))
-        //     })})
-        // }
         this.forms.querySelector(".submit").setAttribute("disabled", "");
 
-        input.addEventListener("focusout", (a) => {
+        input.addEventListener("focusout", async () => {
           // auto pontuar
           if (inputvalida.autopontuar) {
             input.value = input.value
@@ -115,12 +91,25 @@ class Inputs {
           });
           allvalidacao = 0;
 
+          // erro custom
+          let erroCustom = null;
+          if (inputvalida.customerro) {
+            for (const elem of inputvalida.customerro) {
+              const customerro = await elem(input.value);
+              if (customerro) {
+                erroCustom = customerro;
+                console.log(erroCustom, "paia");
+              }
+            }
+          }
+
           //   checar a restricao final
-          if (input.checkValidity() && input.value.length != 0) {
+          if (input.checkValidity() && input.value.length != 0 && !erroCustom) {
             // div de texto
             validdiv.classList.add("valid-feedback");
             validdiv.classList.remove("invalid-feedback");
             // texto se a restricao final for aceita
+
             validdiv.innerText = inputvalida.pattern[1];
 
             // classe do input
@@ -133,7 +122,10 @@ class Inputs {
             // texto se a restricao final for negada
 
             // conferir o minimo de caracteres
-            if (input.value.length < inputvalida.min) {
+
+            if (erroCustom) {
+              validdiv.innerText = erroCustom;
+            } else if (input.value.length < inputvalida.min) {
               validdiv.innerText = `insira ao menos ${inputvalida.min} caracteres`;
             } else {
               validdiv.innerText = inputvalida.pattern[2];

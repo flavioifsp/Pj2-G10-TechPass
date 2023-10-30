@@ -81,38 +81,46 @@ router.post("/cadastrar/", async function (req, res, next) {
 router.get("/cadastrar/", async function (req, res, next) {
   try {
     const verificacoes = {};
-    const { email = false, cpf  = false} = req.query;
+    const { email = false, cpf = false } = req.query;
 
-    const Teste_cliente = await prisma.clientes.findUnique({
-      where: {
-        email: email
-      },
-      select: {
-        email:true,
-      }
-    });
-    
-    const Teste_clienteCpf = await prisma.clientes.findUnique({
-      where: {
-        cpf: cpf
-      },
-      select: {
-        cpf:true
-      }
-    });
+    console.log(cpf, email);
 
-    if(!Teste_clienteEMAil){      
-      verificacoes.email = Teste_clienteEMAil.email
-    }
-    if(!Teste_clienteCpf){      
-      verificacoes.cpf = Teste_clienteCpf.cpf
+    if (email !== false) {
+      const Teste_cliente = await prisma.clientes.findUnique({
+        where: {
+          email: email,
+        },
+        select: {
+          email: true,
+        },
+      });
+      if (typeof Teste_cliente !== "undefined" && Teste_cliente !== null) {
+        verificacoes.email = true;
+      } else {
+        verificacoes.email = false;
+      }
     }
 
-    res.json({resultado: Teste_cliente})
+    if (cpf !== false) {
+      const Teste_clienteCpf = await prisma.clientes.findUnique({
+        where: {
+          cpf: cpf,
+        },
+        select: {
+          cpf: true,
+        },
+      });
+      if (typeof Teste_clienteCpf !== "undefined" && Teste_clienteCpf !== null) {
+        verificacoes.cpf = true;
+      } else {
+        verificacoes.cpf = false;
+      }
+    }
 
+    res.json({ resultado: verificacoes });
   } catch (er) {
     const erro = exception(er);
-
+    console.log(erro);
     res.status(erro.code).send(erro.msg.toString());
   }
 });
@@ -129,7 +137,7 @@ router.post("/login", async (req, res, next) => {
       select: {
         id: true,
         email: true,
-        senha: true
+        senha: true,
       },
     });
 
@@ -154,7 +162,6 @@ router.get("/infos/", autenticar, async (req, res) => {
     infos[qualinfo] = true;
   }
 
-
   try {
     res.json(
       await prisma.clientes.findUniqueOrThrow({
@@ -163,43 +170,39 @@ router.get("/infos/", autenticar, async (req, res) => {
         },
         select: infos,
       })
-    ); 
+    );
   } catch (error) {
     res.status(401).json({ message: "n encontrado", erro: error });
     console.log(error);
   }
 });
 
-
 // atualizar clientes
 router.patch("/patch/", autenticar, async (req, res) => {
-  const {senha, email, username} = req.body
-  
-  try {
-     
+  const { senha, email, username } = req.body;
 
-    const data =  {
+  try {
+    const data = {
       email: email,
-      username: username
+      username: username,
+    };
+
+    if (senha !== "") {
+      data.senha = await bcry.hash(senha, 10);
     }
 
-    
-    if(senha !== ""){data.senha = await bcry.hash(senha, 10)}
-
     const user = await prisma.clientes.update({
-      where:{
+      where: {
         id: req.userId,
       },
-      data: data
-    })
+      data: data,
+    });
 
-    
-    res.json({message: "atualizado com sucesso"})
-
+    res.json({ message: "atualizado com sucesso" });
   } catch (error) {
     res.status(401).json({ message: "falha ao atualizar", erro: error });
     console.log(error);
   }
-})
+});
 
 module.exports = router;

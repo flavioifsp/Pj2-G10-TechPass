@@ -64,7 +64,7 @@
 </section>
 
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
+  document.addEventListener("DOMContentLoaded", async () => {
 
 
     const cadastrar = new Inputs("#formscadastro");
@@ -80,18 +80,17 @@
           "cpf invalido",
         ],
         autopontuar: [/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4", /[.-]/g, ""],
-        //   erros: [{ tipo: "cpf invalido", regex: /a/ }],
+        customerro: [(async (value) => {
+          if (((await axios.get("http://localhost:9000/api/user/cadastrar/?cpf=" + value)).data.resultado.cpf)) {
+            return "O CPF já está em uso"
+          }
+        })]
       },
       nome: {
         max: 120,
         min: 3,
         caractereNpermitido: /[^a-zA-Z\s]/g,
-        pattern: ["[a-zA-Z\\s]{3,120}", "nome valido", "nome invalido"],
-        customerro: [(value) => {
-          if (value == "paia") {
-            return "paioso dms hein"
-          }
-        }]
+        pattern: ["[a-zA-Z\\s]{3,120}", "nome valido", "nome invalido"]
       },
       username: {
         max: 90,
@@ -111,6 +110,11 @@
           "email valido",
           "email invalido",
         ],
+        customerro: [(async (value) => {
+          if (((await axios.get("http://localhost:9000/api/user/cadastrar/?email=" + value)).data.resultado.email)) {
+            return "O email já está em uso"
+          }
+        })]
       },
       nascimento: {
         max: 10,
