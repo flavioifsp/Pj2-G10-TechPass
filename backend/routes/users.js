@@ -67,7 +67,7 @@ router.post("/cadastrar/", async function (req, res, next) {
           senha,
         },
       });
-      return res.status(201).send(username);
+      return res.status(201).send(email);
     } else {
       return res.status(406).send("esse cpf ou email já estão registrados");
     }
@@ -173,28 +173,18 @@ router.get("/infos/", autenticar, async (req, res) => {
 
 // atualizar clientes
 router.patch("/patch/", autenticar, async (req, res) => {
-  const {password, password2, email, username} = req.body
+  const {senha, email, username} = req.body
   
   try {
-    const senhaatual =  (await prisma.clientes.findUniqueOrThrow({
-      where:{
-        id: req.userId
-      },
-      select:{
-        senha: true
-      }
-    })).senha
-
-    
-    if(!await bcry.compare(password, senhaatual)){ return res.status(401).json({"msg": "senha invalida"})}
-    
+     
 
     const data =  {
       email: email,
       username: username
     }
 
-    if(password2 !== ""){data.senha = await bcry.hash(password2, 10)}
+    
+    if(senha !== ""){data.senha = await bcry.hash(senha, 10)}
 
     const user = await prisma.clientes.update({
       where:{

@@ -7,21 +7,22 @@
   <form class="container-fluid" id="formslogin">
     <div class="row my-3 container-fluid mx-auto px-0">
       <label class="form-label ps-2">email</label>
-      <input class="form-control" value="123@gmail.com" type="email" placeholder="digite seu email "  name="email">
+      <input class="form-control" type="email" placeholder="digite seu email " name="email">
     </div>
 
-    <div class=" d-flex flex-column my-3 container-fluid px-0">
-      <label class="form-label ps-2">senha</label>
-      <div class="d-flex flex-row senhapaia">
-        <input name="senha" value="123" id="senha"  class="form-control rounded-end-0 inputsenha" type="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" />
-        <button type="button" class="btn btn-outline-primary rounded-start-0 btnsenha">
+    <div class="d-flex flex-column  col-12">
+      <label for="senha" class="form-label mb-1 ps-2">Insira sua senha</label>
+      <div class="d-flex senhapaia flex-wrap">
+        <input name="senha" id="senha" class="form-control rounded-end-0 inputsenha " style="width: 85%;" type="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" />
+        <button type="button" class="btn btn-outline-primary rounded-start-0 btnsenha " style="width: 15%;">
           <span class="m-auto"><i class="bi bi-eye-fill"></i></span>
         </button>
       </div>
+    </div>
 
-      <button class="btn btn-primary  w-100 mt-4" type="submit">entrar</button>
+    <button class="btn btn-primary  w-100 mt-4 submit" type="submit">entrar</button>
 
-      <p class="mt-3 text-center">ainda não cadastrado? <a href="cadastrar">crie sua conta aqui</a></p>
+    <p class="mt-3 text-center">ainda não cadastrado? <a href="cadastrar">crie sua conta aqui</a></p>
   </form>
 </section>
 
@@ -29,31 +30,68 @@
 <script>
   document.addEventListener("DOMContentLoaded", () => {
 
-    const login = document.querySelector("#formslogin")
+    const login = new Inputs("#formslogin");
 
-    login.addEventListener("submit", async () => {
-      event.preventDefault();
-
-      // cria um objeto contendo cada input com seu nome e o valor dele
-      const data = {}
-      for (x of [...login.querySelectorAll("input")]) {
-        data[x.name] = x.value
-        
-      }
-
-      try {
-        // add cookie
-        const login = await axios.post("http://localhost:9000/api/user/login", data)
-        document.cookie = login.data.token
-
-        location.href = "/profile/"
-        console.log("logado com sucesso")
-
-        
-      } catch (error) {
-        acionarerro(error)
+    login.allvalidacao({
+      senha: {
+        max: 50,
+        min: 8,
+        caractereNpermitido: /[^a-zA-Z0-9\s]/g,
+        pattern: ["^[a-zA-Z0-9\\s]{8,50}$", "senha valida", "senha invalido"],
+        // customerro: (elem, text) => {if(elem.match(/a/)) text = "a senha deve conter ao menos 8 caracteres"}
+      },
+      email: {
+        max: 64,
+        caractereNpermitido: /[^a-zA-Z0-9.@_-]/g,
+        pattern: [
+          "^[a-zA-Z0-9\\._+\\-]+@[a-zA-Z0-9\\.\\-]+\\.[a-zA-Z]{2,6}$",
+          "email valido",
+          "email invalido",
+        ]
       }
     })
+
+    let cont = 0
+    const aviso = document.createElement("div");
+    
+    const emailcadastro = localStorage.getItem("email")
+    if (emailcadastro) {
+      aviso.innerHTML = `
+      <div class="alert alert-primary" role="alert">
+        Cadastro criado com sucesso!
+        </div>
+        `
+        
+        login.forms.prepend(aviso)
+        setTimeout(() => {
+        login.forms.removeChild(aviso)
+      }, 9000)
+
+
+      login.forms.email.value = emailcadastro
+      localStorage.clear("email")
+    }
+
+    login.login("http://localhost:9000/api/user/login",
+      erro = () => {
+
+        aviso.innerHTML = `
+          <div class="alert alert-danger position-relative" role="alert">
+            Senha ou Email incorretos!
+            <small class="position-absolute top-0 end-0 p-2">Tentativas: ${cont}</small>
+          </div>
+          `;
+
+        if (cont == 0) login.forms.prepend(aviso);
+        cont++;
+
+
+      }, success = () => {
+
+        location.href = "/profile"
+      })
+
+
 
   })
 </script>

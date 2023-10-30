@@ -10,17 +10,17 @@
           <div class="row mb-3 mt-4">
             <div class="col-12">
               <label for="nome" class="form-label">NOME COMPLETO</label>
-              <input type="text" class="form-control" name="nome" id="nome"  disabled>
+              <input type="text" class="form-control" name="nome" id="nome" disabled>
             </div>
           </div>
           <div class="row mb-3">
             <div class="col-6">
               <label for="cpf" class="form-label">CPF</label>
-              <input type="text" name="cpf" class="form-control" id="cpf"  disabled>
+              <input type="text" name="cpf" class="form-control" id="cpf" disabled>
             </div>
             <div class="col-6">
               <label for="nascimento" class="form-label">DATA DE NASCIMENTO</label>
-              <input type="date" class="form-control" name="nascimento" id="nascimento"  disabled>
+              <input type="date" class="form-control" name="nascimento" id="nascimento" disabled>
             </div>
           </div>
         </div>
@@ -37,7 +37,7 @@
           <div class="row mb-3 mt-4">
             <div class="col-12 col-sm-6">
               <label for="username" class="form-label">APELIDO</label>
-              <input type="text" class="form-control" name="username" id="username" disabled >
+              <input type="text" class="form-control" name="username" id="username" disabled>
             </div>
             <div class="col-12 col-sm-6">
               <label for="senha" class="form-label">SENHA</label>
@@ -46,7 +46,7 @@
             <div class="row mb-3 ">
               <div class="col-12">
                 <label for="email" class="form-label">EMAIL</label>
-                <input type="email" name="email" class="form-control" id="email"  disabled>
+                <input type="email" name="email" class="form-control" id="email" disabled>
               </div>
             </div>
           </div>
@@ -66,8 +66,9 @@
 
 
 <script>
-  requisitarInfoPforms("#infoUserAll")
-  AlternarDePag("btneditarInfoUser", "perfil", "atualizar")
+  const infoUserAll = new Inputs("#infoUserAll");
 
- 
+
+  infoUserAll.resetDeinfo("http://localhost:9000/api/user/infos");
+  AlternarDePag("btneditarInfoUser", "perfil", "atualizar")
 </script>

@@ -5,7 +5,7 @@
 
 
 
-  <form class="container-fluid m-auto row g-3 " id="formscadastro">
+  <form class="container-fluid m-auto row g-3 " novalidate id="formscadastro">
     <!-- nome real -->
     <div class="  col-12">
       <label for="nome " class="form-label mb-1 ps-2">Nome Completo</label>
@@ -34,7 +34,7 @@
     <div class="d-flex flex-column col-sm-5 col-12">
       <label for="senha" class="form-label mb-1 ps-2">Insira sua senha</label>
       <div class="d-flex senhapaia flex-wrap">
-        <input name="senha" id="senha" class="form-control rounded-end-0 inputsenha " style="width: 80%;" type="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" />
+        <input name="senha"  id="senha" class="form-control rounded-end-0 inputsenha "  style="width: 80%;" type="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" />
         <button type="button" class="btn btn-outline-primary rounded-start-0 btnsenha " style="width: 20%;">
           <span class="m-auto"><i class="bi bi-eye-fill"></i></span>
         </button>
@@ -52,7 +52,7 @@
 
 
     <div class="col-12 mt-5">
-      <button class="btn btn-primary w-100 py-2 " type="submit" id="submit">
+      <button class="btn btn-primary w-100 py-2 submit" type="submit" >
         <h5 class="m-0">Cadastrar</h5>
       </button>
     </div>
@@ -72,6 +72,7 @@
     cadastrar.allvalidacao({
       cpf: {
         max: 14,
+        min: 14,
         caractereNpermitido: /[^\d\.\-]|[\.\-][\.\-]/g,
         pattern: [
           "[\\d]{3}\\.[\\d]{3}\\.[\\d]{3}-[\\d]{2}",
@@ -83,11 +84,13 @@
       },
       nome: {
         max: 120,
+        min: 3,
         caractereNpermitido: /[^a-zA-Z\s]/g,
         pattern: ["[a-zA-Z\\s]{3,120}", "nome valido", "nome invalido"],
       },
       username: {
         max: 90,
+        min: 3,
         caractereNpermitido: /[^a-zA-Z\s_\-\d]/g,
         pattern: [
           "[a-zA-Z\\s_\\-\\d]{2,90}",
@@ -104,28 +107,33 @@
           "email invalido",
         ],
       },
-      senha: {
-        max: 50,
-        caractereNpermitido: /[^a-zA-Z0-9\s]/g,
-        pattern: ["[a-zA-Z0-9\\s]*", "senha valido", "senha invalido"],
-      },
       nascimento: {
         max: 10,
+        min: 10,
         caractereNpermitido: /^(0?[1-9]|[12][0-9]|3[01])\/(0?[1-9]|1[0-2])\/\d{4}$/,
         pattern: ["^(0?[1-9]|[12][0-9]|3[01])\/(0?[1-9]|1[0-2])\/\d{4}$", "nascimento valido", "nascimento invalido"],
-      }},
-      async (cadastrar) => {
-        try {
-          console.log(cadastrar)
-          const cadastrar = await axios.post("http://localhost:9000/api/user/cadastrar", cadastrar)
-          location.href = "/login"
-          console.log("A")
-        } catch (error) {
-          console.log("b")
-          acionarerro(error)
-        }
+      },
       
+      senha: {
+        max: 50,
+        min: 8,
+        caractereNpermitido: /[^a-zA-Z0-9\s]/g,
+        pattern: ["^[a-zA-Z0-9\\s]{8,50}$", "senha valida", "senha invalido"],
+        // customerro: (elem, text) => {if(elem.match(/a/)) text = "a senha deve conter ao menos 8 caracteres"}
+      },
     });
+
+
+    
+    const cadastro = cadastrar.cadastrar("http://localhost:9000/api/user/cadastrar",
+    erro = () =>{},
+    success = ({data}) => {
+      localStorage.setItem("email", data)
+
+      location.href = "/login"
+    } )
+    
+   
 
   })
 </script>

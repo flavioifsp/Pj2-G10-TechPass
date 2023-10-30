@@ -12,13 +12,7 @@
     <div class="col-12">
       <label for="username" class="form-label">Username</label>
       <div class="input-group has-validation">
-        <input
-          type="text"
-          class="form-control"
-          id="username"
-          name="username"
-          required=""
-        />
+        <input type="text" class="form-control" id="username" name="username" required="" />
         <div class="invalid-feedback">Your username is required.</div>
       </div>
     </div>
@@ -41,108 +35,54 @@
 
     <div class="col-12">
       <label for="email" class="form-label">Email </label>
-      <input
-        type="email"
-        class="form-control"
-        id="email"
-        name="email"
-        value=""
-      />
+      <input type="email" class="form-control" id="email" name="email" value="" />
       <div class="invalid-feedback">
         Please enter a valid email address for shipping updates.
       </div>
     </div>
 
     <div class="col-12">
-      <label for="password2" class="form-label">Nova senha</label>
-      <input
-        type="password"
-        class="form-control"
-        id="password2"
-        placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-        required=""
-      />
-      <div class="invalid-feedback">Please enter your shipping address.</div>
+      <label for="senha" class="form-label">Nova senha</label>
+      <input type="senha" class="form-control" id="senha" name="senha" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" required="" />
     </div>
 
-    <div class="col-12">
-      <label for="password" class="form-label">Senha atual (obrigatorio)</label>
-      <input
-        type="password"
-        class="form-control"
-        id="password"
-        placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-        required=""
-      />
-      <div class="invalid-feedback">Please enter your shipping address.</div>
-    </div>
+  
   </div>
 
   <hr class="my-4" />
 
   <div class="d-flex px-1">
-    <button
-      type="submit"
-      class="btn btn-success"
-      id="btn-salvar"
-      style="width: fit-content"
-    >
+    <button type="submit" class="btn btn-success submit" id="btn-salvar" style="width: fit-content">
       SALVAR
     </button>
 
-    <button
-      type="button"
-      class="btn btn btn-warning ms-auto"
-      id="btnRESET"
-      style="width: fit-content"
-    >
+    <button type="button" class="btn btn btn-warning ms-auto" id="btnRESET" style="width: fit-content">
       Resetar
     </button>
-    <button
-      type="button"
-      class="btn btn btn-danger ms-2"
-      id="btnCancel"
-      style="width: fit-content"
-    >
+    <button type="button" class="btn btn btn-danger ms-2" id="btnCancel" onclick="location.reload()" style="width: fit-content">
       Cancelar
     </button>
   </div>
 </form>
 
 <script>
-  AlternarDePag("btnCancel", "perfil", "inicio");
+  const formsPATCHuser = new Inputs("#formsPATCHuser");
 
-  const formsPATCHuser = document.querySelector("#formsPATCHuser");
 
   // colocar as info do user no forms na primeira vez
-  requisitarInfoPforms("#formsPATCHuser");
+  formsPATCHuser.resetDeinfo("http://localhost:9000/api/user/infos");
+
 
   // resetar os form para a info do user
-  formsPATCHuser.querySelector("#btnRESET").addEventListener("click", () => {
+  formsPATCHuser.forms.querySelector("#btnRESET").addEventListener("click", () => {
     // requisitar as infos dnv
-    requisitarInfoPforms("#formsPATCHuser");
+    formsPATCHuser.resetDeinfo("http://localhost:9000/api/user/infos");
 
     // limpar senhas
-    formsPATCHuser.querySelector("#password").value = "";
-    formsPATCHuser.querySelector("#password2").value = "";
-  });
-
-  // enviar dados para a api para atualizar
-  formsPATCHuser.addEventListener("submit", async (evt) => {
-    evt.preventDefault();
-    const valoresforms = arrayComValueForms("#formsPATCHuser");
-
-    try {
-      const paia = await axios.patch(
-        `http://localhost:9000/api/user/patch/`, valoresforms, 
-        getCookie("token")
-      );
-
-      location.href = "/profile"
-    } catch (error) {
-      
-    }
-
+    formsPATCHuser.forms.querySelector("#senha").value = "";
 
   });
+
+  formsPATCHuser.patchInfo(`http://localhost:9000/api/user/patch/`)
+  
 </script>
