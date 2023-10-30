@@ -51,17 +51,30 @@ class Inputs {
               inputvalida.caractereNpermitido
             );
 
-            if (alertDeErro && el.inputType != "insertFromPaste") {
-              input.classList.add("is-invalid");
-              validdiv.classList.add("invalid-feedback");
+            const erropadrao = () => {
+              if (alertDeErro && el.inputType != "insertFromPaste") {
+                input.classList.add("is-invalid");
+                validdiv.classList.add("invalid-feedback");
 
-              // if (inputvalida.customerro) {
-              //   inputvalida.customerro.map((elem) => {elem(input.value, validdiv.innerText)});
-              // } else {
-              validdiv.innerText = `o caractere "${el.data}" não é permitido neste campo. Ele será apagado`;
-              // }
+                validdiv.innerText = `o caractere "${el.data}" não é permitido neste campo. Ele será apagado`;
+              } else {
+                input.classList.remove("is-invalid");
+              }
+            };
+
+            if (inputvalida.customerro) {
+              inputvalida.customerro.map((elem) => {
+                const customerro = elem(input.value);
+                if (customerro) {
+                  validdiv.innerText = customerro;
+                  input.classList.add("is-invalid");
+                  validdiv.classList.add("invalid-feedback");
+                } else {
+                  erropadrao();
+                }
+              });
             } else {
-              input.classList.remove("is-invalid");
+              erropadrao();
             }
 
             input.value = input.value.replace(
