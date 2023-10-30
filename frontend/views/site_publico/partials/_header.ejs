@@ -144,7 +144,7 @@
       >
 
       <% } else{ %>
-        <div id="profile">
+        <div id="profileMobi">
           <span
             class="d-block link-body-emphasis text-decoration-none dropdown-toggle"
             data-bs-toggle="dropdown"
@@ -183,9 +183,9 @@
   
         <script>
           
-           const profile = document.querySelector("#profile")
+           const profileMobi = document.querySelector("#profileMobi")
         
-            profile.querySelector("#logout").addEventListener("click", () =>{
+           profileMobi.querySelector("#logout").addEventListener("click", () =>{
               document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
               location.reload();
             })
