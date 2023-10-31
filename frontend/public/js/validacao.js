@@ -19,10 +19,23 @@ class Inputs {
     return valores;
   }
 
-  allvalidacao(restricao, api) {
+  allvalidacao(restricao) {
+    const inputsOBG = [];
+
     this.inputs((input) => {
       const inputvalida = restricao[input.name];
+
       if (inputvalida) {
+        for (const inputConfig in restricao) {
+          if (Object.hasOwnProperty.call(restricao, inputConfig)) {
+            if (restricao[inputConfig].btnoff) {
+              if (input.name == inputConfig) {
+                inputsOBG.push(input);
+              }
+            }
+          }
+        }
+
         // adicionar a restricao final
         input.pattern = inputvalida.pattern[0];
 
@@ -33,14 +46,14 @@ class Inputs {
         // max
         if (input.type == "text") {
           input.maxLength = inputvalida.max;
-        } else if (input.type == "number") {
-          input.Length = inputvalida.max;
+        } else {
+          input.max = inputvalida.max;
         }
 
         // min
-        if (input.type == "text" || input.type == "password") {
-          input.minlength = inputvalida.min;
-        } else if (input.type == "number") {
+        if (input.type == "text") {
+          input.minLength = inputvalida.min;
+        } else {
           input.min = inputvalida.min;
         }
 
@@ -67,29 +80,52 @@ class Inputs {
           });
         }
 
-        this.forms.querySelector(".submit").setAttribute("disabled", "");
+        // para desativar o btn de submit
 
-        input.addEventListener("focusout", async () => {
+        // for (const el of inputsOBG) {
+        if (inputvalida.btnoff) {
+          const btnsubmit = this.forms.querySelector(".submit");
+
+          const label = document.querySelector(`label[for="${input.id}"]`);
+
+          if (label) {
+            label.innerHTML += '<span class="text-danger ">*</span>';
+          }
+
+          input.addEventListener("blur", () => {
+            setTimeout(() => {
+              // desabilitar e ativar o botao cadastrar
+
+              for (const e of inputsOBG) {
+
+                if (e.classList.contains("is-valid")) {
+                  console.log("formulario incompleto");
+                  btnsubmit.removeAttribute("disabled", "");
+                } else {
+                  btnsubmit.setAttribute("disabled", "");
+               
+                  break;
+                }
+
+              }
+            }, 10);
+          });
+          btnsubmit.setAttribute("disabled", "");
+
+          input.addEventListener("input", () => {
+            if (!btnsubmit.getAttribute("disabled")) {
+              btnsubmit.setAttribute("disabled", "");
+            }
+          });
+        }
+
+        input.addEventListener("blur", async () => {
           // auto pontuar
           if (inputvalida.autopontuar) {
             input.value = input.value
               .replace(inputvalida.autopontuar[2], inputvalida.autopontuar[3])
               .replace(inputvalida.autopontuar[0], inputvalida.autopontuar[1]);
           }
-
-          // desabilitar o botao cadastrar
-          let allvalidacao = 1;
-          this.inputs((input) => {
-            if (input.classList.contains("is-valid")) allvalidacao++;
-            if (allvalidacao == Object.keys(restricao).length) {
-              this.forms
-                .querySelector(".submit")
-                .removeAttribute("disabled", "");
-            } else {
-              this.forms.querySelector(".submit").setAttribute("disabled", "");
-            }
-          });
-          allvalidacao = 0;
 
           // erro custom
           let erroCustom = null;
@@ -98,7 +134,6 @@ class Inputs {
               const customerro = await elem(input.value);
               if (customerro) {
                 erroCustom = customerro;
-                console.log(erroCustom, "paia");
               }
             }
           }
@@ -135,6 +170,15 @@ class Inputs {
             input.classList.add("is-invalid");
             input.classList.remove("is-valid");
           }
+
+          let errfinal = true;
+          input.addEventListener("input", () => {
+            if (errfinal) {
+              input.classList.remove("is-valid");
+              input.classList.remove("is-invalid");
+            }
+            errfinal = false;
+          });
         });
       }
     });
