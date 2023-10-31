@@ -84,17 +84,17 @@
         autopontuar: [/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4", /[.-]/g, ""],
         customerro: [(async (value) => {
           if (((await axios.get("http://localhost:9000/api/user/cadastrar/?cpf=" + value)).data.resultado.cpf)) {
-            return "O CPF já está em uso"
+            return "Esse CPF já está cadastrado"
           }
         })],
-        btnoff: "PAIA"
+        btnoff: "required"
       },
       nome: {
         max: 120,
         min: 3,
         caractereNpermitido: /[^a-zA-Z\s]/g,
         pattern: ["[a-zA-Z\\s]{3,120}", "nome valido", "nome invalido"],
-        btnoff: "PAIA"
+        btnoff: "required"
       },
       username: {
         max: 90,
@@ -105,7 +105,7 @@
           "apelido valido",
           "apelido invalido",
         ],
-        btnoff: "PAIA"
+        btnoff: "required"
       },
       email: {
         max: 64,
@@ -117,16 +117,16 @@
         ],
         customerro: [(async (value) => {
           if (((await axios.get("http://localhost:9000/api/user/cadastrar/?email=" + value)).data.resultado.email)) {
-            return "O email já está em uso"
+            return "Esse email já está em uso"
           }
         })],
-        btnoff: "PAIA"
+        btnoff: "required"
       },
       nascimento: {
         max: "2099-12-31",
         min: "1900-01-01",
         pattern: ["", "nascimento valido", "nascimento invalido"],
-        btnoff: "PAIA"
+        btnoff: "required"
       },
 
       senha: {
@@ -134,7 +134,7 @@
         min: 8,
         caractereNpermitido: /[^a-zA-Z0-9\s]/g,
         pattern: ["^[a-zA-Z0-9\\s]{8,50}$", "senha valida", "senha invalido"],
-        btnoff: "PAIA"
+        btnoff: "required"
       },
     });
 

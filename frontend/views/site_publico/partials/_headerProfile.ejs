@@ -1,76 +1,73 @@
-
 <header>
-    <nav class="navbar  p-0 py-2 navbar-expand-lg navbar-dark bg-dark justify-content-center  ">
+  <nav class="navbar  p-0 py-2 navbar-expand-lg navbar-dark bg-dark justify-content-center  ">
 
-        <div class="container-fluid " id="menu">
-            <a href="/" class="navbar-brand ms-4 ">
-                <img src="/images/logo.png" alt="passtech" class="img-fluid w-100">
-            </a>
+    <div class="container-fluid " id="menu">
+      <a href="/" class="navbar-brand ms-4 ">
+        <img src="/images/logo.png" alt="passtech" class="img-fluid w-100">
+      </a>
 
-            <div class="collapse navbar-collapse me-5">
-                <ul class="navbar-nav  column-gap-1 ms-auto">
-                    <li class="nav-item">
-                        <a href="/rotas&linhas" class="nav-link">Rotas e linhas</a>
-                    </li>
-
-
-                </ul>
-            </div>
-
-            <button class="navbar-toggler ms-auto " type="button" data-bs-toggle="offcanvas" data-bs-target="#menumobi"
-                aria-controls="aaaa" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-        </div>
+      <div class="collapse navbar-collapse me-5">
+        <ul class="navbar-nav  column-gap-1 ms-auto">
+          <li class="nav-item">
+            <a href="/rotas&linhas" class="nav-link">Rotas e linhas</a>
+          </li>
 
 
-    </nav>
+        </ul>
+      </div>
 
-
-
-    <div class="offcanvas offcanvas-end text-bg-dark" id="menumobi">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">PassTech</h5>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
-                aria-label="Close"></button>
-        </div>
-
-        <div class="offcanvas-body">
-            <div class="nav-item d-inline-flex align-items-center  pb-3">
-                <i class="bi my-auto bi-person-circle" style="font-size: 3rem"></i>
-                <h4 class="ms-3">PAIOSO CABRAL</h4>
-            </div>
-
-            <h3 class="mt-3 mb-1">CONTA</h3>
-            <ul class="navbar-nav justify-content-end flex-grow-1 ps-3">
-
-
-                <li class="nav-item">
-                    <a href="/user" class="nav-link fs-3">meu perfil</a>
-                </li>
-                <li class="nav-item">
-                    <a href="MeusCartoes" class="nav-link fs-3">meus cartões</a>
-                </li>
-                <li class="nav-item">
-                    <a href="formadePag" class="nav-link fs-3">formas de pagamento</a>
-                </li>
-
-
-            </ul>
-
-            <h2 class="mt-5 mb-1">SITE PRINCIPAL</h3>
-                <ul class="navbar-nav justify-content-end flex-grow-1 ps-3">
-
-                    
-
-                    <li class="nav-item">
-                        <a href="/" class="nav-link texto-Menu-m fs-3">inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/rotas&linhas" class="nav-link texto-Menu-m fs-3">Rotas e linhas</a>
-                    </li>
-
-                </ul>
-        </div>
+      <button class="navbar-toggler ms-auto " type="button" data-bs-toggle="offcanvas" data-bs-target="#menumobi" aria-controls="aaaa" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
     </div>
+
+
+  </nav>
+
+
+
+  <div class="offcanvas offcanvas-end text-bg-dark" id="menumobi">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">PassTech</h5>
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+
+    <div class="offcanvas-body">
+      <div class="nav-item d-inline-flex align-items-center  pb-3">
+        <i class="bi my-auto bi-person-circle" style="font-size: 3rem"></i>
+        <h4 class="ms-3"> <%= UserAtual %> </h4>
+      </div>
+
+      <h3 class="mt-3 mb-1">CONTA</h3>
+      <ul class="navbar-nav justify-content-end flex-grow-1 ps-3">
+
+
+        <li class="nav-item">
+          <a href="/user" class="nav-link fs-3">meu perfil</a>
+        </li>
+        <li class="nav-item">
+          <a href="MeusCartoes" class="nav-link fs-3">meus cartões</a>
+        </li>
+        <li class="nav-item">
+          <a href="formadePag" class="nav-link fs-3">formas de pagamento</a>
+        </li>
+
+
+      </ul>
+
+      <h2 class="mt-5 mb-1">SITE PRINCIPAL</h3>
+        <ul class="navbar-nav justify-content-end flex-grow-1 ps-3">
+
+
+
+          <li class="nav-item">
+            <a href="/" class="nav-link texto-Menu-m fs-3">inicio</a>
+          </li>
+          <li class="nav-item">
+            <a href="/rotas&linhas" class="nav-link texto-Menu-m fs-3">Rotas e linhas</a>
+          </li>
+
+        </ul>
+    </div>
+  </div>
 </header>

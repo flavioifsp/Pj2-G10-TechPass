@@ -4,7 +4,7 @@
   <!-- <div class="d-flex align-items-center pb-3 justify-content-around">
       </div> -->
 
-  <form class="container-fluid" id="formslogin">
+  <form class="container-fluid" id="formslogin" novalidate>
     <div class="row my-3 container-fluid mx-auto px-0">
       <label class="form-label ps-2">email</label>
       <input class="form-control" type="email" placeholder="digite seu email " name="email">
@@ -53,17 +53,18 @@
 
     let cont = 0
     const aviso = document.createElement("div");
-    
+
     const emailcadastro = localStorage.getItem("email")
     if (emailcadastro) {
       aviso.innerHTML = `
-      <div class="alert alert-primary" role="alert">
+      <div class="alert d-flex  alert-primary" role="alert">
         Cadastro criado com sucesso!
+        <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         `
-        
-        login.forms.prepend(aviso)
-        setTimeout(() => {
+
+      login.forms.prepend(aviso)
+      setTimeout(() => {
         login.forms.removeChild(aviso)
       }, 9000)
 
@@ -76,9 +77,10 @@
       erro = () => {
 
         aviso.innerHTML = `
-          <div class="alert alert-danger position-relative" role="alert">
+          <div class="alert alert-danger d-flex position-relative" role="alert">
             Senha ou Email incorretos!
             <small class="position-absolute top-0 end-0 p-2">Tentativas: ${cont}</small>
+            <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
           `;
 

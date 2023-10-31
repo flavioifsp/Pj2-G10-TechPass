@@ -12,7 +12,7 @@
     <div class="col-12">
       <label for="username" class="form-label">Username</label>
       <div class="input-group has-validation">
-        <input type="text" class="form-control" id="username" name="username" required="" />
+        <input type="text" class="form-control" id="username" name="username" />
         <div class="invalid-feedback">Your username is required.</div>
       </div>
     </div>
@@ -35,18 +35,15 @@
 
     <div class="col-12">
       <label for="email" class="form-label">Email </label>
-      <input type="email" class="form-control" id="email" name="email" value="" />
-      <div class="invalid-feedback">
-        Please enter a valid email address for shipping updates.
-      </div>
+      <input type="email" class="form-control" id="email" name="email" />
     </div>
 
     <div class="col-12">
       <label for="senha" class="form-label">Nova senha</label>
-      <input type="senha" class="form-control" id="senha" name="senha" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" required="" />
+      <input type="senha" class="form-control" id="senha" name="senha" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" />
     </div>
 
-  
+
   </div>
 
   <hr class="my-4" />
@@ -69,6 +66,46 @@
   const formsPATCHuser = new Inputs("#formsPATCHuser");
 
 
+  formsPATCHuser.allvalidacao({
+    username: {
+      max: 90,
+      min: 3,
+      caractereNpermitido: /[^a-zA-Z\s_\-\d]/g,
+      pattern: [
+        "[a-zA-Z\\s_\\-\\d]{2,90}",
+        "apelido valido",
+        "apelido invalido",
+      ],
+      btnoff: "paia"
+
+    },
+    senha: {
+      max: 50,
+      min: 8,
+      caractereNpermitido: /[^a-zA-Z0-9\s]/g,
+      pattern: ["^[a-zA-Z0-9\\s]{8,50}$", "senha valida", "senha invalido"],
+      btnoff: "paia"
+
+      // customerro: (elem, text) => {if(elem.match(/a/)) text = "a senha deve conter ao menos 8 caracteres"}
+    },
+    email: {
+      max: 64,
+      caractereNpermitido: /[^a-zA-Z0-9.@_-]/g,
+      pattern: [
+        "^[a-zA-Z0-9\\._+\\-]+@[a-zA-Z0-9\\.\\-]+\\.[a-zA-Z]{2,6}$",
+        "email valido",
+        "email invalido",
+      ],
+      customerro: [(async (value) => {
+        if (((await axios.get("http://localhost:9000/api/user/cadastrar/?email=" + value)).data.resultado.email)) {
+          return "Esse email já está em uso"
+        }
+      })],
+      btnoff: "paia"
+    }
+  })
+
+
   // colocar as info do user no forms na primeira vez
   formsPATCHuser.resetDeinfo("http://localhost:9000/api/user/infos");
 
@@ -83,6 +120,8 @@
 
   });
 
-  formsPATCHuser.patchInfo(`http://localhost:9000/api/user/patch/`)
-  
+  formsPATCHuser.patchInfo(`http://localhost:9000/api/user/patch/`, null, () => {
+    localStorage.setItem("msg", "Edição concluida")
+    location.reload()
+  })
 </script>

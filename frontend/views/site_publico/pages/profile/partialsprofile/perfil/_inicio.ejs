@@ -69,6 +69,27 @@
   const infoUserAll = new Inputs("#infoUserAll");
 
 
+  const aviso = document.createElement("div");
+
+  const msgDeEdicao = localStorage.getItem("msg")
+  if (msgDeEdicao) {
+    aviso.innerHTML = `
+      <div class="alert alert-success py-3 d-flex" role="alert">
+        ${msgDeEdicao}!
+
+        <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      `
+
+    infoUserAll.forms.prepend(aviso)
+    setTimeout(() => {
+      infoUserAll.forms.removeChild(aviso)
+    }, 10000)
+
+    localStorage.clear("msg")
+  }
+
+
   infoUserAll.resetDeinfo("http://localhost:9000/api/user/infos");
   AlternarDePag("btneditarInfoUser", "perfil", "atualizar")
 </script>

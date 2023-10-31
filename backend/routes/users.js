@@ -110,7 +110,10 @@ router.get("/cadastrar/", async function (req, res, next) {
           cpf: true,
         },
       });
-      if (typeof Teste_clienteCpf !== "undefined" && Teste_clienteCpf !== null) {
+      if (
+        typeof Teste_clienteCpf !== "undefined" &&
+        Teste_clienteCpf !== null
+      ) {
         verificacoes.cpf = true;
       } else {
         verificacoes.cpf = false;
@@ -161,6 +164,7 @@ router.get("/infos/", autenticar, async (req, res) => {
   for (const [qualinfo] of Object.entries(req.query)) {
     infos[qualinfo] = true;
   }
+  console.log(infos)
 
   try {
     res.json(

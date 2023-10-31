@@ -88,7 +88,7 @@ class Inputs {
 
           const label = document.querySelector(`label[for="${input.id}"]`);
 
-          if (label) {
+          if (label && inputvalida.btnoff == "required") {
             label.innerHTML += '<span class="text-danger ">*</span>';
           }
 
@@ -97,16 +97,18 @@ class Inputs {
               // desabilitar e ativar o botao cadastrar
 
               for (const e of inputsOBG) {
-
-                if (e.classList.contains("is-valid")) {
-                  console.log("formulario incompleto");
+                if (
+                  e.classList.contains("is-valid") ||
+                  (inputvalida.btnoff !== "required" &&
+                    !e.classList.contains("is-invalid"))
+                ) {
+                  // console.log("formulario incompleto");
                   btnsubmit.removeAttribute("disabled", "");
                 } else {
                   btnsubmit.setAttribute("disabled", "");
-               
+
                   break;
                 }
-
               }
             }, 10);
           });
@@ -184,7 +186,7 @@ class Inputs {
     });
   }
 
-  cadastrar(url, erro, success) {
+  cadastrar(url, erro = () => {}, success = () => {}) {
     this.forms.addEventListener("submit", async (evt) => {
       evt.preventDefault();
 
@@ -202,7 +204,7 @@ class Inputs {
     });
   }
 
-  login(url, erro, success) {
+  login(url, erro = () => {}, success = () => {}) {
     this.forms.addEventListener("submit", async (evt) => {
       evt.preventDefault();
 
@@ -240,7 +242,7 @@ class Inputs {
     }
   }
 
-  patchInfo(url) {
+  patchInfo(url, erro = () => {}, success = () => {}) {
     this.forms.addEventListener("submit", async (evt) => {
       evt.preventDefault();
 
@@ -250,7 +252,10 @@ class Inputs {
           this.allValues(),
           getCookie("token")
         );
-      } catch (error) {}
+        success();
+      } catch (error) {
+        acionarerro(error);
+      }
     });
   }
 }
