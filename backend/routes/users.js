@@ -12,22 +12,30 @@ router.post("/cadastrar/", async function (req, res, next) {
 
     let dadosinvalidos = `os seguintes parametros estão invalidos: `;
     // verifica se os dados estão corretos
-    if (typeof username !== "string" || username === "") {
+    if (
+      typeof username !== "string" ||
+      !username.match(/[a-zA-Z\s_\-\d]{2,90}/)
+    ) {
       dadosinvalidos += "Username ";
     }
-    if (typeof senha !== "string" || senha === "") {
+    if (typeof senha !== "string" || !senha.match(/[a-zA-Z0-9\s]{8,50}$/)) {
       dadosinvalidos += "Senha ";
     }
-    if (typeof nome !== "string" || nome === "") {
+    if (typeof nome !== "string" || !nome.match(/[a-zA-Z\s]{3,120}/)) {
       dadosinvalidos += "Nome ";
     }
-    if (typeof nascimento !== "string" || nascimento === "") {
+    if (
+      typeof nascimento !== "string" ||
+      !nascimento.match(
+        /^\d{4}-\d{2}-\d{2}$/
+      )
+    ) {
       dadosinvalidos += "Nascimento ";
     }
-    if (typeof email !== "string" || email == "") {
+    if (typeof email !== "string" || !email.match(/(^[a-zA-Z0-9\\._+\-]+@[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,6}$)/)) {
       dadosinvalidos += "Email ";
     }
-    if (typeof cpf !== "string" || cpf === "") {
+    if (typeof cpf !== "string" || !cpf.match(/\d{3}\.\d{3}\.\d{3}-\d{2}/)) {
       dadosinvalidos += "Cpf ";
     }
 
@@ -164,7 +172,6 @@ router.get("/infos/", autenticar, async (req, res) => {
   for (const [qualinfo] of Object.entries(req.query)) {
     infos[qualinfo] = true;
   }
-  console.log(infos)
 
   try {
     res.json(
