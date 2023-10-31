@@ -27,7 +27,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Cadastro - Passageiro</title>
+    <title>Cadastro - Ponto de Onibus</title>
 
     <meta name="description" content="" />
 
@@ -107,29 +107,54 @@
         
           <!-- Forms -->
           <li class="menu-header small text-uppercase"><span class="menu-header-text">Cadastros</span></li>
-          <li class="menu-item">
+          <li class="menu-item mb-2">
+            <a href="cadastroAtendente.html" class="menu-link">
+              <i class='bx bx-id-card'></i>
+              <div data-i18n="Form Elements" class="ps-2">Atendentes</div>
+            </a>
+        
+          </li>
+        
+          <li class="menu-item mb-2">
             <a href="cadastroMotorista.html" class="menu-link">
               <i class="bus tf-icons bx bx-bus"></i>
               <div data-i18n="Form Elements" class="ps-2">Motoristas</div>
             </a>
+          </li>
         
+          <li class="menu-item mb-2 active">
+            <a href="cadastroPontoDeOnibus.html" class="menu-link">
+              <i class='bx bx-location-plus'></i>
+              <div data-i18n="Form Elements" class="ps-2">Pontos De Ônibus</div>
+            </a>
         
-            <!-- Forms -->
-          <li class="menu-item active">
+          </li>
+        
+          <!-- Forms -->
+          <li class="menu-item mb-2">
             <a href="cadastroPassageiro.html" class="menu-link">
               <i class='bx bxs-user-detail' style='color:#6e767c'></i>
               <div data-i18n="Form Elements" class="ps-2">Passageiros</div>
             </a>
         
-          </li>
         
-          <li class="menu-item">
+        
+          <li class="menu-item mb-2">
             <a href="linhas.html" class="menu-link">
               <i class="transfer tf-transfer bx bx-transfer"></i>
               <div data-i18n="Form Elements" class="ps-2">Linhas</div>
             </a>
         
           </li>
+          <li class="menu-item mb-2">
+            <a href="cadastroLojas.html" class="menu-link">
+              <i class='bx bxs-store-alt'></i>
+              <div data-i18n="Form Elements" class="ps-2">Lojas</div>
+            </a>
+        
+          </li>
+        
+        
         
         
         </ul>
@@ -203,7 +228,7 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4" ><span class="text-muted fw-light">Cadastro/</span> Passageiro</h4>
+              <h4 class="fw-bold py-3 mb-4" ><span class="text-muted fw-light">Cadastro/</span> Ponto de Ônibus</h4>
 
 
 
@@ -234,13 +259,13 @@
     <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header mb-3">
-          <h5 class="modal-title" id="exampleModalLabel4">Novo Passageiro</h5>
+          <h5 class="modal-title" id="exampleModalLabel4">Novo Ponto</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <form>
             <div class="row mb-3">
-              <label class="col-sm-2 col-form-label" for="basic-default-name">Nome Completo</label>
+              <label class="col-sm-2 col-form-label" for="basic-default-name">Endereço</label>
               <div class="col-sm-10">
                 <input type="text" class="form-control" id="basic-default-name" placeholder="John Doe" />
               </div>
@@ -249,7 +274,21 @@
           
           
             <div class="row mb-3">
-              <label class="col-sm-2 col-form-label" for="basic-default-phone">CPF</label>
+              <label class="col-sm-2 col-form-label" for="basic-default-phone">CEP</label>
+              <div class="col-sm-10">
+                <input type="text" id="basic-default-phone" class="form-control phone-mask" placeholder="62.895.578.-9"
+                  aria-label="658 799 8941" aria-describedby="basic-default-phone" />
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label class="col-sm-2 col-form-label" for="basic-default-phone">Latitude</label>
+              <div class="col-sm-10">
+                <input type="text" id="basic-default-phone" class="form-control phone-mask" placeholder="62.895.578.-9"
+                  aria-label="658 799 8941" aria-describedby="basic-default-phone" />
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label class="col-sm-2 col-form-label" for="basic-default-phone">Longitude</label>
               <div class="col-sm-10">
                 <input type="text" id="basic-default-phone" class="form-control phone-mask" placeholder="62.895.578.-9"
                   aria-label="658 799 8941" aria-describedby="basic-default-phone" />
@@ -257,26 +296,9 @@
             </div>
           
           
-            <div class="row mb-3">
-              <label class="col-sm-2 col-form-label" for="basic-default-email">Email</label>
-              <div class="col-sm-10">
-                <div class="input-group input-group-merge">
-                  <input type="text" id="basic-default-email" class="form-control" placeholder="example@example.com"
-                    aria-label="john.doe" aria-describedby="basic-default-email2">
-                </div>
-              </div>
-            </div>
+           
           
-            <div class="row mb-3">
-              <label class="col-sm-2 col-form-label" for="basic-default-email">Saldo R$</label>
-              <div class="col-sm-10">
-                <div class="input-group input-group-merge">
-                  <input type="number" id="basic-default-phone" class="form-control phone-mask" placeholder="R$10,00"
-                    aria-label="658 799 8941" aria-describedby="basic-default-phone" />
-                </div>
-              </div>
-            </div>
-          
+        
          
           </form>
         </div>
@@ -289,7 +311,7 @@
   </div>
 
   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exLargeModal">
-    Adicionar Novo Passageiro
+    Adicionar Novo Ponto
   </button>
 
 
@@ -319,7 +341,7 @@
               <!-- Content -->
             
               <div class="container-xxl flex-grow-1 container-p-y">
-                <h4 class="fw-bold py-3 mb-4" ><span class="text-muted fw-light">Passageiros atuais</h4>
+                <h4 class="fw-bold py-3 mb-4" ><span class="text-muted fw-light">Pontos atuais</h4>
             
                 <!-- Basic Bootstrap Table -->
                 <div class="card"  style="height: 380px; overflow: auto" >
@@ -337,10 +359,10 @@
 
                          
                          
-                          <th>Nome</th>
-                          <th>CPF</th>
-                          <th>Email</th>
-                          <th>Saldo</th>
+                          <th>Endereço</th>
+                          <th>CEP</th>
+                          <th>Latitude</th>
+                          <th>Longitude</th>
                           
                           <th>Config</th>
                         </tr>
@@ -379,19 +401,19 @@
                                 <div class="card-body">
                                   <form>
                                     <div class="mb-4">
-                                      <label class="form-label" >Nome</label>
+                                      <label class="form-label" >Endereço</label>
                                       <input type="text" class="form-control" id="basic-default-fullname" placeholder="Paioso" disabled>
                                     </div>
                                     <div class="mb-4">
-                                      <label class="form-label" for="basic-default-company">CPF </label>
+                                      <label class="form-label" for="basic-default-company">CEP </label>
                                       <input type="text" class="form-control" id="basic-default-company" placeholder="545454685514" disabled>
                                     </div>
                                     <div class="mb-4">
-                                      <label class="form-label" for="basic-default-company">Email</label>
+                                      <label class="form-label" for="basic-default-company">Latitude </label>
                                       <input type="text" class="form-control" id="basic-default-company" placeholder="545454685514" disabled>
                                     </div>
                                     <div class="mb-4">
-                                      <label class="form-label" for="basic-default-company">Saldo</label>
+                                      <label class="form-label" for="basic-default-company">Longitude </label>
                                       <input type="text" class="form-control" id="basic-default-company" placeholder="545454685514" disabled>
                                     </div>
                                    
