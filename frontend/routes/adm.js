@@ -17,4 +17,39 @@ router.get("/atendente", async function (req, res, next) {
   });
 });
 
+router.get("/motorista", async function (req, res, next) {
+  res.render("adm/pages/cadastroMotorista.ejs", {
+    layout: "adm/layouts/layout-index.ejs",
+    cont: "#menuMotorista",
+  });
+});
+
+router.get("/pontoDeOnibus", async function (req, res, next) {
+  res.render("adm/pages/cadastroPontoDeOnibus.ejs", {
+    layout: "adm/layouts/layout-index.ejs",
+    cont: "#menuPontoDeOnibus",
+  });
+});
+
+router.get("/passageiros", async function (req, res, next) {
+  res.render("adm/pages/cadastroPassageiro.ejs", {
+    layout: "adm/layouts/layout-index.ejs",
+    cont: "#menuPassageiros",
+  });
+});
+
+router.get("/linhas", async function (req, res, next) {
+  res.render("adm/pages/linhas.ejs", {
+    layout: "adm/layouts/layout-index.ejs",
+    cont: "#menuLinhas",
+  });
+});
+
+router.get("/lojas", async function (req, res, next) {
+  res.render("adm/pages/cadastroLojas.ejs", {
+    layout: "adm/layouts/layout-index.ejs",
+    cont: "#menuLojas",
+  });
+});
+
 module.exports = router;
