@@ -110,7 +110,7 @@ class Inputs {
                   break;
                 }
               }
-            }, 10);
+            }, 400);
           });
           btnsubmit.setAttribute("disabled", "");
 
@@ -133,9 +133,14 @@ class Inputs {
           let erroCustom = null;
           if (inputvalida.customerro) {
             for (const elem of inputvalida.customerro) {
-              const customerro = await elem(input.value);
-              if (customerro) {
-                erroCustom = customerro;
+              try {
+                const customerro = await elem(input.value);
+                if (customerro) {
+                  erroCustom = customerro;
+                }
+              } catch (error) {
+                erroCustom = "falha ao verificar";
+                acionarerro(error);
               }
             }
           }
