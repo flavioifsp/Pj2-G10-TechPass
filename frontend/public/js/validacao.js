@@ -191,12 +191,12 @@ class Inputs {
     });
   }
 
-  cadastrar(url, erro = () => {}, success = () => {}) {
+  cadastrar(url, data = this.allValues(), erro = () => {}, success = () => {}) {
     this.forms.addEventListener("submit", async (evt) => {
       evt.preventDefault();
 
       try {
-        const cadastrar = await axios.post(url, this.allValues());
+        const cadastrar = await axios.post(url, data);
 
         success(cadastrar);
       } catch (error) {
@@ -264,3 +264,5 @@ class Inputs {
     });
   }
 }
+
+
