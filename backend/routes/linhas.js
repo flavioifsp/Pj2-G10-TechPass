@@ -127,25 +127,6 @@ router.post("bus_stop", async (req, res) => {
   }
 });
 
-router.get("/bus_stop/:cep", async (req, res) => {
-  const { cep } = req.params;
 
-  try {
-    const coordenadas = (
-      await axios.get(
-        `https://www.mapquestapi.com/geocoding/v1/address?key=${process.env.KEY_MAPQUEST}&location=${cep}`
-      )
-    ).data.results[0].locations[0];
-
-    console.log(coordenadas);
-    res.json({
-      coordenadas
-    });
-  } catch (error) {
-    const erro = exception(error);
-    console.log(error);
-    res.status(erro.code).send(erro.msg);
-  }
-});
 
 module.exports = router;

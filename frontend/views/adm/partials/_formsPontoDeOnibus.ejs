@@ -44,7 +44,7 @@
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
             Cancelar
           </button>
-          <button type="submit" class="btn btn-primary submit">
+          <button type="submit" class="btn btn-primary ">
             Criar ponto
           </button>
         </div>
@@ -63,12 +63,18 @@
         max: 8,
         caractereNpermitido: /[^\d]/g,
         pattern: ["(\\d{8})", "cep valido", "cep invalido"],
-        //  customerro: [(async (value) => {
-        //    if (((await axios.get("http://localhost:9000/api/user/cadastrar/?cpf=" + value)).data.resultado.cpf)) {
-        //      return "Esse CPF já está cadastrado"
-        //    }
-        //  })],
+        customerro: [(async (value) => {
+          
+          try {
+            const infoLocal =  await axios.get(`https://brasilapi.com.br/api/cep/v2/${value}`)
+          } catch (error) {
+            console.log(error)
+
+            if(error.response.status == 404) return "insira um CEP que exista"
+          }
+        })],
         btnoff: "required",
+
       },
 
       rua: {
@@ -125,7 +131,8 @@
     });
 
 
+    formsponto.cadastrar("http://localhost:9000/api/linhas/bus_stop", () => {
 
-    formsponto.cadastrar("http://localhost:9000/api/linhas/bus_stop", null)
+    })
   });
 </script>
