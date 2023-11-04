@@ -77,16 +77,24 @@
         min: 14,
         caractereNpermitido: /[^\d\.\-]|[\.\-][\.\-]/g,
         pattern: [
-          "\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}",
+          "(\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2})|\\d{11,14}",
+          // "\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}",
           "cpf valido",
           "cpf invalido",
         ],
         autopontuar: [/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4", /[.-]/g, ""],
-        customerro: [(async (value) => {
-          if (((await axios.get("http://localhost:9000/api/user/cadastrar/?cpf=" + value)).data.resultado.cpf)) {
-            return "Esse CPF já está cadastrado"
-          }
-        })],
+        customerro: [
+          (l) => {
+            if (l.match(/\d{11,14}/)) {
+              return "cpf com tantos numeros?"
+            }
+          },
+          (async (value) => {
+            if (((await axios.get("http://localhost:9000/api/user/cadastrar/?cpf=" + value)).data.resultado.cpf)) {
+              return "Esse CPF já está cadastrado"
+            }
+          })
+        ],
         btnoff: "required"
       },
       nome: {
@@ -140,7 +148,7 @@
 
 
 
-    const cadastro = cadastrar.cadastrar("http://localhost:9000/api/user/cadastrar", null, 
+    const cadastro = cadastrar.cadastrar("http://localhost:9000/api/user/cadastrar", null,
       erro = () => {},
       success = ({
         data

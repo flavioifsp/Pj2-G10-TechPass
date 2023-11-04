@@ -137,14 +137,12 @@ class Inputs {
             input.value.length != 0
           ) {
             for (const elem of inputvalida.customerro) {
+              const divloading = document.createElement("div");
+              let divpai = input.parentNode;
               try {
                 // efeito de carregamento
 
-                const divloading = document.createElement("div");
-                let divpai = input.parentNode
-
-
-                divloading.setAttribute("class", "position-relative")
+                divloading.setAttribute("class", "position-relative");
                 divloading.innerHTML = ` 
                 <div class="position-absolute top-50 end-0 translate-middle-y d-flex" style="margin-right: 5%">
                   <div class="spinner-border spinner-border-sm text-primary  "   role="status">
@@ -152,19 +150,18 @@ class Inputs {
                   </div>
                 </div>
                 `;
-                
-                divpai.appendChild(divloading);
-                
-                divloading.appendChild(input);
 
+                divpai.appendChild(divloading);
+
+                divloading.appendChild(input);
 
                 const customerro = await elem(input.value);
 
-                divpai = divloading.parentNode
+                divpai = divloading.parentNode;
 
                 divpai.insertBefore(input, divpai.querySelector(".diverro"));
 
-                divpai = input.parentNode
+                divpai = input.parentNode;
 
                 divpai.removeChild(divloading);
 
@@ -173,6 +170,15 @@ class Inputs {
                 }
               } catch (error) {
                 erroCustom = "falha ao verificar";
+
+                divpai = divloading.parentNode;
+
+                divpai.insertBefore(input, divpai.querySelector(".diverro"));
+
+                divpai = input.parentNode;
+
+                divpai.removeChild(divloading);
+
                 acionarerro(error);
               }
             }
@@ -224,10 +230,44 @@ class Inputs {
     });
   }
 
+  alert(keyAlert = "stopBusCreate") {
+    const infoDaRes = localStorage.getItem(keyAlert);
+    if (infoDaRes) {
+      const {
+        cor = "success",
+        texto = "paioso",
+        div = "#alert",
+        tipo = "alert",
+      } = JSON.parse(infoDaRes);
+
+      localStorage.clear(keyAlert);
+
+      const alert = document.createElement("div");
+
+      alert.setAttribute("class", "d-flex alert alert-" + cor);
+      alert.setAttribute("role", tipo);
+      alert.innerHTML = `
+      <p>${texto}</p>
+
+      <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
+    `;
+
+      const divpai = document.querySelector(div);
+      divpai.appendChild(alert);
+      setTimeout(() => {
+        if (alert) {
+          divpai.removeChild(alert);
+        }
+      }, 10000);
+    }
+  }
+
   cadastrar(url, data = this.allValues(), erro = () => {}, success = () => {}) {
     this.forms.addEventListener("submit", async (evt) => {
       evt.preventDefault();
 
+
+      if (typeof data === "function") data = data();
       try {
         const cadastrar = await axios.post(url, data);
 

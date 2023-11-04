@@ -97,36 +97,32 @@ router.get("/allLinhas", async function (req, res, next) {
   }
 });
 
-router.post("bus_stop", async (req, res) => {
-  const { cep, rua, cidade, numero, bairro } = req.body;
+router.post("/bus-stop", async (req, res) => {
+  const { cep, street, state, city, neighborhood, lat, lng } = req.body;
 
   try {
-    const coordenadas = axios.get(
-      `https://www.mapquestapi.com/geocoding/v1/address?key=${process.env.KEY_MAPQUEST}&location=${cep}`
-    );
-
+  
     const createBusStop = await prisma.ponto_de_onibus.create({
       data: {
         cep: cep,
-        endereco: `${rua}, ${numero}, ${bairro}, ${cidade}`,
+        endereco: `${street}, ${neighborhood}, ${city}, ${state}`,
         lat: lat,
         lng: lng,
       },
       select: {
-        endereco,
+        endereco: true
       },
     });
 
-    res.json({
-      message: `Ponto da '${createBusStop.data}' criado com sucesso!`,
+    console.log(createBusStop)
+    res.status(201).json({
+      message: `Ponto no endereço '${createBusStop.endereco}' criado com sucesso!`,
     });
   } catch (error) {
-    const erro = exception(er);
-
+    const erro = exception(error);
+    console.log(error)
     res.status(erro.code).send(erro.msg);
   }
 });
-
-
 
 module.exports = router;
