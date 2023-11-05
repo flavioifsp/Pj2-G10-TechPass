@@ -1,6 +1,9 @@
 class Inputs {
   constructor(forms) {
+    // criando uma variavel para o forms
     this.forms = document.querySelector(forms);
+
+    // essa funcao recebe uma funcao que rodara em todos os inputs
     this.inputs = (funcao) => {
       for (const campo of [
         ...document.querySelector(forms).querySelectorAll("input"),
@@ -10,8 +13,11 @@ class Inputs {
     };
   }
 
+  // ele retorna um objeto com todos os valores do input do site
   allValues() {
     const valores = {};
+
+    // ele usa o metodo inputs para pegar o name e o value de cada input para montar o objeto
     this.inputs(({ name, value }) => {
       valores[name] = value;
     });
@@ -19,6 +25,7 @@ class Inputs {
     return valores;
   }
 
+  // tudo isso é para validacao, está mt bagunçado
   allvalidacao(restricao) {
     const inputsOBG = [];
 
@@ -230,38 +237,11 @@ class Inputs {
     });
   }
 
-  alert(keyAlert = "stopBusCreate") {
-    const infoDaRes = localStorage.getItem(keyAlert);
-    if (infoDaRes) {
-      const {
-        cor = "success",
-        texto = "paioso",
-        div = "#alert",
-        tipo = "alert",
-      } = JSON.parse(infoDaRes);
 
-      localStorage.clear(keyAlert);
+  
 
-      const alert = document.createElement("div");
 
-      alert.setAttribute("class", "d-flex alert alert-" + cor);
-      alert.setAttribute("role", tipo);
-      alert.innerHTML = `
-      <p>${texto}</p>
-
-      <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
-    `;
-
-      const divpai = document.querySelector(div);
-      divpai.appendChild(alert);
-      setTimeout(() => {
-        if (alert) {
-          divpai.removeChild(alert);
-        }
-      }, 10000);
-    }
-  }
-
+  // é para simplificar na hr de criar um post de criacao
   cadastrar(url, data = null, erro = () => {}, success = () => {}) {
     this.forms.addEventListener("submit", async (evt) => {
       evt.preventDefault();
@@ -283,6 +263,7 @@ class Inputs {
     });
   }
 
+  // é para simplificar quando precisar criar um login
   login(url, erro = () => {}, success = () => {}) {
     this.forms.addEventListener("submit", async (evt) => {
       evt.preventDefault();
@@ -301,6 +282,7 @@ class Inputs {
     });
   }
 
+  // ele roda o forms inteiro e  substitui os valores pelo o que está no sv
   resetDeinfo(url) {
     try {
       this.inputs(async (input) => {
@@ -321,6 +303,7 @@ class Inputs {
     }
   }
 
+  
   patchInfo(url, erro = () => {}, success = () => {}) {
     this.forms.addEventListener("submit", async (evt) => {
       evt.preventDefault();
