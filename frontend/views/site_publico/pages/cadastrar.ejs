@@ -74,10 +74,10 @@
     cadastrar.allvalidacao({
       cpf: {
         max: 14,
-        min: 14,
+        min: 11,
         caractereNpermitido: /[^\d\.\-]|[\.\-][\.\-]/g,
         pattern: [
-          "(\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2})|\\d{11,14}",
+          "(\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2,5})",
           // "\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}",
           "cpf valido",
           "cpf invalido",
@@ -85,7 +85,7 @@
         autopontuar: [/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4", /[.-]/g, ""],
         customerro: [
           (l) => {
-            if (l.match(/\d{11,14}/)) {
+            if (l.match(/(\d{3}\.\d{3}\.\d{3}-\d{3,5})/)) {
               return "cpf com tantos numeros?"
             }
           },

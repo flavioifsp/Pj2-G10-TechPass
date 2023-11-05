@@ -262,12 +262,13 @@ class Inputs {
     }
   }
 
-  cadastrar(url, data = this.allValues(), erro = () => {}, success = () => {}) {
+  cadastrar(url, data = null, erro = () => {}, success = () => {}) {
     this.forms.addEventListener("submit", async (evt) => {
       evt.preventDefault();
 
-
       if (typeof data === "function") data = data();
+      else if (data === null) data = this.allValues();
+
       try {
         const cadastrar = await axios.post(url, data);
 
