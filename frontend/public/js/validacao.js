@@ -40,7 +40,7 @@ class Inputs {
         input.pattern = inputvalida.pattern[0];
 
         const validdiv = document.createElement("div");
-        validdiv.classList.add("px-2");
+        validdiv.classList.add("px-2", "diverro");
         input.parentNode.appendChild(validdiv);
 
         // max
@@ -84,7 +84,7 @@ class Inputs {
 
         // for (const el of inputsOBG) {
         if (inputvalida.btnoff) {
-          const btnsubmit = this.forms.querySelector(".submit");
+          const btnsubmit = this.forms.querySelector('button[type="submit"]');
 
           const label = document.querySelector(`label[for="${input.id}"]`);
 
@@ -110,7 +110,7 @@ class Inputs {
                   break;
                 }
               }
-            }, 10);
+            }, 400);
           });
           btnsubmit.setAttribute("disabled", "");
 
@@ -131,11 +131,55 @@ class Inputs {
 
           // erro custom
           let erroCustom = null;
-          if (inputvalida.customerro) {
+          if (
+            inputvalida.customerro &&
+            input.checkValidity() &&
+            input.value.length != 0
+          ) {
             for (const elem of inputvalida.customerro) {
-              const customerro = await elem(input.value);
-              if (customerro) {
-                erroCustom = customerro;
+              const divloading = document.createElement("div");
+              let divpai = input.parentNode;
+              try {
+                // efeito de carregamento
+
+                divloading.setAttribute("class", "position-relative");
+                divloading.innerHTML = ` 
+                <div class="position-absolute top-50 end-0 translate-middle-y d-flex" style="margin-right: 5%">
+                  <div class="spinner-border spinner-border-sm text-primary  "   role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                </div>
+                `;
+
+                divpai.appendChild(divloading);
+
+                divloading.appendChild(input);
+
+                const customerro = await elem(input.value);
+
+                divpai = divloading.parentNode;
+
+                divpai.insertBefore(input, divpai.querySelector(".diverro"));
+
+                divpai = input.parentNode;
+
+                divpai.removeChild(divloading);
+
+                if (customerro) {
+                  erroCustom = customerro;
+                }
+              } catch (error) {
+                erroCustom = "falha ao verificar";
+
+                divpai = divloading.parentNode;
+
+                divpai.insertBefore(input, divpai.querySelector(".diverro"));
+
+                divpai = input.parentNode;
+
+                divpai.removeChild(divloading);
+
+                acionarerro(error);
               }
             }
           }
@@ -186,12 +230,47 @@ class Inputs {
     });
   }
 
-  cadastrar(url, erro = () => {}, success = () => {}) {
+  alert(keyAlert = "stopBusCreate") {
+    const infoDaRes = localStorage.getItem(keyAlert);
+    if (infoDaRes) {
+      const {
+        cor = "success",
+        texto = "paioso",
+        div = "#alert",
+        tipo = "alert",
+      } = JSON.parse(infoDaRes);
+
+      localStorage.clear(keyAlert);
+
+      const alert = document.createElement("div");
+
+      alert.setAttribute("class", "d-flex alert alert-" + cor);
+      alert.setAttribute("role", tipo);
+      alert.innerHTML = `
+      <p>${texto}</p>
+
+      <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
+    `;
+
+      const divpai = document.querySelector(div);
+      divpai.appendChild(alert);
+      setTimeout(() => {
+        if (alert) {
+          divpai.removeChild(alert);
+        }
+      }, 10000);
+    }
+  }
+
+  cadastrar(url, data = null, erro = () => {}, success = () => {}) {
     this.forms.addEventListener("submit", async (evt) => {
       evt.preventDefault();
 
+      if (typeof data === "function") data = data();
+      else if (data === null) data = this.allValues();
+
       try {
-        const cadastrar = await axios.post(url, this.allValues());
+        const cadastrar = await axios.post(url, data);
 
         success(cadastrar);
       } catch (error) {

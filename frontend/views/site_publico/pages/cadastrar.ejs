@@ -74,19 +74,27 @@
     cadastrar.allvalidacao({
       cpf: {
         max: 14,
-        min: 14,
+        min: 11,
         caractereNpermitido: /[^\d\.\-]|[\.\-][\.\-]/g,
         pattern: [
-          "\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}",
+          "(\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2,5})",
+          // "\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}",
           "cpf valido",
           "cpf invalido",
         ],
         autopontuar: [/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4", /[.-]/g, ""],
-        customerro: [(async (value) => {
-          if (((await axios.get("http://localhost:9000/api/user/cadastrar/?cpf=" + value)).data.resultado.cpf)) {
-            return "Esse CPF já está cadastrado"
-          }
-        })],
+        customerro: [
+          (l) => {
+            if (l.match(/(\d{3}\.\d{3}\.\d{3}-\d{3,5})/)) {
+              return "cpf com tantos numeros?"
+            }
+          },
+          (async (value) => {
+            if (((await axios.get("http://localhost:9000/api/user/cadastrar/?cpf=" + value)).data.resultado.cpf)) {
+              return "Esse CPF já está cadastrado"
+            }
+          })
+        ],
         btnoff: "required"
       },
       nome: {
@@ -140,7 +148,7 @@
 
 
 
-    const cadastro = cadastrar.cadastrar("http://localhost:9000/api/user/cadastrar",
+    const cadastro = cadastrar.cadastrar("http://localhost:9000/api/user/cadastrar", null,
       erro = () => {},
       success = ({
         data

@@ -1,20 +1,22 @@
-<div class="modal fade " data-bs-theme="dark" tabindex="-1" id="modalerro" data-bs-keyboard="false">
+<div class="modal fade" data-bs-theme="dark" tabindex="-1" id="modalerro" data-bs-keyboard="false">
   <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content   text-white">
+    <div class="modal-content text-white">
       <div class="modal-header border-secondary">
         <h4 class="modal-title">Puts, ocorreu um erro</h4>
-        <button type="button" class="btn-close " data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body ">
+      <div class="modal-body">
         <div>
-          <h5 class="mb-4 ps-1">Erro: <small id="subtitulo" class="fs-5 text-danger"></small></h5>
+          <h5 class="mb-4 ps-1">
+            Erro: <small id="subtitulo" class="fs-5 text-danger"></small>
+          </h5>
 
-
-          <div class="accordion accordion-flush " id="acordeao-detalhar-erro">
+          <div class="accordion accordion-flush" id="acordeao-detalhar-erro">
             <div class="accordion-item">
-              <h2 class="accordion-header ">
-                <button class="accordion-button collapsed bg-dark-subtle border  border-bottom-0 rounded-top-1 px-3 py-2" type="button" data-bs-toggle="collapse" data-bs-target="#acordeao-detalhar-erro_conteudo" aria-expanded="false" aria-controls="acordeao-detalhar-erro_conteudo" style="width: 190px;">detalhes do
-                  erro </button>
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed bg-dark-subtle border border-bottom-0 rounded-top-1 px-3 py-2" type="button" data-bs-toggle="collapse" data-bs-target="#acordeao-detalhar-erro_conteudo" aria-expanded="false" aria-controls="acordeao-detalhar-erro_conteudo" style="width: 190px">
+                  detalhes do erro
+                </button>
               </h2>
               <div id="acordeao-detalhar-erro_conteudo" class="accordion-collapse collapse" data-bs-parent="#acordeao-detalhar-erro">
                 <div class="accordion-body bg-dark-subtle rounded-1" id="msgErro"></div>
@@ -23,10 +25,8 @@
           </div>
         </div>
 
-        <img id="imgErro" class="fluid-img p-0 m-0 w-100 rounded-1">
-
+        <img id="imgErro" class="fluid-img p-0 m-0 w-100 rounded-1" />
       </div>
-
     </div>
   </div>
 </div>
@@ -43,7 +43,7 @@
     let msgEr = Erro.message
 
     if (Erro.response != undefined) {
-      statuscode = Erro.response.status
+      erCode = Erro.response.status
 
       msgEr = Erro.response.data
       if (typeof msgEr == "object") {
@@ -59,11 +59,11 @@
         msgEr = stringdata.replaceAll("\n", "<br>")
       }
 
-      subtitulo = Erro.response.data.name
+      subtitulo = Erro.response.statusText
     }
 
-    
-    console.error(subtitulo, msgEr.toString())
+
+
 
     document.querySelector("#subtitulo").innerHTML = subtitulo
     document.querySelector("#msgErro").innerHTML = msgEr.toString()

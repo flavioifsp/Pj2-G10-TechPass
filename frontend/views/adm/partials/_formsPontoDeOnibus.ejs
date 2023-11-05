@@ -1,0 +1,166 @@
+<div id="alert"></div>
+
+
+
+<!-- botao -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createponto">
+  Adicionar Ponto de Onibus
+</button>
+
+<!-- modal para criar um ponto de onibus -->
+<div class="modal fade" id="createponto" tabindex="-1" aria-labelledby="createpontoLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="createpontoLabel">
+          adicionando ponto de onibus
+        </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <form novalidate id="formspontodeonibus">
+        <div class="modal-body">
+          <div class="row g-2">
+            <div class="col-md-4 col-6">
+              <label for="cep" class="form-label">CEP</label>
+              <input type="text" class="form-control" id="cep" name="cep" required placeholder="11832556 " />
+            </div>
+
+            <div class="col-md-10 col-9">
+              <label for="street" class="form-label">rua</label>
+              <input type="text" class="form-control" id="street" name="street" required placeholder="Rua das Flores " />
+            </div>
+            <div class="col-md-2 col-3">
+              <label for="state" class="form-label">Estado</label>
+              <input type="text" class="form-control" id="state" name="state" required placeholder="SP" />
+            </div>
+            <div class="col-md-8 col-12">
+              <label for="city" class="form-label">cidade</label>
+              <input type="text" class="form-control" id="city" name="city" required placeholder="Caraguatatuba" />
+            </div>
+            <div class="col-md-4 col-12">
+              <label for="neighborhood" class="form-label">bairro</label>
+              <input type="text" class="form-control" id="neighborhood" name="neighborhood" required placeholder="Olaria" />
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Cancelar
+          </button>
+          <button type="submit" class="btn btn-primary ">
+            Criar ponto
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const formsponto = new Inputs("#formspontodeonibus");
+
+    formsponto.alert("stopBusCreate")
+
+    let informacoesdaAPI
+
+    formsponto.allvalidacao({
+      cep: {
+        min: 8,
+        max: 9,
+        caractereNpermitido: /[^\d\-]/g,
+        autopontuar: [/[^\d]/, ""],
+        pattern: ["(\\d{8,9})", "cep valido", "cep invalido"],
+        customerro: [
+          (l) => {
+            if (l.match(/\d{9}/)) {
+              return "cep com 9 numero?"
+            }
+          },
+          (async (value) => {
+
+            try {
+              informacoesdaAPI = (await axios.get(`https://brasilapi.com.br/api/cep/v2/${value}`)).data
+
+
+              formsponto.inputs((input) => {
+                for (const info in informacoesdaAPI) {
+                  if (Object.hasOwnProperty.call(informacoesdaAPI, info)) {
+                    if (input.name == info) {
+                      input.value = informacoesdaAPI[info]
+                      input.focus()
+                      input.blur()
+                    }
+                  }
+                }
+              })
+
+            } catch (error) {
+              console.log(error)
+              if (error.response.status == 404) return "insira um CEP que exista"
+
+            }
+          })
+        ],
+        btnoff: "required",
+
+      },
+
+      street: {
+        max: 64,
+        min: 2,
+        caractereNpermitido: /[^a-zA-Z0-9À-ú\s]/g,
+        pattern: ["^(([a-zA-Z0-9\\s\\-À-ú]{2,50}){1,10})$", "rua valido", "rua invalida"],
+        btnoff: "required",
+      },
+
+      state: {
+        max: 2,
+        min: 2,
+        caractereNpermitido: /[^a-zA-ZÀ-ú]/g,
+        autopontuar: [/[a-zÀ-ú]/g, letra => letra.toUpperCase()],
+        pattern: ["^([A-ZÀ-ú]{2,2})$", " valido", "invalido"],
+        btnoff: "required",
+      },
+
+      city: {
+        max: 15,
+        min: 3,
+        caractereNpermitido: /[^a-zA-Z\sÀ-ú]/g,
+        pattern: ["^([a-zA-Z\\sÀ-ú]{3,15})$", "cidade valido", "cidade invalida"],
+        btnoff: "required",
+      },
+
+      neighborhood: {
+        max: 25,
+        min: 3,
+        caractereNpermitido: /[^a-zA-ZÀ-ú\s]/g,
+        pattern: ["^([a-zA-ZÀ-ú\\s]{3,25})$", "bairro valido", "bairro invalida"],
+        btnoff: "required",
+      },
+    });
+
+
+    formsponto.cadastrar("http://localhost:9000/api/linhas/bus-stop", () => {
+      const values = formsponto.allValues()
+
+      values.lat = informacoesdaAPI.location.coordinates.latitude
+      values.lng = informacoesdaAPI.location.coordinates.longitude
+
+      return values
+    }, null, success = (response) => {
+      localStorage.setItem("stopBusCreate", JSON.stringify({
+        cor: "success",
+        texto: response.data.message,
+        div: "#alert",
+      }))
+
+      location.reload()
+
+
+    })
+
+
+  });
+</script>
