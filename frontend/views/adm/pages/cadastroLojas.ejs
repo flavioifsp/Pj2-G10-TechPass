@@ -37,57 +37,51 @@
 
 
 
-                        <form>
+                        <form id="formularioDeCadastro">
                             <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="basic-default-name">Endereco</label>
+                                <label class="col-sm-2 col-form-label" for="endereco">Endereco</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="basic-default-name"
-                                        placeholder="John Doe" />
+                                    <input type="text" class="form-control" id="endereco" placeholder="John Doe" />
                                 </div>
                             </div>
 
 
 
                             <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="basic-default-phone">CEP</label>
+                                <label class="col-sm-2 col-form-label" for="cep">CEP</label>
                                 <div class="col-sm-10">
-                                    <input type="text" id="basic-default-phone" class="form-control phone-mask"
+                                    <input type="text" id="cep" class="form-control phone-mask"
                                         placeholder="62.895.578.-9" aria-label="658 799 8941"
                                         aria-describedby="basic-default-phone" />
                                 </div>
                             </div>
 
                             <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="basic-default-phone">Latitude</label>
+                                <label class="col-sm-2 col-form-label" for="latitude">Latitude</label>
                                 <div class="col-sm-10">
-                                    <input type="text" id="basic-default-phone" class="form-control phone-mask"
+                                    <input type="text" id="latitude" class="form-control phone-mask"
                                         placeholder="62.895.578.-9" aria-label="658 799 8941"
                                         aria-describedby="basic-default-phone" />
                                 </div>
                             </div>
 
                             <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="basic-default-phone">Longitude</label>
+                                <label class="col-sm-2 col-form-label" for="longitude">Longitude</label>
                                 <div class="col-sm-10">
-                                    <input type="text" id="basic-default-phone" class="form-control phone-mask"
+                                    <input type="text" id="longitude" class="form-control phone-mask"
                                         placeholder="62.895.578.-9" aria-label="658 799 8941"
                                         aria-describedby="basic-default-phone" />
                                 </div>
                             </div>
 
 
-
-
-
-
-
-                        </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline-secondary"
                             data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary">Enviar</button>
+                        <button type="submit" class="btn btn-primary" id="enviar">Enviar</button>
                     </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -101,13 +95,12 @@
 
 
 
-
     </div>
 
 
 
 </div>
-</div>
+
 
 
 
@@ -372,3 +365,61 @@
             </div>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", () => {
+
+            const form = document.querySelector("#formularioDeCadastro");
+
+            form.addEventListener("submit", async (event) => {
+                event.preventDefault();
+
+
+                const endereco = document.querySelector("#endereco").value;
+                const cep = document.querySelector("#cep").value;
+                const latitude = document.querySelector("#latitude").value;
+                const longitude = document.querySelector("#longitude").value;
+
+
+                const data = { endereco, cep, latitude, longitude };
+
+                console.log(data);
+                try {
+                    const response = await axios.post(
+                        "http://localhost:9000/api/adm/lojas",
+                        data
+                    );
+                } catch (error) {
+                    console.log(error.message);
+                }
+
+            });
+        });
+
+        // const btn = document.querySelector("#formularioDeCadastro");
+        // btn.addEventListener("click", function () {
+        //     console.log("O usuário clicou no botão!");
+        // });
+
+
+
+
+
+        // const from = document.getElementById("enviar");
+        // btn.addEventListener("click", function () {
+        //     event.preventDefault();
+        //     console.log("O usuário clicou no botão!");
+        // })
+
+        // form.addEventListener("submit", (event) => {
+        //     event.preventDefault();
+
+        //     console.log("deu certo");
+
+
+        // });
+
+    </script>
