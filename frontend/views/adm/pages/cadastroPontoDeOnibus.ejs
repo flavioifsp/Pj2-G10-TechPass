@@ -1,7 +1,41 @@
-<div class="container-xxl flex-grow-1 container-p-y">
-  <h4 class="fw-bold py-3 mb-2">
-    <span class="text-muted fw-light">Linhas/</span> Pontos atuais
-  </h4>
+<h4 class="fw-bold py-3 mb-2">
+  <span class="text-muted fw-light">Linhas/</span> Pontos atuais
+</h4>
 
- <%- include('../partials/_formsPontoDeOnibus') %>
-</div>
+<%- include('../partials/_formsPontoDeOnibus') %>
+
+
+<section class="mt-5 ">
+  <h4 class="">Todos os pontos de onibus</h4>
+
+
+  <div class="card" style="height: 380px; overflow: auto" s>
+    <div class="table-responsive text-nowrap">
+      <table id="example" class="table table-striped" style="width: 100%">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>Nascimento</th>
+            <th>Nº Da CNH</th>
+
+            <th>Telefone</th>
+            <th>Config</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>System Architect</td>
+
+            <td>61</td>
+            <td>2011-04-25</td>
+            <td>5161651516</td>
+            <td>115788-55454</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+</section>

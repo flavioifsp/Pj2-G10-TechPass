@@ -97,6 +97,12 @@ router.get("/allLinhas", async function (req, res, next) {
   }
 });
 
+
+
+
+
+
+// criar ponto de onibus
 router.post("/bus-stop", async (req, res) => {
   const { cep, street, state, city, neighborhood, lat, lng } = req.body;
 
@@ -124,5 +130,11 @@ router.post("/bus-stop", async (req, res) => {
     res.status(erro.code).send(erro.msg);
   }
 });
+
+
+
+
+
+
 
 module.exports = router;

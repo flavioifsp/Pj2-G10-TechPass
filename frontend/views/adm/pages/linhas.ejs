@@ -1,89 +1,73 @@
-<div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Cadastros/</span> Linhas</h4>
+<h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Cadastros/</span> Linhas</h4>
 
 
-    <!-- meu  -->
+<!-- meu  -->
 
 
 
-    <div class="mt-3">
-        <!-- Button trigger modal -->
-
-
+<div class="mt-3">
+  <!-- Button trigger modal -->
 
 
 
 
 
-        <div class="modal fade" id="exLargeModal" tabindex="-1" style="display: none;" aria-hidden="true">
-            <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header mb-3">
-                        <h5 class="modal-title" id="exampleModalLabel4">Nova Linha</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="basic-default-name">Numero da Linha</label>
-                                <div class="col-sm-10">
-                                    <input type="number" class="form-control" id="basic-default-name"
-                                        placeholder="100 " />
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="basic-default-name">Bairro Origem</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="basic-default-name"
-                                        placeholder="Avenida Marechal Deodoro da Fonseca" />
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="basic-default-name">Bairro de
-                                    Destino</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="basic-default-name"
-                                        placeholder="Avenida Marechal Deodoro da Fonseca" />
-                                </div>
-                            </div>
-
-
-
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-secondary"
-                            data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary">Enviar</button>
-                    </div>
-                </div>
-            </div>
+  <div class="modal fade" id="exLargeModal" tabindex="-1" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header mb-3">
+          <h5 class="modal-title" id="exampleModalLabel4">Nova Linha</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
+        <div class="modal-body">
+          <form>
+            <div class="row mb-3">
+              <label class="col-sm-2 col-form-label" for="basic-default-name">Numero da Linha</label>
+              <div class="col-sm-10">
+                <input type="number" class="form-control" id="basic-default-name" placeholder="100 " />
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label class="col-sm-2 col-form-label" for="basic-default-name">Bairro Origem</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="basic-default-name" placeholder="Avenida Marechal Deodoro da Fonseca" />
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <label class="col-sm-2 col-form-label" for="basic-default-name">Bairro de
+                Destino</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="basic-default-name" placeholder="Avenida Marechal Deodoro da Fonseca" />
+              </div>
+            </div>
 
 
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exLargeModal">
-            Adicionar Nova Linha
-        </button>
 
-
-
-        <!-- Modal com duas etapas-->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Enviar</button>
+        </div>
+      </div>
     </div>
+  </div>
+
+
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exLargeModal">
+    Adicionar Nova Linha
+  </button>
+
+
+
+  <!-- Modal com duas etapas-->
+
+
+
+
+
+</div>
 </div>
 
 
@@ -95,222 +79,193 @@
 
 <!-- inicio table -->
 <div class="content-wrapper">
-    <!-- Content -->
+  <!-- Content -->
 
-    <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Linhas atuais</h4>
+  <div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Linhas atuais</h4>
 
-        <!-- Basic Bootstrap Table -->
-        <div class="card" style="height: 380px; overflow: auto" s>
+    <!-- Basic Bootstrap Table -->
+    <div class="card" style="height: 380px; overflow: auto" s>
 
-            <div class="table-responsive text-nowrap">
-                <table id="example" class="table table-striped" style="width:100%">
-                    <thead>
-                        <tr>
-
-
+      <div class="table-responsive text-nowrap">
+        <table id="example" class="table table-striped" style="width:100%">
+          <thead>
+            <tr>
 
 
 
 
 
+              <th>Numero da Linha</th>
+              <th>Bairro de Origem</th>
+              <th>Bairo de Destino</th>
+              <th>Config</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
 
 
-                            <th>Numero da Linha</th>
-                            <th>Bairro de Origem</th>
-                            <th>Bairo de Destino</th>
-                            <th>Config</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
+              <td>System Architect</td>
+
+              <td>61</td>
+              <td>2011-04-25</td>
 
 
-                            <td>System Architect</td>
+              <td>
+                <div>
+                  <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalToggle" _msttexthash="557609" _msthash="306"> <i class='bx bx-cog'></i> </button>
 
-                            <td>61</td>
-                            <td>2011-04-25</td>
+                  <!-- Modal 1-->
+                  <div class="modal fade" id="modalToggle" aria-labelledby="modalToggleLabel" tabindex="-1" style="display: none;" _mstvisible="0" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" _mstvisible="1">
+                      <div class="modal-content" _mstvisible="2">
+                        <div class="modal-header" _mstvisible="3">
 
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar" _mstaria-label="59709" _msthash="308" _mstvisible="4"></button>
+                        </div>
+                        <div class="modal-body" _msttexthash="1992003" _msthash="309" _mstvisible="3">
+                          <div class="row" _mstvisible="4">
 
-                            <td>
-                                <div>
-                                    <button type="button" class="btn btn-info" data-bs-toggle="modal"
-                                        data-bs-target="#modalToggle" _msttexthash="557609" _msthash="306"> <i
-                                            class='bx bx-cog'></i> </button>
-
-                                    <!-- Modal 1-->
-                                    <div class="modal fade" id="modalToggle" aria-labelledby="modalToggleLabel"
-                                        tabindex="-1" style="display: none;" _mstvisible="0" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered" _mstvisible="1">
-                                            <div class="modal-content" _mstvisible="2">
-                                                <div class="modal-header" _mstvisible="3">
-
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Fechar" _mstaria-label="59709" _msthash="308"
-                                                        _mstvisible="4"></button>
-                                                </div>
-                                                <div class="modal-body" _msttexthash="1992003" _msthash="309"
-                                                    _mstvisible="3">
-                                                    <div class="row" _mstvisible="4">
-
-                                                        <div class="card-body">
-                                                            <form>
-                                                                <div class="mb-4">
-                                                                    <label class="form-label">Numero da linhas</label>
-                                                                    <input type="text" class="form-control"
-                                                                        id="basic-default-fullname" placeholder="103"
-                                                                        disabled>
-                                                                </div>
-                                                                <div class="mb-4">
-                                                                    <label class="form-label"
-                                                                        for="basic-default-company">Bairro de
-                                                                        Origem</label>
-                                                                    <input type="text" class="form-control"
-                                                                        id="basic-default-company" placeholder="Olaria"
-                                                                        disabled>
-                                                                </div>
-                                                                <div class="mb-4">
-                                                                    <label class="form-label"
-                                                                        for="basic-default-company">Bairro de
-                                                                        Destino</label>
-                                                                    <input type="text" class="form-control"
-                                                                        id="basic-default-company" placeholder="Tinga"
-                                                                        disabled>
-                                                                </div>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer" _mstvisible="3">
-                                                    <button type="submit" class="btn btn-warning ">Editar
-                                                        informações</button>
-                                                    <!-- <button type="submit" class="btn btn-success">Salvar alterações</button> -->
-                                                    <button class="btn btn-danger" data-bs-target="#modalToggle2"
-                                                        data-bs-toggle="modal" data-bs-dismiss="modal"
-                                                        _msttexthash="350038" _msthash="310"
-                                                        _mstvisible="4">Deletar</button>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Modal 2-->
-                                    <div class="modal fade" id="modalToggle2" aria-labelledby="modalToggleLabel2"
-                                        tabindex="-1" _mstvisible="0" style="display: none;" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered" _mstvisible="1">
-                                            <div class="modal-content" _mstvisible="2">
-                                                <div class="modal-header " _mstvisible="3">
-                                                    <h5 class="modal-title text-warning" id="modalToggleLabel2"
-                                                        _msttexthash="66105" _msthash="311" _mstvisible="4"> Alerta!!!
-                                                    </h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Fechar" _mstaria-label="59709" _msthash="312"
-                                                        _mstvisible="4"></button>
-                                                </div>
-                                                <div class="modal-body" _msttexthash="1998048" _msthash="313"
-                                                    _mstvisible="3"> <span> Tem certeza que desja excluir está linha
-                                                        ?</span> </div>
-                                                <div class="modal-footer" _mstvisible="3">
-                                                    <button class="btn btn-warning" data-bs-target="#modalToggle"
-                                                        data-bs-toggle="modal" data-bs-dismiss="modal"
-                                                        _msttexthash="324714" _msthash="314" _mstvisible="4">Não, voltar
-                                                        as alterações</button>
-                                                    <button type="submit" class="btn btn-danger">Sim, Deletar</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                            <div class="card-body">
+                              <form>
+                                <div class="mb-4">
+                                  <label class="form-label">Numero da linhas</label>
+                                  <input type="text" class="form-control" id="basic-default-fullname" placeholder="103" disabled>
                                 </div>
+                                <div class="mb-4">
+                                  <label class="form-label" for="basic-default-company">Bairro de
+                                    Origem</label>
+                                  <input type="text" class="form-control" id="basic-default-company" placeholder="Olaria" disabled>
+                                </div>
+                                <div class="mb-4">
+                                  <label class="form-label" for="basic-default-company">Bairro de
+                                    Destino</label>
+                                  <input type="text" class="form-control" id="basic-default-company" placeholder="Tinga" disabled>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="modal-footer" _mstvisible="3">
+                          <button type="submit" class="btn btn-warning ">Editar
+                            informações</button>
+                          <!-- <button type="submit" class="btn btn-success">Salvar alterações</button> -->
+                          <button class="btn btn-danger" data-bs-target="#modalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal" _msttexthash="350038" _msthash="310" _mstvisible="4">Deletar</button>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Modal 2-->
+                  <div class="modal fade" id="modalToggle2" aria-labelledby="modalToggleLabel2" tabindex="-1" _mstvisible="0" style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" _mstvisible="1">
+                      <div class="modal-content" _mstvisible="2">
+                        <div class="modal-header " _mstvisible="3">
+                          <h5 class="modal-title text-warning" id="modalToggleLabel2" _msttexthash="66105" _msthash="311" _mstvisible="4"> Alerta!!!
+                          </h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar" _mstaria-label="59709" _msthash="312" _mstvisible="4"></button>
+                        </div>
+                        <div class="modal-body" _msttexthash="1998048" _msthash="313" _mstvisible="3"> <span> Tem certeza que desja excluir está linha
+                            ?</span> </div>
+                        <div class="modal-footer" _mstvisible="3">
+                          <button class="btn btn-warning" data-bs-target="#modalToggle" data-bs-toggle="modal" data-bs-dismiss="modal" _msttexthash="324714" _msthash="314" _mstvisible="4">Não, voltar
+                            as alterações</button>
+                          <button type="submit" class="btn btn-danger">Sim, Deletar</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
 
 
-                            </td>
-                        </tr>
-                        <tr>
+              </td>
+            </tr>
+            <tr>
 
-                            <td>Accountant</td>
+              <td>Accountant</td>
 
-                            <td>63</td>
-                            <td>2011-07-25</td>
-                            <td>$170,750</td>
-                        </tr>
-                        <tr>
+              <td>63</td>
+              <td>2011-07-25</td>
+              <td>$170,750</td>
+            </tr>
+            <tr>
 
-                            <td>Junior Technical Author</td>
+              <td>Junior Technical Author</td>
 
-                            <td>66</td>
-                            <td>2009-01-12</td>
-                            <td>$86,000</td>
-                        </tr>
-                        <tr>
+              <td>66</td>
+              <td>2009-01-12</td>
+              <td>$86,000</td>
+            </tr>
+            <tr>
 
-                            <td>Senior Javascript Developer</td>
+              <td>Senior Javascript Developer</td>
 
-                            <td>22</td>
-                            <td>2012-03-29</td>
-                            <td>$433,060</td>
-                        </tr>
+              <td>22</td>
+              <td>2012-03-29</td>
+              <td>$433,060</td>
+            </tr>
 
-                        <tr>
+            <tr>
 
-                            <td>Office Manager</td>
+              <td>Office Manager</td>
 
-                            <td>30</td>
-                            <td>2008-12-19</td>
-                            <td>$90,560</td>
-                        </tr>
+              <td>30</td>
+              <td>2008-12-19</td>
+              <td>$90,560</td>
+            </tr>
 
-                        <tr>
+            <tr>
 
-                            <td>Developer</td>
+              <td>Developer</td>
 
-                            <td>53</td>
-                            <td>2009-10-22</td>
-                            <td>$114,500</td>
-                        </tr>
-                        <tr>
+              <td>53</td>
+              <td>2009-10-22</td>
+              <td>$114,500</td>
+            </tr>
+            <tr>
 
-                            <td>Developer</td>
+              <td>Developer</td>
 
-                            <td>27</td>
-                            <td>2011-05-07</td>
-                            <td>$145,000</td>
-                        </tr>
-                        <tr>
+              <td>27</td>
+              <td>2011-05-07</td>
+              <td>$145,000</td>
+            </tr>
+            <tr>
 
-                            <td>Team Leader</td>
+              <td>Team Leader</td>
 
-                            <td>22</td>
-                            <td>2008-10-26</td>
-                            <td>$235,500</td>
-                        </tr>
-                        <tr>
+              <td>22</td>
+              <td>2008-10-26</td>
+              <td>$235,500</td>
+            </tr>
+            <tr>
 
-                            <td>Post-Sales support</td>
+              <td>Post-Sales support</td>
 
-                            <td>46</td>
-                            <td>2011-03-09</td>
-                            <td>$324,050</td>
-                        </tr>
-                        <tr>
+              <td>46</td>
+              <td>2011-03-09</td>
+              <td>$324,050</td>
+            </tr>
+            <tr>
 
-                            <td>Marketing Designer</td>
+              <td>Marketing Designer</td>
 
-                            <td>47</td>
-                            <td>2009-12-09</td>
-                            <td>$85,675</td>
-                        </tr>
-                        <tr>
+              <td>47</td>
+              <td>2009-12-09</td>
+              <td>$85,675</td>
+            </tr>
+            <tr>
 
-                            <td>Office Manager</td>
+              <td>Office Manager</td>
 
-                            <td>51</td>
-                            <td>2008-12-16</td>
-                            <td>$164,500</td>
-                        </tr>
+              <td>51</td>
+              <td>2008-12-16</td>
+              <td>$164,500</td>
+            </tr>
 
-                        </tfoot>
-                </table>
-            </div>
-        </div>
+            </tfoot>
+        </table>
+      </div>
     </div>
