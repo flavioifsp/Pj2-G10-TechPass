@@ -97,149 +97,215 @@
         <table id="example" class="table table-striped" style="width: 100%">
             <thead>
                 <tr>
-                    <th>Endereco</th>
+                    <th>Nome</th>
                     <th>CEP</th>
-                    <th>Latitude</th>
-                    <th>Longitude</th>
-
+                    <th>Endereco</th>
                     <th>Config</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>System Architect</td>
+                <% allLojas.forEach(elem=> { %>
+                    <tr>
+                        <td><%- elem.nome %></td>
+                        <td><%- elem.cep %></td>
+                        <td><%- elem.endereco %></td>
 
-                    <td>61</td>
-                    <td>fm68464@dasnfdaslk.com</td>
-                    <td>$170,750</td>
-
-                    <td>
-                        <div>
-                            <button type="button" class="btn btn-info" data-bs-toggle="modal"
-                                data-bs-target="#modalToggle" _msttexthash="557609" _msthash="306">
-                                <i class="bx bx-cog"></i>
-                            </button>
-
-                            <!-- Modal 1-->
-                            <div class="modal fade" id="modalToggle" aria-labelledby="modalToggleLabel" tabindex="-1"
-                                style="display: none" _mstvisible="0" aria-hidden="true">
+                        <td>
+                            <button class="btn btn-danger py-1 px-2" data-bs-target="#loja<%= elem.id%>"
+                                data-bs-toggle="modal" data-bs-dismiss="modal" _msttexthash="350038" _msthash="310"
+                                _mstvisible="4"><i class="bi bi-trash-fill"></i></button>
+                            <div class="modal fade" id="loja<%= elem.id%>" aria-labelledby="modalToggleLabel2"
+                                tabindex="-1" _mstvisible="0" style="display: none;" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" _mstvisible="1">
                                     <div class="modal-content" _mstvisible="2">
-                                        <div class="modal-header" _mstvisible="3">
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Fechar" _mstaria-label="59709" _msthash="308"
-                                                _mstvisible="4"></button>
-                                        </div>
-                                        <div class="modal-body" _msttexthash="1992003" _msthash="309" _mstvisible="3">
-                                            <div class="row" _mstvisible="4">
-                                                <div class="card-body">
-                                                    <form>
-                                                        <div class="row mb-4">
-                                                            <label class="col-sm-2 col-form-label"
-                                                                for="basic-default-name">Endereco</label>
-                                                            <div class="col-sm-10">
-                                                                <input type="text" class="form-control"
-                                                                    id="basic-default-name" placeholder="John Doe"
-                                                                    disabled />
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="row mb-4">
-                                                            <label class="col-sm-2 col-form-label"
-                                                                for="basic-default-phone">CEP</label>
-                                                            <div class="col-sm-10">
-                                                                <input type="text" id="basic-default-phone"
-                                                                    class="form-control phone-mask"
-                                                                    placeholder="62.895.578.-9"
-                                                                    aria-label="658 799 8941"
-                                                                    aria-describedby="basic-default-phone" disabled />
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="row mb-4">
-                                                            <label class="col-sm-2 col-form-label"
-                                                                for="basic-default-phone">Latitude</label>
-                                                            <div class="col-sm-10">
-                                                                <input type="text" id="basic-default-phone"
-                                                                    class="form-control phone-mask"
-                                                                    placeholder="62.895.578.-9"
-                                                                    aria-label="658 799 8941"
-                                                                    aria-describedby="basic-default-phone" disabled />
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="row mb-4">
-                                                            <label class="col-sm-2 col-form-label"
-                                                                for="basic-default-phone">Longitude</label>
-                                                            <div class="col-sm-10">
-                                                                <input type="text" id="basic-default-phone"
-                                                                    class="form-control phone-mask"
-                                                                    placeholder="62.895.578.-9"
-                                                                    aria-label="658 799 8941"
-                                                                    aria-describedby="basic-default-phone" disabled />
-                                                            </div>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer" _mstvisible="3">
-                                            <button type="submit" class="btn btn-warning">
-                                                Editar informações
-                                            </button>
-                                            <!-- <button type="submit" class="btn btn-success">Salvar alterações</button> -->
-                                            <button class="btn btn-danger" data-bs-target="#modalToggle2"
-                                                data-bs-toggle="modal" data-bs-dismiss="modal" _msttexthash="350038"
-                                                _msthash="310" _mstvisible="4">
-                                                Deletar
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Modal 2-->
-                            <div class="modal fade" id="modalToggle2" aria-labelledby="modalToggleLabel2" tabindex="-1"
-                                _mstvisible="0" style="display: none" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered" _mstvisible="1">
-                                    <div class="modal-content" _mstvisible="2">
-                                        <div class="modal-header" _mstvisible="3">
+                                        <div class="modal-header " _mstvisible="3">
                                             <h5 class="modal-title text-warning" id="modalToggleLabel2"
-                                                _msttexthash="66105" _msthash="311" _mstvisible="4">
-                                                Alerta!!!
+                                                _msttexthash="66105" _msthash="311" _mstvisible="4"> Alerta!!!
                                             </h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                 aria-label="Fechar" _mstaria-label="59709" _msthash="312"
                                                 _mstvisible="4"></button>
                                         </div>
                                         <div class="modal-body" _msttexthash="1998048" _msthash="313" _mstvisible="3">
-                                            <span>
-                                                Tem certeza que desja excluir este Motorista?</span>
+                                            <span> Tem
+                                                certeza que desja excluir esta Loja?</span>
                                         </div>
                                         <div class="modal-footer" _mstvisible="3">
-                                            <button class="btn btn-warning" data-bs-target="#modalToggle"
-                                                data-bs-toggle="modal" data-bs-dismiss="modal" _msttexthash="324714"
-                                                _msthash="314" _mstvisible="4">
-                                                Não, voltar as alterações
-                                            </button>
-                                            <button type="submit" class="btn btn-danger">
-                                                Sim, Deletar
-                                            </button>
+                                            <button class="btn btn-warning" data-bs-dismiss="modal"
+                                                _msttexthash="324714" _msthash="314" _mstvisible="4">Não, voltar as
+                                                alterações</button>
+                                            <button type="click" class="btn btn-danger"
+                                                id="deleteLojaId<%= elem.id%>">Sim, Deletar</button>
+                                            <script>
+                                                const modaldeleteID<%= elem.id %> = document.querySelector("#loja<%= elem.id%>")
+
+                                                modaldeleteID <%= elem.id %>.querySelector("#deleteLojaId<%= elem.id%>").addEventListener("click", async () => {
+
+                                                    try {
+                                                        const deletado = await axios.delete("http://localhost:9000/api/adm/deleteLojas<%= elem.id%>")
+
+                                                        localStorage.setItem("deleLoja", JSON.stringify({
+                                                            cor: "danger",
+                                                            texto: deletado.data.message,
+                                                            div: "#alert",
+                                                        }))
+
+                                                        location.reload()
+                                                    } catch (error) {
+                                                        console.error(error)
+                                                    }
+
+
+                                                })
+                                            </script>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>System Architect</td>
+                        </td>
 
-                    <td>61321322322</td>
-                    <td>sfsg@dwaçsdi.com</td>
-                    <td>$170,750</td>
+                    </tr>
+                    <% }) %>
+                        <tr>
 
-                    <td>$170,750</td>
-                </tr>
+                            <td>System Architect</td>
+
+                            <td>61</td>
+                            <td>fm68464@dasnfdaslk.com</td>
+                            <td>$170,750</td>
+
+                            <td>
+                                <div>
+                                    <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                                        data-bs-target="#modalToggle" _msttexthash="557609" _msthash="306">
+                                        <i class="bx bx-cog"></i>
+                                    </button>
+
+                                    <!-- Modal 1-->
+                                    <div class="modal fade" id="modalToggle" aria-labelledby="modalToggleLabel"
+                                        tabindex="-1" style="display: none" _mstvisible="0" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" _mstvisible="1">
+                                            <div class="modal-content" _mstvisible="2">
+                                                <div class="modal-header" _mstvisible="3">
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Fechar" _mstaria-label="59709" _msthash="308"
+                                                        _mstvisible="4"></button>
+                                                </div>
+                                                <div class="modal-body" _msttexthash="1992003" _msthash="309"
+                                                    _mstvisible="3">
+                                                    <div class="row" _mstvisible="4">
+                                                        <div class="card-body">
+                                                            <form>
+                                                                <div class="row mb-4">
+                                                                    <label class="col-sm-2 col-form-label"
+                                                                        for="basic-default-name">Endereco</label>
+                                                                    <div class="col-sm-10">
+                                                                        <input type="text" class="form-control"
+                                                                            id="basic-default-name"
+                                                                            placeholder="John Doe" disabled />
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row mb-4">
+                                                                    <label class="col-sm-2 col-form-label"
+                                                                        for="basic-default-phone">CEP</label>
+                                                                    <div class="col-sm-10">
+                                                                        <input type="text" id="basic-default-phone"
+                                                                            class="form-control phone-mask"
+                                                                            placeholder="62.895.578.-9"
+                                                                            aria-label="658 799 8941"
+                                                                            aria-describedby="basic-default-phone"
+                                                                            disabled />
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row mb-4">
+                                                                    <label class="col-sm-2 col-form-label"
+                                                                        for="basic-default-phone">Latitude</label>
+                                                                    <div class="col-sm-10">
+                                                                        <input type="text" id="basic-default-phone"
+                                                                            class="form-control phone-mask"
+                                                                            placeholder="62.895.578.-9"
+                                                                            aria-label="658 799 8941"
+                                                                            aria-describedby="basic-default-phone"
+                                                                            disabled />
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row mb-4">
+                                                                    <label class="col-sm-2 col-form-label"
+                                                                        for="basic-default-phone">Longitude</label>
+                                                                    <div class="col-sm-10">
+                                                                        <input type="text" id="basic-default-phone"
+                                                                            class="form-control phone-mask"
+                                                                            placeholder="62.895.578.-9"
+                                                                            aria-label="658 799 8941"
+                                                                            aria-describedby="basic-default-phone"
+                                                                            disabled />
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer" _mstvisible="3">
+                                                    <button type="submit" class="btn btn-warning">
+                                                        Editar informações
+                                                    </button>
+                                                    <!-- <button type="submit" class="btn btn-success">Salvar alterações</button> -->
+                                                    <button class="btn btn-danger" data-bs-target="#modalToggle2"
+                                                        data-bs-toggle="modal" data-bs-dismiss="modal"
+                                                        _msttexthash="350038" _msthash="310" _mstvisible="4">
+                                                        Deletar
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Modal 2-->
+                                    <div class="modal fade" id="modalToggle2" aria-labelledby="modalToggleLabel2"
+                                        tabindex="-1" _mstvisible="0" style="display: none" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" _mstvisible="1">
+                                            <div class="modal-content" _mstvisible="2">
+                                                <div class="modal-header" _mstvisible="3">
+                                                    <h5 class="modal-title text-warning" id="modalToggleLabel2"
+                                                        _msttexthash="66105" _msthash="311" _mstvisible="4">
+                                                        Alerta!!!
+                                                    </h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Fechar" _mstaria-label="59709" _msthash="312"
+                                                        _mstvisible="4"></button>
+                                                </div>
+                                                <div class="modal-body" _msttexthash="1998048" _msthash="313"
+                                                    _mstvisible="3">
+                                                    <span>
+                                                        Tem certeza que desja excluir este Motorista?</span>
+                                                </div>
+                                                <div class="modal-footer" _mstvisible="3">
+                                                    <button class="btn btn-warning" data-bs-target="#modalToggle"
+                                                        data-bs-toggle="modal" data-bs-dismiss="modal"
+                                                        _msttexthash="324714" _msthash="314" _mstvisible="4">
+                                                        Não, voltar as alterações
+                                                    </button>
+                                                    <button type="submit" class="btn btn-danger">
+                                                        Sim, Deletar
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>System Architect</td>
+
+                            <td>61321322322</td>
+                            <td>sfsg@dwaçsdi.com</td>
+                            <td>$170,750</td>
+
+                            <td>$170,750</td>
+                        </tr>
             </tbody>
         </table>
     </div>

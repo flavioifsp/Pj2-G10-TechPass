@@ -28,16 +28,17 @@ router.get("/pontoDeOnibus", async function (req, res, next) {
   let pontos;
 
   try {
-    pontos = (await axios.get("http://localhost:9000/api/linhas/bus-stop")).data;
+    pontos = (await axios.get("http://localhost:9000/api/linhas/bus-stop"))
+      .data;
   } catch (error) {
     pontos = null;
   }
 
-  console.log(pontos)
+  console.log(pontos);
   res.render("adm/pages/cadastroPontoDeOnibus.ejs", {
     layout: "adm/layouts/layout-index.ejs",
     cont: "#menuPontoDeOnibus",
-    pontos
+    pontos,
   });
 });
 
@@ -56,10 +57,17 @@ router.get("/linhas", async function (req, res, next) {
 });
 
 router.get("/lojas", async function (req, res, next) {
-  res.render("adm/pages/cadastroLojas.ejs", {
-    layout: "adm/layouts/layout-index.ejs",
-    cont: "#menuLojas",
-  });
+  try {
+    const { data } = await axios.get("http://localhost:9000/api/adm/lojas");
+    // console.log(data); busca todos os jsons
+    res.render("adm/pages/cadastroLojas.ejs", {
+      layout: "adm/layouts/layout-index.ejs",
+      cont: "#menuLojas",
+      allLojas: data,
+    });
+  } catch (error) {
+    res.status();
+  }
 });
 
 module.exports = router;
