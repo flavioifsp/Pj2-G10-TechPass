@@ -1,425 +1,358 @@
-<div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Cadastro/</span> Lojas</h4>
-
-
-
-    <!-- meu  -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <!-- modal -->
-    <div class="mt-3">
-        <!-- Button trigger modal -->
-
-
-
-
-        <div class="modal fade" id="exLargeModal" tabindex="-1" style="display: none;" aria-hidden="true">
-            <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header mb-3">
-                        <h5 class="modal-title" id="exampleModalLabel4">Nova Loja</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-
-
-
-                        <form id="formularioDeCadastro">
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="endereco">Endereco</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="endereco" placeholder="John Doe" />
-                                </div>
-                            </div>
-
-
-
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="cep">CEP</label>
-                                <div class="col-sm-10">
-                                    <input type="text" id="cep" class="form-control phone-mask"
-                                        placeholder="62.895.578.-9" aria-label="658 799 8941"
-                                        aria-describedby="basic-default-phone" />
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="latitude">Latitude</label>
-                                <div class="col-sm-10">
-                                    <input type="text" id="latitude" class="form-control phone-mask"
-                                        placeholder="62.895.578.-9" aria-label="658 799 8941"
-                                        aria-describedby="basic-default-phone" />
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="longitude">Longitude</label>
-                                <div class="col-sm-10">
-                                    <input type="text" id="longitude" class="form-control phone-mask"
-                                        placeholder="62.895.578.-9" aria-label="658 799 8941"
-                                        aria-describedby="basic-default-phone" />
-                                </div>
-                            </div>
-
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-secondary"
-                            data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary" id="enviar">Enviar</button>
-                    </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exLargeModal">
-            Adicionar Nova Loja
-        </button>
-
-
-
-
-
-
-    </div>
-
-
-
+<div id="alert">
+    <script>
+        alert("novaLoja")
+    </script>
 </div>
 
+<h4 class="fw-bold py-3 mb-4">
+    <span class="text-muted fw-light">Cadastro/</span> Lojas
+</h4>
 
 
+<!-- meu  -->
+
+<!-- modal -->
+<div class="mt-3">
+
+
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createloja">
+        Adicionar Nova Loja
+    </button>
+
+    <!-- modal para criar um ponto de onibus -->
+    <div class="modal fade" id="createloja" tabindex="-1" aria-labelledby="createlojaLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="createlojaLabel">
+                        adicionando nova loja
+                    </h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <form novalidate id="formularioDeCadastroLojas">
+                    <div class="modal-body">
+                        <div class="row g-2">
+                            <div class="col-8">
+                                <label for="nome" class="form-label">Nome da Loja</label>
+                                <input type="text" class="form-control" id="nome" name="nome" required
+                                    placeholder="TechPass Centro " />
+                            </div>
+
+                            <div class="col-md-4 col-4">
+                                <label for="cep" class="form-label">CEP</label>
+                                <input type="text" class="form-control" id="cep" name="cep" required
+                                    placeholder="11832556 " />
+                            </div>
+
+                            <div class="col-md-10 col-9">
+                                <label for="street" class="form-label">rua</label>
+                                <input type="text" class="form-control" id="street" name="street" required
+                                    placeholder="Rua das Flores " />
+                            </div>
+                            <div class="col-md-2 col-3">
+                                <label for="state" class="form-label">Estado</label>
+                                <input type="text" class="form-control" id="state" name="state" required
+                                    placeholder="SP" />
+                            </div>
+                            <div class="col-md-8 col-12">
+                                <label for="city" class="form-label">cidade</label>
+                                <input type="text" class="form-control" id="city" name="city" required
+                                    placeholder="Caraguatatuba" />
+                            </div>
+                            <div class="col-md-4 col-12">
+                                <label for="neighborhood" class="form-label">bairro</label>
+                                <input type="text" class="form-control" id="neighborhood" name="neighborhood" required
+                                    placeholder="Olaria" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            Cancelar
+                        </button>
+                        <button type="submit" class="btn btn-primary">Criar loja</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- fim meu  -->
-
-
-
 
 <!-- / Content -->
 
 
-<div class="content-wrapper">
-    <!-- Content -->
-
-    <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Lojas atuais</h4>
-
-        <!-- Basic Bootstrap Table -->
-        <div class="card" style="height: 380px; overflow: auto">
-
-            <div class="table-responsive text-nowrap">
-                <table id="example" class="table table-striped" style="width:100%">
-                    <thead>
-                        <tr>
+<!-- Content -->
 
 
+<h4 class="fw-bold py-3 mb-4">
+    <span class="text-muted fw-light">Lojas atuais </span>
+</h4>
 
+<!-- Basic Bootstrap Table -->
+<div class="card">
+    <div class="table-responsive text-nowrap">
+        <table id="example" class="table table-striped" style="width: 100%">
+            <thead>
+                <tr>
+                    <th>Endereco</th>
+                    <th>CEP</th>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
 
+                    <th>Config</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>System Architect</td>
 
+                    <td>61</td>
+                    <td>fm68464@dasnfdaslk.com</td>
+                    <td>$170,750</td>
 
+                    <td>
+                        <div>
+                            <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                                data-bs-target="#modalToggle" _msttexthash="557609" _msthash="306">
+                                <i class="bx bx-cog"></i>
+                            </button>
 
-
-
-                            <th>Endereco</th>
-                            <th>CEP</th>
-                            <th>Latitude</th>
-                            <th>Longitude</th>
-
-                            <th>Config</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-
-
-                            <td>System Architect</td>
-
-                            <td>61</td>
-                            <td>fm68464@dasnfdaslk.com</td>
-                            <td>$170,750</td>
-
-
-
-
-
-                            <td>
-                                <div>
-                                    <button type="button" class="btn btn-info" data-bs-toggle="modal"
-                                        data-bs-target="#modalToggle" _msttexthash="557609" _msthash="306"> <i
-                                            class='bx bx-cog'></i> </button>
-
-                                    <!-- Modal 1-->
-                                    <div class="modal fade" id="modalToggle" aria-labelledby="modalToggleLabel"
-                                        tabindex="-1" style="display: none;" _mstvisible="0" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered" _mstvisible="1">
-                                            <div class="modal-content" _mstvisible="2">
-                                                <div class="modal-header" _mstvisible="3">
-
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Fechar" _mstaria-label="59709" _msthash="308"
-                                                        _mstvisible="4"></button>
-                                                </div>
-                                                <div class="modal-body" _msttexthash="1992003" _msthash="309"
-                                                    _mstvisible="3">
-                                                    <div class="row" _mstvisible="4">
-
-                                                        <div class="card-body">
-                                                            <form>
-                                                                <div class="row mb-4">
-                                                                    <label class="col-sm-2 col-form-label"
-                                                                        for="basic-default-name">Endereco</label>
-                                                                    <div class="col-sm-10">
-                                                                        <input type="text" class="form-control"
-                                                                            id="basic-default-name"
-                                                                            placeholder="John Doe" disabled>
-                                                                    </div>
-                                                                </div>
-
-
-
-                                                                <div class="row mb-4">
-                                                                    <label class="col-sm-2 col-form-label"
-                                                                        for="basic-default-phone">CEP</label>
-                                                                    <div class="col-sm-10">
-                                                                        <input type="text" id="basic-default-phone"
-                                                                            class="form-control phone-mask"
-                                                                            placeholder="62.895.578.-9"
-                                                                            aria-label="658 799 8941"
-                                                                            aria-describedby="basic-default-phone"
-                                                                            disabled>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="row mb-4">
-                                                                    <label class="col-sm-2 col-form-label"
-                                                                        for="basic-default-phone">Latitude</label>
-                                                                    <div class="col-sm-10">
-                                                                        <input type="text" id="basic-default-phone"
-                                                                            class="form-control phone-mask"
-                                                                            placeholder="62.895.578.-9"
-                                                                            aria-label="658 799 8941"
-                                                                            aria-describedby="basic-default-phone"
-                                                                            disabled>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="row mb-4">
-                                                                    <label class="col-sm-2 col-form-label"
-                                                                        for="basic-default-phone">Longitude</label>
-                                                                    <div class="col-sm-10">
-                                                                        <input type="text" id="basic-default-phone"
-                                                                            class="form-control phone-mask"
-                                                                            placeholder="62.895.578.-9"
-                                                                            aria-label="658 799 8941"
-                                                                            aria-describedby="basic-default-phone"
-                                                                            disabled>
-                                                                    </div>
-                                                                </div>
-
-
-
-
-
-
-
-                                                            </form>
+                            <!-- Modal 1-->
+                            <div class="modal fade" id="modalToggle" aria-labelledby="modalToggleLabel" tabindex="-1"
+                                style="display: none" _mstvisible="0" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" _mstvisible="1">
+                                    <div class="modal-content" _mstvisible="2">
+                                        <div class="modal-header" _mstvisible="3">
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Fechar" _mstaria-label="59709" _msthash="308"
+                                                _mstvisible="4"></button>
+                                        </div>
+                                        <div class="modal-body" _msttexthash="1992003" _msthash="309" _mstvisible="3">
+                                            <div class="row" _mstvisible="4">
+                                                <div class="card-body">
+                                                    <form>
+                                                        <div class="row mb-4">
+                                                            <label class="col-sm-2 col-form-label"
+                                                                for="basic-default-name">Endereco</label>
+                                                            <div class="col-sm-10">
+                                                                <input type="text" class="form-control"
+                                                                    id="basic-default-name" placeholder="John Doe"
+                                                                    disabled />
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer" _mstvisible="3">
-                                                    <button type="submit" class="btn btn-warning ">Editar
-                                                        informações</button>
-                                                    <!-- <button type="submit" class="btn btn-success">Salvar alterações</button> -->
-                                                    <button class="btn btn-danger" data-bs-target="#modalToggle2"
-                                                        data-bs-toggle="modal" data-bs-dismiss="modal"
-                                                        _msttexthash="350038" _msthash="310"
-                                                        _mstvisible="4">Deletar</button>
 
+                                                        <div class="row mb-4">
+                                                            <label class="col-sm-2 col-form-label"
+                                                                for="basic-default-phone">CEP</label>
+                                                            <div class="col-sm-10">
+                                                                <input type="text" id="basic-default-phone"
+                                                                    class="form-control phone-mask"
+                                                                    placeholder="62.895.578.-9"
+                                                                    aria-label="658 799 8941"
+                                                                    aria-describedby="basic-default-phone" disabled />
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row mb-4">
+                                                            <label class="col-sm-2 col-form-label"
+                                                                for="basic-default-phone">Latitude</label>
+                                                            <div class="col-sm-10">
+                                                                <input type="text" id="basic-default-phone"
+                                                                    class="form-control phone-mask"
+                                                                    placeholder="62.895.578.-9"
+                                                                    aria-label="658 799 8941"
+                                                                    aria-describedby="basic-default-phone" disabled />
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row mb-4">
+                                                            <label class="col-sm-2 col-form-label"
+                                                                for="basic-default-phone">Longitude</label>
+                                                            <div class="col-sm-10">
+                                                                <input type="text" id="basic-default-phone"
+                                                                    class="form-control phone-mask"
+                                                                    placeholder="62.895.578.-9"
+                                                                    aria-label="658 799 8941"
+                                                                    aria-describedby="basic-default-phone" disabled />
+                                                            </div>
+                                                        </div>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <!-- Modal 2-->
-                                    <div class="modal fade" id="modalToggle2" aria-labelledby="modalToggleLabel2"
-                                        tabindex="-1" _mstvisible="0" style="display: none;" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered" _mstvisible="1">
-                                            <div class="modal-content" _mstvisible="2">
-                                                <div class="modal-header " _mstvisible="3">
-                                                    <h5 class="modal-title text-warning" id="modalToggleLabel2"
-                                                        _msttexthash="66105" _msthash="311" _mstvisible="4"> Alerta!!!
-                                                    </h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Fechar" _mstaria-label="59709" _msthash="312"
-                                                        _mstvisible="4"></button>
-                                                </div>
-                                                <div class="modal-body" _msttexthash="1998048" _msthash="313"
-                                                    _mstvisible="3"> <span> Tem certeza que desja excluir este
-                                                        Motorista?</span> </div>
-                                                <div class="modal-footer" _mstvisible="3">
-                                                    <button class="btn btn-warning" data-bs-target="#modalToggle"
-                                                        data-bs-toggle="modal" data-bs-dismiss="modal"
-                                                        _msttexthash="324714" _msthash="314" _mstvisible="4">Não, voltar
-                                                        as alterações</button>
-                                                    <button type="submit" class="btn btn-danger">Sim, Deletar</button>
-                                                </div>
-                                            </div>
+                                        <div class="modal-footer" _mstvisible="3">
+                                            <button type="submit" class="btn btn-warning">
+                                                Editar informações
+                                            </button>
+                                            <!-- <button type="submit" class="btn btn-success">Salvar alterações</button> -->
+                                            <button class="btn btn-danger" data-bs-target="#modalToggle2"
+                                                data-bs-toggle="modal" data-bs-dismiss="modal" _msttexthash="350038"
+                                                _msthash="310" _mstvisible="4">
+                                                Deletar
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <!-- Modal 2-->
+                            <div class="modal fade" id="modalToggle2" aria-labelledby="modalToggleLabel2" tabindex="-1"
+                                _mstvisible="0" style="display: none" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" _mstvisible="1">
+                                    <div class="modal-content" _mstvisible="2">
+                                        <div class="modal-header" _mstvisible="3">
+                                            <h5 class="modal-title text-warning" id="modalToggleLabel2"
+                                                _msttexthash="66105" _msthash="311" _mstvisible="4">
+                                                Alerta!!!
+                                            </h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Fechar" _mstaria-label="59709" _msthash="312"
+                                                _mstvisible="4"></button>
+                                        </div>
+                                        <div class="modal-body" _msttexthash="1998048" _msthash="313" _mstvisible="3">
+                                            <span>
+                                                Tem certeza que desja excluir este Motorista?</span>
+                                        </div>
+                                        <div class="modal-footer" _mstvisible="3">
+                                            <button class="btn btn-warning" data-bs-target="#modalToggle"
+                                                data-bs-toggle="modal" data-bs-dismiss="modal" _msttexthash="324714"
+                                                _msthash="314" _mstvisible="4">
+                                                Não, voltar as alterações
+                                            </button>
+                                            <button type="submit" class="btn btn-danger">
+                                                Sim, Deletar
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>System Architect</td>
 
+                    <td>61321322322</td>
+                    <td>sfsg@dwaçsdi.com</td>
+                    <td>$170,750</td>
 
-
-                            </td>
-                        </tr>
-                        <tr>
-
-                            <td>System Architect</td>
-
-                            <td>61321322322</td>
-                            <td>sfsg@dwaçsdi.com</td>
-                            <td>$170,750</td>
-
-                            <td>$170,750</td>
-                        </tr>
-                        <tr>
-
-                            <td>System Architect</td>
-
-                            <td>61321322322</td>
-                            <td>sfsg@dwaçsdi.com</td>
-                            <td>$170,750</td>
-
-                            <td>$170,750</td>
-                        </tr>
-                        <tr>
-
-                            <td>System Architect</td>
-
-                            <td>61321322322</td>
-                            <td>sfsg@dwaçsdi.com</td>
-                            <td>$170,750</td>
-
-                            <td>$170,750</td>
-                        </tr>
-
-                        <tr>
-
-                            <td>System Architect</td>
-
-                            <td>61321322322</td>
-                            <td>sfsg@dwaçsdi.com</td>
-                            <td>$170,750</td>
-
-                            <td>$170,750</td>
-                        </tr>
-
-                        <tr>
-
-                            <td>System Architect</td>
-
-                            <td>61321322322</td>
-                            <td>sfsg@dwaçsdi.com</td>
-                            <td>$170,750</td>
-
-                            <td>$170,750</td>
-                        </tr>
-                        <tr>
-
-                            <td>System Architect</td>
-
-                            <td>61321322322</td>
-                            <td>sfsg@dwaçsdi.com</td>
-                            <td>$170,750</td>
-
-                            <td>$170,750</td>
-                        </tr>
-                        <tr>
-
-                            <td>System Architect</td>
-
-                            <td>61321322322</td>
-                            <td>sfsg@dwaçsdi.com</td>
-                            <td>$170,750</td>
-
-                            <td>$170,750</td>
-                        </tr>
-
-
-
-                        </tfoot>
-                </table>
-            </div>
-        </div>
+                    <td>$170,750</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
-
-    <script>
-
-        document.addEventListener("DOMContentLoaded", () => {
-
-            const form = document.querySelector("#formularioDeCadastro");
-
-            form.addEventListener("submit", async (event) => {
-                event.preventDefault();
-
-
-                const endereco = document.querySelector("#endereco").value;
-                const cep = document.querySelector("#cep").value;
-                const latitude = document.querySelector("#latitude").value;
-                const longitude = document.querySelector("#longitude").value;
-
-
-                const data = { endereco, cep, latitude, longitude };
-
-                console.log(data);
-                try {
-                    const response = await axios.post(
-                        "http://localhost:9000/api/adm/lojas",
-                        data
-                    );
-                } catch (error) {
-                    console.log(error.message);
-                }
-
-            });
-        });
-
-        // const btn = document.querySelector("#formularioDeCadastro");
-        // btn.addEventListener("click", function () {
-        //     console.log("O usuário clicou no botão!");
-        // });
+</div>
 
 
 
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const formsloja = new Inputs("#formularioDeCadastroLojas");
+
+        let informacoesdaAPI;
+
+        formsloja.allvalidacao({
+            cep: {
+                min: 8,
+                max: 9,
+                caractereNpermitido: /[^\d\-]/g,
+                autopontuar: [/[^\d]/, ""],
+                pattern: ["(\\d{8,9})", "cep valido", "cep invalido"],
+                customerro: [
+                    (value) => {
+                        if (value.match(/\d{9}/)) {
+                            return "cep com 9 numero?";
+                        }
+                    },
+                    async (value) => {
+                        try {
+                            informacoesdaAPI = (
+                                await axios.get(
+                                    `https://brasilapi.com.br/api/cep/v2/${value}`
+                                )
+                            ).data;
+
+                            formsloja.inputs((input) => {
+                                for (const info in informacoesdaAPI) {
+                                    if (Object.hasOwnProperty.call(informacoesdaAPI, info)) {
+                                        if (input.name == info) {
+                                            input.value = informacoesdaAPI[info];
+                                            input.focus();
+                                            input.blur();
+                                        }
+                                    }
+                                }
+                            });
+                        } catch (error) {
+                            console.log(error);
+                            if (error.response.status == 404)
+                                return "insira um CEP que exista";
+                        }
+                    },
+                ],
+                btnoff: "required", //signiifica que é obrigatorio
+            },
+
+            nome: {
+                min: 3,
+                max: 45,
+                caractereNpermitido: /[^a-zA-ZÀ-ú\s]/g,
+                pattern: ["[a-zA-ZÀ-ú\s]{3,45}", "nome valido", "nome invalido"],
+                btnoff: "naoEobrigatorio",
+            },
+
+            street: {
+                max: 64,
+                min: 2,
+                caractereNpermitido: /[^a-zA-Z0-9À-ú\s]/g,
+                pattern: ["^(([a-zA-Z0-9\\s\\-À-ú]{2,50}){1,10})$", "rua valida", "rua invalida"],
+                btnoff: "required",
+            },
+
+            state: {
+                max: 2,
+                min: 2,
+                caractereNpermitido: /[^a-zA-ZÀ-ú]/g,
+                autopontuar: [/[a-zÀ-ú]/g, letra => letra.toUpperCase()],
+                pattern: ["^([A-ZÀ-ú]{2,2})$", " valido", "invalido"],
+                btnoff: "required",
+            },
+
+            city: {
+                max: 15,
+                min: 3,
+                caractereNpermitido: /[^a-zA-Z\sÀ-ú]/g,
+                pattern: ["^([a-zA-Z\\sÀ-ú]{3,15})$", "cidade valida", "cidade invalida"],
+                btnoff: "required",
+            },
+
+            neighborhood: {
+                max: 25,
+                min: 3,
+                caractereNpermitido: /[^a-zA-ZÀ-ú\s]/g,
+                pattern: ["^([a-zA-ZÀ-ú\\s]{3,25})$", "bairro valido", "bairro invalido"],
+                btnoff: "required",
+            },
+
+        })
+        formsloja.cadastrar("http://localhost:9000/api/adm/lojas", () => {
+            const values = formsloja.allValues()
+            values.lat = informacoesdaAPI.location.coordinates.latitude
+            values.lng = informacoesdaAPI.location.coordinates.longitude
+
+            return values
+        }, null, success = (response) => {
+            localStorage.setItem("novaLoja", JSON.stringify({
+                cor: "success",
+                texto: response.data.message,
+                div: "#alert",
+            }))
+            location.reload()
+        })
 
 
-        // const from = document.getElementById("enviar");
-        // btn.addEventListener("click", function () {
-        //     event.preventDefault();
-        //     console.log("O usuário clicou no botão!");
-        // })
+    });
 
-        // form.addEventListener("submit", (event) => {
-        //     event.preventDefault();
-
-        //     console.log("deu certo");
-
-
-        // });
-
-    </script>
+</script>

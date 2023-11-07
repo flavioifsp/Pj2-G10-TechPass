@@ -127,13 +127,7 @@ router.post("/bus-stop", async (req, res) => {
 // mostrar todos os pontos
 router.get("/bus-stop", async (req, res) => {
   try {
-    const createBusStop = await prisma.ponto_de_onibus.findMany({
-      select: {
-        cep: true,
-        endereco: true,
-        id: true,
-      },
-    });
+    const createBusStop = await prisma.ponto_de_onibus.findMany();
 
     res.status(200).json(createBusStop);
   } catch (error) {

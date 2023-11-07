@@ -1,25 +1,31 @@
 var express = require("express");
 var router = express.Router();
-const { PrismaClient } = require("@prisma/client");
+const { PrismaClient, Prisma } = require("@prisma/client");
+const exception = require("../js/erro");
 
 const prisma = new PrismaClient();
 router.post("/lojas", async (req, res, next) => {
   try {
-    const { endereco, cep, latitude, longitude } = req.body;
+    const { nome, cep, street, state, city, neighborhood, lat, lng } = req.body;
 
-    const novaLoja = await prisma.lojas_recarga.create({
+    // const novaLoja = await prisma.loja_recarga.create({
+    const novaLoja = await prisma.loja_recarga.create({
       data: {
-        endereco,
-        cep,
-        latitude,
-        longitude,
+        nome,
+        endereco: `${street}, ${neighborhood}, ${city}, ${state}`,
+        cep: cep,
+        lat,
+        lng,
       },
     });
 
-    res.json(novaLoja);
+    res.status(201).json({
+      message: `Loja no endereço ${novaLoja.endereco} criado com sucesso`,
+    });
   } catch (error) {
+    const erro = exception(error);
     console.error(error);
-    res.status(500).json({ error: "Erro ao criar a linha." });
+    res.status(erro.code).send(erro.msg);
   }
 });
 
