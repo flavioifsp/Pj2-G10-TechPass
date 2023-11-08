@@ -25,13 +25,14 @@ router.get("/motorista", async function (req, res, next) {
 });
 
 router.get("/pontoDeOnibus", async function (req, res, next) {
-  let pontos;
+  let pontos = "paiaErro";
 
   try {
     pontos = (await axios.get("http://localhost:9000/api/linhas/bus-stop"))
       .data;
+
   } catch (error) {
-    pontos = null;
+    console.error(error)
   }
 
   console.log(pontos);
