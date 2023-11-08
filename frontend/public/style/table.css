@@ -1,7 +1,24 @@
-.dataTables_paginate, .dataTables_filter {
-    padding-right: 15px !important;
+/* anterior seguinte */
+.dataTables_paginate {
+    padding: 10px !important;
 }
 
-.dataTables_length, .dataTables_info {
-    padding-left: 15px !important;
+/* input */
+.dataTables_filter {
+    padding: 10px !important;
+}
+
+/* top direita bottom esquerda */
+
+
+/* mostrar */
+.dataTables_length {
+    padding:  10px  !important;
+}
+
+/* paginação | 1 até 1*/
+.dataTables_info {
+    margin-top: 16px;
+  padding: 10px !important;
+  
 }
