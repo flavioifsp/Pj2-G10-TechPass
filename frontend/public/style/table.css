@@ -1,24 +1,22 @@
 /* anterior seguinte */
 .dataTables_paginate {
-    padding: 10px !important;
+  padding: 10px !important;
 }
 
 /* input */
 .dataTables_filter {
-    padding: 10px !important;
+  padding: 10px !important;
 }
 
 /* top direita bottom esquerda */
 
-
 /* mostrar */
 .dataTables_length {
-    padding:  10px  !important;
+  padding: 10px !important;
 }
 
 /* paginação | 1 até 1*/
 .dataTables_info {
-    margin-top: 16px;
+  margin-top: 16px;
   padding: 10px !important;
-  
 }
