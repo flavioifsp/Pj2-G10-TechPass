@@ -68,21 +68,25 @@
       href="/adm/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css"
     />
 
-    <!-- custom js -->
+    <!-- custom  -->
     <script src="../js/validacao.js"></script>
     <script src="../js/alert.js"></script>
 
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
-    <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
-     -->
-
-
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css"
+    />
 
     <link
       rel="stylesheet"
       href="/adm/assets/vendor/libs/apex-charts/apex-charts.css"
     />
+
+    <link rel="stylesheet" href="/style/table.css">
 
     <!-- Page CSS -->
 
@@ -153,7 +157,6 @@
               </a>
             </li>
 
-            
             <!-- Forms -->
             <li class="menu-item mb-2" id="menuPassageiros">
               <a href="/adm/passageiros" class="menu-link">
@@ -161,15 +164,17 @@
                 <div data-i18n="Form Elements" class="ps-2">Passageiros</div>
               </a>
             </li>
-            
+
             <li class="menu-item mb-2" id="menuLojas">
               <a href="/adm/lojas" class="menu-link">
                 <i class="bx bxs-store-alt"></i>
                 <div data-i18n="Form Elements" class="ps-2">Lojas</div>
               </a>
             </li>
-            
-            <li class="menu-header small text-uppercase"><span class="menu-header-text">Linhas</span></li>
+
+            <li class="menu-header small text-uppercase">
+              <span class="menu-header-text">Linhas</span>
+            </li>
 
             <li class="menu-item mb-2" id="menuLinhas">
               <a href="/adm/linhas" class="menu-link">
@@ -186,7 +191,6 @@
                 </div>
               </a>
             </li>
-            
           </ul>
         </aside>
 
@@ -328,11 +332,19 @@
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 
-
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <!-- <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script> -->
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
 
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        new DataTable(".table", {
+          language: {
+            url: "https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese.json",
+          },
+        });
+      });
+    </script>
   </body>
 </html>
