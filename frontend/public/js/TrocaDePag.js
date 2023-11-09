@@ -17,3 +17,5 @@ async function AlternarDePag(btn, pag, proxima_subpag) {
         }
     })
 }
+
+axios.path("ifeojhiusdflsdirs", data.id)
