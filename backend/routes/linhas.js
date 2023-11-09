@@ -97,66 +97,26 @@ router.get("/allLinhas", async function (req, res, next) {
   }
 });
 
-// criar ponto de onibus
-router.post("/bus-stop", async (req, res) => {
-  const { cep, street, state, city, neighborhood, lat, lng } = req.body;
-
-  try {
-    const createBusStop = await prisma.ponto_de_onibus.create({
-      data: {
-        cep: cep,
-        endereco: `${street}, ${neighborhood}, ${city}, ${state}`,
-        lat: lat,
-        lng: lng,
+router.post("/linha", async () => {
+  const create = prisma.linhas.create({
+    data: {
+      bairroDestino,
+      bairroOrigem,
+      numero_linha,
+      id,
+      horario_diario_saida: {
+        create: {
+          fim,
+          inicio
+        },
       },
-      select: {
-        endereco: true,
+      rotas: {
+        create: [
+          {}
+        ],
       },
-    });
-
-    res.status(201).json({
-      message: `Ponto no endereço '${createBusStop.endereco}' criado com sucesso!`,
-    });
-  } catch (error) {
-    const erro = exception(error);
-    console.log(error);
-    res.status(erro.code).send(erro.msg);
-  }
-});
-
-// mostrar todos os pontos
-router.get("/bus-stop", async (req, res) => {
-  try {
-    const createBusStop = await prisma.ponto_de_onibus.findMany();
-
-    res.status(200).json(createBusStop);
-  } catch (error) {
-    const erro = exception(error);
-    console.log(error);
-    res.status(erro.code).send(erro.msg);
-  }
-});
-
-router.delete("/bus-stop/:id", async (req, res) => {
-  try {
-    const deleteBusStop = await prisma.ponto_de_onibus.delete({
-      where: {
-        id: Number(req.params.id),
-      },
-      select: {
-        cep: true,
-        id: true,
-      },
-    });
-
-    res.status(200).json({
-      message: `Ponto de Onibus do cep ${deleteBusStop.cep} deletado `,
-    });
-  } catch (error) {
-    const erro = exception(error);
-    console.log(error);
-    res.status(erro.code).send(erro.msg);
-  }
+    },
+  });
 });
 
 module.exports = router;
