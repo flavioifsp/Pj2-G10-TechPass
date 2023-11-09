@@ -80,11 +80,11 @@ model embarque {
 }
 
 model horario_diario_saida {
-  id        Int       @id @default(autoincrement())
-  linhas_id Int       @db.UnsignedInt
-  inicio    DateTime? @db.Time(0)
-  fim       DateTime? @db.Time(0)
-  linhas    linhas    @relation(fields: [linhas_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_horario_diario_saida_linhas1")
+  id               Int      @id @default(autoincrement())
+  linhas_id        Int      @db.UnsignedInt
+  horario_de_saida DateTime @db.Time(0)
+  duracaoEstimada  Int?
+  linhas           linhas   @relation(fields: [linhas_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_horario_diario_saida_linhas1")
 
   @@index([linhas_id], map: "fk_horario_diario_saida_linhas1_idx")
 }
@@ -95,7 +95,7 @@ model linhas {
   bairroOrigem         String                 @db.VarChar(45)
   bairroDestino        String                 @db.VarChar(45)
   horario_diario_saida horario_diario_saida[]
-  rotas                rotas[]
+  percurso             percurso[]
   viagem               viagem[]
 }
 
@@ -128,24 +128,12 @@ model onibus {
 }
 
 model ponto_de_onibus {
-  id       Int      @id @default(autoincrement())
-  endereco String?  @db.VarChar(255)
-  cep      String?  @db.VarChar(9)
-  lat      Decimal? @db.Decimal(9, 6)
-  lng      Decimal? @db.Decimal(9, 6)
-  rotas    rotas[]
-}
-
-model rotas {
-  id              Int             @id @default(autoincrement()) @db.UnsignedInt
-  percurso        Int?
-  linha_id        Int             @db.UnsignedInt
-  pontoOnibus_id  Int
-  ponto_de_onibus ponto_de_onibus @relation(fields: [pontoOnibus_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_rotas_pontoOnibus1")
-  linhas          linhas          @relation(fields: [linha_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_trajeto_paradas_linha1")
-
-  @@index([pontoOnibus_id], map: "fk_rotas_pontoOnibus1_idx")
-  @@index([linha_id], map: "fk_trajeto_paradas_linha1_idx")
+  id       Int        @id @default(autoincrement())
+  endereco String?    @db.VarChar(255)
+  cep      String?    @db.VarChar(9)
+  lat      Decimal?   @db.Decimal(9, 6)
+  lng      Decimal?   @db.Decimal(9, 6)
+  percurso percurso[]
 }
 
 model superuser {
@@ -172,4 +160,16 @@ model viagem {
   @@index([linhas_id], map: "fk_viagem_linhas1_idx")
   @@index([motorista_id], map: "fk_viagem_motorista1_idx")
   @@index([onibus_id], map: "fk_viagem_onibus1_idx")
+}
+
+model percurso {
+  id                Int             @id @default(autoincrement()) @db.UnsignedInt
+  ordem_do_percurso Int?
+  linha_id          Int             @db.UnsignedInt
+  pontoOnibus_id    Int
+  ponto_de_onibus   ponto_de_onibus @relation(fields: [pontoOnibus_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_rotas_pontoOnibus1")
+  linhas            linhas          @relation(fields: [linha_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_trajeto_paradas_linha1")
+
+  @@index([pontoOnibus_id], map: "fk_rotas_pontoOnibus1_idx")
+  @@index([linha_id], map: "fk_trajeto_paradas_linha1_idx")
 }

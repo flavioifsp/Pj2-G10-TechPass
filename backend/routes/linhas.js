@@ -98,23 +98,31 @@ router.get("/allLinhas", async function (req, res, next) {
 });
 
 router.post("/linha", async () => {
+
+  // https://www.prisma.io/docs/concepts/components/prisma-client/relation-queries#create-multiple-records-and-multiple-related-records
   const create = prisma.linhas.create({
     data: {
       bairroDestino,
       bairroOrigem,
       numero_linha,
-      id,
-      horario_diario_saida: {
-        create: {
-          fim,
-          inicio
-        },
+
+
+      percurso: {
+        createMany: {
+
+          
+          data: [
+            { 
+              ordem_do_percurso, 
+              pontoOnibus_id:{
+
+               } }
+          ]
+        }
       },
-      rotas: {
-        create: [
-          {}
-        ],
-      },
+
+
+      horario_diario_saida:{connectOrCreate}
     },
   });
 });
