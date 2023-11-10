@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "iniciarMysql": "start /MIN cmd /C \"abrirMysql.bat\"",
-    "inicarBack": "start  /MIN cmd /MIN /k  \"cd backend && npm i && npx prisma db push && npm run dev\"",
-    "inicarFront": "start  /MIN cmd /MIN /k  \"cd frontend && npm i && npm run dev\"",
+    "iniciarMysql": "start abrirMysql.bat",
+    "inicarBack": "start  /MIN cmd /k  \"cd backend && npm i && npx prisma db push && npm run dev\"",
+    "inicarFront": "start  /MIN cmd /k  \"cd frontend && npm i && npm run dev\"",
     
     "fecharNodeMysql": "start /MIN cmd /C \"fecharNodeMysql.bat\"",
     
