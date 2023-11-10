@@ -3,10 +3,14 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "iniciarXamp": "start /MIN cmd /C \"abrixamp.bat\"",
+    "iniciarMysql": "start /MIN cmd /C \"abrirMysql.bat\"",
     "inicarBack": "start  /MIN cmd /MIN /k  \"cd backend && npm i && npx prisma db push && npm run dev\"",
     "inicarFront": "start  /MIN cmd /MIN /k  \"cd frontend && npm i && npm run dev\"",
+    
+    "fecharNodeMysql": "start /MIN cmd /C \"fecharNodeMysql.bat\"",
+    
 
-    "onDev": "npm run iniciarXamp && npm run inicarBack && npm run inicarFront"
+    "onDev": "npm run iniciarMysql && npm run inicarBack && npm run inicarFront",
+    "offDev": "npm run fecharNodeMysql"
   }
 }
