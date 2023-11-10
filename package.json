@@ -1,0 +1,12 @@
+{
+  "name": "techpass",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "iniciarXamp": "start /B abrixamp.bat",
+    "inicarBack": "start  /MIN cmd /MIN /k  \"cd backend && npm i && npx prisma db push && npm run dev\"",
+    "inicarFront": "start  /MIN cmd /MIN /k  \"cd frontend && npm i && npm run dev\"",
+
+    "onDev": "npm run iniciarXamp && npm run inicarBack && npm run inicarFront"
+  }
+}
