@@ -9,7 +9,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="createpontoLabel">
-          adicionando ponto de onibus
+          Adicionando ponto de onibus
         </h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -23,22 +23,23 @@
             </div>
 
             <div class="col-md-10 col-9">
-              <label for="street" class="form-label">rua</label>
-              <input type="text" class="form-control" id="street" name="street" required
-                placeholder="Rua das Flores " />
+              <label for="street" class="form-label">Rua</label>
+              <input type="text" class="form-control" id="street" name="street" required placeholder="Rua das Flores "
+                disabled>
             </div>
             <div class="col-md-2 col-3">
               <label for="state" class="form-label">Estado</label>
-              <input type="text" class="form-control" id="state" name="state" required placeholder="SP" />
+              <input type="text" class="form-control" id="state" name="state" required placeholder="SP" disabled />
             </div>
             <div class="col-md-8 col-12">
-              <label for="city" class="form-label">cidade</label>
-              <input type="text" class="form-control" id="city" name="city" required placeholder="Caraguatatuba" />
+              <label for="city" class="form-label">Cidade</label>
+              <input type="text" class="form-control" id="city" name="city" required placeholder="Caraguatatuba"
+                disabled />
             </div>
             <div class="col-md-4 col-12">
-              <label for="neighborhood" class="form-label">bairro</label>
+              <label for="neighborhood" class="form-label">Bairro</label>
               <input type="text" class="form-control" id="neighborhood" name="neighborhood" required
-                placeholder="Olaria" />
+                placeholder="Olaria" disabled />
             </div>
           </div>
         </div>
@@ -58,15 +59,15 @@
 <script>
   document.addEventListener("DOMContentLoaded", () => {
     const formsponto = new Inputs("#formspontodeonibus");
-
-
     let informacoesdaAPI
+    const inputCep = document.getElementById('cep');
+
 
 
 
     formsponto.allvalidacao({
 
-      
+
 
       cep: {
         min: 8,
@@ -93,10 +94,19 @@
                       input.value = informacoesdaAPI[info]
                       input.focus()
                       input.blur()
+
                     }
                   }
                 }
               })
+
+              formsponto.inputs((input) => {
+                if (input !== inputCep) {
+                  input.disabled = true;
+                }
+              });
+
+
 
             } catch (error) {
               console.log(error)
@@ -107,40 +117,7 @@
         ],
         btnoff: "required",
 
-      },
-
-      street: {
-        max: 64,
-        min: 2,
-        caractereNpermitido: /[^a-zA-Z0-9À-ú\s]/g,
-        pattern: ["^(([a-zA-Z0-9\\s\\-À-ú]{2,50}){1,10})$", "rua valida", "rua invalida"],
-        btnoff: "required",
-      },
-
-      state: {
-        max: 2,
-        min: 2,
-        caractereNpermitido: /[^a-zA-ZÀ-ú]/g,
-        autopontuar: [/[a-zÀ-ú]/g, letra => letra.toUpperCase()],
-        pattern: ["^([A-ZÀ-ú]{2,2})$", " valido", "invalido"],
-        btnoff: "required",
-      },
-
-      city: {
-        max: 15,
-        min: 3,
-        caractereNpermitido: /[^a-zA-Z\sÀ-ú]/g,
-        pattern: ["^([a-zA-Z\\sÀ-ú]{3,15})$", "cidade valida", "cidade invalida"],
-        btnoff: "required",
-      },
-
-      neighborhood: {
-        max: 25,
-        min: 3,
-        caractereNpermitido: /[^a-zA-ZÀ-ú\s]/g,
-        pattern: ["^([a-zA-ZÀ-ú\\s]{3,25})$", "bairro valido", "bairro invalido"],
-        btnoff: "required",
-      },
+      }
     });
 
 
