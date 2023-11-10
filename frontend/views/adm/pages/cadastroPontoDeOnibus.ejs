@@ -8,158 +8,152 @@
   alert("stopBusDelete");
 </script>
 
-<%- include('../partials/_formsPontoDeOnibus') %>
+<%-include('../partials/_formsPontoDeOnibus') %>
 
 
-  <section class="mt-5">
-    <h4 class="">Todos os pontos de onibus</h4>
+<section class="mt-5">
+  <h4 class="">Todos os pontos de onibus</h4>
 
-    <div class="card">
-      <div class="table-responsive text-nowrap">
-        <table id="PontosDeOnibus" class="table table-striped" style="width: 100%">
-          <thead>
+  <div class="card">
+    <div class="table-responsive text-nowrap">
+      <table id="PontosDeOnibus" class="table table-striped" style="width: 100%">
+        <thead>
+          <tr>
+            <th>CEP</th>
+            <th>Rua</th>
+            <th>Bairro</th>
+            <th>Opções</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <% pontos.forEach((elem)=> { %>
+          
             <tr>
-              <th>CEP</th>
-              <th>Rua</th>
-              <th>Bairro</th>
-              <th>Opções</th>
+            <td>
+              <%= elem.cep %>
+            </td>
+            <td>
+              <%= elem.endereco.split(",")[0] %>
+            </td>
+            <td>
+              <%= elem.endereco.split(",")[1] %>
+            </td>
+            <td>
+              <button type="button" class="btn btn-info py-1 px-2" onclick='modalInfo(<%-JSON.stringify(elem)%>)'>
+                <i class="bi bi-info-lg"></i>
+              </button>
 
-            </tr>
-          </thead>
-          <tbody>
-            <% pontos.forEach((elem)=> { %>
-              <tr>
-                <td>
-                  <%= elem.cep %>
-                </td>
-                <td>
-                  <%= elem.endereco.split(",")[0] %>
-                </td>
-                <td>
-                  <%= elem.endereco.split(",")[1] %>
-                </td>
-                <td>
-                  <button type="button" class="btn btn-info py-1 px-2" onclick='modalInfo(<%-JSON.stringify(elem)%>)'>
-                    <i class="bi bi-info-lg"></i>
-                  </button>
+              <!-- Modal -->
+              <div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true" style="display: none">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="modalCenterTitle">
+                        <%= elem.endereco%>
+                      </h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
 
-                  <!-- Modal -->
-                  <div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true" style="display: none">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="modalCenterTitle">
-                            <%= elem.endereco%>
-                          </h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-
-                        <div class="modal-body">
-                          <div class="username d-flex">
-                            <p class="me-3 fw-bold">CEP:</p>
-                            <p>
-                              <%= elem.cep%>
-                            </p>
-                          </div>
-                        </div>
+                    <div class="modal-body">
+                      <div class="username d-flex">
+                        <p class="me-3 fw-bold">CEP:</p>
+                        <p>
+                          <%= elem.cep%>
+                        </p>
                       </div>
                     </div>
                   </div>
+                </div>
+              </div>
 
-                  <!-- <button class="btn btn-warning py-1 px-2" onclick='modalEdit(<%-JSON.stringify(elem)%>)' data-bs-target="#pontodeonibus<%= elem.id%>" data-bs-toggle="modal" data-bs-dismiss="modal" _msttexthash="350038" _msthash="310" _mstvisible="4">
+              <!-- <button class="btn btn-warning py-1 px-2" onclick='modalEdit(<%-JSON.stringify(elem)%>)' data-bs-target="#pontodeonibus<%= elem.id%>" data-bs-toggle="modal" data-bs-dismiss="modal" _msttexthash="350038" _msthash="310" _mstvisible="4">
                 <i class="bi bi-pencil-square"></i>
               </button> -->
 
 
 
-                  <button class="btn btn-warning py-1 px-2" onclick='modalEdit(<%-JSON.stringify(elem)%>)'>
-                    <i class="bi bi-pencil-square"></i>
-                  </button>
+              <button class="btn btn-warning py-1 px-2" onclick='modalEdit(<%-JSON.stringify(elem)%>)'>
+                <i class="bi bi-pencil-square"></i>
+              </button>
 
 
 
 
 
+              <button class="btn btn-danger py-1 px-2" data-bs-target="#pontodeonibus<%= elem.id%>" data-bs-toggle="modal" data-bs-dismiss="modal" _msttexthash="350038" _msthash="310" _mstvisible="4">
+                <i class="bi bi-trash-fill"></i>
+              </button>
+              <div class="modal fade" id="pontodeonibus<%= elem.id%>" aria-labelledby="modalToggleLabel2" tabindex="-1" _mstvisible="0" style="display: none" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" _mstvisible="1">
+                  <div class="modal-content" _mstvisible="2">
+                    <div class="modal-header" _mstvisible="3">
+                      <h5 class="modal-title text-warning" id="modalToggleLabel2" _msttexthash="66105" _msthash="311" _mstvisible="4">
+                        Alerta!!!
+                      </h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar" _mstaria-label="59709" _msthash="312" _mstvisible="4"></button>
+                    </div>
+                    <div class="modal-body" _msttexthash="1998048" _msthash="313" _mstvisible="3">
+                      <span>
+                        Tem certeza que desja excluir este Ponto?</span>
+                    </div>
+                    <div class="modal-footer" _mstvisible="3">
+                      <button class="btn btn-warning" data-bs-dismiss="modal" _msttexthash="324714" _msthash="314" _mstvisible="4">
+                        Não, voltar as alterações
+                      </button>
+                      <button type="click" class="btn btn-danger" id="deletePontoId<%= elem.id%>">
+                        Sim, Deletar
+                      </button>
+                      <script>
+                        const modaldeleteID<%=elem.id %> = document.querySelector("#pontodeonibus<%= elem.id%>")
+
+                        modaldeleteID<%=elem.id %>.querySelector("#deletePontoId<%= elem.id%>").addEventListener("click", async () => {
+
+                          try {
+                            const deletado = await axios.delete("http://localhost:9000/api/linhas/bus-stop/<%= elem.id%>")
+
+                            localStorage.setItem("stopBusDelete", JSON.stringify({
+                              cor: "danger",
+                              texto: deletado.data.message,
+                              div: "#alert",
+                            }))
+
+                            location.reload()
+                          } catch (error) {
+                            console.error(error)
+                          }
 
 
-                  <button class="btn btn-danger py-1 px-2" data-bs-target="#pontodeonibus<%= elem.id%>"
-                    data-bs-toggle="modal" data-bs-dismiss="modal" _msttexthash="350038" _msthash="310" _mstvisible="4">
-                    <i class="bi bi-trash-fill"></i>
-                  </button>
-                  <div class="modal fade" id="pontodeonibus<%= elem.id%>" aria-labelledby="modalToggleLabel2"
-                    tabindex="-1" _mstvisible="0" style="display: none" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" _mstvisible="1">
-                      <div class="modal-content" _mstvisible="2">
-                        <div class="modal-header" _mstvisible="3">
-                          <h5 class="modal-title text-warning" id="modalToggleLabel2" _msttexthash="66105"
-                            _msthash="311" _mstvisible="4">
-                            Alerta!!!
-                          </h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"
-                            _mstaria-label="59709" _msthash="312" _mstvisible="4"></button>
-                        </div>
-                        <div class="modal-body" _msttexthash="1998048" _msthash="313" _mstvisible="3">
-                          <span>
-                            Tem certeza que desja excluir este Motorista?</span>
-                        </div>
-                        <div class="modal-footer" _mstvisible="3">
-                          <button class="btn btn-warning" data-bs-dismiss="modal" _msttexthash="324714" _msthash="314"
-                            _mstvisible="4">
-                            Não, voltar as alterações
-                          </button>
-                          <button type="click" class="btn btn-danger" id="deletePontoId<%= elem.id%>">
-                            Sim, Deletar
-                          </button>
-                          <script>
-                            const modaldeleteID<%=elem.id %> = document.querySelector("#pontodeonibus<%= elem.id%>")
-
-                            modaldeleteID <%= elem.id %>.querySelector("#deletePontoId<%= elem.id%>").addEventListener("click", async () => {
-
-                              try {
-                                const deletado = await axios.delete("http://localhost:9000/api/linhas/bus-stop/<%= elem.id%>")
-
-                                localStorage.setItem("stopBusDelete", JSON.stringify({
-                                  cor: "danger",
-                                  texto: deletado.data.message,
-                                  div: "#alert",
-                                }))
-
-                                location.reload()
-                              } catch (error) {
-                                console.error(error)
-                              }
-
-
-                            })
-                          </script>
-                        </div>
-                      </div>
+                        })
+                      </script>
                     </div>
                   </div>
-                </td>
+                </div>
+              </div>
+            </td>
 
 
-              </tr>
-              <% }) %>
-          </tbody>
-        </table>
-      </div>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
     </div>
-  </section>
+  </div>
+</section>
 
 
 
-  <!-- chamando o js do boostrap antes de criar a instancia -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-    crossorigin="anonymous"></script>
-  <script>
+<!-- chamando o js do boostrap antes de criar a instancia -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<script>
 
-    function modalEdit(objEjs) {
-      const div = document.createElement("div")
+  
+  function modalEdit(objEjs) {
+
+    const div = document.createElement("div")
 
 
-      div.innerHTML = `
+    div.innerHTML = `
   <div class="modal fade" id="modalToggle" aria-labelledby="modalToggleLabel"
     tabindex="-1" style="display: none" _mstvisible="0" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" _mstvisible="1">
@@ -172,7 +166,7 @@
             <div class="modal-body" _msttexthash="1992003" _msthash="309"
                 _mstvisible="3">
                 <div class="row" _mstvisible="4">
-                    <div class="card-body">
+                    <div class="card-body" >
                         <form>
                               <div class="row mb-4">
                                 <label class="col-sm-2 col-form-label"
@@ -194,7 +188,7 @@
                                         class="form-control phone-mask"
 
                                         aria-label="658 799 8941"
-                                        aria-describedby="basic-default-phone" value="${objEjs.endereco.split(",")[0]}" disabled/>
+                                        aria-describedby="basic-default-phone" value="${objEjs.endereco.split(",")[0]}" />
                                 </div>
                             </div>
 
@@ -205,7 +199,7 @@
                                     <input type="text" id="basic-default-phone"
                                         class="form-control phone-mask"
                                         aria-label="658 799 8941"
-                                        aria-describedby="basic-default-phone" value="${objEjs.endereco.split(",")[1]}" disabled/>
+                                        aria-describedby="basic-default-phone" value="${objEjs.endereco.split(",")[1]}" />
                                 </div>
                             </div>
 
@@ -216,7 +210,7 @@
                                     <input type="text" id="basic-default-phone"
                                         class="form-control phone-mask"
                                         aria-label="658 799 8941"
-                                        aria-describedby="basic-default-phone" value="${objEjs.endereco.split(",")[2]}" disabled />
+                                        aria-describedby="basic-default-phone" value="${objEjs.endereco.split(",")[2]}"  />
                                 </div>
                             </div>
 
@@ -228,7 +222,7 @@
                                         class="form-control phone-mask"
                                         placeholder="${objEjs.cep}"
                                         aria-label="658 799 8941"
-                                        aria-describedby="basic-default-phone" value="${objEjs.endereco.split(",")[3]}" disabled />
+                                        aria-describedby="basic-default-phone" value="${objEjs.endereco.split(",")[3]}"  />
                                 </div>
                             </div>
                         </form>
@@ -239,8 +233,8 @@
                 <button type="submit" class="btn btn-warning">
                     Resetar
                 </button>
-                <!-- <button type="submit" class="btn btn-success">Salvar alterações</button> -->
-                <button class="btn btn-danger" data-bs-target="#modalToggle2"
+          
+                <button class="btn btn-success" data-bs-target="#modalToggle2"
                     data-bs-toggle="modal" data-bs-dismiss="modal"
                     _msttexthash="350038" _msthash="310" _mstvisible="4">
                     Salvar alterações
@@ -253,54 +247,65 @@
 
           `
 
-      const modal = div.querySelector(".modal")
+    const modal = div.querySelector(".modal")
 
-      //selecionando o modoal  e adicionando o modal ao BODY do HTML
-      document.body.appendChild(modal)
+    //selecionando o modoal  e adicionando o modal ao BODY do HTML
+    document.body.appendChild(modal)
 
-      const InstanciaBoostrapDoModal = new bootstrap.Modal(modal)
+    const InstanciaBoostrapDoModal = new bootstrap.Modal(modal)
 
-      InstanciaBoostrapDoModal.show()
+    InstanciaBoostrapDoModal.show()
 
-      modal.addEventListener("hidden.bs.modal", () => {
+    
+    modal.querySelector("form").addEventListener("submit", async (evt) => {
+      evt.preventDefault();
 
-        // quando o modal for fechado esse evento acionara e excluira o modal do body
-        document.body.removeChild(modal)
-      })
-
-
-
-    }
-    // fim modalEdit
-
-
-
-
-
-    // criando uma função que recebe a informação em um objeto transformado pelo JSON.stringify
-    function modalInfo(objEjs) {
+      try {
+        const paia = await axios.patch(
+          url,
+        );
+ 
+      } catch (error) {
+        
+      }
+    });
+  
 
 
 
+    modal.addEventListener("hidden.bs.modal", () => {
+
+      // quando o modal for fechado esse evento acionara e excluira o modal do body
+      document.body.removeChild(modal)
+    })
+
+
+
+  }
+  // fim modalEdit
 
 
 
 
+  // criando uma função que recebe a informação em um objeto transformado pelo JSON.stringify
+  function modalInfo(objEjs) {
 
 
-      // transformando o objeto que está transformado em string para objeto dnv
 
 
-      console.log(objEjs)
+    // transformando o objeto que está transformado em string para objeto dnv
 
-      // criando uma div no js
-      const umadiv = document.createElement("div")
 
-      // adicionando o innerHTML com um template
-      // https://www.w3schools.com/js/js_string_templates.asp
-      // e
-      // adicionando uma div de modal pego do site do boostrap
-      umadiv.innerHTML = `
+    console.log(objEjs)
+
+    // criando uma div no js
+    const umadiv = document.createElement("div")
+
+    // adicionando o innerHTML com um template
+    // https://www.w3schools.com/js/js_string_templates.asp
+    // e
+    // adicionando uma div de modal pego do site do boostrap
+    umadiv.innerHTML = `
           <div class="modal fade" tabindex="-1" >
             <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content">
@@ -315,47 +320,52 @@
                   <li class="list-group-item">Cidade: <span class="ms-1">${objEjs.endereco.split(",")[2]}</span> </li>
                   <li class="list-group-item">Estado:  <span class="ms-1">${objEjs.endereco.split(",")[3]}</span></li>
                 </div >
-                <div class="modal-footer">
+                <div class="modal-footer justify-content-between">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
 
+                  <div>
+                  <button type="button" class="btn btn-warning" onclick='modalEdit(${JSON.stringify(objEjs)})' data-bs-dismiss="modal">Editar</button>
+                  <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Deletar</button>
+                  </div>
                 </div>
               </div >
             </div >
           </div >
           `
 
-      // o split divide uma string em substrings
-      // https://www.w3schools.com/jsref/jsref_split.asp
+    
+    // o split divide uma string em substrings
+    // https://www.w3schools.com/jsref/jsref_split.asp
 
 
-      // criando uma variavel que recebe o modal dentro do umadiv
-      const modal = umadiv.querySelector(".modal")
+    // criando uma variavel que recebe o modal dentro do umadiv
+    const modal = umadiv.querySelector(".modal")
 
-      // adicionando o modal ao BODY do HTML
-      document.body.appendChild(modal)
-
-
-      // criando uma instancia seguindo as instruções do boostrap
-      // https://getbootstrap.com/docs/5.3/components/modal/#how-it-works
-      const InstanciaBoostrapDoModal = new bootstrap.Modal(modal)
-
-      // abrindo o modal
-      InstanciaBoostrapDoModal.show()
+    // adicionando o modal ao BODY do HTML
+    document.body.appendChild(modal)
 
 
+    // criando uma instancia seguindo as instruções do boostrap
+    // https://getbootstrap.com/docs/5.3/components/modal/#how-it-works
+    const InstanciaBoostrapDoModal = new bootstrap.Modal(modal)
 
-      // vai para a parte de eventos que encontrara mais informações
-      // https://getbootstrap.com/docs/5.3/components/modal/#how-it-works
-      modal.addEventListener("hidden.bs.modal", () => {
+    // abrindo o modal
+    InstanciaBoostrapDoModal.show()
 
-        // quando o modal for fechado esse evento acionara e excluira o modal do body
-        document.body.removeChild(modal)
-      })
-      // fim da função
-    }
+
+
+    // vai para a parte de eventos que encontrara mais informações
+    // https://getbootstrap.com/docs/5.3/components/modal/#how-it-works
+    modal.addEventListener("hidden.bs.modal", () => {
+
+      // quando o modal for fechado esse evento acionara e excluira o modal do body
+      document.body.removeChild(modal)
+    })
+    // fim da função
+  }
 
   // veja a linha 117
 
   // //  chamando a função com ela recebendo as informações da primeira linha
   // modalPaia(<%-JSON.stringify(pontos[0])%>)
-  </script>
+</script>
