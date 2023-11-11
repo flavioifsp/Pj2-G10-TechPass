@@ -97,34 +97,60 @@ router.get("/allLinhas", async function (req, res, next) {
   }
 });
 
-router.post("/linha", async () => {
+router.post("/", async (req, res, next) => {
+  try {
+    const { rota1, rota2, numero_linha } = req.body;
 
-  // https://www.prisma.io/docs/concepts/components/prisma-client/relation-queries#create-multiple-records-and-multiple-related-records
-  const create = prisma.linhas.create({
-    data: {
-      bairroDestino,
-      bairroOrigem,
-      numero_linha,
+    if (
+      rota1.bairroDestino !== rota2.bairroOrigem ||
+      rota2.bairroDestino !== rota1.bairroOrigem
+    )  return res.status(406).send("dados invalidos");
 
+    // const rota1 = {
+    //
+    // };
 
-      percurso: {
-        createMany: {
+    const linha = {};
+    for (const rota of [rota1, rota2]) {
+      const { bairroDestino, bairroOrigem, percursos, horarios } = rota;
 
-          
-          data: [
-            { 
-              ordem_do_percurso, 
-              pontoOnibus_id:{
+      linha[bairroOrigem] = await prisma.linhas.create({
+        data: {
+          bairroDestino,
+          bairroOrigem,
+          numero_linha,
 
-               } }
-          ]
-        }
-      },
+          percurso: {
+            create: percursos,
+          },
 
+          horario_diario_saida: {
+            create: horarios,
+          },
+        },
+        include: {
+          horario_diario_saida: {
+            select: {
+              duracaoEstimada: true,
+              horario_de_saida: true,
+            },
+          },
+          percurso: {
+            select: {
+              ordem_do_percurso: true,
+              pontoOnibus_id: true,
+            },
+          },
+        },
+      });
+    }
 
-      horario_diario_saida:{connectOrCreate}
-    },
-  });
+    res.json(linha);
+    // https://www.prisma.io/docs/concepts/components/prisma-client/relation-queries#create-multiple-records-and-multiple-related-records
+  } catch (er) {
+    const erro = exception(er);
+    res.status(erro.code).send(erro.msg);
+  }
 });
 
 module.exports = router;
