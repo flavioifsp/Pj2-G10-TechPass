@@ -10,7 +10,8 @@
     "fecharNodeMysql": "start /MIN cmd /C \"fecharNodeMysql.bat\"",
     
 
-    "onDev": "npm run iniciarMysql && npm run inicarBack && npm run inicarFront",
+    "start": "npm run iniciarMysql && npm run inicarBack && npm run inicarFront",
+    "onDev": "npm run iniciarMysql && start /MIN cmd /k \"cd backend && npm run dev\" && start /MIN cmd /k \"cd frontend && npm run dev\"",
     "offDev": "npm run fecharNodeMysql"
   }
 }
