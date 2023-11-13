@@ -167,7 +167,7 @@
                 _mstvisible="3">
                 <div class="row" _mstvisible="4">
                     <div class="card-body" >
-                        <form>
+                        <form id="resetForm">
                               <div class="row mb-4">
                                 <label class="col-sm-2 col-form-label"
                                     for="basic-default-phone">CEP</label>
@@ -225,21 +225,20 @@
                                         aria-describedby="basic-default-phone" value="${objEjs.endereco.split(",")[3]}"  />
                                 </div>
                             </div>
-                        </form>
+                       
                     </div>
                 </div>
             </div>
             <div class="modal-footer" _mstvisible="3">
-                <button type="submit" class="btn btn-warning">
+                <button type="button" class="btn btn-warning" id="resetar">
                     Resetar
                 </button>
           
-                <button class="btn btn-success" data-bs-target="#modalToggle2"
-                    data-bs-toggle="modal" data-bs-dismiss="modal"
-                    _msttexthash="350038" _msthash="310" _mstvisible="4">
+                <button type="button" class="btn btn-success" id="btnSalvarAlterações">
                     Salvar alterações
                 </button>
             </div>
+          </form>
         </div>
     </div>
 </div>
@@ -256,23 +255,22 @@
 
     InstanciaBoostrapDoModal.toggle()
 
+
+
+
     
-    modal.querySelector("form").addEventListener("submit", async (evt) => {
-      evt.preventDefault();
+    const btn = document.querySelector("#resetar")
+    const form = document.getElementById("resetForm");
+    
 
-      try {
-        const paia = await axios.patch(
-          url,
-        );
- 
-      } catch (error) {
-        
-      }
-    });
+
+    btn.addEventListener("click",async (evnt) => {
+      
+      form.reset()
+
+    })
+    
   
-
-
-
     modal.addEventListener("hidden.bs.modal", () => {
 
       // quando o modal for fechado esse evento acionara e excluira o modal do body
@@ -296,8 +294,7 @@
     // transformando o objeto que está transformado em string para objeto dnv
 
 
-    console.log(objEjs)
-
+    
     // criando uma div no js
     const umadiv = document.createElement("div")
 
