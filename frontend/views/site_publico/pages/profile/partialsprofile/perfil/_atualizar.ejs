@@ -70,39 +70,35 @@
     username: {
       max: 90,
       min: 3,
-      caractereNpermitido: /[^a-zA-Z\s_\-\d]/g,
+      caractereNpermitido: ['NcaractereEspecial'],
       pattern: [
         "[a-zA-Z\\s_\\-\\d]{2,90}",
         "apelido valido",
         "apelido invalido",
       ],
-      btnoff: "paia"
-
+      btnoff: "required"
     },
     senha: {
       max: 50,
       min: 8,
-      caractereNpermitido: /[^a-zA-Z0-9\s]/g,
-      pattern: ["^[a-zA-Z0-9\\s]{8,50}$", "senha valida", "senha invalido"],
-      btnoff: "paia"
-
-      // customerro: (elem, text) => {if(elem.match(/a/)) text = "a senha deve conter ao menos 8 caracteres"}
+      caractereNpermitido: ['NcaractereEspecial', 'Nacentuacao'],
+      pattern: ["^[a-zA-Z0-9\\sáéíóúâêîôûàèìòùãõäëïöüçãõẽĩũâêîôûũṹỹḿẽĩỹẽẽỹẽỹã\´`~^]{8,50}$", "senha valida", "senha invalido"],
+      btnoff: "required"
     },
     email: {
       max: 64,
-      caractereNpermitido: /[^a-zA-Z0-9.@_-]/g,
       pattern: [
         "^[a-zA-Z0-9\\._+\\-]+@[a-zA-Z0-9\\.\\-]+\\.[a-zA-Z]{2,6}$",
         "email valido",
         "email invalido",
       ],
-      customerro: [(async (value) => {
+      customEvento: [(async (value) => {
         if (((await axios.get("http://localhost:9000/api/user/cadastrar/?email=" + value)).data.resultado.email)) {
           return "Esse email já está em uso"
         }
       })],
-      btnoff: "paia"
-    }
+      btnoff: "required"
+    },
   })
 
 

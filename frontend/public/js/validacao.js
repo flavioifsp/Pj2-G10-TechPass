@@ -32,11 +32,16 @@ class Inputs {
     this.inputs((input) => {
       const inputvalida = restricao[input.name];
 
+      // esse if vai ser servir para evitar erro se nem todos os inputs tiverem validacao
       if (inputvalida) {
+        // estou rodando um for no objeto que foi inserido na hr que chamou o metodo allvalidacao. Esse objeto contem os parametros de config de cd input
         for (const inputConfig in restricao) {
           if (Object.hasOwnProperty.call(restricao, inputConfig)) {
+            // se a iteração atual tem um btn off definido
             if (restricao[inputConfig].btnoff) {
+              // se a interção atual desse for corresponde ao input atual
               if (input.name == inputConfig) {
+                // se o input corresponse tem a gente add ele no vetor inputsOBG
                 inputsOBG.push(input);
               }
             }
@@ -46,6 +51,7 @@ class Inputs {
         // adicionar a restricao final
         input.pattern = inputvalida.pattern[0];
 
+        // criando a div de texto que fica embaixo do input
         const validdiv = document.createElement("div");
         validdiv.classList.add("px-2", "diverro");
         input.parentNode.appendChild(validdiv);
@@ -64,36 +70,87 @@ class Inputs {
           input.min = inputvalida.min;
         }
 
-        // n permitir certos caracteres e dar msg de erro
-        if (inputvalida.caractereNpermitido) {
+        // verificar se o caractere que ele inserieu está de acordo com o permitido
+        const listaDeErros = {
+          Nnumber: [/[0-9]/g, "Este campo não permite numero"],
+          Nletra: [/[a-zA-Z]/g, "Este campo não permite letra"],
+          NcaractereEspecial: [
+            /[!@#$%^&*()_+{}\[\]:;<>,.?~\\\/-]/g,
+            "Este campo não permite CaractereEspecial",
+          ],
+          Nacentuacao: [
+            /[áéíóúâêîôûàèìòùãõäëïöüçãõẽĩũâêîôûũṹỹḿẽĩỹẽẽỹẽỹã´`~^]/g,
+            "Este campo não permite letra com acentuação",
+          ],
+        };
+
+        const NpermitidosNoInput = inputvalida.caractereNpermitido;
+
+        if (NpermitidosNoInput) {
+          // adiciono um evento de input
           input.addEventListener("input", (el) => {
-            const alertDeErro = input.value.match(
-              inputvalida.caractereNpermitido
-            );
+            let remove = true;
 
-            if (alertDeErro && el.inputType != "insertFromPaste") {
-              input.classList.add("is-invalid");
-              validdiv.classList.add("invalid-feedback");
+            for (const Npermitido of NpermitidosNoInput) {
+              for (const erro in listaDeErros) {
+                if (Object.hasOwnProperty.call(listaDeErros, erro)) {
+                  if (erro === Npermitido) {
+                    const alertDeErro = input.value.match(
+                      listaDeErros[erro][0]
+                    );
 
-              validdiv.innerText = `o caractere "${el.data}" não é permitido neste campo. Ele será apagado`;
-            } else {
-              input.classList.remove("is-invalid");
+                    // se n estiver e não for tiver sido colado
+                    if (alertDeErro && el.inputType != "insertFromPaste") {
+                      input.classList.add("is-invalid");
+                      validdiv.classList.add("invalid-feedback");
+
+                      validdiv.innerText = listaDeErros[erro][1];
+
+                      input.value = input.value.replace(alertDeErro, "");
+
+                      remove = false;
+                      break;
+                    } else if (remove) {
+                      input.classList.remove("is-invalid");
+                    }
+                  }
+                }
+              }
             }
-
-            input.value = input.value.replace(
-              inputvalida.caractereNpermitido,
-              ""
-            );
           });
         }
 
         // para desativar o btn de submit
-
-        // for (const el of inputsOBG) {
         if (inputvalida.btnoff) {
           const btnsubmit = this.forms.querySelector('button[type="submit"]');
-
           const label = document.querySelector(`label[for="${input.id}"]`);
+
+          const texto = document.createElement("span");
+
+          texto.classList.add(
+            "position-absolute",
+            "top-100",
+            "start-50",
+            "translate-middle",
+            "btnsubmitMuitoPaia",
+            "pt-3",
+            "text-danger"
+          );
+
+          texto.innerText = "finalize";
+
+          function btndesativado() {
+            if (!btnsubmit.getAttribute("disabled")) {
+              btnsubmit.setAttribute("disabled", true);
+              btnsubmit.classList.add("position-relative");
+              btnsubmit.appendChild(texto);
+            }
+          }
+          function btnativado() {
+            const porra = btnsubmit.querySelector(".btnsubmitMuitoPaia");
+            btnsubmit.removeAttribute("disabled", "");
+            if (!!porra) btnsubmit.removeChild(porra);
+          }
 
           if (label && inputvalida.btnoff == "required") {
             label.innerHTML += '<span class="text-danger ">*</span>';
@@ -109,46 +166,65 @@ class Inputs {
                   (inputvalida.btnoff !== "required" &&
                     !e.classList.contains("is-invalid"))
                 ) {
-                  // console.log("formulario incompleto");
-                  btnsubmit.removeAttribute("disabled", "");
+                  btnativado();
                 } else {
-                  btnsubmit.setAttribute("disabled", "");
+                  btndesativado();
 
                   break;
                 }
               }
             }, 400);
           });
-          btnsubmit.setAttribute("disabled", "");
+
+          btndesativado();
 
           input.addEventListener("input", () => {
             if (!btnsubmit.getAttribute("disabled")) {
-              btnsubmit.setAttribute("disabled", "");
+              btndesativado();
             }
           });
         }
 
-        input.addEventListener("blur", async () => {
+        // autopontuar
+        input.addEventListener("blur", () => {
           // auto pontuar
           if (inputvalida.autopontuar) {
             input.value = input.value
               .replace(inputvalida.autopontuar[2], inputvalida.autopontuar[3])
               .replace(inputvalida.autopontuar[0], inputvalida.autopontuar[1]);
           }
+        });
 
-          // erro custom
+        input.addEventListener("blur", async () => {
+          // erro
           let erroCustom = null;
+          if (inputvalida.customErro) {
+            for (const erro of inputvalida.customErro) {
+              erroCustom = input.value.match(erro[0]);
+              if (erroCustom) {
+                erroCustom = erro[1];
+                break;
+              }
+            }
+          }
+
+          //
+          // //
+          //
+
+          // evento
+          let eventoCustom = null;
           if (
-            inputvalida.customerro &&
+            !inputvalida.erroCustom &&
             input.checkValidity() &&
             input.value.length != 0
           ) {
-            for (const elem of inputvalida.customerro) {
-              const divloading = document.createElement("div");
-              let divpai = input.parentNode;
+            for (const elem of inputvalida.customEvento) {
+              const divloading = document.createElement("div"); // criacao da div de carregamento
+              let divpai = input.parentNode; // para efeito de carregamento
+
               try {
                 // efeito de carregamento
-
                 divloading.setAttribute("class", "position-relative");
                 divloading.innerHTML = ` 
                 <div class="position-absolute top-50 end-0 translate-middle-y d-flex" style="margin-right: 5%">
@@ -157,42 +233,40 @@ class Inputs {
                   </div>
                 </div>
                 `;
-
                 divpai.appendChild(divloading);
-
                 divloading.appendChild(input);
-
-                const customerro = await elem(input.value);
-
+                const customEvento = await elem(input.value);
                 divpai = divloading.parentNode;
-
                 divpai.insertBefore(input, divpai.querySelector(".diverro"));
-
                 divpai = input.parentNode;
-
                 divpai.removeChild(divloading);
 
-                if (customerro) {
-                  erroCustom = customerro;
+                if (customEvento) {
+                  eventoCustom = customEvento;
                 }
               } catch (error) {
-                erroCustom = "falha ao verificar";
+                eventoCustom = "falha ao verificar";
 
                 divpai = divloading.parentNode;
-
                 divpai.insertBefore(input, divpai.querySelector(".diverro"));
-
                 divpai = input.parentNode;
-
                 divpai.removeChild(divloading);
-
                 acionarerro(error);
               }
             }
           }
 
+          //
+          // //
+          //
+
           //   checar a restricao final
-          if (input.checkValidity() && input.value.length != 0 && !erroCustom) {
+          if (
+            input.checkValidity() &&
+            input.value.length != 0 &&
+            !eventoCustom &&
+            !erroCustom
+          ) {
             // div de texto
             validdiv.classList.add("valid-feedback");
             validdiv.classList.remove("invalid-feedback");
@@ -210,11 +284,14 @@ class Inputs {
             // texto se a restricao final for negada
 
             // conferir o minimo de caracteres
-
-            if (erroCustom) {
-              validdiv.innerText = erroCustom;
-            } else if (input.value.length < inputvalida.min) {
+            if (input.value.length < inputvalida.min) {
               validdiv.innerText = `insira ao menos ${inputvalida.min} caracteres`;
+            } else if (input.value.length > inputvalida.max) {
+              validdiv.innerText = `Este campo permite apenas  ${inputvalida.max} caracteres!`;
+            } else if (erroCustom) {
+              validdiv.innerText = erroCustom;
+            } else if (eventoCustom) {
+              validdiv.innerText = eventoCustom;
             } else {
               validdiv.innerText = inputvalida.pattern[2];
             }
@@ -232,14 +309,18 @@ class Inputs {
             }
             errfinal = false;
           });
+
+          input.addEventListener("focus", () => {
+            if (errfinal) {
+              input.classList.remove("is-valid");
+              input.classList.remove("is-invalid");
+            }
+            errfinal = false;
+          });
         });
       }
     });
   }
-
-
-  
-
 
   // é para simplificar na hr de criar um post de criacao
   cadastrar(url, data = null, erro = () => {}, success = () => {}) {
@@ -303,7 +384,6 @@ class Inputs {
     }
   }
 
-  
   patchInfo(url, erro = () => {}, success = () => {}) {
     this.forms.addEventListener("submit", async (evt) => {
       evt.preventDefault();

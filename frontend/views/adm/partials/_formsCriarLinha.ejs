@@ -1,0 +1,95 @@
+<!-- botao -->
+<button type="button" class="btn btn-primary"  onclick="modalforms()">
+  Adicionar linha
+</button>
+
+<!-- modal para criar um ponto de onibus -->
+<div class="modal fade" id="createLinhas" tabindex="-1" aria-labelledby="createLinhasLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="createLinhasLabel">
+          Adicionando linha
+        </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <form novalidate id="formspontodeonibus">
+        <div class="modal-body">
+          <div class="row g-2">
+
+            <div class="row ps-1 ">
+              <div class="col-md-4  col-9 ">
+                <label for="numero_linha" class="form-label">Numero da linha</label>
+                <input type="number" class="form-control" id="numero_linha" name="numero_linha" required />
+              </div>
+            </div>
+
+            <div class="col-md-6 col-12">
+              <label for="bairroDestino" class="form-label">1° Bairro</label>
+              <input type="text" class="form-control" id="bairroDestino" name="bairroDestino" required>
+            </div>
+            <div class="col-md-6 col-12">
+              <label for="bairroOrigem" class="form-label">2° Bairro</label>
+              <input type="text" class="form-control" id="bairroOrigem" name="bairroOrigem" required />
+            </div>
+
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Cancelar
+          </button>
+          <button type="submit" class="btn btn-primary ">
+            avançar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<script>
+  
+
+    function modalforms() {
+        
+      const formsCreateLinhas = new Inputs("#createLinhas")
+      const boostrap = new bootstrap.Modal(formsCreateLinhas.forms)
+
+
+      formsCreateLinhas.allvalidacao({
+        numero_linha: {
+          min: 1,
+          max: 4,
+          caractereNpermitido: /[^\d]/g,
+          pattern: ["(\\d{1,4})", "numero valido", "numero invalido"],
+          btnoff: "required",
+        },
+        bairroDestino: {
+          min: 1,
+          max: 20,
+          caractereNpermitido: /[^a-zA-ZÀ-ÿ0-9\s'-]/g,
+          pattern: ["^[a-zA-ZÀ-ÿ0-9\\s'-]{2}$", "bairro valido", "bairro invalido"],
+          btnoff: "required",
+        },
+        bairroOrigem: {
+          min: 1,
+          max: 20,
+          caractereNpermitido: /[^a-zA-ZÀ-ÿ0-9\s\'\-]/g,
+          pattern: ["^[a-zA-ZÀ-ÿ0-9\\s'\-]{2}$", "bairro valido", "bairro invalido"],
+          btnoff: "required",
+        }
+      })
+
+      boostrap.toggle()
+    }
+
+    // formsCreateLinhas.allvalidacao()
+
+  
+</script>
