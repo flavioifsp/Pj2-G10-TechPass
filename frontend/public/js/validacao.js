@@ -76,10 +76,10 @@ class Inputs {
           Nletra: [/[a-zA-Z]/g, "Este campo não permite letra"],
           NcaractereEspecial: [
             /[!@#$%^&*()_+{}\[\]:;<>,.?~\\\/-]/g,
-            "Este campo não permite CaractereEspecial",
+            "Este campo não permite Caractere especiais",
           ],
           Nacentuacao: [
-            /[áéíóúâêîôûàèìòùãõäëïöüçãõẽĩũâêîôûũṹỹḿẽĩỹẽẽỹẽỹã´`~^]/g,
+            /[À-ÿáéíóúâêîôûàèìòùãõäëïöüçãõẽĩũâêîôûũṹỹḿẽĩỹẽẽỹẽỹã´`~^]/g,
             "Este campo não permite letra com acentuação",
           ],
         };
@@ -215,7 +215,8 @@ class Inputs {
           // evento
           let eventoCustom = null;
           if (
-            !inputvalida.erroCustom &&
+            !erroCustom &&
+            inputvalida.customEvento &&
             input.checkValidity() &&
             input.value.length != 0
           ) {
