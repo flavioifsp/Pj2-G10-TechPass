@@ -1,10 +1,14 @@
 <!-- botao -->
-<button type="button" class="btn btn-primary" onclick="criarLinha.next()">
-  Adicionar linha
-</button>
+<button type="button" id="paia" class="btn btn-primary">Adicionar linha</button>
 
 <!-- modal para criar um ponto de onibus -->
-<div class="modal fade" id="createLinhas" tabindex="-1" aria-labelledby="createLinhasLabel" aria-hidden="true">
+<div
+  class="modal fade"
+  id="createLinhas"
+  tabindex="-1"
+  aria-labelledby="createLinhasLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <form novalidate id="formspontodeonibus">
@@ -12,12 +16,21 @@
           <h1 class="modal-title fs-5" id="createLinhasLabel">
             Adicionando linha
           </h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
         </div>
 
         <div class="modal-body"></div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
             Cancelar
           </button>
           <button type="submit" class="btn btn-primary">avançar</button>
@@ -28,46 +41,52 @@
 </div>
 
 <script>
-  function* modalforms(formsDoModal) {
+  document.addEventListener("DOMContentLoaded", () => {
     const formsCreateLinhas = new Inputs("#createLinhas");
     const forms = formsCreateLinhas.forms;
     const boostrap = new bootstrap.Modal(forms);
-
-    
-    
-    boostrap.show();
-    
     const infos = new Map();
-    for (const umModal of formsDoModal) {
 
-      
-      ["footer", "body", "header"].forEach((parte, i) => {
-        const parteDoModal = umModal.forms[parte]
-        const parteDoModalNoSite = forms.querySelector(`.${["modal-footer", "modal-body", "modal-header"][i]}`)
-        if(parteDoModal) parteDoModalNoSite.innerHTML = parteDoModal
+    function modalforms(formsDoModal, modalEscolhido) {
+
+
+      formsDoModal.forEach((umModal, indice) => {
+        if (indice == modalEscolhido) {
+          boostrap.show();
+          ["footer", "body", "header"].forEach((parte, i) => {
+            const parteDoModal = umModal.forms[parte];
+            const parteDoModalNoSite = forms.querySelector(
+              `.${["modal-footer", "modal-body", "modal-header"][i]}`
+            );
+            if (parteDoModal) parteDoModalNoSite.innerHTML = parteDoModal;
+          });
+
+          formsCreateLinhas.allvalidacao(umModal.validacao);
+
+          forms.addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            formsCreateLinhas.inputs(({ name, value }) =>
+              infos.set(name, value)
+            );
+
+            boostrap.hide();
+          });
+
+          forms.addEventListener("hidden.bs.modal", () =>{
+            console.log()
+            modalforms(formsDoModal, (indice++))
+          })
+        }
       });
-     
-      
-      
-      formsCreateLinhas.allvalidacao(umModal.validacao);
-      
-      
-      forms.addEventListener("submit", (e) => {
-        e.preventDefault();
-        
-        
-        formsCreateLinhas.inputs(({name, value}) => infos.set(name, value))
-        
-        boostrap.hide()
-        forms.addEventListener("hidden.bs.modal", () =>{ yield})
-      });
-      
+
+
     }
-  }
 
-  const criarLinha = modalforms([{
-    forms: {
-      body: `
+    const modais = [
+      {
+        forms: {
+          body: `
          <div class="row g-2">
               <div class="row ps-1 ">
                 <div class="col-md-4  col-9 ">
@@ -86,38 +105,48 @@
               </div>
             </div>
         `,
-    },
+        },
 
-    validacao: {
-      numero_linha: {
-        min: 1,
-        max: 4,
-        caractereNpermitido: ["Nletra", "NcaractereEspecial", "Nacentuacao"],
-        pattern: ["^(\\d{1,4})$", "numero valido", "numero invalido"],
-        btnoff: "required",
+        validacao: {
+          numero_linha: {
+            min: 1,
+            max: 4,
+            caractereNpermitido: [
+              "Nletra",
+              "NcaractereEspecial",
+              "Nacentuacao",
+            ],
+            pattern: ["^(\\d{1,4})$", "numero valido", "numero invalido"],
+            btnoff: "required",
+          },
+          bairroDestino: {
+            min: 3,
+            max: 20,
+            caractereNpermitido: ["Nnumber", "NcaractereEspecial"],
+            pattern: [
+              "(^[a-zA-ZÀ-ÿ0-9\\s'\\-]{3,20}$)",
+              "bairro valido",
+              "bairro invalido",
+            ],
+            btnoff: "required",
+          },
+          bairroOrigem: {
+            min: 3,
+            max: 20,
+            caractereNpermitido: ["Nnumber", "NcaractereEspecial"],
+            pattern: [
+              "(^[a-zA-ZÀ-ÿ0-9\\s'\\-]{3,20}$)",
+              "bairro valido",
+              "bairro invalido",
+            ],
+            btnoff: "required",
+          },
+        },
       },
-      bairroDestino: {
-        min: 3,
-        max: 20,
-        caractereNpermitido: ["Nnumber", "NcaractereEspecial"],
-        pattern: [
-          "(^[a-zA-ZÀ-ÿ0-9\\s'\\-]{3,20}$)",
-          "bairro valido",
-          "bairro invalido",
-        ],
-        btnoff: "required",
-      },
-      bairroOrigem: {
-        min: 3,
-        max: 20,
-        caractereNpermitido: ["Nnumber", "NcaractereEspecial"],
-        pattern: [
-          "(^[a-zA-ZÀ-ÿ0-9\\s'\\-]{3,20}$)",
-          "bairro valido",
-          "bairro invalido",
-        ],
-        btnoff: "required",
-      },
-    },
-  }, ]);
+    ];
+
+    document.querySelector("#paia").addEventListener("click", () => {
+      modalforms(modais, 0);
+    });
+  });
 </script>
