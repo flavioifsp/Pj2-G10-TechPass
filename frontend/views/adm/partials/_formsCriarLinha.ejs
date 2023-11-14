@@ -2,35 +2,37 @@
 <button type="button" id="paia" class="btn btn-primary">Adicionar linha</button>
 
 <!-- modal para criar um ponto de onibus -->
-<div
-  class="modal fade"
-  id="createLinhas"
-  tabindex="-1"
-  aria-labelledby="createLinhasLabel"
-  aria-hidden="true"
->
+<div class="modal fade" id="createLinhas1" tabindex="-1" aria-labelledby="createLinhas1Label" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <form novalidate id="formspontodeonibus">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="createLinhasLabel">
+          <h1 class="modal-title fs-5" id="createLinhas1Label">
             Adicionando linha
           </h1>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
 
-        <div class="modal-body"></div>
+        <div class="modal-body">
+          <div class="row g-2">
+            <div class="row ps-1 ">
+              <div class="col-md-4  col-9 ">
+                <label for="numero_linha" class="form-label">Numero da linha</label>
+                <input type="text" class="form-control" id="numero_linha" name="numero_linha" required />
+              </div>
+            </div>
+            <div class="col-md-6 col-12">
+              <label for="bairroDestino" class="form-label">1° Bairro</label>
+              <input type="text" class="form-control" id="bairroDestino" name="bairroDestino" required>
+            </div>
+            <div class="col-md-6 col-12">
+              <label for="bairroOrigem" class="form-label">2° Bairro</label>
+              <input type="text" class="form-control" id="bairroOrigem" name="bairroOrigem" required />
+            </div>
+          </div>
+        </div>
         <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-bs-dismiss="modal"
-          >
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
             Cancelar
           </button>
           <button type="submit" class="btn btn-primary">avançar</button>
@@ -40,113 +42,133 @@
   </div>
 </div>
 
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const formsCreateLinhas = new Inputs("#createLinhas");
-    const forms = formsCreateLinhas.forms;
-    const boostrap = new bootstrap.Modal(forms);
-    const infos = new Map();
 
-    function modalforms(formsDoModal, modalEscolhido) {
+<!-- modal para criar um ponto de onibus -->
+<div class="modal fade" id="createLinhas2" tabindex="-1" aria-labelledby="createLinhas2Label" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <form novalidate id="formspontodeonibus">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5">
+            Adicionando linha
+          </h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
 
-
-      formsDoModal.forEach((umModal, indice) => {
-        if (indice == modalEscolhido) {
-          boostrap.show();
-          ["footer", "body", "header"].forEach((parte, i) => {
-            const parteDoModal = umModal.forms[parte];
-            const parteDoModalNoSite = forms.querySelector(
-              `.${["modal-footer", "modal-body", "modal-header"][i]}`
-            );
-            if (parteDoModal) parteDoModalNoSite.innerHTML = parteDoModal;
-          });
-
-          formsCreateLinhas.allvalidacao(umModal.validacao);
-
-          forms.addEventListener("submit", (e) => {
-            e.preventDefault();
-
-            formsCreateLinhas.inputs(({ name, value }) =>
-              infos.set(name, value)
-            );
-
-            boostrap.hide();
-          });
-
-          forms.addEventListener("hidden.bs.modal", () =>{
-            console.log()
-            modalforms(formsDoModal, (indice++))
-          })
-        }
-      });
-
-
-    }
-
-    const modais = [
-      {
-        forms: {
-          body: `
-         <div class="row g-2">
-              <div class="row ps-1 ">
-                <div class="col-md-4  col-9 ">
-                  <label for="numero_linha" class="form-label">Numero da linha</label>
-                  <input type="text" class="form-control" id="numero_linha" name="numero_linha" required />
-                </div>
-              </div>
-
-              <div class="col-md-6 col-12">
-                <label for="bairroDestino" class="form-label">1° Bairro</label>
-                <input type="text" class="form-control" id="bairroDestino" name="bairroDestino" required>
-              </div>
-              <div class="col-md-6 col-12">
-                <label for="bairroOrigem" class="form-label">2° Bairro</label>
-                <input type="text" class="form-control" id="bairroOrigem" name="bairroOrigem" required />
+        <div class="modal-body">
+          <div class="row g-2">
+            <div class="row ps-1 ">
+              <div class="col-md-4  col-9 ">
+                <label for="numero_linha" class="form-label">Numerfsdfdso da linha</label>
+                <input type="text" class="form-control" id="numero_linha" name="numero_linha" required />
               </div>
             </div>
-        `,
-        },
+            <div class="col-md-6 col-12">
+              <label for="bairroDestino" class="form-label">1° Bairro</label>
+              <input type="text" class="form-control" id="bairroDestino" name="bairroDestino" required>
+            </div>
+            <div class="col-md-6 col-12">
+              <label for="bairroOrigem" class="form-label">2° Bairro</label>
+              <input type="text" class="form-control" id="bairroOrigem" name="bairroOrigem" required />
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Cancelar
+          </button>
+          <button type="submit" class="btn btn-primary">avançar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 
-        validacao: {
-          numero_linha: {
-            min: 1,
-            max: 4,
-            caractereNpermitido: [
-              "Nletra",
-              "NcaractereEspecial",
-              "Nacentuacao",
-            ],
-            pattern: ["^(\\d{1,4})$", "numero valido", "numero invalido"],
-            btnoff: "required",
-          },
-          bairroDestino: {
-            min: 3,
-            max: 20,
-            caractereNpermitido: ["Nnumber", "NcaractereEspecial"],
-            pattern: [
-              "(^[a-zA-ZÀ-ÿ0-9\\s'\\-]{3,20}$)",
-              "bairro valido",
-              "bairro invalido",
-            ],
-            btnoff: "required",
-          },
-          bairroOrigem: {
-            min: 3,
-            max: 20,
-            caractereNpermitido: ["Nnumber", "NcaractereEspecial"],
-            pattern: [
-              "(^[a-zA-ZÀ-ÿ0-9\\s'\\-]{3,20}$)",
-              "bairro valido",
-              "bairro invalido",
-            ],
-            btnoff: "required",
-          },
-        },
-      },
-    ];
 
-    document.querySelector("#paia").addEventListener("click", () => {
-      modalforms(modais, 0);
-    });
-  });
+<!-- modal para criar um ponto de onibus -->
+<div class="modal fade" id="createLinhas3" tabindex="-1" aria-labelledby="createLinhas3Label" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <form novalidate id="formspontodeonibus">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5">
+            Adicionando linha
+          </h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+          <div class="row g-2">
+            <div class="row ps-1 ">
+              <div class="col-md-4  col-9 ">
+                <label for="numero_linha" class="form-label">Numero sdfsdfda linha</label>
+                <input type="text" class="form-control" id="numero_linha" name="numero_linha" required />
+              </div>
+            </div>
+            <div class="col-md-6 col-12">
+              <label for="bairroDestino" class="form-label">1° Bairro</label>
+              <input type="text" class="form-control" id="bairroDestino" name="bairroDestino" required>
+            </div>
+            <div class="col-md-6 col-12">
+              <label for="bairroOrigem" class="form-label">2° Bairro</label>
+              <input type="text" class="form-control" id="bairroOrigem" name="bairroOrigem" required />
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Cancelar
+          </button>
+          <button type="submit" class="btn btn-primary">avançar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<script>
+  class ModalParteForms {
+    constructor(idModal) {
+      this.modal = document.querySelector(idModal)
+      this.Validforms = new Inputs(modal.querySelector("form"))
+      this.form = this.Validforms.forms
+      this.ModalInsta = new bootstrap.Modal(this.form)
+    }
+
+    allvalidacao(objComAsValidacoes) {
+      this.Validforms.allvalidacao(objComAsValidacoes)
+    }
+
+
+    abrirModal(ModalAnterior) {
+      ModalAnterior.addEventListener("hidden.bs.modal", () => {
+        this.ModalInsta.show()
+      })
+    }
+
+    fecharModal() {
+      this.ModalInsta.hide()
+    }
+
+    guardarValues(objMap) {
+      this.Validforms.inputs((input) => {
+        const {name, value} = input
+        objMap.set(name, value)
+      })
+    }
+  }
+
+
+  document.addEventListener("DOMContentLoaded", () => {
+    infos = new Map()
+
+
+
+
+    
+  })
 </script>
