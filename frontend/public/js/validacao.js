@@ -1,7 +1,11 @@
 class Inputs {
   constructor(forms) {
     // criando uma variavel para o forms
-    this.forms = document.querySelector(forms);
+    if (typeof forms == "object") {
+      this.forms == forms
+    } else{
+      this.forms = document.querySelector(forms);
+    }
 
     // essa funcao recebe uma funcao que rodara em todos os inputs
     this.inputs = (funcao) => {
