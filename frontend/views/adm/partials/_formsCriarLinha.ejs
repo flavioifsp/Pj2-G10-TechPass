@@ -4,7 +4,13 @@
 </button>
 
 <!-- modal para criar um ponto de onibus -->
-<div class="modal fade" id="createLinhas1" tabindex="-1" aria-labelledby="createLinhas1Label" aria-hidden="true">
+<div
+  class="modal fade"
+  id="createLinhas1"
+  tabindex="-1"
+  aria-labelledby="createLinhas1Label"
+  aria-hidden="true"
+>
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <form novalidate id="formspontodeonibus">
@@ -12,29 +18,58 @@
           <h1 class="modal-title fs-5" id="createLinhas1Label">
             Adicionando linha
           </h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
         </div>
 
         <div class="modal-body">
           <div class="row g-2">
             <div class="row ps-1">
               <div class="col-md-4 col-9">
-                <label for="numero_linha" class="form-label">Numero da linha</label>
-                <input type="text" class="form-control" id="numero_linha" name="numero_linha" required />
+                <label for="numero_linha" class="form-label"
+                  >Numero da linha</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="numero_linha"
+                  name="numero_linha"
+                  required
+                />
               </div>
             </div>
             <div class="col-md-6 col-12">
               <label for="bairroDestino" class="form-label">1° Bairro</label>
-              <input type="text" class="form-control" id="bairroDestino" name="bairroDestino" required />
+              <input
+                type="text"
+                class="form-control"
+                id="bairroDestino"
+                name="bairroDestino"
+                required
+              />
             </div>
             <div class="col-md-6 col-12">
               <label for="bairroOrigem" class="form-label">2° Bairro</label>
-              <input type="text" class="form-control" id="bairroOrigem" name="bairroOrigem" required />
+              <input
+                type="text"
+                class="form-control"
+                id="bairroOrigem"
+                name="bairroOrigem"
+                required
+              />
             </div>
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary btnvoltar" data-paia="1">
+          <button
+            type="button"
+            class="btn btn-secondary btnvoltar"
+            data-paia="1"
+          >
             Cancelar
           </button>
           <button type="submit" class="btn btn-primary">avançar</button>
@@ -45,35 +80,70 @@
 </div>
 
 <!-- modal para criar um ponto de onibus -->
-<div class="modal fade" id="createLinhas2" tabindex="-1" aria-labelledby="createLinhas2Label" aria-hidden="true">
+<div
+  class="modal fade"
+  id="createLinhas2"
+  tabindex="-1"
+  aria-labelledby="createLinhas2Label"
+  aria-hidden="true"
+>
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <form novalidate id="formspontodeonibus">
         <div class="modal-header">
           <h1 class="modal-title fs-5">Adicionando linha</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
         </div>
 
         <div class="modal-body">
           <div class="row g-2">
             <div class="row ps-1">
               <div class="col-md-4 col-9">
-                <label for="numero_linha" class="form-label">Numerfsdfdso PAIOSO da linha</label>
-                <input type="text" class="form-control" id="numero_linha" name="numero_linha" required />
+                <label for="numero_linha" class="form-label"
+                  >Numerfsdfdso PAIOSO da linha</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="numero_linha"
+                  name="numero_linha"
+                  required
+                />
               </div>
             </div>
             <div class="col-md-6 col-12">
               <label for="bairroDestino" class="form-label">1° Bairro</label>
-              <input type="text" class="form-control" id="bairroDestino" name="bairroDestino" required />
+              <input
+                type="text"
+                class="form-control"
+                id="bairroDestino"
+                name="bairroDestino"
+                required
+              />
             </div>
             <div class="col-md-6 col-12">
               <label for="bairroOrigem" class="form-label">2° Bairro</label>
-              <input type="text" class="form-control" id="bairroOrigem" name="bairroOrigem" required />
+              <input
+                type="text"
+                class="form-control"
+                id="bairroOrigem"
+                name="bairroOrigem"
+                required
+              />
             </div>
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary btnvoltar" data-paia="2">
+          <button
+            type="button"
+            class="btn btn-secondary btnvoltar"
+            data-paia="2"
+          >
             Cancelar
           </button>
           <button type="submit" class="btn btn-primary">avançar</button>
@@ -145,10 +215,7 @@
 
     guardarValues(objMap) {
       this.Validforms.inputs((input) => {
-        const {
-          name,
-          value
-        } = input;
+        const { name, value } = input;
 
         objMap.set(name, value);
       });
@@ -159,11 +226,28 @@
     const formParte1 = new ModalParteForms("#createLinhas1");
     const formParte2 = new ModalParteForms("#createLinhas2");
 
-    function paginacao(...modalsForm) {
+    function paginas(...modalsForm) {
       infos = new Map();
 
-      const paginas = function*(curso) {
-        for (paginaAtual = 0; paginaAtual <= modalsForm.length;) {
+      
+      const onclick = `document.addEventListener("DOMContentLoaded", () =>{
+        paiosodms
+      })`
+
+      document.querySelector("#abrirCadastroDelinhas").setAttribute("onclick", onclick.replace("paiosodms", `paginacao.next()`))
+      modalsForm.forEach((element) => {
+        element.modal
+          .querySelector(".btnvoltar")
+          .setAttribute("onclick", onclick.replace("paiosodms", `paginacao.next(<)`));
+        element.modal
+          .querySelector('button[type="submit"]')
+          .setAttribute("onclick", onclick.replace("paiosodms", `paginacao.next(>)`));
+      });
+
+      document.querySelector("#abrirCadastroDelinhas");
+
+      return function* (curso) {
+        for (paginaAtual = 0; paginaAtual <= modalsForm.length; ) {
           const FormAtual = modalsForm[paginaAtual];
 
           if (curso == ">") {
@@ -171,30 +255,20 @@
             formAtual.avancarForm(modalProximo, infos, () => {
               paginaAtual++;
             });
-
-
           } else if (curso == "<") {
             const FormAnterior = modalsForm[paginaAtual - 1] || null;
             formAtual.voltarForm(FormAnterior, () => {
               paginaAtual--;
             });
-
-
           } else {
-            yield FormAtual
+            FormAtual.abrirModal();
           }
 
-          yield
-
+          yield;
         }
       };
-
-      
-
-      document.querySelector("#abrirCadastroDelinhas").addEventListener("click", () => {
-        modalatual.abrirModal(paginas())
-      })
     }
 
+    const paginacao = paginas(formParte1, formParte2);
   });
 </script>
