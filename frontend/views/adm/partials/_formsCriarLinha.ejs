@@ -153,6 +153,7 @@
   </div>
 </div>
 
+
 <script>
   class ModalParteForms {
     constructor(idModal) {
@@ -222,53 +223,53 @@
     }
   }
 
-  document.addEventListener("DOMContentLoaded", () => {
-    const formParte1 = new ModalParteForms("#createLinhas1");
-    const formParte2 = new ModalParteForms("#createLinhas2");
-
-    function paginas(...modalsForm) {
-      infos = new Map();
-
+  function paginas(...modalsForm) {
+    document.addEventListener("DOMContentLoaded", () => {
       
-      const onclick = `document.addEventListener("DOMContentLoaded", () =>{
-        paiosodms
-      })`
-
-      document.querySelector("#abrirCadastroDelinhas").setAttribute("onclick", onclick.replace("paiosodms", `paginacao.next()`))
+      document
+        .querySelector("#abrirCadastroDelinhas")
+        .setAttribute("onclick", `paginacao.next()`);
       modalsForm.forEach((element) => {
         element.modal
           .querySelector(".btnvoltar")
-          .setAttribute("onclick", onclick.replace("paiosodms", `paginacao.next(<)`));
+          .setAttribute("onclick", `paginacao.next("<")`);
         element.modal
           .querySelector('button[type="submit"]')
-          .setAttribute("onclick", onclick.replace("paiosodms", `paginacao.next(>)`));
+          .setAttribute("onclick", `paginacao.next(">")`);
       });
+    });
+    infos = new Map();
 
-      document.querySelector("#abrirCadastroDelinhas");
+    return (function* () {
+      for (paginaAtual = 0; paginaAtual <= modalsForm.length; ) {
+        const FormAtual = modalsForm[paginaAtual];
 
-      return function* (curso) {
-        for (paginaAtual = 0; paginaAtual <= modalsForm.length; ) {
-          const FormAtual = modalsForm[paginaAtual];
+        let curso
 
-          if (curso == ">") {
-            const FormProximo = modalsForm[paginaAtual + 1];
-            formAtual.avancarForm(modalProximo, infos, () => {
-              paginaAtual++;
-            });
-          } else if (curso == "<") {
-            const FormAnterior = modalsForm[paginaAtual - 1] || null;
-            formAtual.voltarForm(FormAnterior, () => {
-              paginaAtual--;
-            });
-          } else {
-            FormAtual.abrirModal();
-          }
+        console.log(curso)
+        if (curso == ">") {
+          const FormProximo = modalsForm[paginaAtual + 1];
+          formAtual.avancarForm(modalProximo, infos, () => {
+            paginaAtual++;
+          });
+        } else if (curso == "<") {
+          console.log("b")
 
-          yield;
+          const FormAnterior = modalsForm[paginaAtual - 1] || null;
+          formAtual.voltarForm(FormAnterior, () => {
+            paginaAtual--;
+          });
+        } else {
+          FormAtual.abrirModal();
         }
-      };
-    }
 
-    const paginacao = paginas(formParte1, formParte2);
-  });
+        curso = yield
+      }
+    }())
+  }
+
+  const formParte1 = new ModalParteForms("#createLinhas1");
+  const formParte2 = new ModalParteForms("#createLinhas2");
+
+  const paginacao = paginas(formParte1, formParte2);
 </script>
