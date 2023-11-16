@@ -34,7 +34,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary btnvoltar">
+          <button type="button" class="btn btn-secondary btnvoltar" data-paia="1">
             Cancelar
           </button>
           <button type="submit" class="btn btn-primary">avançar</button>
@@ -73,7 +73,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary btnvoltar">
+          <button type="button" class="btn btn-secondary btnvoltar" data-paia="2">
             Cancelar
           </button>
           <button type="submit" class="btn btn-primary">avançar</button>
@@ -100,50 +100,48 @@
       this.ModalInsta.hide();
     }
 
-    abrirModal(ModalAnterior = null) {
-      if (ModalAnterior) {
-        ModalAnterior.modal.addEventListener("hidden.bs.modal", () => {
+    abrirModal(modalAnterior = null) {
+      if (modalAnterior) {
+        modalAnterior.modal.addEventListener("hidden.bs.modal", () => {
           this.ModalInsta.show();
-          
         });
       } else {
         this.ModalInsta.show();
       }
     }
 
-    avancarForm(ModalAnterior, objMap, callback = () => {}) {
-      ModalAnterior.modal.addEventListener("submit", (evt) => {
-        evt.preventDefault();
+    avancarForm(modalProximo, objMap, callback = () => {}) {
+      // this.modal.addEventListener("submit", (evt) => {
+      evt.preventDefault();
 
-        callback();
+      callback();
 
-        ModalAnterior.guardarValues(objMap);
-        this.abrirModal(ModalAnterior);
-        ModalAnterior.fecharModal();
+      this.guardarValues(objMap);
+      modalProximo.abrirModal({
+        modal: this.modal,
       });
+      this.fecharModal();
+
+      // });
     }
 
-    voltarForm(ModalAnterior, callback = () => {}) {
-      const btnvoltar = ModalAnterior.modal.querySelector(".btnvoltar")
-      btnvoltar.addEventListener("click", () => {
-        console.log(btnvoltar);
+    voltarForm(modalAnterior, callback = () => {}) {
+      // const btnvoltar = this.modal.querySelector(".btnvoltar");
 
-        console.log("sx");
-        callback();
+      // btnvoltar.addEventListener("click", () => {
+      // objMap.forEach((elem) => {
+      //   this.Validforms.inputs(() => {
 
+      //   })
+      // })
 
-        // objMap.forEach((elem) => {
-        //   this.Validforms.inputs(() => {
+      callback();
 
-        //   })
-        // })
+      if (modalAnterior) modalAnterior.abrirModal(this);
+      this.fecharModal();
 
-
-        ModalAnterior.abrirModal(this);
-        this.fecharModal();
-      });
+      // });
     }
-
 
     guardarValues(objMap) {
       this.Validforms.inputs((input) => {
@@ -153,52 +151,50 @@
         } = input;
 
         objMap.set(name, value);
-
       });
     }
   }
 
   document.addEventListener("DOMContentLoaded", () => {
-    infos = new Map();
-
     const formParte1 = new ModalParteForms("#createLinhas1");
     const formParte2 = new ModalParteForms("#createLinhas2");
 
+    function paginacao(...modalsForm) {
+      infos = new Map();
+
+      const paginas = function*(curso) {
+        for (paginaAtual = 0; paginaAtual <= modalsForm.length;) {
+          const FormAtual = modalsForm[paginaAtual];
+
+          if (curso == ">") {
+            const FormProximo = modalsForm[paginaAtual + 1];
+            formAtual.avancarForm(modalProximo, infos, () => {
+              paginaAtual++;
+            });
 
 
+          } else if (curso == "<") {
+            const FormAnterior = modalsForm[paginaAtual - 1] || null;
+            formAtual.voltarForm(FormAnterior, () => {
+              paginaAtual--;
+            });
 
-    let i = 0
-    const formsALL = [formParte1, formParte2]
-    for (const Indiceform in formsALL) {
-      const modalAtual = formsALL[i]
-      const ModalAnterior = formsALL[i - 1] || formsALL[0]
-      const ModalProximo = formsALL[i + 1]
 
-      modalAtual.voltarForm(ModalAnterior, () => {
-        console.log(i);
-        i--
-      })
+          } else {
+            yield FormAtual
+          }
+
+          yield
+
+        }
+      };
+
       
-      ModalProximo.avancarForm(modalAtual, infos, () => {
-        console.log(i);
-        i++
-      });
 
-
+      document.querySelector("#abrirCadastroDelinhas").addEventListener("click", () => {
+        modalatual.abrirModal(paginas())
+      })
     }
 
-
-
-    const btnAbrirCadastro = document.querySelector("#abrirCadastroDelinhas")
-    btnAbrirCadastro.addEventListener("click", () => {
-      console.log(i);
-
-      formsALL[i].abrirModal();
-    })
-
-
-
-
-    // formParte3.avancarForm(formParte2, infos, () => {i++});
   });
 </script>
