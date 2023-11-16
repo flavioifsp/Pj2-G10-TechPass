@@ -1,11 +1,7 @@
 class Inputs {
   constructor(forms) {
     // criando uma variavel para o forms
-    if (typeof forms == "object") {
-      this.forms == forms
-    } else{
-      this.forms = document.querySelector(forms);
-    }
+    this.forms = document.querySelector(forms);
 
     // essa funcao recebe uma funcao que rodara em todos os inputs
     this.inputs = (funcao) => {
@@ -399,6 +395,19 @@ class Inputs {
           this.allValues(),
           getCookie("token")
         );
+        success();
+      } catch (error) {
+        acionarerro(error);
+      }
+    });
+  }
+
+  patchInfoSemToken(url, erro = () => {}, success = () => {}) {
+    this.forms.addEventListener("submit", async () => {
+      evt.preventDefault();
+
+      try {
+        const paia = await axios.patch(url, this.allValues());
         success();
       } catch (error) {
         acionarerro(error);
