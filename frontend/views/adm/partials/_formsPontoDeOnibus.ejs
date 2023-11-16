@@ -76,7 +76,7 @@
         customEvento: [
           (async (value) => {
             try {
-              informacoesdaAPI = (await axios.get(`https://brasilapi.com.br/api/cep/v2/${value}`)).data
+              informacoesdaAPI = (await axios.get(`https://brasilapi.com.br/api/cep/v2/${value}`)).data 
 
 
               formsponto.inputs((input) => {
