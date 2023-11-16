@@ -141,7 +141,7 @@ class Inputs {
             "text-danger"
           );
 
-          texto.innerText = "finalize";
+          // texto.innerText = "finalize";
 
           function btndesativado() {
             if (!btnsubmit.getAttribute("disabled")) {
