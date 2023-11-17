@@ -92,6 +92,39 @@ router.post("/bus-stop", async (req, res) => {
   }
 });
 
+router.put("/bus-stop", async (req, res) => {
+  const {  id, cepInput, street, state, city, neighborhood, lat, lng } = req.body;
+
+  
+  try {
+    const editBusStop = await prisma.ponto_de_onibus.update({
+
+      where:{
+        id: id
+      },
+
+      data: {
+        cep: cepInput,
+        endereco: `${street}, ${neighborhood}, ${city}, ${state}`,
+        lat: lat,
+        lng: lng,
+      },
+      select: {
+        endereco: true,
+      },
+      
+    });
+    console.log(editBusStop)
+    res.status(201).json({
+      message: `Ponto no endereço foi  alterado com sucesso!`,
+    });
+  } catch (error) {
+    const erro = exception(error);
+    console.log(error);
+    res.status(erro.code).send(erro.msg);
+  }
+});
+
 // mostrar todos os pontos
 router.get("/bus-stop", async (req, res) => {
   try {

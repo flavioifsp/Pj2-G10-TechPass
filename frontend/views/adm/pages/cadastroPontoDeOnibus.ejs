@@ -5,6 +5,7 @@
 <div id="alert"></div>
 <script>
   alert("stopBusCreate");
+  alert("stopBusEdit");
   alert("stopBusDelete");
 </script>
 
@@ -66,11 +67,6 @@
                   </div>
                 </div>
               </div>
-
-              <!-- <button class="btn btn-warning py-1 px-2" onclick='modalEdit(<%-JSON.stringify(elem)%>)' data-bs-target="#pontodeonibus<%= elem.id%>" data-bs-toggle="modal" data-bs-dismiss="modal" _msttexthash="350038" _msthash="310" _mstvisible="4">
-                <i class="bi bi-pencil-square"></i>
-              </button> -->
-
 
 
               <button class="btn btn-warning py-1 px-2" onclick='modalEdit(<%-JSON.stringify(elem)%>)'>
@@ -229,33 +225,13 @@
     formsValidacaoEdit = new Inputs("#resetForm") // pega todos os inputs do form 
     const btnSalvarAlteracoes = document.querySelector("#btnSalvarAlteracoes")
 
-    // formsValidacaoEdit.inputs((input) => {
-    //   // console.log(objEjs)
-    //   input.addEventListener("blur", () => {
 
 
-
-
-    //     for (const key in objEjs) {
-
-
-    //       if (Object.hasOwnProperty.call(objEjs, key)) {
-
-    //         // console.log(objEjs[key], input.value)
-
-
-
-    //       }
-    //     }
-    //   })
-
-    // })
 
     formsValidacaoEdit.allvalidacao({
       cepInput: {
         min: 9,
         max: 9,
-        btnoff: "apaiossk",
         caractereNpermitido: ["Nletra", "Nacentuacao", ],
         autopontuar: [/([\d]{6})([\d]{2})/, "$1-$2"],
         pattern: ["(\\d{6}-\\d{2})", "cep valido", "cep invalido"],
@@ -285,7 +261,8 @@
 
             }
           })
-        ]
+        ],
+        btnoff: "apaiossk",
 
       },
       street: {
@@ -338,6 +315,69 @@
     });
 
 
+
+
+    formsValidacaoEdit.forms.addEventListener("submit", async (event) => {
+
+      event.preventDefault()
+
+      try {
+
+        const valorEdit = formsValidacaoEdit.allValues()
+        valorEdit.id = objEjs.id
+
+
+        const {
+          data
+        } = await axios.get(`https://brasilapi.com.br/api/cep/v2/${valorEdit.cepInput}`)
+
+
+
+
+        valorEdit.lat = data.location.coordinates.latitude
+        valorEdit.lng = data.location.coordinates.longitude
+
+        const response = await axios.put(`http://localhost:9000/api/linhas/bus-stop`, valorEdit)
+        console.log(response)
+
+        console.log(objEjs)
+        localStorage.setItem("stopBusEdit", JSON.stringify({
+          cor: "success",
+          texto: `O ponto do cep ${objEjs.cep} foi alterado para o cep ${valorEdit.cepInput} com sucesso`,
+          div: "#alert",
+        }))
+
+        location.reload()
+
+
+
+      } catch (error) {
+        console.log(error);
+      }
+
+
+    })
+
+
+
+    // formsponto.cadastrar("http://localhost:9000/api/linhas/bus-stop", () => {
+    //   const values = formsponto.allValues()
+
+    //   values.lat = informacoesdaAPI.location.coordinates.latitude
+    //   values.lng = informacoesdaAPI.location.coordinates.longitude
+
+    //   return values
+    // }, null, success = (response) => {
+    //   localStorage.setItem("stopBusCreate", JSON.stringify({
+    //     cor: "success",
+    //     texto: response.data.message,
+    //     div: "#alert",
+    //   }))
+
+    //   location.reload()
+
+
+    // })
 
 
     // const btn = document.querySelector("#resetar")
@@ -497,7 +537,4 @@
 
   // //  chamando a função com ela recebendo as informações da primeira linha
   // modalPaia(<%-JSON.stringify(pontos[0])%>)
-
-
-
 </script>
