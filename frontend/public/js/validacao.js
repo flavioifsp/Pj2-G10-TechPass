@@ -1,12 +1,13 @@
 class Inputs {
   constructor(forms) {
     // criando uma variavel para o forms
-    this.forms = document.querySelector(forms);
+    
+    this.forms = typeof forms == "object" ? forms : document.querySelector(forms);
 
     // essa funcao recebe uma funcao que rodara em todos os inputs
     this.inputs = (funcao) => {
       for (const campo of [
-        ...document.querySelector(forms).querySelectorAll("input"),
+        ...this.forms.querySelectorAll("input"),
       ]) {
         funcao(campo);
       }

@@ -5,10 +5,9 @@
 
 <!-- modal para criar um ponto de onibus -->
 <div class="modal fade modalForm inicio" id="createLinhas1" tabindex="-1" aria-labelledby="createLinhas1Label" aria-hidden="true">
-
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
-      <form novalidate id="formspontodeonibus">
+      <form novalidate>
         <div class="modal-header">
           <h1 class="modal-title fs-5" id="createLinhas1Label">
             Adicionando linha
@@ -38,7 +37,7 @@
           <button type="button" data-bs-dismiss="modal" class="btn btn-secondary btnvoltar">
             sair
           </button>
-          <button type="button" class="btn btn-primary avancar">avançar</button>
+          <button type="submit" class="btn btn-primary">avançar</button>
         </div>
       </form>
     </div>
@@ -49,7 +48,7 @@
 <div class="modal fade modalForm" id="createLinhas2" tabindex="-1" aria-labelledby="createLinhas2Label" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
-      <form novalidate id="formspontodeonibus">
+      <form novalidate>
         <div class="modal-header">
           <h1 class="modal-title fs-5">Adicionando linha</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -86,26 +85,67 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
+    // criando os modals e outras coisas
+    const modalsBoostrap = [];
+    const formvalidacao = [];
+    let ultimoFechado;
+    const dataValues = new Map();
 
-    const modalsBoostrap = []
-    let ultimoFechado
     document.querySelectorAll(".modalForm").forEach((elem, indice) => {
-      modalsBoostrap.push(new bootstrap.Modal(elem))
 
+      // definindo as instancias dos modals e jogando para um array
+      const modalAtual = new bootstrap.Modal(elem);
+      const formAtual = new Inputs(elem.querySelector("form"));
+      modalsBoostrap.push(modalAtual);
+      formvalidacao.push(formAtual)
 
-
-      if (elem.classList.contains("inicio")) {
-        ultimoFechado = indice
+      // definir o primeiro modal no indice
+      if (indice == 0) {
+        ultimoFechado = indice;
       }
 
-      elem.addEventListener("hidden.bs.modal", (evt) => {
-        console.log(elem)
-      })
-    })
+      // voltar para o modal anterior ou apenas ocultar se for o primeiro modal
+      const voltar = elem.querySelector(".btnvoltar");
+      if (voltar) {
+        voltar.addEventListener("click", () => {
+          modalAtual.hide();
 
+          if (indice > 0) {
+            elem.addEventListener("hidden.bs.modal", (evt) => {
+              modalsBoostrap[indice - 1].show();
+            });
+          }
+        });
+      }
 
-    document.querySelector("#abrirCadastroDelinhas").addEventListener("click", () => {
-      modalsBoostrap[ultimoFechado].show()
-    })
-  })
+      //avancar para a proxima ou enivar para o servidor se for o ultimo modal 
+      formAtual.forms.addEventListener("submit", (evt) => {
+        evt.preventDefault();
+
+        modalAtual.hide();
+
+        elem.addEventListener("hidden.bs.modal", (evt) => {
+          formAtual.inputs(({ name, values }) => {
+            dataValues.set(name, values);
+          });
+
+          if (indice == document.querySelectorAll(".modalForm").length - 1) {
+            // enviar para o servidor
+
+            console.log("s");
+          } else {
+            // avancar de pagina
+            modalsBoostrap[indice + 1].show();
+          }
+        });
+      });
+    });
+
+    // evento click que abre o modal que foi fechado por ultimo ou o primeiro
+    document
+      .querySelector("#abrirCadastroDelinhas")
+      .addEventListener("click", () => {
+        modalsBoostrap[ultimoFechado].show();
+      });
+  });
 </script>
