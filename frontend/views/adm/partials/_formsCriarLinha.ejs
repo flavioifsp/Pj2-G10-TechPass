@@ -4,14 +4,12 @@
 </button>
 
 <!-- modal para criar um ponto de onibus -->
-<div class="modal fade modalForm inicio" id="createLinhas1" tabindex="-1" aria-labelledby="createLinhas1Label" aria-hidden="true">
+<div class="modal fade modalForm" id="createLinhas1" tabindex="-1" aria-labelledby="createLinhas1Label" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <form novalidate>
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="createLinhas1Label">
-            Adicionando linha
-          </h1>
+          <h4 class="modal-title" id="createLinhas1Label">Adicionando linha</h4>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
 
@@ -45,33 +43,65 @@
 </div>
 
 <!-- modal para criar um ponto de onibus -->
-<div class="modal fade modalForm" id="createLinhas2" tabindex="-1" aria-labelledby="createLinhas2Label" aria-hidden="true">
+<div class="modal-open modalForm" id="createLinhas2" tabindex="-1" aria-labelledby="createLinhas2Label" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
+    <div class="modal-content moldal-lg">
       <form novalidate>
-        <div class="modal-header">
-          <h1 class="modal-title fs-5">Adicionando linha</h1>
+        <div class="modal-header border-bottom">
+          <h4 class="modal-title d-flex w-100">
+            Adicionando linha <span class="ms-auto">2/3</span>
+          </h4>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
 
         <div class="modal-body">
-          <div class="row g-2">
-            <div class="row ps-1">
-              <div class="col-md-4 col-9">
-                <label for="numero_linha" class="form-label">Numerfsdfdso PAIOSO da linha</label>
-                <input type="text" class="form-control" id="numero_linha" name="numero_linha" required />
-              </div>
+          <div class="row row-cols-2 g-3">
+            <div class="col-12 d-flex">
+              <h5 class="mx-auto mt-3">Crie os Horarios de Saidas do Bairro</h5>
             </div>
-            <div class="col-md-6 col-12">
-              <label for="bairroDestino" class="form-label">1° Bairro</label>
-              <input type="text" class="form-control" id="bairroDestino" name="bairroDestino" required />
+
+            <div class="col-6">
+              <h6>Saida de Olaria</h6>
+              <ul class="list-group">
+                <li class="list-group-item list-group-item-action">
+                  A fourth item
+                </li>
+                <li class="list-group-item list-group-item-action">
+                  <button class="btn p-0 m-0">Adicionar</button>
+                </li>
+              </ul>
             </div>
-            <div class="col-md-6 col-12">
-              <label for="bairroOrigem" class="form-label">2° Bairro</label>
-              <input type="text" class="form-control" id="bairroOrigem" name="bairroOrigem" required />
+
+            <div class="col-6">
+              <h6>Saida de Olaria</h6>
+
+              <ul class="list-group">
+                <li class="list-group-item  d-flex">
+                  <p class="my-auto fs-5 p-0 m-0 ">11:20</p>
+                  <div class="list-group ms-auto list-group-horizontal">
+                    <button class="subir  list-group-item list-group-item-action py-0 px-2"><i class="bi bi-arrow-up"></i></button>
+                    <button class="descer  list-group-item list-group-item-action py-0 px-2"><i class="bi bi-arrow-down"></i></button>
+                    <button class="excluir  list-group-item list-group-item-action py-0 px-2"><i class="bi bi-x-lg text-danger"></i></button>
+                  </div>
+                </li>
+
+                <li class="list-group-item  d-flex">
+                  <form class="mx-auto d-flex" style="width: fit-content;">
+
+
+                    <label class="m-0 mt-auto  form-label fs-6 pe-2" for="addHora">criar: </label>
+                    <input class="form-control py-1 px-2" style="width: fit-content;" type="time" id="addHora" name="addHora">
+
+                    <button class="btn py-1 px-2  ms-2 btn-success ">
+                      <i class="bi bi-plus-lg "></i>
+                    </button>
+                  </form>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
+
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary btnvoltar">
             Cancelar
@@ -83,6 +113,25 @@
   </div>
 </div>
 
+<button class="btn btn-primary position-absolute bottom-0 end-0" onclick="
+(function* a(){
+  let i = 0
+  while(true){
+    
+    i = true
+
+    } else{
+      
+      i = false
+    }
+
+    yield
+  }
+  
+)().next()
+">
+  reload
+</button>
 <script>
   document.addEventListener("DOMContentLoaded", () => {
     // criando os modals e outras coisas
@@ -92,12 +141,13 @@
     const dataValues = new Map();
 
     document.querySelectorAll(".modalForm").forEach((elem, indice) => {
-
       // definindo as instancias dos modals e jogando para um array
       const modalAtual = new bootstrap.Modal(elem);
       const formAtual = new Inputs(elem.querySelector("form"));
       modalsBoostrap.push(modalAtual);
-      formvalidacao.push(formAtual)
+      formvalidacao.push(formAtual);
+
+
 
       // definir o primeiro modal no indice
       if (indice == 0) {
@@ -118,27 +168,60 @@
         });
       }
 
-      //avancar para a proxima ou enivar para o servidor se for o ultimo modal 
+      //avancar para a proxima ou enivar para o servidor se for o ultimo modal
       formAtual.forms.addEventListener("submit", (evt) => {
         evt.preventDefault();
 
         modalAtual.hide();
 
         elem.addEventListener("hidden.bs.modal", (evt) => {
-          formAtual.inputs(({ name, values }) => {
+          formAtual.inputs(({
+            name,
+            values
+          }) => {
             dataValues.set(name, values);
           });
 
           if (indice == document.querySelectorAll(".modalForm").length - 1) {
             // enviar para o servidor
-
-            
           } else {
             // avancar de pagina
             modalsBoostrap[indice + 1].show();
           }
         });
       });
+    });
+
+    formvalidacao[0].allvalidacao({
+      numero_linha: {
+        min: 1,
+        max: 4,
+        caractereNpermitido: ["Nletra", "NcaractereEspecial", "Nacentuacao"],
+        pattern: ["^(\\d{1,4})$", "numero valido", "numero invalido"],
+        btnoff: "required",
+      },
+      bairroDestino: {
+        min: 3,
+        max: 20,
+        caractereNpermitido: ["Nnumber", "NcaractereEspecial"],
+        pattern: [
+          "(^[a-zA-ZÀ-ÿ0-9\\s'\\-]{3,20}$)",
+          "bairro valido",
+          "bairro invalido",
+        ],
+        btnoff: "required",
+      },
+      bairroOrigem: {
+        min: 3,
+        max: 20,
+        caractereNpermitido: ["Nnumber", "NcaractereEspecial"],
+        pattern: [
+          "(^[a-zA-ZÀ-ÿ0-9\\s'\\-]{3,20}$)",
+          "bairro valido",
+          "bairro invalido",
+        ],
+        btnoff: "required",
+      },
     });
 
     // evento click que abre o modal que foi fechado por ultimo ou o primeiro
