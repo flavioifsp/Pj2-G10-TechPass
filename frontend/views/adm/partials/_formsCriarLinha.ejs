@@ -4,13 +4,8 @@
 </button>
 
 <!-- modal para criar um ponto de onibus -->
-<div
-  class="modal fade"
-  id="createLinhas1"
-  tabindex="-1"
-  aria-labelledby="createLinhas1Label"
-  aria-hidden="true"
->
+<div class="modal fade modalForm inicio" id="createLinhas1" tabindex="-1" aria-labelledby="createLinhas1Label" aria-hidden="true">
+
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <form novalidate id="formspontodeonibus">
@@ -18,61 +13,32 @@
           <h1 class="modal-title fs-5" id="createLinhas1Label">
             Adicionando linha
           </h1>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
 
         <div class="modal-body">
           <div class="row g-2">
             <div class="row ps-1">
               <div class="col-md-4 col-9">
-                <label for="numero_linha" class="form-label"
-                  >Numero da linha</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="numero_linha"
-                  name="numero_linha"
-                  required
-                />
+                <label for="numero_linha" class="form-label">Numero da linha</label>
+                <input type="text" class="form-control" id="numero_linha" name="numero_linha" required />
               </div>
             </div>
             <div class="col-md-6 col-12">
               <label for="bairroDestino" class="form-label">1° Bairro</label>
-              <input
-                type="text"
-                class="form-control"
-                id="bairroDestino"
-                name="bairroDestino"
-                required
-              />
+              <input type="text" class="form-control" id="bairroDestino" name="bairroDestino" required />
             </div>
             <div class="col-md-6 col-12">
               <label for="bairroOrigem" class="form-label">2° Bairro</label>
-              <input
-                type="text"
-                class="form-control"
-                id="bairroOrigem"
-                name="bairroOrigem"
-                required
-              />
+              <input type="text" class="form-control" id="bairroOrigem" name="bairroOrigem" required />
             </div>
           </div>
         </div>
         <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-secondary btnvoltar"
-            data-paia="1"
-          >
-            Cancelar
+          <button type="button" data-bs-dismiss="modal" class="btn btn-secondary btnvoltar">
+            sair
           </button>
-          <button type="submit" class="btn btn-primary">avançar</button>
+          <button type="button" class="btn btn-primary avancar">avançar</button>
         </div>
       </form>
     </div>
@@ -80,70 +46,35 @@
 </div>
 
 <!-- modal para criar um ponto de onibus -->
-<div
-  class="modal fade"
-  id="createLinhas2"
-  tabindex="-1"
-  aria-labelledby="createLinhas2Label"
-  aria-hidden="true"
->
+<div class="modal fade modalForm" id="createLinhas2" tabindex="-1" aria-labelledby="createLinhas2Label" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <form novalidate id="formspontodeonibus">
         <div class="modal-header">
           <h1 class="modal-title fs-5">Adicionando linha</h1>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
 
         <div class="modal-body">
           <div class="row g-2">
             <div class="row ps-1">
               <div class="col-md-4 col-9">
-                <label for="numero_linha" class="form-label"
-                  >Numerfsdfdso PAIOSO da linha</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="numero_linha"
-                  name="numero_linha"
-                  required
-                />
+                <label for="numero_linha" class="form-label">Numerfsdfdso PAIOSO da linha</label>
+                <input type="text" class="form-control" id="numero_linha" name="numero_linha" required />
               </div>
             </div>
             <div class="col-md-6 col-12">
               <label for="bairroDestino" class="form-label">1° Bairro</label>
-              <input
-                type="text"
-                class="form-control"
-                id="bairroDestino"
-                name="bairroDestino"
-                required
-              />
+              <input type="text" class="form-control" id="bairroDestino" name="bairroDestino" required />
             </div>
             <div class="col-md-6 col-12">
               <label for="bairroOrigem" class="form-label">2° Bairro</label>
-              <input
-                type="text"
-                class="form-control"
-                id="bairroOrigem"
-                name="bairroOrigem"
-                required
-              />
+              <input type="text" class="form-control" id="bairroOrigem" name="bairroOrigem" required />
             </div>
           </div>
         </div>
         <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-secondary btnvoltar"
-            data-paia="2"
-          >
+          <button type="button" class="btn btn-secondary btnvoltar">
             Cancelar
           </button>
           <button type="submit" class="btn btn-primary">avançar</button>
@@ -153,123 +84,28 @@
   </div>
 </div>
 
-
 <script>
-  class ModalParteForms {
-    constructor(idModal) {
-      this.modal = document.querySelector(idModal);
-      this.Validforms = new Inputs("form");
-      this.form = this.Validforms.forms;
-      this.ModalInsta = new bootstrap.Modal(this.modal);
-    }
+  document.addEventListener("DOMContentLoaded", () => {
 
-    allvalidacao(objComAsValidacoes) {
-      this.Validforms.allvalidacao(objComAsValidacoes);
-    }
+    const modalsBoostrap = []
+    let ultimoFechado
+    document.querySelectorAll(".modalForm").forEach((elem, indice) => {
+      modalsBoostrap.push(new bootstrap.Modal(elem))
 
-    fecharModal() {
-      this.ModalInsta.hide();
-    }
 
-    abrirModal(modalAnterior = null) {
-      if (modalAnterior) {
-        modalAnterior.modal.addEventListener("hidden.bs.modal", () => {
-          this.ModalInsta.show();
-        });
-      } else {
-        this.ModalInsta.show();
+
+      if (elem.classList.contains("inicio")) {
+        ultimoFechado = indice
       }
-    }
 
-    avancarForm(modalProximo, objMap, callback = () => {}) {
-      // this.modal.addEventListener("submit", (evt) => {
-      evt.preventDefault();
+      elem.addEventListener("hidden.bs.modal", (evt) => {
+        console.log(elem)
+      })
+    })
 
-      callback();
 
-      this.guardarValues(objMap);
-      modalProximo.abrirModal({
-        modal: this.modal,
-      });
-      this.fecharModal();
-
-      // });
-    }
-
-    voltarForm(modalAnterior, callback = () => {}) {
-      // const btnvoltar = this.modal.querySelector(".btnvoltar");
-
-      // btnvoltar.addEventListener("click", () => {
-      // objMap.forEach((elem) => {
-      //   this.Validforms.inputs(() => {
-
-      //   })
-      // })
-
-      callback();
-
-      if (modalAnterior) modalAnterior.abrirModal(this);
-      this.fecharModal();
-
-      // });
-    }
-
-    guardarValues(objMap) {
-      this.Validforms.inputs((input) => {
-        const { name, value } = input;
-
-        objMap.set(name, value);
-      });
-    }
-  }
-
-  function paginas(...modalsForm) {
-    document.addEventListener("DOMContentLoaded", () => {
-      
-      document
-        .querySelector("#abrirCadastroDelinhas")
-        .setAttribute("onclick", `paginacao.next()`);
-      modalsForm.forEach((element) => {
-        element.modal
-          .querySelector(".btnvoltar")
-          .setAttribute("onclick", `paginacao.next("<")`);
-        element.modal
-          .querySelector('button[type="submit"]')
-          .setAttribute("onclick", `paginacao.next(">")`);
-      });
-    });
-    infos = new Map();
-
-    return (function* () {
-      for (paginaAtual = 0; paginaAtual <= modalsForm.length; ) {
-        const FormAtual = modalsForm[paginaAtual];
-
-        let curso
-
-        console.log(curso)
-        if (curso == ">") {
-          const FormProximo = modalsForm[paginaAtual + 1];
-          formAtual.avancarForm(modalProximo, infos, () => {
-            paginaAtual++;
-          });
-        } else if (curso == "<") {
-          console.log("b")
-
-          const FormAnterior = modalsForm[paginaAtual - 1] || null;
-          formAtual.voltarForm(FormAnterior, () => {
-            paginaAtual--;
-          });
-        } else {
-          FormAtual.abrirModal();
-        }
-
-        curso = yield
-      }
-    }())
-  }
-
-  const formParte1 = new ModalParteForms("#createLinhas1");
-  const formParte2 = new ModalParteForms("#createLinhas2");
-
-  const paginacao = paginas(formParte1, formParte2);
+    document.querySelector("#abrirCadastroDelinhas").addEventListener("click", () => {
+      modalsBoostrap[ultimoFechado].show()
+    })
+  })
 </script>
