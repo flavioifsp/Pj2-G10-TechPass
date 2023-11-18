@@ -43,4 +43,39 @@ router.get("/lojas", async (req, res, next) => {
   }
 });
 
+router.put("/lojas", async (req, res) => {
+  const {  id, nome, cepInput, street, state, city, neighborhood, lat, lng } = req.body;
+
+  
+  try {
+    const editLoja = await prisma.loja_recarga.update({
+
+      where:{
+        id: id
+      },
+
+      data: {
+        nome,
+        cep: cepInput,
+        endereco: `${street}, ${neighborhood}, ${city}, ${state}`,
+        lat: lat,
+        lng: lng,
+      },
+      select: {
+        endereco: true,
+      },
+      
+    });
+    console.log(editLoja)
+    res.status(201).json({
+      message: `Loja no endereço foi  alterado com sucesso!`,
+    });
+  } catch (error) {
+    const erro = exception(error);
+    console.log(error);
+    res.status(erro.code).send(erro.msg);
+  }
+});
+
+
 module.exports = router;

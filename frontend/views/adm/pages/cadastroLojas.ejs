@@ -45,19 +45,19 @@
 
               <div class="col-md-10 col-9">
                 <label for="street" class="form-label">rua</label>
-                <input type="text" class="form-control" id="street" name="street" required placeholder="Rua das Flores " />
+                <input type="text" class="form-control" id="street" name="street" required placeholder="Rua das Flores " disabled/>
               </div>
               <div class="col-md-2 col-3">
                 <label for="state" class="form-label">Estado</label>
-                <input type="text" class="form-control" id="state" name="state" required placeholder="SP" />
+                <input type="text" class="form-control" id="state" name="state" required placeholder="SP" disabled/>
               </div>
               <div class="col-md-8 col-12">
                 <label for="city" class="form-label">cidade</label>
-                <input type="text" class="form-control" id="city" name="city" required placeholder="Caraguatatuba" />
+                <input type="text" class="form-control" id="city" name="city" required placeholder="Caraguatatuba"disabled />
               </div>
               <div class="col-md-4 col-12">
                 <label for="neighborhood" class="form-label">bairro</label>
-                <input type="text" class="form-control" id="neighborhood" name="neighborhood" required placeholder="Olaria" />
+                <input type="text" class="form-control" id="neighborhood" name="neighborhood" required placeholder="Olaria"disabled />
               </div>
             </div>
           </div>
@@ -110,7 +110,7 @@
               <i class="bi bi-info-lg"></i>
             </button>
             <button type="button" class="btn btn-warning py-1 px-2" onclick='modalEdit(<%-JSON.stringify(elem)%>)'>
-              <i class="bi bi-info-lg"></i>
+              <i class="bi bi-pencil-square"></i>
             </button>
 
             <button class="btn btn-danger py-1 px-2" data-bs-target="#loja<%= elem.id%>" data-bs-toggle="modal" data-bs-dismiss="modal" _msttexthash="350038" _msthash="310" _mstvisible="4"><i class="bi bi-trash-fill"></i></button>
@@ -134,14 +134,14 @@
                   <div class="modal-footer" _mstvisible="3">
                     <button class="btn btn-warning" data-bs-dismiss="modal" _msttexthash="324714" _msthash="314" _mstvisible="4">Não, voltar as
                       alterações</button>
-                    <button type="click" class="btn btn-danger" id="deleteLojaId<%= elem.id%>">Sim, Deletar</button>
+                    <button type="click" class="btn btn-danger" id="deleteLojaId<%=elem.id%>">Sim, Deletar</button>
                     <script>
-                      const modaldeleteID<%= elem.id %> = document.querySelector("#loja<%= elem.id%>")
+                      const modaldeleteID<%=elem.id%> = document.querySelector("#loja<%=elem.id%>")
 
-                      modaldeleteID <%= elem.id %>.querySelector("#deleteLojaId<%= elem.id%>").addEventListener("click", async () => {
+                      modaldeleteID<%=elem.id%>.querySelector("#deleteLojaId<%=elem.id%>").addEventListener("click", async () => {
 
                         try {
-                          const deletado = await axios.delete("http://localhost:9000/api/adm/deleteLojas<%= elem.id%>")
+                          const deletado = await axios.delete("http://localhost:9000/api/adm/deleteLojas<%=elem.id%>")
 
                           localStorage.setItem("deleLoja", JSON.stringify({
                             cor: "danger",
@@ -176,125 +176,94 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    const formsloja = new Inputs("#formularioDeCadastroLojas");
+        const formsloja = new Inputs("#formularioDeCadastroLojas");
 
-    let informacoesdaAPI;
+        let informacoesdaAPI;
 
-    formsloja.allvalidacao({
-      cep: {
-        min: 8,
+        formsloja.allvalidacao({
+          cep: {
+            min: 9,
         max: 9,
-        caractereNpermitido: /[^\d\-]/g,
-        autopontuar: [/[^\d]/, ""],
-        pattern: ["(\\d{8,9})", "cep valido", "cep invalido"],
-        customerro: [
-          (value) => {
-            if (value.match(/\d{9}/)) {
-              return "cep com 9 numero?";
-            }
-          },
-          async (value) => {
-            try {
-              informacoesdaAPI = (
-                await axios.get(
-                  `https://brasilapi.com.br/api/cep/v2/${value}`
-                )
-              ).data;
-
-              formsloja.inputs((input) => {
-                for (const info in informacoesdaAPI) {
-                  if (Object.hasOwnProperty.call(informacoesdaAPI, info)) {
-                    if (input.name == info) {
-                      input.value = informacoesdaAPI[info];
-                      input.focus();
-                      input.blur();
-                    }
-                  }
+        caractereNpermitido: ["Nletra", "Nacentuacao"],
+        autopontuar: [/([\d]{6})([\d]{2})/, "$1-$2"],
+        pattern: ["(\\d{6}-\\d{2})", "cep valido", "cep invalido"],
+        customEvento: [
+              (value) => {
+                if (value.match(/\d{9}/)) {
+                  return "cep com 9 numero?";
                 }
-              });
-            } catch (error) {
-              console.log(error);
-              if (error.response.status == 404)
-                return "insira um CEP que exista";
-            }
+              },
+              async (value) => {
+                try {
+                  informacoesdaAPI = (
+                    await axios.get(
+                      `https://brasilapi.com.br/api/cep/v2/${value}`
+                    )
+                  ).data;
+
+                  formsloja.inputs((input) => {
+                    for (const info in informacoesdaAPI) {
+                      if (Object.hasOwnProperty.call(informacoesdaAPI, info)) {
+                        if (input.name == info) {
+                          input.value = informacoesdaAPI[info];
+                          input.focus();
+                          input.blur();
+                        }
+                      }
+                    }
+                  });
+                } catch (error) {
+                  console.log(error);
+                  if (error.response.status == 404)
+                    return "insira um CEP que exista";
+                }
+              },
+            ],
+            btnoff: "required", //signiifica que é obrigatorio
           },
-        ],
-        btnoff: "required", //signiifica que é obrigatorio
-      },
 
-      nome: {
-        min: 3,
-        max: 45,
-        caractereNpermitido: /[^a-zA-ZÀ-ú\s]/g,
-        pattern: ["[a-zA-ZÀ-ú\s]{3,45}", "nome valido", "nome invalido"],
-        btnoff: "naoEobrigatorio",
-      },
+            nome: {
+              min: 3,
+              max: 45,
+              caractereNpermitido: ["Nnumber", "NcaractereEspecial"],
+              pattern: ["[a-zA-ZÀ-ú\s]{3,45}", "nome valido", "nome invalido"],
+              btnoff: "naoEobrigatorio",
+            },
 
-      street: {
-        max: 64,
-        min: 2,
-        caractereNpermitido: /[^a-zA-Z0-9À-ú\s]/g,
-        pattern: ["^(([a-zA-Z0-9\\s\\-À-ú]{2,50}){1,10})$", "rua valida", "rua invalida"],
-        btnoff: "required",
-      },
-
-      state: {
-        max: 2,
-        min: 2,
-        caractereNpermitido: /[^a-zA-ZÀ-ú]/g,
-        autopontuar: [/[a-zÀ-ú]/g, letra => letra.toUpperCase()],
-        pattern: ["^([A-ZÀ-ú]{2,2})$", " valido", "invalido"],
-        btnoff: "required",
-      },
-
-      city: {
-        max: 15,
-        min: 3,
-        caractereNpermitido: /[^a-zA-Z\sÀ-ú]/g,
-        pattern: ["^([a-zA-Z\\sÀ-ú]{3,15})$", "cidade valida", "cidade invalida"],
-        btnoff: "required",
-      },
-
-      neighborhood: {
-        max: 25,
-        min: 3,
-        caractereNpermitido: /[^a-zA-ZÀ-ú\s]/g,
-        pattern: ["^([a-zA-ZÀ-ú\\s]{3,25})$", "bairro valido", "bairro invalido"],
-        btnoff: "required",
-      },
-
-    })
-    formsloja.cadastrar("http://localhost:9000/api/adm/lojas", () => {
-      const values = formsloja.allValues()
-      values.lat = informacoesdaAPI.location.coordinates.latitude
-      values.lng = informacoesdaAPI.location.coordinates.longitude
-
-      return values
-    }, null, success = (response) => {
-      localStorage.setItem("novaLoja", JSON.stringify({
-        cor: "success",
-        texto: response.data.message,
-        div: "#alert",
-      }))
-      location.reload()
-    })
+         
+    
 
 
-  });
+        });
 
+        formsloja.cadastrar("http://localhost:9000/api/adm/lojas", () => {
+            const values = formsloja.allValues()
+            values.lat = informacoesdaAPI.location.coordinates.latitude
+            values.lng = informacoesdaAPI.location.coordinates.longitude
 
-  function modalInfo(objEjs) {
+            return values
+          }, null, success = (response) => {
+            localStorage.setItem("novaLoja", JSON.stringify({
+              cor: "success",
+              texto: response.data.message,
+              div: "#alert",
+            }))
+            location.reload()
+          })
+      })
 
-    // transformando o objeto que está transformado em string para objeto dnv
+        function modalInfo(objEjs) {
 
-    // criando uma div no js
-    const umadiv = document.createElement("div")
+          // transformando o objeto que está transformado em string para objeto dnv
 
-    // adicionando o innerHTML com um template
-    // https://www.w3schools.com/js/js_string_templates.asp
-    // e
-    // adicionando uma div de modal pego do site do boostrap
-    umadiv.innerHTML = `
+          // criando uma div no js
+          const umadiv = document.createElement("div")
+
+          // adicionando o innerHTML com um template
+          // https://www.w3schools.com/js/js_string_templates.asp
+          // e
+          // adicionando uma div de modal pego do site do boostrap
+          umadiv.innerHTML = `
       <div class="modal fade" tabindex="-1" >
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
@@ -324,254 +293,370 @@
       `
 
 
-    // o split divide uma string em substrings
-    // https://www.w3schools.com/jsref/jsref_split.asp
+          // o split divide uma string em substrings
+          // https://www.w3schools.com/jsref/jsref_split.asp
 
 
-    // criando uma variavel que recebe o modal dentro do umadiv
-    const modal = umadiv.querySelector(".modal")
+          // criando uma variavel que recebe o modal dentro do umadiv
+          const modal = umadiv.querySelector(".modal")
 
-    // adicionando o modal ao BODY do HTML
-    document.body.appendChild(modal)
-
-
-    // criando uma instancia seguindo as instruções do boostrap
-    // https://getbootstrap.com/docs/5.3/components/modal/#how-it-works
-    const InstanciaBoostrapDoModal = new bootstrap.Modal(modal)
-
-    // abrindo o modal
-    InstanciaBoostrapDoModal.toggle()
+          // adicionando o modal ao BODY do HTML
+          document.body.appendChild(modal)
 
 
+          // criando uma instancia seguindo as instruções do boostrap
+          // https://getbootstrap.com/docs/5.3/components/modal/#how-it-works
+          const InstanciaBoostrapDoModal = new bootstrap.Modal(modal)
 
-    // vai para a parte de eventos que encontrara mais informações
-    // https://getbootstrap.com/docs/5.3/components/modal/#how-it-works
-    modal.addEventListener("hidden.bs.modal", () => {
-
-      // quando o modal for fechado esse evento acionara e excluira o modal do body
-      document.body.removeChild(modal)
-    })
-    // fim da função
-  }
+          // abrindo o modal
+          InstanciaBoostrapDoModal.toggle()
 
 
 
+          // vai para a parte de eventos que encontrara mais informações
+          // https://getbootstrap.com/docs/5.3/components/modal/#how-it-works
+          modal.addEventListener("hidden.bs.modal", () => {
 
-  function modalEdit(objEjs) {
+            // quando o modal for fechado esse evento acionara e excluira o modal do body
+            document.body.removeChild(modal)
+          })
+          // fim da função
+        }
 
-    const div = document.createElement("div")
 
 
-    div.innerHTML = `
-<div class="modal fade" id="modalToggle" aria-labelledby="modalToggleLabel" tabindex="-1" style="display: none" _mstvisible="0" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" _mstvisible="1">
-    <div class="modal-content" _mstvisible="2">
-      <div class="modal-header" _mstvisible="3">
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar" _mstaria-label="59709" _msthash="308" _mstvisible="4"></button>
-      </div>
-      <div class="modal-body" _msttexthash="1992003" _msthash="309" _mstvisible="3">
-        <div class="row" _mstvisible="4">
-          <div class="card-body">
-            <form id="resetForm">
-              <div class="row mb-4">
-                <label class="col-sm-2 col-form-label" for="basic-default-phone">Nome</label>
-                <div class="col-sm-10">
-                  <input type="text" class="form-control" name="Nome" value="${objEjs.nome}" required>
+
+        function modalEdit(objEjs) {
+
+const div = document.createElement("div")
+
+
+div.innerHTML = `
+      
+    <div class="modal fade" id="modalToggle" aria-labelledby="modalToggleLabel" tabindex="-1" style="display: none" _mstvisible="0" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" _mstvisible="1">
+        <div class="modal-content" _mstvisible="2">
+          <form id="resetForm">
+            <div class="modal-header" _mstvisible="3">
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar" _mstaria-label="59709" _msthash="308" _mstvisible="4"></button>
+            </div>
+            <div class="modal-body" _msttexthash="1992003" _msthash="309" _mstvisible="3">
+              <div class="row" _mstvisible="4">
+                <div class="card-body form-group">
+                  <div class="row mb-4">
+                    <label class="col-sm-2 col-form-label" for="name">Nome</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" name="nome" id="nome" value="${objEjs.nome}" required>
+
+                    </div>
+                  </div>
+                  <div class="row mb-4">
+                    <label class="col-sm-2 col-form-label" for="cepInput">CEP</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" name="cepInput" id="cepInput" placeholder="Enter CPF" value="${objEjs.cep}" required>
+
+                    </div>
+                  </div>
+
+                  <div class="row mb-4">
+                    <label class="col-sm-2 col-form-label" for="street">Rua</label>
+                    <div class="col-sm-10">
+                      <input type="text" name="street" id="street" class="form-control phone-mask" value="${objEjs.endereco.split(",")[0].trim()}" />
+                    </div>
+                  </div>
+
+                  <div class="row mb-4">
+                    <label class="col-sm-2 col-form-label" for="neighborhood">Bairro</label>
+                    <div class="col-sm-10">
+                      <input type="text" id="neighborhood" name="neighborhood" class="form-control phone-mask" value="${objEjs.endereco.split(",")[1].trim()}" />
+                    </div>
+                  </div>
+
+                  <div class="row mb-4">
+                    <label class="col-sm-2 col-form-label" for="city">Cidade</label>
+                    <div class="col-sm-10">
+                      <input type="text" id="city" class="form-control phone-mask" name="city" value="${objEjs.endereco.split(",")[2].trim()}" />
+                    </div>
+                  </div>
+
+                  <div class="row mb-4">
+                    <label class="col-sm-2 col-form-label" for="state">Estado</label>
+                    <div class="col-sm-10">
+                      <input type="text" id="state" class="form-control phone-mask" name="state" value="${objEjs.endereco.split(",")[3].trim()}" />
+                    </div>
+                  </div>
+
                 </div>
               </div>
-              <div class="row mb-4">
-                <label class="col-sm-2 col-form-label" for="basic-default-phone">CEP</label>
-                <div class="col-sm-10">
-                  <input type="text" class="form-control" name="cep" value="${objEjs.cep}" required>
-                </div>
-              </div>
+            </div>
+            <div class="modal-footer" _mstvisible="3">
+              <button type="button" class="btn btn-warning" id="resetar" onclick="document.getElementById('resetForm').reset()">
+                Resetar
+              </button>
 
-              <div class="row mb-4">
-                <label class="col-sm-2 col-form-label" for="basic-default-phone">Rua</label>
-                <div class="col-sm-10">
-                  <input type="text" id="basic-default-phone" class="form-control phone-mask" aria-label="658 799 8941" aria-describedby="basic-default-phone" value="${objEjs.endereco.split(" ,")[0]}" />
-                </div>
-              </div>
-
-              <div class="row mb-4">
-                <label class="col-sm-2 col-form-label" for="basic-default-phone">Bairro</label>
-                <div class="col-sm-10">
-                  <input type="text" id="basic-default-phone" class="form-control phone-mask" aria-label="658 799 8941" aria-describedby="basic-default-phone" value="${objEjs.endereco.split(" ,")[1]}" />
-                </div>
-              </div>
-
-              <div class="row mb-4">
-                <label class="col-sm-2 col-form-label" for="basic-default-phone">Cidade</label>
-                <div class="col-sm-10">
-                  <input type="text" id="basic-default-phone" class="form-control phone-mask" aria-label="658 799 8941" aria-describedby="basic-default-phone" value="${objEjs.endereco.split(" ,")[2]}" />
-                </div>
-              </div>
-
-              <div class="row mb-4">
-                <label class="col-sm-2 col-form-label" for="basic-default-phone">Estado</label>
-                <div class="col-sm-10">
-                  <input type="text" id="basic-default-phone" class="form-control phone-mask" placeholder="${objEjs.cep}" aria-label="658 799 8941" aria-describedby="basic-default-phone" value="${objEjs.endereco.split(" ,")[3]}" />
-                </div>
-              </div>
-
-          </div>
+              <button type="submit" class="btn btn-success">
+                Salvar alterações
+              </button>
+            </div>
+          </form>
         </div>
       </div>
-      <div class="modal-footer" _mstvisible="3">
-        <button type="button" class="btn btn-warning" id="resetar">
-          Resetar
-        </button>
-
-        <button type="button" class="btn btn-success" id="btnSalvarAlterações">
-          Salvar alterações
-        </button>
-      </div>
-      </form>
     </div>
-  </div>
-</div>
 
+      `
 
-`
+const modal = div.querySelector(".modal")
 
-    const modal = div.querySelector(".modal")
+//selecionando o modoal  e adicionando o modal ao BODY do HTML
+document.body.appendChild(modal)
 
-    //selecionando o modoal e adicionando o modal ao BODY do HTML
-    document.body.appendChild(modal)
+const InstanciaBoostrapDoModal = new bootstrap.Modal(modal)
 
-    const InstanciaBoostrapDoModal = new bootstrap.Modal(modal)
+InstanciaBoostrapDoModal.toggle()
 
-    InstanciaBoostrapDoModal.toggle()
-
-
-
-
-    const btn = document.querySelector("#resetar")
-    const form = document.getElementById("resetForm");
-
-
-
-    btn.addEventListener("click", async (evnt) => {
-
-      form.reset()
-
-    })
-
-
-    modal.addEventListener("hidden.bs.modal", () => {
-
-      // quando o modal for fechado esse evento acionara e excluira o modal do body
-      document.body.removeChild(modal)
-    })
+formsValidacaoEdit = new Inputs("#resetForm") // pega todos os inputs do form 
+const btnSalvarAlteracoes = document.querySelector("#btnSalvarAlteracoes")
 
 
 
 
-    document.addEventListener("DOMContentLoaded", () => {
-      const formslojaEdit = new Inputs("#resetForm");
+formsValidacaoEdit.allvalidacao({
 
-
-
-      formslojaEdit.allvalidacao({
-        cep: {
-          min: 8,
-          max: 9,
-          caractereNpermitido: /[^\d\-]/g,
-          autopontuar: [/[^\d]/, ""],
-          pattern: ["(\\d{8,9})", "cep valido", "cep invalido"],
-          customerro: [
-            (value) => {
-              if (value.match(/\d{9}/)) {
-                return "cep com 9 numero?";
-              }
+  nome: {
+              min: 3,
+              max: 45,
+              caractereNpermitido: ["Nnumber", "NcaractereEspecial"],
+              pattern: ["[a-zA-ZÀ-ú\s]{3,45}", "nome valido", "nome invalido"],
+              btnoff: "naoEobrigatorio",
             },
-            async (value) => {
-              try {
-                informacoesdaAPI = (
-                  await axios.get(
-                    `https://brasilapi.com.br/api/cep/v2/${value}`
-                  )
-                ).data;
 
-                formslojaEdit.inputs((input) => {
-                  for (const info in informacoesdaAPI) {
-                    if (Object.hasOwnProperty.call(informacoesdaAPI, info)) {
-                      if (input.name == info) {
-                        input.value = informacoesdaAPI[info];
-                        input.focus();
-                        input.blur();
-                      }
-                    }
-                  }
-                });
-              } catch (error) {
-                console.log(error);
-                if (error.response.status == 404)
-                  return "insira um CEP que exista";
+  cepInput: {
+    min: 9,
+    max: 9,
+    caractereNpermitido: ["Nletra", "Nacentuacao", ],
+    autopontuar: [/([\d]{6})([\d]{2})/, "$1-$2"],
+    pattern: ["(\\d{6}-\\d{2})", "cep valido", "cep invalido"],
+    customEvento: [
+
+      (async (value) => {
+        try {
+          informacoesdaAPI = (await axios.get(`https://brasilapi.com.br/api/cep/v2/${value}`)).data
+
+
+          formsValidacaoEdit.inputs((input) => {
+            for (const info in informacoesdaAPI) {
+              if (Object.hasOwnProperty.call(informacoesdaAPI, info)) {
+                if (input.name == info) {
+                  input.value = informacoesdaAPI[info]
+                  input.focus()
+                  input.blur()
+
+                }
               }
-            },
-          ],
-          btnoff: "required", //signiifica que é obrigatorio
-        },
+            }
+          })
 
-        nome: {
-          min: 3,
-          max: 45,
-          caractereNpermitido: /[^a-zA-ZÀ-ú\s]/g,
-          pattern: ["[a-zA-ZÀ-ú\s]{3,45}", "nome valido", "nome invalido"],
-          btnoff: "naoEobrigatorio",
-        },
+        } catch (error) {
+          console.log(error)
+          if (error.response.status == 404) return "insira um CEP que exista"
 
-        street: {
-          max: 64,
-          min: 2,
-          caractereNpermitido: /[^a-zA-Z0-9À-ú\s]/g,
-          pattern: ["^(([a-zA-Z0-9\\s\\-À-ú]{2,50}){1,10})$", "rua valida", "rua invalida"],
-          btnoff: "required",
-        },
-
-        state: {
-          max: 2,
-          min: 2,
-          caractereNpermitido: /[^a-zA-ZÀ-ú]/g,
-          autopontuar: [/[a-zÀ-ú]/g, letra => letra.toUpperCase()],
-          pattern: ["^([A-ZÀ-ú]{2,2})$", " valido", "invalido"],
-          btnoff: "required",
-        },
-
-        city: {
-          max: 15,
-          min: 3,
-          caractereNpermitido: /[^a-zA-Z\sÀ-ú]/g,
-          pattern: ["^([a-zA-Z\\sÀ-ú]{3,15})$", "cidade valida", "cidade invalida"],
-          btnoff: "required",
-        },
-
-        neighborhood: {
-          max: 25,
-          min: 3,
-          caractereNpermitido: /[^a-zA-ZÀ-ú\s]/g,
-          pattern: ["^([a-zA-ZÀ-ú\\s]{3,25})$", "bairro valido", "bairro invalido"],
-          btnoff: "required",
-        },
-
+        }
       })
-      formslojaEdit.cadastrar("http://localhost:9000/api/adm/lojas", () => {
-        const values = formslojaEdit.allValues()
-        values.lat = informacoesdaAPI.location.coordinates.latitude
-        values.lng = informacoesdaAPI.location.coordinates.longitude
+    ],
+    btnoff: "apaiossk",
 
-        return values
-      }, null, success = (response) => {
-        localStorage.setItem("novaLoja", JSON.stringify({
-          cor: "success",
-          texto: response.data.message,
-          div: "#alert",
-        }))
-        location.reload()
-      })
-    });
+  },
 
+  street: {
+    min: 3,
+    max: 255,
+    btnoff: "apaiossk",
+    caractereNpermitido: ["Nnumber", "NcaractereEspecial"],
+    pattern: [".*", "Rua valido", "Rua invalida"]
+  },
+
+
+  neighborhood: {
+    min: 3,
+    max: 255,
+    btnoff: "apaiossk",
+    caractereNpermitido: ["Nnumber", "NcaractereEspecial"],
+    pattern: [".*", "Bairro valido", "Bairro invalido"]
+  },
+
+  city: {
+    min: 3,
+    max: 255,
+    btnoff: "apaiossk",
+    caractereNpermitido: ["Nnumber", "NcaractereEspecial"],
+    pattern: [".*", "Cidade valida", "Cidade invalida"],
+    // customEvento: [
+    //   (value) => {
+
+    //     if (objEjs.endereco.split(",")[2] !== value) {
+    //       console.log("paia deu certo", objEjs)
+
+    //     } else {
+    //       console.log("paiaDeu Errado")
+
+    //       return "deu erro"
+    //     }
+    //   }
+
+    // ]
+  },
+
+  state: {
+    min: 2,
+    max: 2,
+    btnoff: "apaiossk",
+    caractereNpermitido: ["Nnumber", "NcaractereEspecial"],
+    pattern: [".*", "Estado valido", "Estado invalido"]
+  },
+
+
+});
+
+
+
+
+formsValidacaoEdit.forms.addEventListener("submit", async (event) => {
+
+  event.preventDefault()
+
+  try {
+
+    const valorEdit = formsValidacaoEdit.allValues()
+    valorEdit.id = objEjs.id
+
+
+    const {
+      data
+    } = await axios.get(`https://brasilapi.com.br/api/cep/v2/${valorEdit.cepInput}`)
+
+
+
+
+    valorEdit.lat = data.location.coordinates.latitude
+    valorEdit.lng = data.location.coordinates.longitude
+
+    console.log(valorEdit);
+
+    const response = await axios.put(`http://localhost:9000/api/adm/lojas`, valorEdit)
+ 
+
+    
+    // // localStorage.setItem("stopBusEdit", JSON.stringify({
+    // //   cor: "success",
+    // //   texto: `O ponto do cep ${objEjs.cep} foi alterado para o cep ${valorEdit.cepInput} com sucesso`,
+    // //   div: "#alert",
+    // // }))
+
+    // location.reload()
+
+
+
+  } catch (error) {
+    console.log(error);
   }
-  // fim modalEdit
+
+
+})
+
+
+
+// formsponto.cadastrar("http://localhost:9000/api/linhas/bus-stop", () => {
+//   const values = formsponto.allValues()
+
+//   values.lat = informacoesdaAPI.location.coordinates.latitude
+//   values.lng = informacoesdaAPI.location.coordinates.longitude
+
+//   return values
+// }, null, success = (response) => {
+//   localStorage.setItem("stopBusCreate", JSON.stringify({
+//     cor: "success",
+//     texto: response.data.message,
+//     div: "#alert",
+//   }))
+
+//   location.reload()
+
+
+// })
+
+
+// const btn = document.querySelector("#resetar")
+// const btnSalvarAlteracoes = document.querySelector("#btnSalvarAlteracoes")
+
+
+// btnSalvarAlteracoes.addEventListener("click", async (evnt) => {
+//   // const url = window.location.href; //retorna a url da pagina
+//   // const urlId = url.split("/").pop();
+//   // console.log(urlId); //pega  o ultimo parametro da url
+
+//   const cepEdit = cepInput.value
+//   const rua = document.querySelector("#ruaInput").value
+//   const bairro = document.querySelector("#bairroInput").value
+//   const cidade = document.querySelector("#cidadeInput").value
+//   const estado = document.querySelector("#estadoInput").value
+
+
+
+//   const data = {
+//     cepEdit,
+//     rua,
+//     bairro,
+//     cidade,
+//     estado
+//   }
+
+//   console.log(data);
+
+// })
+
+// function validarCEP(cep) {
+
+//   return /^\d{8}$/.test(cep);
+// }
+
+
+
+
+// var cepInput = document.querySelector('#cepInput');
+// cepInput.addEventListener("blur", async (event) => {
+//   if (cepInput.value !== objEjs.cep) btnSalvarAlteracoes.disabled = false;
+//   else btnSalvarAlteracoes.disabled = true; //nao muda nada so uma forma diferente de fazer
+
+//   // if (cepInput.value !== objEjs.cep) {
+//   //   if (!validarCEP(cepInput.value)) {
+//   //     // // Exibir mensagem de erro e impedir o envio do formulário
+//   //     document.querySelector('#cepInput').classList.add('is-invalid');
+//   //     btnSalvarAlteracoes.addAttribute('disabled');
+//   //   } else {
+//   //     btnSalvarAlteracoes.removeAttribute('disabled');
+//   //     document.getElementById('cepInput').classList.remove('is-invalid');
+//   //     document.getElementById('cepInput').classList.add('is-valid');
+
+//   //   }
+//   // } else {
+//   //   btnSalvarAlteracoes.addAttribute('disabled');
+//   //   document.getElementById('cepInput').classList.remove('is-invalid');
+//   //   document.getElementById('cepInput').classList.remove('is-valid');
+//   // }
+
+// });
+
+
+
+modal.addEventListener("hidden.bs.modal", () => {
+
+  // quando o modal for fechado esse evento acionara e excluira o modal do body
+  document.body.removeChild(modal)
+})
+
+
+
+}
+// fim modalEdit
+
 </script>
