@@ -1,14 +1,13 @@
 class Inputs {
   constructor(forms) {
     // criando uma variavel para o forms
-    
-    this.forms = typeof forms == "object" ? forms : document.querySelector(forms);
+
+    this.forms =
+      typeof forms == "object" ? forms : document.querySelector(forms);
 
     // essa funcao recebe uma funcao que rodara em todos os inputs
     this.inputs = (funcao) => {
-      for (const campo of [
-        ...this.forms.querySelectorAll("input"),
-      ]) {
+      for (const campo of [...this.forms.querySelectorAll("input")]) {
         funcao(campo);
       }
     };
@@ -290,6 +289,12 @@ class Inputs {
               validdiv.innerText = `insira ao menos ${inputvalida.min} caracteres`;
             } else if (input.value.length > inputvalida.max) {
               validdiv.innerText = `Este campo permite apenas  ${inputvalida.max} caracteres!`;
+            } else if (input.type == "number") {
+              if (input.value < inputvalida.min ) {
+                validdiv.innerText = `O minimo é ${inputvalida.min}`;
+              } else {
+                validdiv.innerText = `O limite é ${inputvalida.max}`;
+              }
             } else if (erroCustom) {
               validdiv.innerText = erroCustom;
             } else if (eventoCustom) {

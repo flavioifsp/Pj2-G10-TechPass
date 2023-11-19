@@ -72,30 +72,50 @@
               </ul>
             </div>
 
-            <div class="col-6">
+            <div class="col-6" id="lista1-horarios">
               <h6>Saida de Olaria</h6>
 
               <ul class="list-group">
-                <li class="list-group-item  d-flex">
-                  <p class="my-auto fs-5 p-0 m-0 ">11:20</p>
-                  <div class="list-group ms-auto list-group-horizontal">
-                    <button class="subir  list-group-item list-group-item-action py-0 px-2"><i class="bi bi-arrow-up"></i></button>
-                    <button class="descer  list-group-item list-group-item-action py-0 px-2"><i class="bi bi-arrow-down"></i></button>
-                    <button class="excluir  list-group-item list-group-item-action py-0 px-2"><i class="bi bi-x-lg text-danger"></i></button>
+                <li class="list-group-item p-0 m-0 d-flex add">
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#addhorario2" aria-expanded="true" aria-controls="addhorario2">
+                        adicionar um novo horario
+                      </button>
+                    </h2>
+                    <div id="addhorario2" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                      <div class="accordion-body">
+                        <!-- <div class="mx-auto d-flex" style="width: fit-content"> -->
+                        <div class="row">
+                          <div class="col-12">
+                            <label class="m-0 mt-auto form-label  pe-3" for="addHora2">horas:
+                            </label>
+
+                            <div class="row">
+                              <div class="col-8">
+                                <input class="form-control py-1 px-2" style="width: fit-content" type="time" id="addHora2" name="addHora2" />
+                              </div>
+                              <div class="col-4">
+                                <button class="btn py-1 px-2 ms-2 btn-success btnadd" type="button">
+                                  <i class="bi bi-plus-lg"></i>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-12">
+                            <label class="m-0 mt-auto form-label pe-3" for="addduracao2">Duracao em minutos:
+                            </label>
+                            <input class="form-control py-1 px-2" type="number" id="addduracao2" name="addduracao2" />
+                          </div>
+                        </div>
+
+                        <!-- </form> -->
+                      </div>
+                    </div>
                   </div>
-                </li>
 
-                <li class="list-group-item  d-flex">
-                  <form class="mx-auto d-flex" style="width: fit-content;">
-
-
-                    <label class="m-0 mt-auto  form-label fs-6 pe-2" for="addHora">criar: </label>
-                    <input class="form-control py-1 px-2" style="width: fit-content;" type="time" id="addHora" name="addHora">
-
-                    <button class="btn py-1 px-2  ms-2 btn-success ">
-                      <i class="bi bi-plus-lg "></i>
-                    </button>
-                  </form>
+                  <script></script>
                 </li>
               </ul>
             </div>
@@ -113,27 +133,95 @@
   </div>
 </div>
 
-<button class="btn btn-primary position-absolute bottom-0 end-0" onclick="
-(function* a(){
-  let i = 0
-  while(true){
-    
-    i = true
 
-    } else{
-      
-      i = false
-    }
 
-    yield
-  }
-  
-)().next()
-">
-  reload
-</button>
 <script>
   document.addEventListener("DOMContentLoaded", () => {
+    function addhorario(lista = document) {
+      divPaiLista = document.querySelector(`#${lista}`);
+      lista = divPaiLista.querySelector("ul");
+      const objHoras = [];
+
+      function addLi(horas, duracao, indice) {
+        const li = document.createElement("li");
+        li.classList.add("list-group-item", "d-flex");
+        li.innerHTML = `
+        <p class="my-auto p-0 m-0">${horas} | Duracao: ${duracao}m</p>
+        <div class="list-group ms-auto list-group-horizontal">
+  
+          <button type="button" class="excluir btn border ms-auto py-0 px-2">
+            <i class="bi bi-x-lg text-danger"></i>
+          </button>
+        </div> 
+        `;
+
+        
+
+        lista.insertBefore(li, lista.children[indice]);
+
+        // <button class="subir  list-group-item list-group-item-action py-0 px-2"><i class="bi bi-arrow-up"></i></button>
+        // <button class="descer  list-group-item list-group-item-action py-0 px-2"><i class="bi bi-arrow-down"></i></button>
+      }
+
+      lista.querySelectorAll("button").forEach((e) => {
+        
+        e.addEventListener("click", (evt) => {
+          if (e.classList.contains("btnadd")) {
+            let inputhoras = lista.querySelector("#addHora2"),
+              inputduracao = lista.querySelector("#addduracao2");
+
+            if (inputduracao.classList.contains("is-valid") && inputhoras.classList.contains("is-valid")) {
+
+              const duracao = inputduracao.value,
+                horas = inputhoras.value;
+
+              const horarioSaida = {
+                horas: new Date(`2000-01-01T${horas}`),
+                duracao,
+              };
+
+              objHoras.push(horarioSaida);
+              objHoras.sort((a, b) => {
+                return b.horas - a.horas; // Isso ordenará as datas em ordem decrescente
+              });
+
+              for (const i in objHoras) {
+                if (objHoras[i] === horarioSaida) {
+                  setTimeout(() => {
+                    addLi(horas, duracao, i);
+                  }, 500);
+
+                  break;
+                }
+              }
+
+              inputhoras.value = "";
+              inputduracao.value = "";
+
+              inputhoras.classList.remove("is-valid")
+              inputduracao.classList.remove("is-valid")
+
+              const bsCollapse = new bootstrap.Collapse("#addhorario2")
+              bsCollapse.hide()
+            } else {
+              evt.stopPropagation()
+              inputhoras.focus()
+              inputhoras.blur()
+              inputduracao.focus()
+              inputduracao.blur()
+            }
+          }
+
+    
+        });
+      });
+    }
+
+    addhorario("lista1-horarios");
+
+
+
+
     // criando os modals e outras coisas
     const modalsBoostrap = [];
     const formvalidacao = [];
@@ -146,8 +234,6 @@
       const formAtual = new Inputs(elem.querySelector("form"));
       modalsBoostrap.push(modalAtual);
       formvalidacao.push(formAtual);
-
-
 
       // definir o primeiro modal no indice
       if (indice == 0) {
@@ -175,12 +261,21 @@
         modalAtual.hide();
 
         elem.addEventListener("hidden.bs.modal", (evt) => {
-          formAtual.inputs(({
-            name,
-            values
-          }) => {
-            dataValues.set(name, values);
-          });
+          const data = formAtual.forms.getAttribute("data-bs-infoModal");
+          if (data) {
+            for (const chave in data) {
+              if (objeto.hasOwnProperty(chave)) {
+                dataValues.set(chave, data[chave]);
+              }
+            }
+          } else {
+            formAtual.inputs(({
+              name,
+              values
+            }) => {
+              dataValues.set(name, values);
+            });
+          }
 
           if (indice == document.querySelectorAll(".modalForm").length - 1) {
             // enviar para o servidor
@@ -221,6 +316,24 @@
           "bairro invalido",
         ],
         btnoff: "required",
+      },
+    });
+
+    formvalidacao[1].allvalidacao({
+      addHora2: {
+        min: 5,
+        max: 5,
+        caractereNpermitido: ["Number", "caractereEspecial"],
+        pattern: [
+          /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/, // Válido: Formato HH:mm
+          "Hora válida",
+          "Hora inválida",
+        ],
+      },
+      addduracao2: {
+        min: 1,
+        max: 500,
+        pattern: [".*", "duração valida", "duração invalida"],
       },
     });
 
