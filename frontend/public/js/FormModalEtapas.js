@@ -54,7 +54,7 @@ function formEtapasForms(
           dataValues[name] = value;
         });
 
-        if (indice == document.querySelectorAll(".modalForm").length - 1) {
+        if (indice == div.querySelectorAll(".modalForm").length - 1) {
           // enviar para o servidor
           callBackSV(dataValues);
         } else {

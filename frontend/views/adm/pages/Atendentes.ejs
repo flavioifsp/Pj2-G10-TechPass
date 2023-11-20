@@ -126,17 +126,17 @@
     });
   }
 
-  function modalEdit(objEjs) {
-    const div = document.createElement("div");
+  async function modalEdit(objEjs) {
+    const divEdit = document.createElement("div");
 
-    div.innerHTML = `
+    divEdit.innerHTML = `
     <!-- modal para criar um Atendente -->
 <div class="modal fade modalForm" tabindex="-1" aria-labelledby="createAtendenteLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header border-bottom">
         <h4 class="modal-title d-flex w-100">
-          Adicionando linha <span class="ms-auto">1/2</span>
+          editando a atendente  '<strong> ${objEjs.superuser.username}</strong>' <span class="ms-auto">1/2</span>
         </h4>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -158,7 +158,7 @@
             <!-- nasc -->
             <div class="col-sm-4 col-12">
               <label for="nascimento" class="form-label">Data de Nascimento</label>
-              <input name="nascimento" id="nascimento" class="form-control" type="date" required value="${new Date(objEjs.nascimento).toISOString()}" />
+              <input name="nascimento" id="nascimento" class="form-control" type="date" required value="${new Date(objEjs.nascimento).toISOString().split("T")[0]}" />
             </div>
 
             <!-- email -->
@@ -170,7 +170,7 @@
             <!-- senha -->
             <div class="col-sm-5 col-12">
               <label for="senha" class="form-label">Insira uma senha</label>
-              <input name="senha" id="senha" class="form-control" type="text"  placeholder="************" />
+              <input name="senha" id="senha" class="form-control" type="text" value="${objEjs.superuser.senha}"  />
             </div>
 
             <!-- cpf -->
@@ -197,7 +197,8 @@
     <div class="modal-content">
       <div class="modal-header border-bottom">
         <h4 class="modal-title d-flex w-100">
-          Adicionando linha <span class="ms-auto">2/2</span>
+          editando a atendente  '<strong> ${objEjs.superuser.username}</strong>' <span class="ms-auto">2/2</span>
+
         </h4>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -221,7 +222,6 @@
             <div class="col-6">
               <label for="local_de_trabalho_id" class="form-label">local de trabalho</label>
               <select class="form-select" aria-label="Default select example" name="local_de_trabalho_id" id="local_de_trabalho_id">
-                <option selected>selecione o local de trabalho</option>
               </select>
             </div>
 
@@ -229,7 +229,6 @@
             <div class="col-6">
               <label for="turno" class="form-label">turno</label>
               <select class="form-select" aria-label="Default select example" name="turno" id="turno">
-                <option selected>Selecione um turno</option>
                 <option value="manha">manha</option>
                 <option value="tarde">tarde</option>
                 <option value="noite">noite</option>
@@ -249,22 +248,47 @@
 </div>
           `;
 
-    document.body.appendChild(div);
+    document.body.appendChild(divEdit);
+
+    const lojas = (await axios.get("http://localhost:9000/api/adm/lojas"))
+      .data;
+
+    const campo = divEdit.querySelector("#local_de_trabalho_id");
+    lojas.forEach((loja) => {
+      const option = document.createElement("option");
+      if (loja.id === objEjs.loja_recarga.id) {
+        option.setAttribute("select", true)
+      }
+      option.innerText = loja.nome;
+      option.value = loja.id;
+      campo.appendChild(option);
+    })
+
+    const turno = divEdit.querySelector("#turno");
+    turno.querySelectorAll("option").forEach((elem) =>{
+      if (elem.value == objEjs.turno) {
+        elem.selected = true
+        
+      }
+    })  
+
+
 
     formEtapasForms(
       null,
       async (dataValues) => {
-          try {
-            const response = await axios.post(
-              "http://localhost:9000/api/userADM/atendente",
+        try {
+            console.log(JSON.stringify(dataValues));
+            const response = await axios.put(
+              `http://localhost:9000/api/userADM/atendente/${objEjs.superuser.id}`,
               dataValues
             );
             localStorage.setItem(
-              "AtendenteCreate",
+              "AtendenteEdit",
               JSON.stringify({
-                cor: "success",
-                texto: `Atendente ${response.data.username} adicionada(o)`,
-                div: "#alert",
+                cor: "warning",
+                texto: `Atendente '${response.data.username}' foi Alterado com sucesso`,
+                div: "#alert"
               })
             );
 
@@ -274,11 +298,11 @@
           }
         },
         (formvalidacao) => {
-         
+
           ;
           formvalidacao[0].inputs((input) => {
 
-            
+
           });
 
 
@@ -306,14 +330,12 @@
                   "não existe cpf com mais de 11 numeros",
                 ],
               ],
-              btnoff: "required",
             },
             nome: {
               max: 120,
               min: 3,
               caractereNpermitido: ["NcaractereEspecial", "Nnumber"],
               pattern: ["[a-zA-Z\\s]{3,120}", "nome valido", "nome invalido"],
-              btnoff: "required",
             },
             username: {
               max: 90,
@@ -324,7 +346,6 @@
                 "apelido valido",
                 "apelido invalido",
               ],
-              btnoff: "required",
             },
             email: {
               max: 64,
@@ -333,13 +354,11 @@
                 "email valido",
                 "email invalido",
               ],
-              btnoff: "required",
             },
             nascimento: {
               max: "2024-12-31",
               min: "1900-01-01",
               pattern: ["", "nascimento valido", "nascimento invalido"],
-              btnoff: "required",
             },
 
             senha: {
@@ -351,11 +370,10 @@
                 "senha valida",
                 "senha invalido",
               ],
-              btnoff: "required",
             },
           });
         },
-        div
+        divEdit
     );
   }
   // fim modalEdit
@@ -376,7 +394,7 @@
             <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title">Detalhes do Ponto</h5>
+                  <h5 class="modal-title">Detalhes da atendente ${objEjs.username}</h5>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body list-group h-100 w-100">

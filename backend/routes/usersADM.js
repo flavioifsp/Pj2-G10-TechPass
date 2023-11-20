@@ -49,18 +49,64 @@ router.post("/atendente", async (req, res) => {
   }
 });
 
+router.put("/atendente/:id", async (req, res) => {
+  const {
+    email,
+    senha,
+    username,
+    cpf,
+    endereco,
+    nascimento,
+    turno,
+    telefone,
+    local_de_trabalho_id,
+  } = req.body;
+
+  const superUserID = parseInt(req.params.id);
+  try {
+    const response = await prisma.superuser.update({
+      where: {
+        id: superUserID,
+      },
+      data: {
+        email,
+        senha,
+        username,
+        atendente: {
+          update: {
+            where: { superUser_id: superUserID },
+            data: {
+              cpf,
+              endereco,
+              nascimento: new Date(nascimento),
+              turno,
+              telefone,
+              local_de_trabalho_id: parseInt(local_de_trabalho_id),
+            },
+          },
+        },
+      },
+
+      select: {
+        username: true,
+      },
+    });
+
+    res.status(201).json(response);
+  } catch (error) {
+    const erro = exception(error);
+    console.log(erro);
+    res.status(erro.code).send(erro.msg.toString());
+  }
+});
+
 router.get("/atendentes", async (req, res) => {
   try {
     const atendentes = await prisma.atendente.findMany({
-      include:{
-        superuser: {
-          select:{
-            username: true,
-            email: true
-          }
-        },
+      include: {
+        superuser: true,
         loja_recarga: true,
-      }
+      },
     });
     res.status(200).json(atendentes);
   } catch (error) {
@@ -71,20 +117,20 @@ router.get("/atendentes", async (req, res) => {
 });
 
 router.delete("/atendente/:id", async (req, res) => {
-  const {id} = req.params
+  const { id } = req.params;
   try {
     const atendentes = await prisma.atendente.delete({
       where: {
-        id: parseInt(id)
+        id: parseInt(id),
       },
-      select:{
-        superuser:{
-          select:{
+      select: {
+        superuser: {
+          select: {
             username: true,
-            email:true 
-          }
-        }
-      }
+            email: true,
+          },
+        },
+      },
     });
     res.status(204).json(atendentes);
   } catch (error) {
@@ -93,8 +139,5 @@ router.delete("/atendente/:id", async (req, res) => {
     res.status(erro.code).send(erro.msg.toString());
   }
 });
-
-
-
 
 module.exports = router;

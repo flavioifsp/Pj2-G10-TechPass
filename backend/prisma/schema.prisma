@@ -21,7 +21,7 @@ model adm {
 model atendente {
   id                   Int          @id @default(autoincrement())
   local_de_trabalho_id Int
-  superUser_id         Int          @db.UnsignedInt
+  superUser_id         Int          @db.UnsignedInt @unique
   cpf                  String       @unique(map: "cpf_UNIQUE") @db.VarChar(14)
   turno                String?      @db.VarChar(45)
   nascimento           DateTime?    @db.Date

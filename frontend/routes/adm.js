@@ -20,7 +20,7 @@ router.get("/atendente", async function (req, res, next) {
     allAtendentes = null;
   }
 
-  res.render("adm/pages/cadastroAtendente.ejs", {
+  res.render("adm/pages/Atendentes.ejs", {
     layout: "adm/layouts/layout-index.ejs",
     cont: "#menuAtendente",
     allAtendentes
