@@ -77,5 +77,27 @@ router.put("/lojas", async (req, res) => {
   }
 });
 
+router.delete("/loja/:id", async (req, res) => {
+  try {
+
+    const deleteLoja = await prisma.loja_recarga.delete({
+      where: {
+        id: Number(req.params.id),
+      },
+      select: {
+        cep: true,
+        id: true,
+      },
+    });
+
+    res.status(200).send();
+
+  } catch (error) {
+    const erro = exception(error);
+    console.log(error);
+    res.status(erro.code).send(erro.msg);
+  }
+});
+
 
 module.exports = router;

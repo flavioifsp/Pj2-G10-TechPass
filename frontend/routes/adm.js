@@ -44,7 +44,6 @@ router.get("/pontoDeOnibus", async function (req, res, next) {
     pontos = null;
   }
 
-  console.log(pontos);
   res.render("adm/pages/cadastroPontoDeOnibus.ejs", {
     layout: "adm/layouts/layout-index.ejs",
     cont: "#menuPontoDeOnibus",
@@ -56,6 +55,13 @@ router.get("/passageiros", async function (req, res, next) {
   res.render("adm/pages/cadastroPassageiro.ejs", {
     layout: "adm/layouts/layout-index.ejs",
     cont: "#menuPassageiros",
+  });
+});
+
+router.get("/onibus", async function (req, res, next) {
+  res.render("adm/pages/cadastroOnibus.ejs", {
+    layout: "adm/layouts/layout-index.ejs",
+
   });
 });
 
