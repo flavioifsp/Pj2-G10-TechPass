@@ -8,8 +8,8 @@ const dotenv = require("dotenv").config();
 const linhas = require("./routes/linhas");
 const ponto = require("./routes/pontodeonibus");
 const catraca = require("./routes/catraca");
-const maps = require("./routes/mapa");
 const users = require("./routes/users");
+const usersADM = require("./routes/usersADM");
 const adm = require("./routes/adm");
 
 const app = express();
@@ -36,8 +36,8 @@ app.use(cookieParser());
 app.use("/api/linhas", linhas);
 app.use("/api/linhas", ponto);
 app.use("/api/catraca", catraca);
-app.use("/api/maps", maps);
 app.use("/api/user", users);
+app.use("/api/userADM", usersADM);
 app.use("/api/adm", adm);
 
 app.all("*", (req, res) => {

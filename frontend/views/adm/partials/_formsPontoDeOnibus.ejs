@@ -24,7 +24,7 @@
 
             <div class="col-md-10 col-9">
               <label for="street" class="form-label">Rua</label>
-              <input type="text" class="form-control" id="street" name="street" required disabled>
+              <input type="text" class="form-control" id="street" name="street" required disabled />
             </div>
             <div class="col-md-2 col-3">
               <label for="state" class="form-label">Estado</label>
@@ -44,9 +44,7 @@
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
             Cancelar
           </button>
-          <button type="submit" class="btn btn-primary ">
-            Criar ponto
-          </button>
+          <button type="submit" class="btn btn-primary">Criar ponto</button>
         </div>
       </form>
     </div>
@@ -57,16 +55,10 @@
 <script>
   document.addEventListener("DOMContentLoaded", () => {
     const formsponto = new Inputs("#formspontodeonibus");
-    let informacoesdaAPI
-    const inputCep = document.getElementById('cep');
-
-
-
+    let informacoesdaAPI;
+    const inputCep = document.getElementById("cep");
 
     formsponto.allvalidacao({
-
-
-
       cep: {
         min: 9,
         max: 9,
@@ -74,64 +66,63 @@
         autopontuar: [/([\d]{6})([\d]{2})/, "$1-$2"],
         pattern: ["(\\d{6}-\\d{2})", "cep valido", "cep invalido"],
         customEvento: [
-          (async (value) => {
+          async (value) => {
             try {
-              informacoesdaAPI = (await axios.get(`https://brasilapi.com.br/api/cep/v2/${value}`)).data 
-
+              informacoesdaAPI = (
+                await axios.get(`https://brasilapi.com.br/api/cep/v2/${value}`)
+              ).data;
 
               formsponto.inputs((input) => {
                 for (const info in informacoesdaAPI) {
                   if (Object.hasOwnProperty.call(informacoesdaAPI, info)) {
                     if (input.name == info) {
-                      input.value = informacoesdaAPI[info]
-                      input.focus()
-                      input.blur()
-
+                      input.value = informacoesdaAPI[info];
+                      input.focus();
+                      input.blur();
                     }
                   }
                 }
-              })
+              });
 
               formsponto.inputs((input) => {
                 if (input !== inputCep) {
                   input.disabled = true;
                 }
               });
-
-
-
             } catch (error) {
-              console.log(error)
-              if (error.response.status == 404) return "insira um CEP que exista"
-
+              console.log(error);
+              if (error.response.status == 404)
+                return "insira um CEP que exista";
             }
-          })
+          },
         ],
         btnoff: "required",
-
-      }
+      },
     });
 
+    formsponto.cadastrar(
+      "http://localhost:9000/api/linhas/bus-stop",
+      () => {
+        const values = formsponto.allValues();
 
-    formsponto.cadastrar("http://localhost:9000/api/linhas/bus-stop", () => {
-      const values = formsponto.allValues()
+        values.lat = informacoesdaAPI.location.coordinates.latitude;
+        values.lng = informacoesdaAPI.location.coordinates.longitude;
 
-      values.lat = informacoesdaAPI.location.coordinates.latitude
-      values.lng = informacoesdaAPI.location.coordinates.longitude
+        return values;
+      },
+      null,
+      (success = (response) => {
+        localStorage.setItem(
+          "stopBusCreate",
+          JSON.stringify({
+            cor: "success",
+            texto: response.data.message,
+            div: "#alert",
+          })
+        );
 
-      return values
-    }, null, success = (response) => {
-      localStorage.setItem("stopBusCreate", JSON.stringify({
-        cor: "success",
-        texto: response.data.message,
-        div: "#alert",
-      }))
-
-      location.reload()
-
-
-    })
-
-
+        location.reload();
+      })
+    );
   });
 </script>

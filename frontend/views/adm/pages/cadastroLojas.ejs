@@ -45,19 +45,19 @@
 
               <div class="col-md-10 col-9">
                 <label for="street" class="form-label">rua</label>
-                <input type="text" class="form-control" id="street" name="street" required placeholder="Rua das Flores " disabled/>
+                <input type="text" class="form-control" id="street" name="street" required placeholder="Rua das Flores " disabled />
               </div>
               <div class="col-md-2 col-3">
                 <label for="state" class="form-label">Estado</label>
-                <input type="text" class="form-control" id="state" name="state" required placeholder="SP" disabled/>
+                <input type="text" class="form-control" id="state" name="state" required placeholder="SP" disabled />
               </div>
               <div class="col-md-8 col-12">
                 <label for="city" class="form-label">cidade</label>
-                <input type="text" class="form-control" id="city" name="city" required placeholder="Caraguatatuba"disabled />
+                <input type="text" class="form-control" id="city" name="city" required placeholder="Caraguatatuba" disabled />
               </div>
               <div class="col-md-4 col-12">
                 <label for="neighborhood" class="form-label">bairro</label>
-                <input type="text" class="form-control" id="neighborhood" name="neighborhood" required placeholder="Olaria"disabled />
+                <input type="text" class="form-control" id="neighborhood" name="neighborhood" required placeholder="Olaria" disabled />
               </div>
             </div>
           </div>
@@ -176,94 +176,93 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-        const formsloja = new Inputs("#formularioDeCadastroLojas");
+    const formsloja = new Inputs("#formularioDeCadastroLojas");
 
-        let informacoesdaAPI;
+    let informacoesdaAPI;
 
-        formsloja.allvalidacao({
-          cep: {
-            min: 9,
+    formsloja.allvalidacao({
+      cep: {
+        min: 9,
         max: 9,
         caractereNpermitido: ["Nletra", "Nacentuacao"],
         autopontuar: [/([\d]{6})([\d]{2})/, "$1-$2"],
         pattern: ["(\\d{6}-\\d{2})", "cep valido", "cep invalido"],
         customEvento: [
-              (value) => {
-                if (value.match(/\d{9}/)) {
-                  return "cep com 9 numero?";
-                }
-              },
-              async (value) => {
-                try {
-                  informacoesdaAPI = (
-                    await axios.get(
-                      `https://brasilapi.com.br/api/cep/v2/${value}`
-                    )
-                  ).data;
-
-                  formsloja.inputs((input) => {
-                    for (const info in informacoesdaAPI) {
-                      if (Object.hasOwnProperty.call(informacoesdaAPI, info)) {
-                        if (input.name == info) {
-                          input.value = informacoesdaAPI[info];
-                          input.focus();
-                          input.blur();
-                        }
-                      }
-                    }
-                  });
-                } catch (error) {
-                  console.log(error);
-                  if (error.response.status == 404)
-                    return "insira um CEP que exista";
-                }
-              },
-            ],
-            btnoff: "required", //signiifica que é obrigatorio
+          (value) => {
+            if (value.match(/\d{9}/)) {
+              return "cep com 9 numero?";
+            }
           },
+          async (value) => {
+            try {
+              informacoesdaAPI = (
+                await axios.get(
+                  `https://brasilapi.com.br/api/cep/v2/${value}`
+                )
+              ).data;
 
-            nome: {
-              min: 3,
-              max: 45,
-              caractereNpermitido: ["Nnumber", "NcaractereEspecial"],
-              pattern: ["[a-zA-ZÀ-ú\s]{3,45}", "nome valido", "nome invalido"],
-              btnoff: "naoEobrigatorio",
-            },
+              formsloja.inputs((input) => {
+                for (const info in informacoesdaAPI) {
+                  if (Object.hasOwnProperty.call(informacoesdaAPI, info)) {
+                    if (input.name == info) {
+                      input.value = informacoesdaAPI[info];
+                      input.focus();
+                      input.blur();
+                    }
+                  }
+                }
+              });
+            } catch (error) {
+              console.log(error);
+              if (error.response.status == 404)
+                return "insira um CEP que exista";
+            }
+          },
+        ],
+        btnoff: "required", //signiifica que é obrigatorio
+      },
 
-         
-    
+      nome: {
+        min: 3,
+        max: 45,
+        caractereNpermitido: ["Nnumber", "NcaractereEspecial"],
+        pattern: ["[a-zA-ZÀ-ú\s]{3,45}", "nome valido", "nome invalido"],
+        btnoff: "naoEobrigatorio",
+      },
 
 
-        });
 
-        formsloja.cadastrar("http://localhost:9000/api/adm/lojas", () => {
-            const values = formsloja.allValues()
-            values.lat = informacoesdaAPI.location.coordinates.latitude
-            values.lng = informacoesdaAPI.location.coordinates.longitude
 
-            return values
-          }, null, success = (response) => {
-            localStorage.setItem("novaLoja", JSON.stringify({
-              cor: "success",
-              texto: response.data.message,
-              div: "#alert",
-            }))
-            location.reload()
-          })
-      })
+    });
 
-        function modalInfo(objEjs) {
+    formsloja.cadastrar("http://localhost:9000/api/adm/lojas", () => {
+      const values = formsloja.allValues()
+      values.lat = informacoesdaAPI.location.coordinates.latitude
+      values.lng = informacoesdaAPI.location.coordinates.longitude
 
-          // transformando o objeto que está transformado em string para objeto dnv
+      return values
+    }, null, success = (response) => {
+      localStorage.setItem("novaLoja", JSON.stringify({
+        cor: "success",
+        texto: response.data.message,
+        div: "#alert",
+      }))
+      location.reload()
+    })
+  })
 
-          // criando uma div no js
-          const umadiv = document.createElement("div")
+  function modalInfo(objEjs) {
 
-          // adicionando o innerHTML com um template
-          // https://www.w3schools.com/js/js_string_templates.asp
-          // e
-          // adicionando uma div de modal pego do site do boostrap
-          umadiv.innerHTML = `
+    // transformando o objeto que está transformado em string para objeto dnv
+
+    // criando uma div no js
+    const umadiv = document.createElement("div")
+
+    // adicionando o innerHTML com um template
+    // https://www.w3schools.com/js/js_string_templates.asp
+    // e
+    // adicionando uma div de modal pego do site do boostrap
+    umadiv.innerHTML = `
       <div class="modal fade" tabindex="-1" >
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
@@ -293,45 +292,45 @@
       `
 
 
-          // o split divide uma string em substrings
-          // https://www.w3schools.com/jsref/jsref_split.asp
+    // o split divide uma string em substrings
+    // https://www.w3schools.com/jsref/jsref_split.asp
 
 
-          // criando uma variavel que recebe o modal dentro do umadiv
-          const modal = umadiv.querySelector(".modal")
+    // criando uma variavel que recebe o modal dentro do umadiv
+    const modal = umadiv.querySelector(".modal")
 
-          // adicionando o modal ao BODY do HTML
-          document.body.appendChild(modal)
-
-
-          // criando uma instancia seguindo as instruções do boostrap
-          // https://getbootstrap.com/docs/5.3/components/modal/#how-it-works
-          const InstanciaBoostrapDoModal = new bootstrap.Modal(modal)
-
-          // abrindo o modal
-          InstanciaBoostrapDoModal.toggle()
+    // adicionando o modal ao BODY do HTML
+    document.body.appendChild(modal)
 
 
+    // criando uma instancia seguindo as instruções do boostrap
+    // https://getbootstrap.com/docs/5.3/components/modal/#how-it-works
+    const InstanciaBoostrapDoModal = new bootstrap.Modal(modal)
 
-          // vai para a parte de eventos que encontrara mais informações
-          // https://getbootstrap.com/docs/5.3/components/modal/#how-it-works
-          modal.addEventListener("hidden.bs.modal", () => {
-
-            // quando o modal for fechado esse evento acionara e excluira o modal do body
-            document.body.removeChild(modal)
-          })
-          // fim da função
-        }
+    // abrindo o modal
+    InstanciaBoostrapDoModal.toggle()
 
 
 
+    // vai para a parte de eventos que encontrara mais informações
+    // https://getbootstrap.com/docs/5.3/components/modal/#how-it-works
+    modal.addEventListener("hidden.bs.modal", () => {
 
-        function modalEdit(objEjs) {
+      // quando o modal for fechado esse evento acionara e excluira o modal do body
+      document.body.removeChild(modal)
+    })
+    // fim da função
+  }
 
-const div = document.createElement("div")
 
 
-div.innerHTML = `
+
+  function modalEdit(objEjs) {
+
+    const div = document.createElement("div")
+
+
+    div.innerHTML = `
       
     <div class="modal fade" id="modalToggle" aria-labelledby="modalToggleLabel" tabindex="-1" style="display: none" _mstvisible="0" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" _mstvisible="1">
@@ -405,258 +404,257 @@ div.innerHTML = `
 
       `
 
-const modal = div.querySelector(".modal")
+    const modal = div.querySelector(".modal")
 
-//selecionando o modoal  e adicionando o modal ao BODY do HTML
-document.body.appendChild(modal)
+    //selecionando o modoal  e adicionando o modal ao BODY do HTML
+    document.body.appendChild(modal)
 
-const InstanciaBoostrapDoModal = new bootstrap.Modal(modal)
+    const InstanciaBoostrapDoModal = new bootstrap.Modal(modal)
 
-InstanciaBoostrapDoModal.toggle()
+    InstanciaBoostrapDoModal.toggle()
 
-formsValidacaoEdit = new Inputs("#resetForm") // pega todos os inputs do form 
-const btnSalvarAlteracoes = document.querySelector("#btnSalvarAlteracoes")
-
-
+    formsValidacaoEdit = new Inputs("#resetForm") // pega todos os inputs do form 
+    const btnSalvarAlteracoes = document.querySelector("#btnSalvarAlteracoes")
 
 
-formsValidacaoEdit.allvalidacao({
-
-  nome: {
-              min: 3,
-              max: 45,
-              caractereNpermitido: ["Nnumber", "NcaractereEspecial"],
-              pattern: ["[a-zA-ZÀ-ú\s]{3,45}", "nome valido", "nome invalido"],
-              btnoff: "naoEobrigatorio",
-            },
-
-  cepInput: {
-    min: 9,
-    max: 9,
-    caractereNpermitido: ["Nletra", "Nacentuacao", ],
-    autopontuar: [/([\d]{6})([\d]{2})/, "$1-$2"],
-    pattern: ["(\\d{6}-\\d{2})", "cep valido", "cep invalido"],
-    customEvento: [
-
-      (async (value) => {
-        try {
-          informacoesdaAPI = (await axios.get(`https://brasilapi.com.br/api/cep/v2/${value}`)).data
 
 
-          formsValidacaoEdit.inputs((input) => {
-            for (const info in informacoesdaAPI) {
-              if (Object.hasOwnProperty.call(informacoesdaAPI, info)) {
-                if (input.name == info) {
-                  input.value = informacoesdaAPI[info]
-                  input.focus()
-                  input.blur()
+    formsValidacaoEdit.allvalidacao({
 
+      nome: {
+        min: 3,
+        max: 45,
+        caractereNpermitido: ["Nnumber", "NcaractereEspecial"],
+        pattern: ["[a-zA-ZÀ-ú\s]{3,45}", "nome valido", "nome invalido"],
+        btnoff: "naoEobrigatorio",
+      },
+
+      cepInput: {
+        min: 9,
+        max: 9,
+        caractereNpermitido: ["Nletra", "Nacentuacao", ],
+        autopontuar: [/([\d]{6})([\d]{2})/, "$1-$2"],
+        pattern: ["(\\d{6}-\\d{2})", "cep valido", "cep invalido"],
+        customEvento: [
+
+          (async (value) => {
+            try {
+              informacoesdaAPI = (await axios.get(`https://brasilapi.com.br/api/cep/v2/${value}`)).data
+
+
+              formsValidacaoEdit.inputs((input) => {
+                for (const info in informacoesdaAPI) {
+                  if (Object.hasOwnProperty.call(informacoesdaAPI, info)) {
+                    if (input.name == info) {
+                      input.value = informacoesdaAPI[info]
+                      input.focus()
+                      input.blur()
+
+                    }
+                  }
                 }
-              }
+              })
+
+            } catch (error) {
+              console.log(error)
+              if (error.response.status == 404) return "insira um CEP que exista"
+
             }
           })
+        ],
+        btnoff: "apaiossk",
 
-        } catch (error) {
-          console.log(error)
-          if (error.response.status == 404) return "insira um CEP que exista"
+      },
 
-        }
-      })
-    ],
-    btnoff: "apaiossk",
-
-  },
-
-  street: {
-    min: 3,
-    max: 255,
-    btnoff: "apaiossk",
-    caractereNpermitido: ["Nnumber", "NcaractereEspecial"],
-    pattern: [".*", "Rua valido", "Rua invalida"]
-  },
+      street: {
+        min: 3,
+        max: 255,
+        btnoff: "apaiossk",
+        caractereNpermitido: ["Nnumber", "NcaractereEspecial"],
+        pattern: [".*", "Rua valido", "Rua invalida"]
+      },
 
 
-  neighborhood: {
-    min: 3,
-    max: 255,
-    btnoff: "apaiossk",
-    caractereNpermitido: ["Nnumber", "NcaractereEspecial"],
-    pattern: [".*", "Bairro valido", "Bairro invalido"]
-  },
+      neighborhood: {
+        min: 3,
+        max: 255,
+        btnoff: "apaiossk",
+        caractereNpermitido: ["Nnumber", "NcaractereEspecial"],
+        pattern: [".*", "Bairro valido", "Bairro invalido"]
+      },
 
-  city: {
-    min: 3,
-    max: 255,
-    btnoff: "apaiossk",
-    caractereNpermitido: ["Nnumber", "NcaractereEspecial"],
-    pattern: [".*", "Cidade valida", "Cidade invalida"],
-    // customEvento: [
-    //   (value) => {
+      city: {
+        min: 3,
+        max: 255,
+        btnoff: "apaiossk",
+        caractereNpermitido: ["Nnumber", "NcaractereEspecial"],
+        pattern: [".*", "Cidade valida", "Cidade invalida"],
+        // customEvento: [
+        //   (value) => {
 
-    //     if (objEjs.endereco.split(",")[2] !== value) {
-    //       console.log("paia deu certo", objEjs)
+        //     if (objEjs.endereco.split(",")[2] !== value) {
+        //       console.log("paia deu certo", objEjs)
 
-    //     } else {
-    //       console.log("paiaDeu Errado")
+        //     } else {
+        //       console.log("paiaDeu Errado")
 
-    //       return "deu erro"
-    //     }
+        //       return "deu erro"
+        //     }
+        //   }
+
+        // ]
+      },
+
+      state: {
+        min: 2,
+        max: 2,
+        btnoff: "apaiossk",
+        caractereNpermitido: ["Nnumber", "NcaractereEspecial"],
+        pattern: [".*", "Estado valido", "Estado invalido"]
+      },
+
+
+    });
+
+
+
+
+    formsValidacaoEdit.forms.addEventListener("submit", async (event) => {
+
+      event.preventDefault()
+
+      try {
+
+        const valorEdit = formsValidacaoEdit.allValues()
+        valorEdit.id = objEjs.id
+
+
+        const {
+          data
+        } = await axios.get(`https://brasilapi.com.br/api/cep/v2/${valorEdit.cepInput}`)
+
+
+
+
+        valorEdit.lat = data.location.coordinates.latitude
+        valorEdit.lng = data.location.coordinates.longitude
+
+        console.log(valorEdit);
+
+        const response = await axios.put(`http://localhost:9000/api/adm/lojas`, valorEdit)
+
+
+
+        // // localStorage.setItem("stopBusEdit", JSON.stringify({
+        // //   cor: "success",
+        // //   texto: `O ponto do cep ${objEjs.cep} foi alterado para o cep ${valorEdit.cepInput} com sucesso`,
+        // //   div: "#alert",
+        // // }))
+
+        // location.reload()
+
+
+
+      } catch (error) {
+        console.log(error);
+      }
+
+
+    })
+
+
+
+    // formsponto.cadastrar("http://localhost:9000/api/linhas/bus-stop", () => {
+    //   const values = formsponto.allValues()
+
+    //   values.lat = informacoesdaAPI.location.coordinates.latitude
+    //   values.lng = informacoesdaAPI.location.coordinates.longitude
+
+    //   return values
+    // }, null, success = (response) => {
+    //   localStorage.setItem("stopBusCreate", JSON.stringify({
+    //     cor: "success",
+    //     texto: response.data.message,
+    //     div: "#alert",
+    //   }))
+
+    //   location.reload()
+
+
+    // })
+
+
+    // const btn = document.querySelector("#resetar")
+    // const btnSalvarAlteracoes = document.querySelector("#btnSalvarAlteracoes")
+
+
+    // btnSalvarAlteracoes.addEventListener("click", async (evnt) => {
+    //   // const url = window.location.href; //retorna a url da pagina
+    //   // const urlId = url.split("/").pop();
+    //   // console.log(urlId); //pega  o ultimo parametro da url
+
+    //   const cepEdit = cepInput.value
+    //   const rua = document.querySelector("#ruaInput").value
+    //   const bairro = document.querySelector("#bairroInput").value
+    //   const cidade = document.querySelector("#cidadeInput").value
+    //   const estado = document.querySelector("#estadoInput").value
+
+
+
+    //   const data = {
+    //     cepEdit,
+    //     rua,
+    //     bairro,
+    //     cidade,
+    //     estado
     //   }
 
-    // ]
-  },
+    //   console.log(data);
 
-  state: {
-    min: 2,
-    max: 2,
-    btnoff: "apaiossk",
-    caractereNpermitido: ["Nnumber", "NcaractereEspecial"],
-    pattern: [".*", "Estado valido", "Estado invalido"]
-  },
+    // })
 
+    // function validarCEP(cep) {
 
-});
+    //   return /^\d{8}$/.test(cep);
+    // }
 
 
 
 
-formsValidacaoEdit.forms.addEventListener("submit", async (event) => {
+    // var cepInput = document.querySelector('#cepInput');
+    // cepInput.addEventListener("blur", async (event) => {
+    //   if (cepInput.value !== objEjs.cep) btnSalvarAlteracoes.disabled = false;
+    //   else btnSalvarAlteracoes.disabled = true; //nao muda nada so uma forma diferente de fazer
 
-  event.preventDefault()
+    //   // if (cepInput.value !== objEjs.cep) {
+    //   //   if (!validarCEP(cepInput.value)) {
+    //   //     // // Exibir mensagem de erro e impedir o envio do formulário
+    //   //     document.querySelector('#cepInput').classList.add('is-invalid');
+    //   //     btnSalvarAlteracoes.addAttribute('disabled');
+    //   //   } else {
+    //   //     btnSalvarAlteracoes.removeAttribute('disabled');
+    //   //     document.getElementById('cepInput').classList.remove('is-invalid');
+    //   //     document.getElementById('cepInput').classList.add('is-valid');
 
-  try {
+    //   //   }
+    //   // } else {
+    //   //   btnSalvarAlteracoes.addAttribute('disabled');
+    //   //   document.getElementById('cepInput').classList.remove('is-invalid');
+    //   //   document.getElementById('cepInput').classList.remove('is-valid');
+    //   // }
 
-    const valorEdit = formsValidacaoEdit.allValues()
-    valorEdit.id = objEjs.id
-
-
-    const {
-      data
-    } = await axios.get(`https://brasilapi.com.br/api/cep/v2/${valorEdit.cepInput}`)
-
-
-
-
-    valorEdit.lat = data.location.coordinates.latitude
-    valorEdit.lng = data.location.coordinates.longitude
-
-    console.log(valorEdit);
-
-    const response = await axios.put(`http://localhost:9000/api/adm/lojas`, valorEdit)
- 
-
-    
-    // // localStorage.setItem("stopBusEdit", JSON.stringify({
-    // //   cor: "success",
-    // //   texto: `O ponto do cep ${objEjs.cep} foi alterado para o cep ${valorEdit.cepInput} com sucesso`,
-    // //   div: "#alert",
-    // // }))
-
-    // location.reload()
+    // });
 
 
 
-  } catch (error) {
-    console.log(error);
+    modal.addEventListener("hidden.bs.modal", () => {
+
+      // quando o modal for fechado esse evento acionara e excluira o modal do body
+      document.body.removeChild(modal)
+    })
+
+
+
   }
-
-
-})
-
-
-
-// formsponto.cadastrar("http://localhost:9000/api/linhas/bus-stop", () => {
-//   const values = formsponto.allValues()
-
-//   values.lat = informacoesdaAPI.location.coordinates.latitude
-//   values.lng = informacoesdaAPI.location.coordinates.longitude
-
-//   return values
-// }, null, success = (response) => {
-//   localStorage.setItem("stopBusCreate", JSON.stringify({
-//     cor: "success",
-//     texto: response.data.message,
-//     div: "#alert",
-//   }))
-
-//   location.reload()
-
-
-// })
-
-
-// const btn = document.querySelector("#resetar")
-// const btnSalvarAlteracoes = document.querySelector("#btnSalvarAlteracoes")
-
-
-// btnSalvarAlteracoes.addEventListener("click", async (evnt) => {
-//   // const url = window.location.href; //retorna a url da pagina
-//   // const urlId = url.split("/").pop();
-//   // console.log(urlId); //pega  o ultimo parametro da url
-
-//   const cepEdit = cepInput.value
-//   const rua = document.querySelector("#ruaInput").value
-//   const bairro = document.querySelector("#bairroInput").value
-//   const cidade = document.querySelector("#cidadeInput").value
-//   const estado = document.querySelector("#estadoInput").value
-
-
-
-//   const data = {
-//     cepEdit,
-//     rua,
-//     bairro,
-//     cidade,
-//     estado
-//   }
-
-//   console.log(data);
-
-// })
-
-// function validarCEP(cep) {
-
-//   return /^\d{8}$/.test(cep);
-// }
-
-
-
-
-// var cepInput = document.querySelector('#cepInput');
-// cepInput.addEventListener("blur", async (event) => {
-//   if (cepInput.value !== objEjs.cep) btnSalvarAlteracoes.disabled = false;
-//   else btnSalvarAlteracoes.disabled = true; //nao muda nada so uma forma diferente de fazer
-
-//   // if (cepInput.value !== objEjs.cep) {
-//   //   if (!validarCEP(cepInput.value)) {
-//   //     // // Exibir mensagem de erro e impedir o envio do formulário
-//   //     document.querySelector('#cepInput').classList.add('is-invalid');
-//   //     btnSalvarAlteracoes.addAttribute('disabled');
-//   //   } else {
-//   //     btnSalvarAlteracoes.removeAttribute('disabled');
-//   //     document.getElementById('cepInput').classList.remove('is-invalid');
-//   //     document.getElementById('cepInput').classList.add('is-valid');
-
-//   //   }
-//   // } else {
-//   //   btnSalvarAlteracoes.addAttribute('disabled');
-//   //   document.getElementById('cepInput').classList.remove('is-invalid');
-//   //   document.getElementById('cepInput').classList.remove('is-valid');
-//   // }
-
-// });
-
-
-
-modal.addEventListener("hidden.bs.modal", () => {
-
-  // quando o modal for fechado esse evento acionara e excluira o modal do body
-  document.body.removeChild(modal)
-})
-
-
-
-}
-// fim modalEdit
-
+  // fim modalEdit
 </script>

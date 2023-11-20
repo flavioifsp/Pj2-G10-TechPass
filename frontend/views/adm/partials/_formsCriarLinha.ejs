@@ -343,7 +343,7 @@
             });
           }
 
-          localStorage.setItem("dataValues", JSON.stringify(dataValues));
+          // localStorage.setItem("dataValues", JSON.stringify(dataValues));
 
           if (indice == document.querySelectorAll(".modalForm").length - 1) {
             // enviar para o servidor
@@ -351,6 +351,7 @@
             // avancar de pagina
             modalsBoostrap[indice + 1].show();
           }
+          
         });
       });
     });

@@ -7,7 +7,7 @@ class Inputs {
 
     // essa funcao recebe uma funcao que rodara em todos os inputs
     this.inputs = (funcao) => {
-      for (const campo of [...this.forms.querySelectorAll("input")]) {
+      for (const campo of [...this.forms.querySelectorAll("input"), ...this.forms.querySelectorAll("select")]) {
         funcao(campo);
       }
     };

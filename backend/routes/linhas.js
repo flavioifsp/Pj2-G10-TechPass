@@ -122,7 +122,7 @@ router.post("/", async (req, res, next) => {
 
           percurso: {
             create: percursos,
-          },
+          }, 
 
           horario_diario_saida: {
             create: [

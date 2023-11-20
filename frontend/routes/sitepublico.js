@@ -24,7 +24,7 @@ async function UserInfoPagNav(token, headers) {
 /* GET home page. */
 router.get("/", async function (req, res, next) {
   let { er, data } = await axiosGet(
-    "http://localhost:9000/api/maps/allMapaLojas"
+    "http://localhost:9000/api/adm/lojas"
   );
 
   res.render("site_publico/pages/index", {

@@ -1,0 +1,272 @@
+<div id="alert"></div>
+<script>
+  alert("AtendenteCreate");
+  alert("stopBusEdit");
+  alert("stopBusDelete");
+</script>
+
+<!-- botao -->
+<button type="button" class="btn btn-primary" id="createAtendente">
+  Adicionar Atendente
+</button>
+
+<!-- modal para criar um Atendente -->
+<div class="modal fade modalForm" tabindex="-1" aria-labelledby="createAtendenteLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header border-bottom">
+        <h4 class="modal-title d-flex w-100">
+          Adicionando linha <span class="ms-auto">1/2</span>
+        </h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <form novalidate>
+        <div class="modal-body">
+          <div class="row g-2">
+            <!-- nome real -->
+            <div class="col-12">
+              <label for="nome" class="form-label">Nome Completo</label>
+              <input class="form-control" id="nome" name="nome" type="text" required />
+            </div>
+
+            <!-- username -->
+            <div class="col-12 col-sm-8">
+              <label for="username" class="form-label">Apelido (username)</label>
+              <input name="username" id="username" class="form-control" type="text" required />
+            </div>
+            <!-- nasc -->
+            <div class="col-sm-4 col-12">
+              <label for="nascimento" class="form-label">Data de Nascimento</label>
+              <input name="nascimento" id="nascimento" class="form-control" type="date" required />
+            </div>
+
+            <!-- email -->
+            <div class="col-12">
+              <label for="email" class="form-label">Email</label>
+              <input name="email" id="email" class="form-control" type="email" placeholder="digite seu email" required />
+            </div>
+
+            <!-- senha -->
+            <div class="col-sm-5 col-12">
+              <label for="senha" class="form-label">Insira uma senha</label>
+              <input name="senha" id="senha" class="form-control" type="text" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" />
+            </div>
+
+            <!-- cpf -->
+            <div class="col-sm-7 col-12">
+              <label for="cpf" class="form-label">CPF</label>
+              <input class="form-control" id="cpf" name="cpf" type="text" required />
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btnvoltar">
+            Cancelar
+          </button>
+          <button type="submit" class="btn btn-primary">Avançar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- modal para criar um Atendente -->
+<div class="modal fade modalForm" tabindex="-1" aria-labelledby="createAtendenteLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header border-bottom">
+        <h4 class="modal-title d-flex w-100">
+          Adicionando linha <span class="ms-auto">2/2</span>
+        </h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <form novalidate>
+        <div class="modal-body">
+          <div class="row g-2">
+            <!-- nome real -->
+            <div class="col-12">
+              <label for="endereco" class="form-label">Endereço de sua casa</label>
+              <input class="form-control" id="endereco" name="endereco" type="text" required />
+            </div>
+
+            <!-- email -->
+            <div class="col-12">
+              <label for="telefone" class="form-label">Telefone</label>
+              <input name="telefone" id="telefone" class="form-control" type="text" placeholder="digite seu telefone" required />
+            </div>
+
+            <!-- username -->
+            <div class="col-6">
+              <label for="local_de_trabalho_id" class="form-label">local de trabalho</label>
+              <select class="form-select" aria-label="Default select example" name="local_de_trabalho_id" id="local_de_trabalho_id">
+                <option selected>selecione o local de trabalho</option>
+              </select>
+            </div>
+
+            <!-- username -->
+            <div class="col-6">
+              <label for="turno" class="form-label">turno</label>
+              <select class="form-select" aria-label="Default select example" name="turno" id="turno">
+                <option selected>Selecione um turno</option>
+                <option value="manha">manha</option>
+                <option value="tarde">tarde</option>
+                <option value="noite">noite</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button " class="btn btn-secondary btnvoltar">
+            voltar
+          </button>
+          <button type="submit" class="btn btn-primary">Criar ponto</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", async () => {
+    try {
+      const lojas = (await axios.get("http://localhost:9000/api/adm/lojas"))
+        .data;
+
+      const campo = document.querySelector("#local_de_trabalho_id");
+      lojas.forEach((loja) => {
+        const option = document.createElement("option");
+        option.innerText = loja.nome;
+        option.value = loja.id;
+
+        campo.appendChild(option);
+      });
+    } catch (error) {}
+
+    formEtapasForms(
+      "#createAtendente",
+      async (dataValues) => {
+          try {
+            const response = await axios.post(
+              "http://localhost:9000/api/userADM/atendente",
+              dataValues
+            );
+            localStorage.setItem(
+              "AtendenteCreate",
+              JSON.stringify({
+                cor: "success",
+                texto: `Atendente ${response.data.username} adicionada(o)`,
+                div: "#alert",
+              })
+            );
+
+            console.log(JSON.stringify(dataValues));
+            location.reload();
+          } catch (error) {
+            console.log(JSON.stringify(dataValues));
+            console.error(error);
+          }
+        },
+        (formvalidacao) => {
+          formvalidacao[0].allvalidacao({
+            cpf: {
+              max: 14,
+              min: 14,
+              caractereNpermitido: ["Nletra", "Nacentuacao"],
+              pattern: [
+                "(\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2,5})",
+                // "\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}",
+                "cpf valido",
+                "cpf invalido",
+              ],
+              autopontuar: [
+                /(\d{3})(\d{3})(\d{3})(\d{2})/,
+                "$1.$2.$3-$4",
+                /[.-]/g,
+                "",
+              ],
+              customErro: [
+                [
+                  /(\d{3}\.\d{3}\.\d{3}-\d{3,6})/,
+                  "não existe cpf com mais de 11 numeros",
+                ],
+              ],
+              customEvento: [
+                async (value) => {
+                  if (
+                    (
+                      await axios.get(
+                        "http://localhost:9000/api/user/cadastrar/?cpf=" + value
+                      )
+                    ).data.resultado.cpf
+                  ) {
+                    return "Esse CPF já está cadastrado";
+                  }
+                },
+              ],
+              btnoff: "required",
+            },
+            nome: {
+              max: 120,
+              min: 3,
+              caractereNpermitido: ["NcaractereEspecial", "Nnumber"],
+              pattern: ["[a-zA-Z\\s]{3,120}", "nome valido", "nome invalido"],
+              btnoff: "required",
+            },
+            username: {
+              max: 90,
+              min: 3,
+              caractereNpermitido: ["NcaractereEspecial"],
+              pattern: [
+                "[a-zA-Z\\s_\\-\\d]{2,90}",
+                "apelido valido",
+                "apelido invalido",
+              ],
+              btnoff: "required",
+            },
+            email: {
+              max: 64,
+              pattern: [
+                "^[a-zA-Z0-9\\._+\\-]+@[a-zA-Z0-9\\.\\-]+\\.[a-zA-Z]{2,6}$",
+                "email valido",
+                "email invalido",
+              ],
+              customEvento: [
+                async (value) => {
+                  if (
+                    (
+                      await axios.get(
+                        "http://localhost:9000/api/user/cadastrar/?email=" + value
+                      )
+                    ).data.resultado.email
+                  ) {
+                    return "Esse email já está em uso";
+                  }
+                },
+              ],
+              btnoff: "required",
+            },
+            nascimento: {
+              max: "2024-12-31",
+              min: "1900-01-01",
+              pattern: ["", "nascimento valido", "nascimento invalido"],
+              btnoff: "required",
+            },
+
+            senha: {
+              max: 50,
+              min: 8,
+              caractereNpermitido: ["NcaractereEspecial", "Nacentuacao"],
+              pattern: [
+                "^[a-zA-Z0-9\\sáéíóúâêîôûàèìòùãõäëïöüçãõẽĩũâêîôûũṹỹḿẽĩỹẽẽỹẽỹã\´`~^]{8,50}$",
+                "senha valida",
+                "senha invalido",
+              ],
+              btnoff: "required",
+            },
+          });
+        }
+    );
+  });
+</script>
