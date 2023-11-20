@@ -22,12 +22,12 @@
               </div>
             </div>
             <div class="col-md-6 col-12">
-              <label for="bairroDestino" class="form-label">1° Bairro</label>
-              <input type="text" class="form-control" id="bairroDestino" name="bairroDestino" required />
+              <label for="bairroOrigem" class="form-label">1° Bairro</label>
+              <input type="text" class="form-control" id="bairroOrigem" name="bairroOrigem" required />
             </div>
             <div class="col-md-6 col-12">
-              <label for="bairroOrigem" class="form-label">2° Bairro</label>
-              <input type="text" class="form-control" id="bairroOrigem" name="bairroOrigem" required />
+              <label for="bairroDestino" class="form-label">2° Bairro</label>
+              <input type="text" class="form-control" id="bairroDestino" name="bairroDestino" required />
             </div>
           </div>
         </div>
@@ -43,7 +43,7 @@
 </div>
 
 <!-- modal para criar um ponto de onibus -->
-<div class="modal-open modalForm" id="createLinhas2" tabindex="-1" aria-labelledby="createLinhas2Label" aria-hidden="true">
+<div class="modal fade modalForm" id="createLinhas2" tabindex="-1" aria-labelledby="createLinhas2Label" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content moldal-lg">
       <form novalidate id="formhorarios">
@@ -61,7 +61,7 @@
             </div>
 
             <div class="col-6" id="lista1-horarios">
-              <h6>Saida de <span></span></h6>
+              <h6>Saida de <span id="bairro1"></span></h6>
               <ul class="list-group">
                 <li class="list-group-item p-0 m-0 d-flex add">
                   <div class="accordion-item">
@@ -108,7 +108,7 @@
             </div>
 
             <div class="col-6" id="lista2-horarios">
-              <h6>Saida de <span></span></h6>
+              <h6>Saida de <span id="bairro2"></span></h6>
 
               <ul class="list-group">
                 <li class="list-group-item p-0 m-0 d-flex add">
@@ -168,37 +168,83 @@
   </div>
 </div>
 
+<!-- modal para criar um ponto de onibus -->
+<div class="modal-open modalForm" tabindex="-1" aria-labelledby="createLinhas2Label" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content moldal-lg">
+      <form novalidate>
+        <div class="modal-header border-bottom">
+          <h4 class="modal-title d-flex w-100">
+            Adicionando linha <span class="ms-auto">3/4</span>
+          </h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+          <div class="row g-3">
+            <div class="col-12 d-flex">
+              <h5 class="mx-auto mt-3">
+                crie o percurso da saida de <span>\</span>
+              </h5>
+            </div>
+
+            <ul class="list-group">
+              <li class="list-group-item" aria-disabled="true">
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#percurso1">
+                      adicionar um ponto
+                    </button>
+                  </h2>
+                  <div id="percurso1" class="accordion-collapse collapse show">
+                    <div class="accordion-body">
+                      <div class="row">
+                        <div class="col-12">
+                          <label class="m-0 mt-auto form-label pe-3" for="addHora2">horas:
+                          </label>
+
+                          <div class="row">
+                            <div class="col-8">
+                              <input class="form-control py-1 px-2" style="width: fit-content" type="time" id="addHora2" name="addHora2" />
+                            </div>
+                            <div class="col-4">
+                              <button class="btn py-1 px-2 ms-2 btn-success btnadd" type="button">
+                                <i class="bi bi-plus-lg"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary btnvoltar">
+              Cancelar
+            </button>
+            <button type="submit" class="btn btn-primary">avançar</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
 <script>
+  let VALORESFINAL;
   document.addEventListener("DOMContentLoaded", () => {
-
-
-
-    function addhorario(listaID, n, infos, form = "#formhorarios") {
+    function addhorario(listaID, n, form = "#formhorarios") {
       const divPaiLista = document.querySelector(`#${listaID}`);
-      lista = divPaiLista.querySelector("ul");
+      const lista = divPaiLista.querySelector("ul");
 
       const objHoras = [];
 
       function guardarObjNoForm(obj) {
-        form = document.querySelector(form);
-
-
-        const asdasd ={
-          rota1:{
-            bairroDestino: "ffsfsdf",
-            bairroOrigem: "wfwefewfwe"
-          }
-        }
-
-        const objAnterior =
-          JSON.parse(form.getAttribute("data-bs-infoModal")) || {};
-        // console.log(objAnterior[n - 1])
-
-        objAnterior[`rota${n}`] = obj;
-
-        form.setAttribute("data-bs-infoModal", JSON.stringify(objAnterior));
-
-        console.log(JSON.parse(form.getAttribute("data-bs-infoModal")));
+        VALORESFINAL[`rota${n}`].horarios = obj;
       }
 
       function addLi(horas, duracao, indice) {
@@ -226,7 +272,6 @@
         });
 
         lista.insertBefore(li, lista.children[indice]);
-
         // <button class="subir  list-group-item list-group-item-action py-0 px-2"><i class="bi bi-arrow-up"></i></button>
         // <button class="descer  list-group-item list-group-item-action py-0 px-2"><i class="bi bi-arrow-down"></i></button>
       }
@@ -236,7 +281,6 @@
           if (e.classList.contains("btnadd")) {
             let inputhoras = lista.querySelector("#addHora" + n),
               inputduracao = lista.querySelector("#addduracao" + n);
-
             if (
               inputduracao.classList.contains("is-valid") &&
               inputhoras.classList.contains("is-valid")
@@ -285,147 +329,133 @@
       });
     }
 
-    addhorario("lista1-horarios", 1, ["bairroOrigem", "bairroDestino"]);
-    addhorario("lista2-horarios", 2, ["bairroDestino", "bairroOrigem"]);
+    addhorario("lista1-horarios", 1);
+    addhorario("lista2-horarios", 2);
 
-    // criando os modals e outras coisas
-    const modalsBoostrap = [];
-    const formvalidacao = [];
-    let ultimoFechado;
-    const dataValues = {};
+    formEtapasForms(
+      "#abrirCadastroDelinhas",
+      async (dataValues) => {
+          try {
+            const response = await axios.post(
+              "http://localhost:9000/api/userADM/atendente",
+              dataValues
+            );
+            localStorage.setItem(
+              "AtendenteCreate",
+              JSON.stringify({
+                cor: "success",
+                texto: `Atendente ${response.data.username} adicionada(o)`,
+                div: "#alert",
+              })
+            );
 
-    document.querySelectorAll(".modalForm").forEach((elem, indice) => {
-      // definindo as instancias dos modals e jogando para um array
-      const modalAtual = new bootstrap.Modal(elem);
-      const formAtual = new Inputs(elem.querySelector("form"));
-      modalsBoostrap.push(modalAtual);
-      formvalidacao.push(formAtual);
-
-      // definir o primeiro modal no indice
-      if (indice == 0) {
-        ultimoFechado = indice;
-      }
-
-      // voltar para o modal anterior ou apenas ocultar se for o primeiro modal
-      const voltar = elem.querySelector(".btnvoltar");
-      if (voltar) {
-        voltar.addEventListener("click", () => {
-          modalAtual.hide();
-
-          if (indice > 0) {
-            elem.addEventListener("hidden.bs.modal", (evt) => {
-              modalsBoostrap[indice - 1].show();
-            });
+            location.reload();
+          } catch (error) {
+            console.error(error);
           }
-        });
-      }
+        },
+        (formvalidacao) => {
+          formvalidacao[0].allvalidacao({
+            numero_linha: {
+              min: 1,
+              max: 4,
+              caractereNpermitido: [
+                "Nletra",
+                "NcaractereEspecial",
+                "Nacentuacao",
+              ],
+              pattern: ["^(\\d{1,4})$", "numero valido", "numero invalido"],
+              btnoff: "required",
+            },
+            bairroDestino: {
+              min: 3,
+              max: 20,
+              caractereNpermitido: ["Nnumber", "NcaractereEspecial"],
+              pattern: [
+                "(^[a-zA-ZÀ-ÿ0-9\\s'\\-]{3,20}$)",
+                "bairro valido",
+                "bairro invalido",
+              ],
+              btnoff: "required",
+            },
+            bairroOrigem: {
+              min: 3,
+              max: 20,
+              caractereNpermitido: ["Nnumber", "NcaractereEspecial"],
+              pattern: [
+                "(^[a-zA-ZÀ-ÿ0-9\\s'\\-]{3,20}$)",
+                "bairro valido",
+                "bairro invalido",
+              ],
+              btnoff: "required",
+            },
+          });
 
-      //avancar para a proxima ou enivar para o servidor se for o ultimo modal
-      formAtual.forms.addEventListener("submit", (evt) => {
-        evt.preventDefault();
+          formvalidacao[1].allvalidacao({
+            addHora2: {
+              min: 5,
+              max: 5,
+              caractereNpermitido: ["Number", "caractereEspecial"],
+              pattern: [
+                /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/, // Válido: Formato HH:mm
+                "Hora válida",
+                "Hora inválida",
+              ],
+            },
+            addduracao2: {
+              min: 1,
+              max: 500,
+              pattern: [".*", "duração valida", "duração invalida"],
+            },
+            addHora1: {
+              min: 5,
+              max: 5,
+              caractereNpermitido: ["Number", "caractereEspecial"],
+              pattern: [
+                /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/, // Válido: Formato HH:mm
+                "Hora válida",
+                "Hora inválida",
+              ],
+            },
+            addduracao1: {
+              min: 1,
+              max: 500,
+              pattern: [".*", "duração valida", "duração invalida"],
+            },
+          });
+        },
+        document,
+        (indice, instanciaForm) => {
+          if (indice == 0) {
+            const valuesForm1 = instanciaForm.allValues();
 
-        modalAtual.hide();
+            if (!VALORESFINAL) {
+              VALORESFINAL = {
+                rota1: {
+                  bairroOrigem: valuesForm1.bairroOrigem,
+                  bairroDestino: valuesForm1.bairroDestino,
+                },
+                rota2: {
+                  bairroOrigem: valuesForm1.bairroDestino,
+                  bairroDestino: valuesForm1.bairroOrigem,
+                },
 
-        elem.addEventListener("hidden.bs.modal", (evt) => {
-          let data = formAtual.forms.getAttribute("data-bs-infoModal");
-          if (data) {
-            data = JSON.stringify(data);
-            const rota1 = data[0];
-            const rota2 = data[1];
+                numero_linha: valuesForm1.numero_linha,
+              };
+            } else {
+              VALORESFINAL.rota1.bairroDestino = valuesForm1.bairroOrigem;
+              VALORESFINAL.rota1.bairroOrigem = valuesForm1.bairroDestino;
+              VALORESFINAL.rota2.bairroDestino = valuesForm1.bairroDestino;
+              VALORESFINAL.rota2.bairroOrigem = valuesForm1.bairroOrigem;
+              VALORESFINAL.numero_linha = valuesForm1.numero_linha;
+            }
 
-            dataValues.set("rota1");
-          } else {
-            formAtual.inputs(({
-              name,
-              value
-            }) => {
-              dataValues[name] = value;
-            });
+            document.querySelector("#bairro1").innerHTML =
+              valuesForm1.bairroOrigem;
+            document.querySelector("#bairro2").innerHTML =
+              valuesForm1.bairroDestino;
           }
-
-          // localStorage.setItem("dataValues", JSON.stringify(dataValues));
-
-          if (indice == document.querySelectorAll(".modalForm").length - 1) {
-            // enviar para o servidor
-          } else {
-            // avancar de pagina
-            modalsBoostrap[indice + 1].show();
-          }
-          
-        });
-      });
-    });
-
-    formvalidacao[0].allvalidacao({
-      numero_linha: {
-        min: 1,
-        max: 4,
-        caractereNpermitido: ["Nletra", "NcaractereEspecial", "Nacentuacao"],
-        pattern: ["^(\\d{1,4})$", "numero valido", "numero invalido"],
-        btnoff: "required",
-      },
-      bairroDestino: {
-        min: 3,
-        max: 20,
-        caractereNpermitido: ["Nnumber", "NcaractereEspecial"],
-        pattern: [
-          "(^[a-zA-ZÀ-ÿ0-9\\s'\\-]{3,20}$)",
-          "bairro valido",
-          "bairro invalido",
-        ],
-        btnoff: "required",
-      },
-      bairroOrigem: {
-        min: 3,
-        max: 20,
-        caractereNpermitido: ["Nnumber", "NcaractereEspecial"],
-        pattern: [
-          "(^[a-zA-ZÀ-ÿ0-9\\s'\\-]{3,20}$)",
-          "bairro valido",
-          "bairro invalido",
-        ],
-        btnoff: "required",
-      },
-    });
-
-    formvalidacao[1].allvalidacao({
-      addHora2: {
-        min: 5,
-        max: 5,
-        caractereNpermitido: ["Number", "caractereEspecial"],
-        pattern: [
-          /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/, // Válido: Formato HH:mm
-          "Hora válida",
-          "Hora inválida",
-        ],
-      },
-      addduracao2: {
-        min: 1,
-        max: 500,
-        pattern: [".*", "duração valida", "duração invalida"],
-      },
-      addHora1: {
-        min: 5,
-        max: 5,
-        caractereNpermitido: ["Number", "caractereEspecial"],
-        pattern: [
-          /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/, // Válido: Formato HH:mm
-          "Hora válida",
-          "Hora inválida",
-        ],
-      },
-      addduracao1: {
-        min: 1,
-        max: 500,
-        pattern: [".*", "duração valida", "duração invalida"],
-      },
-    });
-
-    // evento click que abre o modal que foi fechado por ultimo ou o primeiro
-    document
-      .querySelector("#abrirCadastroDelinhas")
-      .addEventListener("click", () => {
-        modalsBoostrap[ultimoFechado].show();
-      });
+        }
+    );
   });
 </script>

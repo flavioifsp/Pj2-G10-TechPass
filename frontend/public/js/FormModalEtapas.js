@@ -4,7 +4,8 @@ function formEtapasForms(
   btnAbrirModals,
   callBackSV = () => {},
   callbackValidacao = () => {},
-  div = document
+  div = document,
+  callbackIndice = () => {}
 ) {
   // criando os modals e outras coisas
   const modalsBoostrap = [];
@@ -12,8 +13,6 @@ function formEtapasForms(
   let ultimoFechado;
   const dataValues = {};
 
-
-     
   div.querySelectorAll(".modalForm").forEach((elem, indice) => {
     // definindo as instancias dos modals e jogando para um array
     const modalAtual = new bootstrap.Modal(elem);
@@ -62,7 +61,7 @@ function formEtapasForms(
           modalsBoostrap[indice + 1].show();
           ultimoFechado = indice + 1;
         }
-
+        callbackIndice(indice, formAtual);
         elem.removeEventListener("hidden.bs.modal", avancar);
       };
 
@@ -76,7 +75,7 @@ function formEtapasForms(
     document.querySelector(btnAbrirModals).addEventListener("click", () => {
       modalsBoostrap[ultimoFechado].show();
     });
-  } else{
+  } else {
     modalsBoostrap[ultimoFechado].show();
   }
 }
