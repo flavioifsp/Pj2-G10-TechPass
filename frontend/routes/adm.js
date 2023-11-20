@@ -11,9 +11,19 @@ router.get("/", async function (req, res, next) {
 });
 
 router.get("/atendente", async function (req, res, next) {
+  let allAtendentes
+  try {
+    allAtendentes = (await axios.get("http://localhost:9000/api/userADM/atendentes"))
+      .data;
+
+  } catch (error) {
+    allAtendentes = null;
+  }
+
   res.render("adm/pages/cadastroAtendente.ejs", {
     layout: "adm/layouts/layout-index.ejs",
     cont: "#menuAtendente",
+    allAtendentes
   });
 });
 

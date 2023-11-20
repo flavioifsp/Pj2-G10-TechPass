@@ -34,20 +34,66 @@ router.post("/atendente", async (req, res) => {
             local_de_trabalho_id: parseInt(local_de_trabalho_id),
           },
         },
-        
       },
 
-      select:{
-        username: true
-      }
+      select: {
+        username: true,
+      },
     });
 
-    res.status(201).json(response)
+    res.status(201).json(response);
   } catch (error) {
     const erro = exception(error);
     console.log(erro);
     res.status(erro.code).send(erro.msg.toString());
   }
 });
+
+router.get("/atendentes", async (req, res) => {
+  try {
+    const atendentes = await prisma.atendente.findMany({
+      include:{
+        superuser: {
+          select:{
+            username: true,
+            email: true
+          }
+        },
+        loja_recarga: true,
+      }
+    });
+    res.status(200).json(atendentes);
+  } catch (error) {
+    const erro = exception(error);
+    console.log(erro);
+    res.status(erro.code).send(erro.msg.toString());
+  }
+});
+
+router.delete("/atendente/:id", async (req, res) => {
+  const {id} = req.params
+  try {
+    const atendentes = await prisma.atendente.delete({
+      where: {
+        id: parseInt(id)
+      },
+      select:{
+        superuser:{
+          select:{
+            username: true
+          }
+        }
+      }
+    });
+    res.status(204).json(atendentes);
+  } catch (error) {
+    const erro = exception(error);
+    console.log(erro);
+    res.status(erro.code).send(erro.msg.toString());
+  }
+});
+
+
+
 
 module.exports = router;
