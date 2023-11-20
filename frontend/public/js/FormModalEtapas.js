@@ -3,7 +3,8 @@
 function formEtapasForms(
   btnAbrirModals,
   callBackSV = () => {},
-  callbackValidacao = () => {}
+  callbackValidacao = () => {},
+  div = document
 ) {
   // criando os modals e outras coisas
   const modalsBoostrap = [];
@@ -11,7 +12,9 @@ function formEtapasForms(
   let ultimoFechado;
   const dataValues = {};
 
-  document.querySelectorAll(".modalForm").forEach((elem, indice) => {
+
+     
+  div.querySelectorAll(".modalForm").forEach((elem, indice) => {
     // definindo as instancias dos modals e jogando para um array
     const modalAtual = new bootstrap.Modal(elem);
     const formAtual = new Inputs(elem.querySelector("form"));
@@ -67,9 +70,13 @@ function formEtapasForms(
     });
   });
   callbackValidacao(formvalidacao);
-  
+
   // evento click que abre o modal que foi fechado por ultimo ou o primeiro
-  document.querySelector(btnAbrirModals).addEventListener("click", () => {
+  if (btnAbrirModals) {
+    document.querySelector(btnAbrirModals).addEventListener("click", () => {
+      modalsBoostrap[ultimoFechado].show();
+    });
+  } else{
     modalsBoostrap[ultimoFechado].show();
-  });
+  }
 }

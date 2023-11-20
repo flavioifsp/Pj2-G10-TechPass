@@ -9,9 +9,7 @@
   alert("AtendenteDelete");
 </script>
 
-
 <%- include('../partials/_formsCriarAtendente.ejs') %>
-
 
 <section class="mt-5">
   <h4 class="">Todos os pontos de onibus</h4>
@@ -35,20 +33,17 @@
             <td><%= elem.cpf %></td>
             <td><%= elem.turno %></td>
             <td>
-              <% 
-                const info = {
-                  email: elem.email,
-                  username: elem.superuser.username,
-                  cpf: elem.cpf,
-                  endereco: elem.endereco,
-                  nascimento: new Date(elem.nascimento).toLocaleDateString(),
-                  turno: elem.turno,
-                  telefone: elem.telefone,
-                  "local de trabalho": elem.loja_recarga.nome,
-                  "endereco de onde trabalha": elem.loja_recarga.endereco,
-                  email: elem.email
-                }  
-              %>
+              <% const info = {
+              email: elem.email,
+              username: elem.superuser.username,
+              cpf: elem.cpf,
+              endereco: elem.endereco,
+              nascimento: new Date(elem.nascimento).toLocaleDateString(),
+              turno: elem.turno,
+              telefone: elem.telefone,
+              "local de trabalho": elem.loja_recarga.nome,
+              "endereco de onde trabalha": elem.loja_recarga.endereco,
+              email: elem.email } %>
               <button type="button" class="btn btn-info py-1 px-2" onclick='modalInfo(<%-JSON.stringify(info)%>)'>
                 <i class="bi bi-info-lg"></i>
               </button>
@@ -57,7 +52,7 @@
                 <i class="bi bi-pencil-square"></i>
               </button>
 
-              <button class="btn btn-danger py-1 px-2" data-bs-target="#pontodeonibus<d%= elem.id%>" onclick='modalDelet(<%-JSON.stringify(elem)%>)''>
+              <button class="btn btn-danger py-1 px-2" onclick='modalDelet(<%-JSON.stringify(elem)%>)'>
                 <i class="bi bi-trash-fill"></i>
               </button>
             </td>
@@ -74,7 +69,6 @@
 <script>
   function modalDelet(objEjs) {
     const divdelete = document.createElement("div");
-
     divdelete.innerHTML = `
           
               <div class="modal fade"  aria-labelledby="modalToggleLabel2" tabindex="-1" _mstvisible="0" style="display: none" aria-hidden="true">
@@ -136,217 +130,233 @@
     const div = document.createElement("div");
 
     div.innerHTML = `
-          
-        <div class="modal fade" id="modalToggle" aria-labelledby="modalToggleLabel" tabindex="-1" style="display: none" _mstvisible="0" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered" _mstvisible="1">
-            <div class="modal-content" _mstvisible="2">
-              <form id="resetForm">
-                <div class="modal-header" _mstvisible="3">
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar" _mstaria-label="59709" _msthash="308" _mstvisible="4"></button>
-                </div>
-                <div class="modal-body" _msttexthash="1992003" _msthash="309" _mstvisible="3">
-                  <div class="row" _mstvisible="4">
-                    <div class="card-body form-group">
-                      <div class="row mb-4">
-                        <label class="col-sm-2 col-form-label" for="cepInput">CEP</label>
-                        <div class="col-sm-10">
-                          <input type="text" class="form-control" name="cepInput" id="cepInput" placeholder="Enter CPF" value="${
-                            objEjs.cep
-                          }" required>
+    <!-- modal para criar um Atendente -->
+<div class="modal fade modalForm" tabindex="-1" aria-labelledby="createAtendenteLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header border-bottom">
+        <h4 class="modal-title d-flex w-100">
+          Adicionando linha <span class="ms-auto">1/2</span>
+        </h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
 
-                        </div>
-                      </div>
+      <form novalidate>
+        <div class="modal-body">
+          <div class="row g-2">
+            <!-- nome real -->
+            <div class="col-12">
+              <label for="nome" class="form-label">Nome Completo</label>
+              <input class="form-control" id="nome" name="nome" type="text" required />
+            </div>
 
-                      <div class="row mb-4">
-                        <label class="col-sm-2 col-form-label" for="street">Rua</label>
-                        <div class="col-sm-10">
-                          <input type="text" name="street" id="street" class="form-control phone-mask" value="${objEjs.endereco
-                            .split(",")[0]
-                            .trim()}" />
-                        </div>
-                      </div>
+            <!-- username -->
+            <div class="col-12 col-sm-8">
+              <label for="username" class="form-label">Apelido (username)</label>
+              <input name="username" id="username" class="form-control" type="text" value="${objEjs.superuser.username}" required />
+            </div>
+            <!-- nasc -->
+            <div class="col-sm-4 col-12">
+              <label for="nascimento" class="form-label">Data de Nascimento</label>
+              <input name="nascimento" id="nascimento" class="form-control" type="date" required value="${new Date(objEjs.nascimento).toISOString()}" />
+            </div>
 
-                      <div class="row mb-4">
-                        <label class="col-sm-2 col-form-label" for="neighborhood">Bairro</label>
-                        <div class="col-sm-10">
-                          <input type="text" id="neighborhood" name="neighborhood" class="form-control phone-mask" value="${objEjs.endereco
-                            .split(",")[1]
-                            .trim()}" />
-                        </div>
-                      </div>
+            <!-- email -->
+            <div class="col-12">
+              <label for="email" class="form-label">Email</label>
+              <input name="email" id="email" class="form-control" type="email" placeholder="digite seu email" required value="${objEjs.superuser.email}"/>
+            </div>
 
-                      <div class="row mb-4">
-                        <label class="col-sm-2 col-form-label" for="city">Cidade</label>
-                        <div class="col-sm-10">
-                          <input type="text" id="city" class="form-control phone-mask" name="city" value="${objEjs.endereco
-                            .split(",")[2]
-                            .trim()}" />
-                        </div>
-                      </div>
+            <!-- senha -->
+            <div class="col-sm-5 col-12">
+              <label for="senha" class="form-label">Insira uma senha</label>
+              <input name="senha" id="senha" class="form-control" type="text"  placeholder="************" />
+            </div>
 
-                      <div class="row mb-4">
-                        <label class="col-sm-2 col-form-label" for="state">Estado</label>
-                        <div class="col-sm-10">
-                          <input type="text" id="state" class="form-control phone-mask" name="state" value="${objEjs.endereco
-                            .split(",")[3]
-                            .trim()}" />
-                        </div>
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-                <div class="modal-footer" _mstvisible="3">
-                  <button type="button" class="btn btn-warning" id="resetar" onclick="document.getElementById('resetForm').reset()">
-                    Resetar
-                  </button>
-
-                  <button type="submit" class="btn btn-success">
-                    Salvar alterações
-                  </button>
-                </div>
-              </form>
+            <!-- cpf -->
+            <div class="col-sm-7 col-12">
+              <label for="cpf" class="form-label">CPF</label>
+              <input class="form-control" id="cpf" name="cpf" type="text" required value="${objEjs.cpf}" />
             </div>
           </div>
         </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btnvoltar">
+            Cancelar
+          </button>
+          <button type="submit" class="btn btn-primary">Avançar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 
+<!-- modal para criar um Atendente -->
+<div class="modal fade modalForm" tabindex="-1" aria-labelledby="createAtendenteLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header border-bottom">
+        <h4 class="modal-title d-flex w-100">
+          Adicionando linha <span class="ms-auto">2/2</span>
+        </h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <form novalidate>
+        <div class="modal-body">
+          <div class="row g-2">
+            <!-- nome real -->
+            <div class="col-12">
+              <label for="endereco" class="form-label">Endereço de sua casa</label>
+              <input class="form-control" id="endereco" name="endereco" type="text" required value="${objEjs.endereco}" />
+            </div>
+
+            <!-- email -->
+            <div class="col-12">
+              <label for="telefone" class="form-label">Telefone</label>
+              <input name="telefone" id="telefone" class="form-control" type="text" placeholder="digite seu telefone" required value="${objEjs.telefone}" />
+            </div>
+
+            <!-- username -->
+            <div class="col-6">
+              <label for="local_de_trabalho_id" class="form-label">local de trabalho</label>
+              <select class="form-select" aria-label="Default select example" name="local_de_trabalho_id" id="local_de_trabalho_id">
+                <option selected>selecione o local de trabalho</option>
+              </select>
+            </div>
+
+            <!-- username -->
+            <div class="col-6">
+              <label for="turno" class="form-label">turno</label>
+              <select class="form-select" aria-label="Default select example" name="turno" id="turno">
+                <option selected>Selecione um turno</option>
+                <option value="manha">manha</option>
+                <option value="tarde">tarde</option>
+                <option value="noite">noite</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button " class="btn btn-secondary btnvoltar">
+            voltar
+          </button>
+          <button type="submit" class="btn btn-primary">Criar ponto</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
           `;
 
-    const modal = div.querySelector(".modal");
+    document.body.appendChild(div);
 
-    //selecionando o modoal  e adicionando o modal ao BODY do HTML
-    document.body.appendChild(modal);
+    formEtapasForms(
+      null,
+      async (dataValues) => {
+          try {
+            const response = await axios.post(
+              "http://localhost:9000/api/userADM/atendente",
+              dataValues
+            );
+            localStorage.setItem(
+              "AtendenteCreate",
+              JSON.stringify({
+                cor: "success",
+                texto: `Atendente ${response.data.username} adicionada(o)`,
+                div: "#alert",
+              })
+            );
 
-    const InstanciaBoostrapDoModal = new bootstrap.Modal(modal);
+            location.reload();
+          } catch (error) {
+            console.error(error);
+          }
+        },
+        (formvalidacao) => {
+         
+          ;
+          formvalidacao[0].inputs((input) => {
 
-    InstanciaBoostrapDoModal.toggle();
+            
+          });
 
-    formsValidacaoEdit = new Inputs("#resetForm"); // pega todos os inputs do form
-    const btnSalvarAlteracoes = document.querySelector("#btnSalvarAlteracoes");
 
-    formsValidacaoEdit.allvalidacao({
-      cepInput: {
-        min: 9,
-        max: 9,
-        caractereNpermitido: ["Nletra", "Nacentuacao"],
-        autopontuar: [/([\d]{6})([\d]{2})/, "$1-$2"],
-        pattern: ["(\\d{6}-\\d{2})", "cep valido", "cep invalido"],
-        customEvento: [
-          async (value) => {
-            try {
-              informacoesdaAPI = (
-                await axios.get(`https://brasilapi.com.br/api/cep/v2/${value}`)
-              ).data;
 
-              formsValidacaoEdit.inputs((input) => {
-                for (const info in informacoesdaAPI) {
-                  if (Object.hasOwnProperty.call(informacoesdaAPI, info)) {
-                    if (input.name == info) {
-                      input.value = informacoesdaAPI[info];
-                      input.focus();
-                      input.blur();
-                    }
-                  }
-                }
-              });
-            } catch (error) {
-              console.log(error);
-              if (error.response.status == 404)
-                return "insira um CEP que exista";
-            }
-          },
-        ],
-        btnoff: "apaiossk",
-      },
-      street: {
-        min: 3,
-        max: 255,
-        btnoff: "apaiossk",
-        caractereNpermitido: ["Nnumber", "NcaractereEspecial"],
-        pattern: [".*", "Rua valido", "Rua invalida"],
-      },
+          formvalidacao[0].allvalidacao({
+            cpf: {
+              max: 14,
+              min: 14,
+              caractereNpermitido: ["Nletra", "Nacentuacao"],
+              pattern: [
+                "(\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2,5})",
+                // "\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}",
+                "cpf valido",
+                "cpf invalido",
+              ],
+              autopontuar: [
+                /(\d{3})(\d{3})(\d{3})(\d{2})/,
+                "$1.$2.$3-$4",
+                /[.-]/g,
+                "",
+              ],
+              customErro: [
+                [
+                  /(\d{3}\.\d{3}\.\d{3}-\d{3,6})/,
+                  "não existe cpf com mais de 11 numeros",
+                ],
+              ],
+              btnoff: "required",
+            },
+            nome: {
+              max: 120,
+              min: 3,
+              caractereNpermitido: ["NcaractereEspecial", "Nnumber"],
+              pattern: ["[a-zA-Z\\s]{3,120}", "nome valido", "nome invalido"],
+              btnoff: "required",
+            },
+            username: {
+              max: 90,
+              min: 3,
+              caractereNpermitido: ["NcaractereEspecial"],
+              pattern: [
+                "[a-zA-Z\\s_\\-\\d]{2,90}",
+                "apelido valido",
+                "apelido invalido",
+              ],
+              btnoff: "required",
+            },
+            email: {
+              max: 64,
+              pattern: [
+                "^[a-zA-Z0-9\\._+\\-]+@[a-zA-Z0-9\\.\\-]+\\.[a-zA-Z]{2,6}$",
+                "email valido",
+                "email invalido",
+              ],
+              btnoff: "required",
+            },
+            nascimento: {
+              max: "2024-12-31",
+              min: "1900-01-01",
+              pattern: ["", "nascimento valido", "nascimento invalido"],
+              btnoff: "required",
+            },
 
-      neighborhood: {
-        min: 3,
-        max: 255,
-        btnoff: "apaiossk",
-        caractereNpermitido: ["Nnumber", "NcaractereEspecial"],
-        pattern: [".*", "Bairro valido", "Bairro invalido"],
-      },
-
-      city: {
-        min: 3,
-        max: 255,
-        btnoff: "apaiossk",
-        caractereNpermitido: ["Nnumber", "NcaractereEspecial"],
-        pattern: [".*", "Cidade valida", "Cidade invalida"],
-        // customEvento: [
-        //   (value) => {
-
-        //     if (objEjs.endereco.split(",")[2] !== value) {
-        //       console.log("paia deu certo", objEjs)
-
-        //     } else {
-        //       console.log("paiaDeu Errado")
-
-        //       return "deu erro"
-        //     }
-        //   }
-
-        // ]
-      },
-
-      state: {
-        min: 2,
-        max: 2,
-        btnoff: "apaiossk",
-        caractereNpermitido: ["Nnumber", "NcaractereEspecial"],
-        pattern: [".*", "Estado valido", "Estado invalido"],
-      },
-    });
-
-    formsValidacaoEdit.forms.addEventListener("submit", async (event) => {
-      event.preventDefault();
-
-      try {
-        const valorEdit = formsValidacaoEdit.allValues();
-        valorEdit.id = objEjs.id;
-
-        const {
-          data
-        } = await axios.get(
-          `https://brasilapi.com.br/api/cep/v2/${valorEdit.cepInput}`
-        );
-
-        valorEdit.lat = data.location.coordinates.latitude;
-        valorEdit.lng = data.location.coordinates.longitude;
-
-        const response = await axios.put(
-          `http://localhost:9000/api/linhas/bus-stop`,
-          valorEdit
-        );
-        console.log(response);
-
-        console.log(objEjs);
-        localStorage.setItem(
-          "stopBusEdit",
-          JSON.stringify({
-            cor: "success",
-            texto: `O ponto do cep ${objEjs.cep} foi alterado para o cep ${valorEdit.cepInput} com sucesso`,
-            div: "#alert",
-          })
-        );
-
-        location.reload();
-      } catch (error) {
-        console.log(error);
-      }
-    });
-
-    modal.addEventListener("hidden.bs.modal", () => {
-      // quando o modal for fechado esse evento acionara e excluira o modal do body
-      document.body.removeChild(modal);
-    });
+            senha: {
+              max: 50,
+              min: 8,
+              caractereNpermitido: ["NcaractereEspecial", "Nacentuacao"],
+              pattern: [
+                "^[a-zA-Z0-9\\sáéíóúâêîôûàèìòùãõäëïöüçãõẽĩũâêîôûũṹỹḿẽĩỹẽẽỹẽỹã\´`~^]{8,50}$",
+                "senha valida",
+                "senha invalido",
+              ],
+              btnoff: "required",
+            },
+          });
+        },
+        div
+    );
   }
   // fim modalEdit
 
@@ -387,16 +397,14 @@
           </div >
           `;
 
-
     for (const key in objEjs) {
       if (Object.hasOwnProperty.call(objEjs, key)) {
-        const li = document.createElement("li")
-        li.classList.add("list-group-item")
-        li.innerText = `${key}: ${objEjs[key]}`
-        umadiv.querySelector("ul").appendChild(li)
+        const li = document.createElement("li");
+        li.classList.add("list-group-item");
+        li.innerText = `${key}: ${objEjs[key]}`;
+        umadiv.querySelector("ul").appendChild(li);
       }
     }
-
 
     // o split divide uma string em substrings
     // https://www.w3schools.com/jsref/jsref_split.asp

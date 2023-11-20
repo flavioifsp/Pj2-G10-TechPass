@@ -80,7 +80,8 @@ router.delete("/atendente/:id", async (req, res) => {
       select:{
         superuser:{
           select:{
-            username: true
+            username: true,
+            email:true 
           }
         }
       }
