@@ -47,7 +47,7 @@ router.put("/passageiros/:id", async (req, res, next) => {
 
  
     const novoPassageiro = await prisma.clientes.update({
-   
+   //asas
       where:{
         id: parseInt(req.params.id)
      },
