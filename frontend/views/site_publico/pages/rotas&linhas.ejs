@@ -5,35 +5,24 @@
   </div>
 </section>
 
-
-
 <div class="container d-flex my-4 px-0 py-4 justify-content-between flex-column flex-md-row">
   <section class="container-fluid ps-0 col-md-9 mx-0">
-
     <form class="container-fluid">
-      <legend class="h3">Digite o número ou nome da linha desejada</label>
-        <div class="d-inline-flex container-fluid p-0">
-          <input type="text" class="form-control rounded-end-0" placeholder="505 H REGIONAL - MASSAGUAÇÚ VIA JETUBA" />
-          <button type="submit" class="btn btn-primary rounded-start-0">
-            buscar
-          </button>
-        </div>
+      <legend class="h3">Digite o número ou nome da linha desejada</legend>
+      <div class="d-inline-flex container-fluid p-0">
+        <input type="text" class="form-control rounded-end-0" placeholder="505 H REGIONAL - MASSAGUAÇÚ VIA JETUBA" />
+        <button type="submit" class="btn btn-primary rounded-start-0">
+          buscar
+        </button>
+      </div>
     </form>
 
-
-
-    <div class="container-fluid my-4 d-flex flex-column row-gap-3 column-grow-1  " id="lista-linha">
- 
-
-
+    <div class="container-fluid my-4 d-flex flex-column row-gap-3 column-grow-1" id="lista-linha">
       <% if(!er){%>
       <!-- uma linha -->
-      <% linhas.map((elem, i) => { 
-            const Lid = `linha_${i}`  
-            %>
+      <% linhas.map((elem, i) => { const Lid = `linha_${i}` %>
       <div>
-
-        <div class="bg-dark-subtle rounded-4 d-flex flex-column flex-lg-row px-3" data-bs-target="#<%= `${Lid}_M0`%>" data-bs-toggle="modal" style="cursor: pointer; height: 70px;">
+        <div class="bg-dark-subtle rounded-4 d-flex flex-column flex-lg-row px-3" data-bs-target="#<%= `${Lid}_M0`%>" data-bs-toggle="modal" style="cursor: pointer; height: 70px">
           <div class="d-flex align-items-center column-gap-md-3 column-gap-2 py-2">
             <img src="./images/icon bus.png" alt="..." class="img-fluid" style="width: 50px" />
 
@@ -44,88 +33,100 @@
           </div>
         </div>
 
-
         <!-- modal -->
-        <% elem.infos_da_linha.map((modal, i) => {
-              const modalId = `${Lid}_M`
-              let modalnome = "HORARIO" , tamanhoModal = ""
-
-              if(i === 1){ modalnome = "ITINERARIO"; tamanhoModal = "modal-lg" }
-              %>
-        <div class=" modal fade" id="<%= modalId+i%>">
-          <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable <%= tamanhoModal  %>">
-            <div class="modal-content ">
+        <% elem.infos_da_linha.map((modal, i) => { 
+          const modalId = `${Lid}_M`
+         let modalnome = "HORARIO",
+         tamanhoModal = "" 
+         if(i === 1){ modalnome ="ITINERARIO";
+         tamanhoModal = "modal-lg" } %>
+        <div class="modal fade" id="<%= modalId+i%>">
+          <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable <%= tamanhoModal %>">
+            <div class="modal-content">
               <div class="modal-header px-4">
-                <h1 class="modal-title "><i class="bi bi-clock-history pe-2"></i> <%= modalnome %> </h1>
+                <h1 class="modal-title">
+                  <i class="bi bi-clock-history pe-2"></i> <%= modalnome %>
+                </h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-              <div class="modal-body px-4  ">
-
+              <div class="modal-body px-4">
                 <div class="container-fluid p-0 mx-auto row">
-
                   <!--bairro1 -->
-                  <ul class="list-group  col text-center pe-0">
-                    <li class="list-group-item rounded-end-0 fs-3">saida <%= elem.bairro1 %></li>
+                  <ul class="list-group col text-center pe-0">
+                    <li class="list-group-item rounded-end-0 fs-3">
+                      saida <%= elem.bairro1 %>
+                    </li>
 
                     <% modal.infosB1.forEach(info => { %>
-                        <li class="list-group-item fs-4 rounded-end-0 "> <%= info %> </li>
+                    <li class="list-group-item fs-4 rounded-end-0">
+                      <%= info %>
+                    </li>
                     <% }); %>
-
                   </ul>
 
                   <!--bairro2 -->
-                  <ul class="list-group  col text-center ps-0">
-                    <li class="list-group-item rounded-start-0  fs-3">saida <%= elem.bairro2 %></li>
+                  <ul class="list-group col text-center ps-0">
+                    <li class="list-group-item rounded-start-0 fs-3">
+                      saida <%= elem.bairro2 %>
+                    </li>
 
                     <% modal.infosB2.forEach(info => { %>
-                        <li class="list-group-item fs-4 rounded-start-0 "> <%= info %> </li>
+                    <li class="list-group-item fs-4 rounded-start-0">
+                      <%= info %>
+                    </li>
                     <% }); %>
-
                   </ul>
-
                 </div>
-
               </div>
               <div class="modal-footer border-0 px-4">
+                <button type="button" class="btn btn-primary" data-bs-target="#<%= i != 0 ? modalId+0 : modalId+1  %>" data-bs-toggle="modal">
+                  Itinerario
+                </button>
 
-                <button type="button" class="btn btn-primary" data-bs-target="#<%= i != 0 ? modalId+0 : modalId+1  %>" data-bs-toggle="modal">Itinerario</button>
-
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                  Fechar
+                </button>
               </div>
             </div>
           </div>
         </div>
         <% }) %>
-
-
       </div>
       <% }) %>
     </div>
     <!-- uma linha -->
     <%}%>
-
-
   </section>
 
-
-
-  <aside class="container-fluid col-md-3 mx-0 bg-primary-subtle my-2 rounded py-2">
+  <aside
+    class="container-fluid col-md-3 mx-0 bg-primary-subtle my-2 rounded py-2"
+  >
     <h2 class="mb-4">BAIRROS</h2>
     <ul class="nav flex-column ps-lg-4">
       <li class="nav-item">
-        <a href="#" class="nav-link link-dark fs-5 fw-medium text-capitalize">Paia-paioso</a>
+        <a href="#" class="nav-link link-dark fs-5 fw-medium text-capitalize"
+          >Paia-paioso</a
+        >
       </li>
       <li class="nav-item">
-        <a href="#" class="nav-link link-dark fs-5 fw-medium text-capitalize">Paia-paioso</a>
+        <a href="#" class="nav-link link-dark fs-5 fw-medium text-capitalize"
+          >Paia-paioso</a
+        >
       </li>
       <li class="nav-item">
-        <a href="#" class="nav-link link-dark fs-5 fw-medium text-capitalize">Paia-paioso</a>
+        <a href="#" class="nav-link link-dark fs-5 fw-medium text-capitalize"
+          >Paia-paioso</a
+        >
       </li>
       <li class="nav-item">
-        <a href="#" class="nav-link link-dark fs-5 fw-medium text-capitalize">Paia-paioso</a>
+        <a href="#" class="nav-link link-dark fs-5 fw-medium text-capitalize"
+          >Paia-paioso</a
+        >
       </li>
       <li class="nav-item">
-        <a href="#" class="nav-link link-dark fs-5 fw-medium text-capitalize">Paia-paioso</a>
+        <a href="#" class="nav-link link-dark fs-5 fw-medium text-capitalize"
+          >Paia-paioso</a
+        >
       </li>
     </ul>
   </aside>

@@ -11,26 +11,36 @@ router.get("/", async function (req, res, next) {
 });
 
 router.get("/atendente", async function (req, res, next) {
-  let allAtendentes
+  let allAtendentes;
   try {
-    allAtendentes = (await axios.get("http://localhost:9000/api/userADM/atendentes"))
-      .data;
-
+    allAtendentes = (
+      await axios.get("http://localhost:9000/api/userADM/atendentes")
+    ).data;
   } catch (error) {
-    allAtendentes = null;
+    allAtendentes = [];
   }
 
   res.render("adm/pages/Atendentes.ejs", {
     layout: "adm/layouts/layout-index.ejs",
     cont: "#menuAtendente",
-    allAtendentes
+    allAtendentes,
   });
 });
 
 router.get("/motorista", async function (req, res, next) {
-  res.render("adm/pages/cadastroMotorista.ejs", {
+  let allMotorista;
+  try {
+    allMotorista = (
+      await axios.get("http://localhost:9000/api/userADM/motoristas")
+    ).data;
+  } catch (error) {
+    allMotorista = [];
+  }
+
+  res.render("adm/pages/Motorista.ejs", {
     layout: "adm/layouts/layout-index.ejs",
     cont: "#menuMotorista",
+    allMotorista
   });
 });
 

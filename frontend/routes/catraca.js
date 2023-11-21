@@ -5,16 +5,21 @@ var router = express.Router();
 /* GET home page. */
 router.get("/", async function (req, res, next) {
   try {
-    const {
-      data: { tarifa },
-      status,
-    } = await axios.get("http://localhost:3001/api/catraca/tarifa");
+    
+  } catch (error) {}
 
-    res.render("catraca/pages/CatracaIndex.ejs", { layout: false, tarifa });
-  } catch (error) {
-    const msg = "o servidor nâo está respondendo";
-    res.render("erro.ejs", { layout: false, statuscode: 500, msg });
-  }
+
+  res.render("catraca/pages/index.ejs", { layout: false });
+});
+
+
+router.get("/inicio", async function (req, res, next) {
+  try {
+   
+  } catch (error) {}
+
+
+  res.render("catraca/pages/incio.ejs", { layout: false });
 });
 
 // erro
