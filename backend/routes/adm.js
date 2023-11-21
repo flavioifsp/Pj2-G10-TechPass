@@ -41,25 +41,30 @@ router.post("/lojas", async (req, res, next) => {
     res.status(erro.code).send(erro.msg);
   }
 });
-router.post("/passageiros", async (req, res, next) => {
+router.put("/passageiros/:id", async (req, res, next) => {
   try {
-    const { nome, username, cpf, nascimento, saldo, email, senha} = req.body;
+    const {  nome, username, cpf, nascimento, saldo, email, senha} = req.body;
 
  
-    const novoPassageiro = await prisma.clientes.create({
+    const novoPassageiro = await prisma.clientes.update({
+   
+      where:{
+        id: parseInt(req.params.id)
+     },
+
       data: {
         email,
         cpf,
         username,
         senha,
         nome,
-        nascimento: new Date(nascimento),
+        nascimento,
         saldo,
       },
     });
 
     res.status(201).json({
-      message: `Passageiro ${novoPassageiro.nome} adicionado com sucesso`,
+      message: `Passageiro ${nome} adicionado com sucesso`,
     });
   } catch (error) {
     const erro = exception(error);
@@ -79,6 +84,41 @@ router.get("/passageiros", async (req, res, next) => {
   } catch (error) {
     const erro = exception(error);
     console.error(error);
+    res.status(erro.code).send(erro.msg);
+  }
+});
+
+router.put("/lojas", async (req, res) => {
+  const {  id, username, nascimento, email, cpf, saldo, nome} = req.body;
+
+  
+  try {
+    const editLoja = await prisma.loja_recarga.update({
+
+      where:{
+        id: id
+      },
+
+      data: {
+        email,
+       cpf,
+       username,
+       nome,
+       nascimento: new Date(nascimento),
+       saldo,
+      },
+      select: {
+        endereco: true,
+      },
+      
+    });
+    console.log(editLoja)
+    res.status(201).json({
+      message: `Loja no endereço foi  alterado com sucesso!`,
+    });
+  } catch (error) {
+    const erro = exception(error);
+    console.log(error);
     res.status(erro.code).send(erro.msg);
   }
 });

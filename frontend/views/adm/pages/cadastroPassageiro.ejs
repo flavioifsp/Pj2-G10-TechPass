@@ -59,16 +59,12 @@
                 <input name="email" id="email" class="form-control" type="email" placeholder="digite seu email" required />
               </div>
 
-              <div class=" col-12">
+              <div class=" col-8">
                 <label for="cpf" class="form-label">CPF</label>
                 <input class="form-control" id="cpf" name="cpf" type="text" required />
               </div>
 
-              <!-- senha -->
-              <div class=" col-8">
-                <label for="senha" class="form-label">Insira uma senha</label>
-                <input name="senha" id="senha" class="form-control" type="text" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" />
-              </div>
+          
 
               <div class=" col-4">
                 
@@ -236,7 +232,6 @@ umadiv.innerHTML = `
           <li class="list-group-item">Username:<span class="ms-1"> ${objEjs.username}</span></li>
           <li class="list-group-item">Nascimento:<span class="ms-1"> ${objEjs.nascimento.split("T")[0]}</span></li>
           <li class="list-group-item">Email:<span class="ms-1"> ${objEjs.email}</span></li>
-          <li class="list-group-item">Senha:<span class="ms-1"> ${objEjs.senha}</span></li>
           <li class="list-group-item">Saldo:<span class="ms-1"> ${objEjs.saldo}</span></li>
 
         </div >
@@ -282,6 +277,8 @@ modal.addEventListener("hidden.bs.modal", () => {
 })
 // fim da função
 }
+
+
 
 
 
@@ -341,6 +338,175 @@ function modalDelet(objEjs){
 
     })
 
+
+
+
+}
+
+
+
+
+
+function modalEdit(objEjs) {
+
+const div = document.createElement("div")
+
+
+div.innerHTML = `
+      
+    <div class="modal fade" id="modalToggle" aria-labelledby="modalToggleLabel" tabindex="-1" style="display: none" _mstvisible="0" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" _mstvisible="1">
+        <div class="modal-content" _mstvisible="2">
+          <form id="resetForm">
+            <div class="modal-header" _mstvisible="3">
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar" _mstaria-label="59709" _msthash="308" _mstvisible="4"></button>
+            </div>
+            <div class="modal-body" _msttexthash="1992003" _msthash="309" _mstvisible="3">
+              <div class="row" _mstvisible="4">
+                <div class="card-body form-group">
+                  <div class="row mb-4">
+                    <label class="col-sm-2 col-form-label" for="nome">Nome</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" name="nome" id="nome" placeholder="Enter CPF" value="${objEjs.nome}" required>
+
+                    </div>
+                  </div>
+
+                  <div class="row mb-4">
+                    <label class="col-sm-2 col-form-label" for="username">Username</label>
+                    <div class="col-sm-10">
+                      <input type="text" name="Username" id="Username" class="form-control phone-mask" value="${objEjs.username}" />
+                    </div>
+                  </div>
+
+                  <div class="row mb-4">
+                    <label class="col-sm-2 col-form-label" for="nascimento">Nascimento</label>
+                    <div class="col-sm-10">
+                      <input type="text" id="nascimento" name="nascimento" class="form-control phone-mask" value=" ${objEjs.nascimento.split("T")[0]}" />
+                    </div>
+                  </div>
+
+                  <div class="row mb-4">
+                    <label class="col-sm-2 col-form-label" for="nascimento">Email</label>
+                    <div class="col-sm-10">
+                      <input type="text" id="email" name="email" class="form-control phone-mask" value=" ${objEjs.email}" />
+                    </div>
+                  </div>
+                  <div class="row mb-4">
+                    <label class="col-sm-2 col-form-label" for="cpf">CPF</label>
+                    <div class="col-sm-10">
+                      <input type="text" id="cpf" name="cpf" class="form-control phone-mask" value=" ${objEjs.cpf}" />
+                    </div>
+                  </div>
+
+                  <div class="row mb-4">
+                    <label class="col-sm-2 col-form-label" for="saldo">Saldo</label>
+                    <div class="col-sm-10">
+                      <input type="text" id="saldo" name="saldo" class="form-control phone-mask" value=" ${objEjs.saldo}" />
+                    </div>
+                  </div>
+                 
+                  
+
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer" _mstvisible="3">
+              <button type="button" class="btn btn-warning" id="resetar" onclick="document.getElementById('resetForm').reset()">
+                Resetar
+              </button>
+
+              <button type="submit" class="btn btn-success">
+                Salvar alterações
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+      `
+
+const modal = div.querySelector(".modal")
+
+//selecionando o modoal  e adicionando o modal ao BODY do HTML
+document.body.appendChild(modal)
+
+const InstanciaBoostrapDoModal = new bootstrap.Modal(modal)
+
+InstanciaBoostrapDoModal.toggle()
+
+formsValidacaoEdit = new Inputs("#resetForm") // pega todos os inputs do form 
+const btnSalvarAlteracoes = document.querySelector("#btnSalvarAlteracoes")
+
+
+
+
+
+formsValidacaoEdit.allvalidacao({
+  nome: {
+        min: 3,
+        max: 45,
+        caractereNpermitido: ["Nnumber", "NcaractereEspecial"],
+        pattern: ["[a-zA-ZÀ-ú\s]{3,45}", "nome valido", "nome invalido"],
+        btnoff: "naoEobrigatorio",
+      },
+      username:{
+        min: 3,
+        max: 45,
+        caractereNpermitido: ["Nnumber", "NcaractereEspecial"],
+        pattern: ["[a-zA-ZÀ-ú\s]{3,45}", "username valido", "username invalido"],
+        btnoff: "naoEobrigatorio",
+      },
+
+
+});
+
+
+
+
+formsValidacaoEdit.forms.addEventListener("submit", async (event) => {
+
+  event.preventDefault()
+
+
+  try {
+
+    const valorEdit = formsValidacaoEdit.allValues()
+    // valorEdit.nascimento = new Date(valorEdit.nascimento)
+    valorEdit.nascimento =  valorEdit.nascimento.split("T")[0];
+
+    const response = await axios.put(`http://localhost:9000/api/adm/passageiros/${objEjs.id}`, valorEdit)
+    
+
+
+    localStorage.setItem("stopBusEdit", JSON.stringify({
+      cor: "success",
+      texto: `O ponto do cep ${objEjs.cep} foi alterado para o cep ${valorEdit.cepInput} com sucesso`,
+      div: "#alert",
+    }))
+
+    location.reload()
+
+
+
+  } catch (error) {
+    console.log(error);
+  }
+
+
+})
+
+
+
+
+
+
+modal.addEventListener("hidden.bs.modal", () => {
+
+  // quando o modal for fechado esse evento acionara e excluira o modal do body
+  document.body.removeChild(modal)
+})
 
 
 

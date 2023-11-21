@@ -195,7 +195,7 @@
         valorEdit.nascimento = new Date(valorEdit.nascimento)
 
   
-        const response = await axios.put(`http://localhost:9000/api/userADM/motorista/${objEjs.id}`, valorEdit)
+       const response = await axios.put(`http://localhost:9000/api/userADM/motorista/${objEjs.id}`, valorEdit)
 
         localStorage.setItem("motoristaEdit", JSON.stringify({
           cor: "warning",
