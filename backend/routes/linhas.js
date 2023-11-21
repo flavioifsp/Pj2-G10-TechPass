@@ -104,50 +104,39 @@ router.post("/", async (req, res, next) => {
     if (
       rota1.bairroDestino !== rota2.bairroOrigem ||
       rota2.bairroDestino !== rota1.bairroOrigem
-    )  return res.status(406).send("dados invalidos");
+    )
+      return res.status(406).send("dados invalidos");
 
     // const rota1 = {
     //
     // };
 
-    const linha = {};
+    let numeroDalinha
+  
     for (const rota of [rota1, rota2]) {
       const { bairroDestino, bairroOrigem, percursos, horarios } = rota;
 
-      linha[bairroOrigem] = await prisma.linhas.create({
+      numeroDalinha = await prisma.linhas.create({
         data: {
           bairroDestino,
           bairroOrigem,
-          numero_linha,
+          numero_linha: parseInt(numero_linha),
 
           percurso: {
             create: percursos,
-          }, 
+          },
 
           horario_diario_saida: {
-            create: [
-              {}
-            ],
+            create: horarios,
           },
         },
-        include: {
-          horario_diario_saida: {
-            select: {
-              duracaoEstimada: true,
-              horario_de_saida: true,
-            },
-          },
-          percurso: {
-            select: {
-              ordem_do_percurso: true,
-              pontoOnibus_id: true,
-            },
-          },
-        },
+        select:{
+          id: true
+        }
       });
     }
 
-    res.json(linha);
+    res.json(numeroDalinha);
     // https://www.prisma.io/docs/concepts/components/prisma-client/relation-queries#create-multiple-records-and-multiple-related-records
   } catch (er) {
     const erro = exception(er);

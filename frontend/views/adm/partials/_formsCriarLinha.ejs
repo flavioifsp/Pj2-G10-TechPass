@@ -61,7 +61,7 @@
             </div>
 
             <div class="col-6" id="lista1-horarios">
-              <h6>Saida de <span id="bairro1"></span></h6>
+              <h6>Saida de <span class="bairro1"></span></h6>
               <ul class="list-group">
                 <li class="list-group-item p-0 m-0 d-flex add">
                   <div class="accordion-item">
@@ -108,7 +108,7 @@
             </div>
 
             <div class="col-6" id="lista2-horarios">
-              <h6>Saida de <span id="bairro2"></span></h6>
+              <h6>Saida de <span class="bairro2"></span></h6>
 
               <ul class="list-group">
                 <li class="list-group-item p-0 m-0 d-flex add">
@@ -159,7 +159,7 @@
 
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary btnvoltar">
-            Cancelar
+            voltar
           </button>
           <button type="submit" class="btn btn-primary">avançar</button>
         </div>
@@ -169,10 +169,10 @@
 </div>
 
 <!-- modal para criar um ponto de onibus -->
-<div class="modal-open modalForm" tabindex="-1" aria-labelledby="createLinhas2Label" aria-hidden="true">
+<div class="modal fade modalForm" tabindex="-1" aria-labelledby="createLinhas2Label" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content moldal-lg">
-      <form novalidate>
+      <form novalidate id="percurso1Form">
         <div class="modal-header border-bottom">
           <h4 class="modal-title d-flex w-100">
             Adicionando linha <span class="ms-auto">3/4</span>
@@ -181,10 +181,10 @@
         </div>
 
         <div class="modal-body">
-          <div class="row g-3">
+          <div class="row g-1">
             <div class="col-12 d-flex">
               <h5 class="mx-auto mt-3">
-                crie o percurso da saida de <span>\</span>
+                crie o percurso da saida de <span class="bairro1"></span>
               </h5>
             </div>
 
@@ -192,23 +192,25 @@
               <li class="list-group-item" aria-disabled="true">
                 <div class="accordion-item">
                   <h2 class="accordion-header">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#percurso1">
+                    <button class="accordion-button p-1" type="button" data-bs-toggle="collapse" data-bs-target="#acordionPercurso1">
                       adicionar um ponto
                     </button>
                   </h2>
-                  <div id="percurso1" class="accordion-collapse collapse show">
-                    <div class="accordion-body">
+                  <div id="acordionPercurso1" class="accordion-collapse collapse show">
+                    <div class="accordion-body p-1">
                       <div class="row">
                         <div class="col-12">
-                          <label class="m-0 mt-auto form-label pe-3" for="addHora2">horas:
+                          <label class="m-0 mt-auto form-label pe-3" for="percurso1">ponto:
                           </label>
 
                           <div class="row">
-                            <div class="col-8">
-                              <input class="form-control py-1 px-2" style="width: fit-content" type="time" id="addHora2" name="addHora2" />
+                            <div class="col-11">
+                              <select class="form-select pontos" id="percurso1" name="percurso1">
+                                <option selected>Escolha um ponto</option>
+                              </select>
                             </div>
-                            <div class="col-4">
-                              <button class="btn py-1 px-2 ms-2 btn-success btnadd" type="button">
+                            <div class="col-1 p-0 d-flex">
+                              <button class="btn py-1 m-auto px-2 btn-success btnadd" type="button">
                                 <i class="bi bi-plus-lg"></i>
                               </button>
                             </div>
@@ -224,7 +226,75 @@
 
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary btnvoltar">
-              Cancelar
+              voltar
+            </button>
+            <button type="submit" class="btn btn-primary">avançar</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- modal para criar um ponto de onibus -->
+<div class="modal fade modalForm" tabindex="-1" aria-labelledby="createLinhas2Label" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content moldal-lg">
+      <form novalidate id="percurso2Form">
+        <div class="modal-header border-bottom">
+          <h4 class="modal-title d-flex w-100">
+            Adicionando linha <span class="ms-auto">4/4</span>
+          </h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+          <div class="row g-1">
+            <div class="col-12 d-flex">
+              <h5 class="mx-auto mt-3">
+                crie o percurso da saida de <span class="bairro2"></span>
+              </h5>
+            </div>
+
+            <ul class="list-group">
+              <li class="list-group-item" aria-disabled="true">
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button p-1" type="button" data-bs-toggle="collapse" data-bs-target="#acordionPercurso2">
+                      adicionar um ponto
+                    </button>
+                  </h2>
+                  <div id="acordionPercurso2" class="accordion-collapse collapse show">
+                    <div class="accordion-body p-1">
+                      <div class="row">
+                        <div class="col-12">
+                          <label class="m-0 mt-auto form-label pe-3" for="percurso2">ponto:
+                          </label>
+
+                          <div class="row">
+                            <div class="col-11">
+                              <select class="form-select pontos" id="percurso2" name="percurso2">
+                                <option selected>Escolha um ponto</option>
+                              </select>
+                            </div>
+                            <div class="col-1 p-0 d-flex">
+                              <button class="btn py-1 m-auto px-2 btn-success btnadd" type="button">
+                                <i class="bi bi-plus-lg"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary btnvoltar">
+              voltar
             </button>
             <button type="submit" class="btn btn-primary">avançar</button>
           </div>
@@ -236,7 +306,8 @@
 
 <script>
   let VALORESFINAL;
-  document.addEventListener("DOMContentLoaded", () => {
+
+  document.addEventListener("DOMContentLoaded", async () => {
     function addhorario(listaID, n, form = "#formhorarios") {
       const divPaiLista = document.querySelector(`#${listaID}`);
       const lista = divPaiLista.querySelector("ul");
@@ -253,11 +324,11 @@
         li.innerHTML = `
         <p class="my-auto p-0 m-0">${horas} | Duracao: ${duracao}m</p>
         <div class="list-group ms-auto list-group-horizontal">
-  
+
           <button type="button" class="excluir btn border ms-auto py-0 px-2">
             <i class="bi bi-x-lg text-danger"></i>
           </button>
-        </div> 
+        </div>
         `;
 
         li.querySelector(".excluir").addEventListener("click", () => {
@@ -289,8 +360,8 @@
                 horas = inputhoras.value;
 
               const horarioSaida = {
-                horas: new Date(`2000-01-01T${horas}`),
-                duracao,
+                horario_de_saida: new Date(`2000-01-01T${horas}`),
+                duracaoEstimada: parseInt(duracao),
               };
 
               objHoras.push(horarioSaida);
@@ -329,22 +400,187 @@
       });
     }
 
+    let pontos
+    try {
+
+      pontos = (await axios.get("http://localhost:9000/api/linhas/bus-stop")).data
+    } catch (error) {
+      pontos = []
+    }
+
+
+
+
+    document.querySelectorAll("select").forEach((element) => {
+      if (element.classList.contains("pontos")) {
+        const nescolhido = element.value;
+        element.addEventListener("click", () => {
+          if (nescolhido !== element.value) {
+            element.classList.add("is-valid");
+            element.classList.remove("is-invalid");
+          } else {
+            element.classList.add("is-invalid");
+            element.classList.remove("is-valid");
+          }
+        });
+
+        pontos.forEach((elem) => {
+          const option = document.createElement("option");
+          option.innerText = elem.endereco;
+          option.value = elem.id;
+          element.appendChild(option)
+        });
+      }
+
+    })
+
+    function addpercurso(n, form = "#formhorarios") {
+      const lista = document.querySelector(form).querySelector("ul");
+
+      const objHoras = [];
+
+      function guardarObjNoForm(obj) {
+        VALORESFINAL[`rota${n}`].percursos = obj;
+      }
+
+      function addLi(endereco, indice) {
+        endereco
+
+        const li = document.createElement("li");
+        li.classList.add("list-group-item", "d-flex");
+        li.innerHTML = `
+        <p class="my-auto p-0 m-0">${endereco}</p>
+        <div class="list-group ms-auto list-group-horizontal">
+
+          <button type="button" class="excluir btn border ms-auto py-0 px-2">
+            <i class="bi bi-x-lg text-danger"></i>
+          </button>
+          <button type="button" class="subir  list-group-item list-group-item-action py-0 px-2"><i class="bi bi-arrow-up"></i></button>
+          <button type="button" class="descer  list-group-item list-group-item-action py-0 px-2"><i class="bi bi-arrow-down"></i></button>
+        </div>
+        `;
+
+        li.querySelectorAll("button").forEach((btn) => {
+          btn.addEventListener("click", () => {
+
+            const ul = li.parentNode;
+            let indice = Array.from(ul.children).indexOf(li);
+
+
+            if (btn.classList.contains("excluir")) {
+              let indi
+              if (indice !== ul.children.length - 2) indi = indice + 1
+              else indi = indice
+
+              objHoras[indi].ordem_do_percurso = indi
+              objHoras.splice(indice, 1);
+              li.remove();
+            } else if (btn.classList.contains("subir")) {
+              if (indice > 0 && indice <= ul.children.length) {
+
+                const temp = objHoras[indice];
+                objHoras[indice] = objHoras[indice - 1];
+                objHoras[indice - 1] = temp;
+
+                objHoras[indice].ordem_do_percurso = indice + 1
+                objHoras[indice - 1].ordem_do_percurso = indice
+
+                if (li.previousElementSibling) {
+                  ul.insertBefore(li, li.previousElementSibling);
+                }
+              }
+            } else if (btn.classList.contains("descer")) {
+              if (indice >= 0 && indice < ul.children.length - 2) {
+                const temp = objHoras[indice];
+                objHoras[indice] = objHoras[indice + 1];
+                objHoras[indice + 1] = temp;
+
+                objHoras[indice].ordem_do_percurso = indice + 1
+                objHoras[indice + 1].ordem_do_percurso = indice + 2
+
+                if (li.nextElementSibling) {
+                  ul.insertBefore(li.nextElementSibling, li);
+                }
+              }
+            }
+
+
+            guardarObjNoForm(objHoras);
+            console.log(objHoras);
+          });
+
+          lista.insertBefore(li, lista.children[indice]);
+        })
+      }
+
+      lista.querySelectorAll("button").forEach((e) => {
+        e.addEventListener("click", (evt) => {
+          if (e.classList.contains("btnadd")) {
+            const inputendereco = lista.querySelector("select");
+
+            if (inputendereco.classList.contains("is-valid")) {
+              const endereco = inputendereco.value;
+
+              const percurso = {};
+
+              objHoras.push(percurso);
+
+              let enderecoTexto
+
+              inputendereco.querySelectorAll("option").forEach((e) => {
+                if (e.value == endereco) {
+                  enderecoTexto = e.innerText
+                }
+              })
+
+              for (const i in objHoras) {
+                if (objHoras[i] === percurso) {
+                  (percurso.ordem_do_percurso = parseInt(i) + 1),
+                  (percurso.pontoOnibus_id = parseInt(endereco));
+
+                  setTimeout(() => {
+                    addLi(enderecoTexto, i);
+                  }, 500);
+
+                  break;
+                }
+              }
+
+              inputendereco.value = "";
+
+              inputendereco.classList.remove("is-valid");
+
+              const bsCollapse = new bootstrap.Collapse("#acordionPercurso"+n);
+              bsCollapse.hide();
+            } else {
+              evt.stopPropagation();
+              inputendereco.focus();
+              inputendereco.blur();
+            }
+          }
+          guardarObjNoForm(objHoras);
+        });
+      });
+    }
+
     addhorario("lista1-horarios", 1);
     addhorario("lista2-horarios", 2);
+    addpercurso(1, "#percurso1Form");
+    addpercurso(2, "#percurso2Form");
 
     formEtapasForms(
       "#abrirCadastroDelinhas",
-      async (dataValues) => {
+      async () => {
           try {
             const response = await axios.post(
-              "http://localhost:9000/api/userADM/atendente",
-              dataValues
+              "http://localhost:9000/api/linhas",
+              VALORESFINAL
             );
             localStorage.setItem(
-              "AtendenteCreate",
+              "linhasCreate",
               JSON.stringify({
                 cor: "success",
-                texto: `Atendente ${response.data.username} adicionada(o)`,
+                texto: `linha do Numero ${response.data.id} criada!`,
                 div: "#alert",
               })
             );
@@ -450,10 +686,14 @@
               VALORESFINAL.numero_linha = valuesForm1.numero_linha;
             }
 
-            document.querySelector("#bairro1").innerHTML =
-              valuesForm1.bairroOrigem;
-            document.querySelector("#bairro2").innerHTML =
-              valuesForm1.bairroDestino;
+            document.querySelectorAll(".bairro1").forEach((elem) => {
+              elem.innerHTML = valuesForm1.bairroOrigem;
+            })
+
+            document.querySelectorAll(".bairro2").forEach((elem) => {
+              elem.innerHTML = valuesForm1.bairroDestino;
+            })
+
           }
         }
     );
