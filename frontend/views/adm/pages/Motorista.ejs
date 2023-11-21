@@ -1,0 +1,273 @@
+<h4 class="fw-bold py-3 mb-2">
+  <span class="text-muted fw-light">Linhas/</span> Motorista
+</h4>
+
+<div id="alert">
+  <script>
+    alert("motoristaCreate");
+    alert("motoristaDelete");
+    alert("motoristaEdit");
+  </script>
+</div>
+
+<%-include('../partials/_formsCriarMotorista.ejs') %>
+
+<section class="mt-5">
+  <h4 class="">Todos os pontos de onibus</h4>
+
+  <div class="card">
+    <div class="table-responsive text-nowrap">
+      <table id="PontosDeOnibus" class="table table-striped" style="width: 100%">
+        <thead>
+          <tr>
+            <th>cpf</th>
+            <th>cnh</th>
+            <th>nascimento</th>
+            <th>Opções</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% allMotorista.forEach((elem)=> { %>
+
+          <tr>
+            <td><%= elem.cpf %></td>
+            <td><%= elem.cnh %></td>
+            <td>
+              <%= new Date(elem.nascimento).toISOString().split("T")[0] %>
+            </td>
+            <td>
+
+              <button class="btn btn-warning py-1 px-2" onclick='modalEdit(<%-JSON.stringify(elem)%>)'>
+                <i class="bi bi-pencil-square"></i>
+              </button>
+
+              <button class="btn btn-danger py-1 px-2" onclick='modalDelet(<%-JSON.stringify(elem)%>)'>
+                <i class="bi bi-trash-fill"></i>
+              </button>
+            </td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<script>
+  function modalDelet(objEjs) {
+    const divdelete = document.createElement("div");
+    divdelete.innerHTML = `
+          
+              <div class="modal fade"  aria-labelledby="modalToggleLabel2" tabindex="-1" _mstvisible="0" style="display: none" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" _mstvisible="1">
+                  <div class="modal-content" _mstvisible="2">
+                    <div class="modal-header" _mstvisible="3">
+                      <h5 class="modal-title text-warning" id="modalToggleLabel2" _msttexthash="66105" _msthash="311" _mstvisible="4">
+                        Alerta!!!
+                      </h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar" _mstaria-label="59709" _msthash="312" _mstvisible="4"></button>
+                    </div>
+                    <div class="modal-body" _msttexthash="1998048" _msthash="313" _mstvisible="3">
+                      <span>
+                        Tem certeza que desja excluir o motorista do cpf  ${objEjs.cpf}?</span>
+                    </div>
+                    <div class="modal-footer" _mstvisible="3">
+                      <button class="btn btn-secondary" data-bs-dismiss="modal" _msttexthash="324714" _msthash="314" _mstvisible="4">
+                        Cancelar
+                      </button>
+                      <button type="click" class="btn btn-danger" id="deletePontoId">
+                        Sim, Deletar
+                      </button>
+  
+            `
+
+    const modalDelete = divdelete.querySelector(".modal");
+
+    document.body.appendChild(modalDelete);
+    const InstanciaBoostrapDoModal = new bootstrap.Modal(modalDelete);
+
+    InstanciaBoostrapDoModal.toggle();
+    document.body.removeChild(modalDelete);
+
+    const btnDelet = modalDelete.querySelector("#deletePontoId");
+
+    btnDelet.addEventListener("click", async () => {
+      try {
+        const deletado = await axios.delete(
+          `http://localhost:9000/api/userADM/motorista/${objEjs.id}`
+        );
+
+        localStorage.setItem(
+          "motoristaDelete",
+          JSON.stringify({
+            cor: "danger",
+            texto: `o motorista do cpf ${objEjs.cpf} foi apagado`,
+            div: "#alert",
+          })
+        );
+
+        location.reload();
+      } catch (error) {
+        console.error(error);
+      }
+    });
+  }
+
+
+  function modalEdit(objEjs) {
+
+    const div = document.createElement("div")
+
+
+    div.innerHTML = `
+    <div class="modal fade" id="formCreateMotorista" tabindex="-1" aria-labelledby="formCreateMotoristaLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="formCreateMotoristaLabel">
+              Editando motorista do CPF ${objEjs.cpf}
+            </h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+          <form novalidate>
+            <div class="modal-body">
+              <div class="row g-2">
+                <!-- nome real -->
+                <!-- <  
+
+                <!-- nasc -->
+                <div class="col-sm-4 col-12">
+                  <label for="nascimento" class="form-label">Data de Nascimento</label>
+                  <input name="nascimento" id="nascimento" class="form-control" type="date" value="${new Date(objEjs.nascimento).toISOString().split("T")[0]}" required />
+                </div>
+
+                <!-- cpf -->
+                <div class="col-sm-8 col-12">
+                  <label for="cnh" class="form-label">CNH:</label>
+                  <input class="form-control" id="cnh" name="cnh" type="text" value="${objEjs.cnh}" required />
+                </div>
+
+                <!-- cpf -->
+                <div class="col-12">
+                  <label for="cpf" class="form-label">CPF</label>
+                  <input class="form-control" id="cpf" name="cpf" type="text" value="${objEjs.cpf}" required />
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                Cancelar
+              </button>
+              <button type="submit" class="btn btn-primary">Criar ponto</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    `
+
+    const modal = div.querySelector(".modal")
+
+    //selecionando o modoal  e adicionando o modal ao BODY do HTML
+    document.body.appendChild(modal)
+
+    const InstanciaBoostrapDoModal = new bootstrap.Modal(modal)
+
+    InstanciaBoostrapDoModal.toggle()
+
+    formsValidacaoEdit = new Inputs(modal.querySelector("form")) // pega todos os inputs do form 
+    const btnSalvarAlteracoes = document.querySelector("#btnSalvarAlteracoes")
+
+
+
+
+    formsValidacaoEdit.forms.addEventListener("submit", async (event) => {
+
+      event.preventDefault()
+
+      try {
+
+       
+        const valorEdit = formsValidacaoEdit.allValues()
+
+        valorEdit.nascimento = new Date(valorEdit.nascimento)
+
+  
+        const response = await axios.put(`http://localhost:9000/api/userADM/motorista/${objEjs.id}`, valorEdit)
+
+        localStorage.setItem("motoristaEdit", JSON.stringify({
+          cor: "warning",
+          texto: `O cadastro do motorista do CPF ${objEjs.cpf} foi alterado`,
+          div: "#alert",
+        }))
+
+        location.reload()
+
+      } catch (error) {
+        console.log(error);
+      }
+
+
+    })
+
+
+    formsValidacaoEdit.allvalidacao({
+      nome: {
+        max: 50,
+        min: 3,
+        caractereNpermitido: [],
+        pattern: [".*", "nome valido", "nome invalido"],
+        btnoff: "aa",
+      },
+      nascimento: {
+        caractereNpermitido: [],
+        pattern: [".*", "nascimento valido", "nascimento invalido"],
+        btnoff: "aaa",
+      },
+      cnh: {
+        min: 11,
+        max: 11,
+        caractereNpermitido: [],
+        pattern: [".*", "cnh valido", "cnh invalido"],
+        btnoff: "aaa",
+      },
+      cpf: {
+        max: 14,
+        min: 14,
+        caractereNpermitido: ["Nletra", "Nacentuacao"],
+        pattern: [
+          "(\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2,5})",
+          // "\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}",
+          "cpf valido",
+          "cpf invalido",
+        ],
+        autopontuar: [
+          /(\d{3})(\d{3})(\d{3})(\d{2})/,
+          "$1.$2.$3-$4",
+          /[.-]/g,
+          "",
+        ],
+        customErro: [
+          [
+            /(\d{3}\.\d{3}\.\d{3}-\d{3,6})/,
+            "não existe cpf com mais de 11 numeros",
+          ],
+        ],
+        btnoff: "aaa",
+      },
+    });
+
+
+    modal.addEventListener("hidden.bs.modal", () => {
+
+      // quando o modal for fechado esse evento acionara e excluira o modal do body
+      document.body.removeChild(modal)
+    })
+
+
+
+  }
+  // fim modalEdit
+</script>

@@ -1,0 +1,132 @@
+<!-- botao -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#formCreateMotorista">
+  Adicionar motorista
+</button>
+
+<!-- modal para criar um motorista -->
+<div class="modal fade" id="formCreateMotorista" tabindex="-1" aria-labelledby="formCreateMotoristaLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="formCreateMotoristaLabel">
+          Adicionando motorista
+        </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <form novalidate>
+        <div class="modal-body">
+          <div class="row g-2">
+            <!-- nome real -->
+            <!-- <  
+
+            <!-- nasc -->
+            <div class="col-sm-4 col-12">
+              <label for="nascimento" class="form-label">Data de Nascimento</label>
+              <input name="nascimento" id="nascimento" class="form-control" type="date" required />
+            </div>
+
+            <!-- cpf -->
+            <div class="col-sm-8 col-12">
+              <label for="cnh" class="form-label">CNH:</label>
+              <input class="form-control" id="cnh" name="cnh" type="text" required />
+            </div>
+
+            <!-- cpf -->
+            <div class="col-12">
+              <label for="cpf" class="form-label">CPF</label>
+              <input class="form-control" id="cpf" name="cpf" type="text" required />
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Cancelar
+          </button>
+          <button type="submit" class="btn btn-primary">Criar ponto</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const formsponto = new Inputs("#formCreateMotorista");
+
+    formsponto.allvalidacao({
+      nome: {
+        max: 50,
+        min: 3,
+        caractereNpermitido: [],
+        pattern: [".*", "nome valido", "nome invalido"],
+        btnoff: "required",
+      },
+      nascimento: {
+        caractereNpermitido: [],
+        pattern: [".*", "nascimento valido", "nascimento invalido"],
+        btnoff: "required",
+      },
+      cnh: {
+        min: 11,
+        max: 11,
+        caractereNpermitido: [],
+        pattern: [".*", "cnh valido", "cnh invalido"],
+        btnoff: "required",
+      },
+      cpf: {
+        max: 14,
+        min: 14,
+        caractereNpermitido: ["Nletra", "Nacentuacao"],
+        pattern: [
+          "(\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2,5})",
+          // "\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}",
+          "cpf valido",
+          "cpf invalido",
+        ],
+        autopontuar: [
+          /(\d{3})(\d{3})(\d{3})(\d{2})/,
+          "$1.$2.$3-$4",
+          /[.-]/g,
+          "",
+        ],
+        customErro: [
+          [
+            /(\d{3}\.\d{3}\.\d{3}-\d{3,6})/,
+            "não existe cpf com mais de 11 numeros",
+          ],
+        ],
+        btnoff: "required",
+      },
+    });
+
+    formsponto.forms.addEventListener("submit", async (evt) => {
+      evt.preventDefault();
+
+      try {
+
+        const data = formsponto.allValues()
+
+        data.nascimento = new Date(data.nascimento)
+
+        const response = await axios.post(
+          "http://localhost:9000/api/userADM/motorista",
+          data
+        );
+        localStorage.setItem(
+          "motoristaCreate",
+          JSON.stringify({
+            cor: "success",
+            texto: `motorista com cpf ${response.data.cpf} criado com sucesso`,
+            div: "#alert",
+          })
+        );
+
+        location.reload();
+      } catch (error) {
+        console.error(error);
+      }
+    });
+  });
+</script>
