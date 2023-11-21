@@ -4,6 +4,18 @@ const { PrismaClient, Prisma } = require("@prisma/client");
 const exception = require("../js/erro");
 
 const prisma = new PrismaClient();
+router.get("/lojas", async (req, res, next) => {
+  try {
+    // const novaLoja = await prisma.loja_recarga.create({
+    const allLojas = await prisma.loja_recarga.findMany();
+
+    res.status(200).json(allLojas);
+  } catch (error) {
+    const erro = exception(error);
+    console.error(error);
+    res.status(erro.code).send(erro.msg);
+  }
+});
 
 router.post("/lojas", async (req, res, next) => {
   try {
@@ -29,19 +41,69 @@ router.post("/lojas", async (req, res, next) => {
     res.status(erro.code).send(erro.msg);
   }
 });
-
-router.get("/lojas", async (req, res, next) => {
+router.post("/passageiros", async (req, res, next) => {
   try {
-    // const novaLoja = await prisma.loja_recarga.create({
-    const allLojas = await prisma.loja_recarga.findMany();
+    const { nome, username, cpf, nascimento, saldo, email, senha} = req.body;
 
-    res.status(200).json(allLojas);
+ 
+    const novoPassageiro = await prisma.clientes.create({
+      data: {
+        email,
+        cpf,
+        username,
+        senha,
+        nome,
+        nascimento: new Date(nascimento),
+        saldo,
+      },
+    });
+
+    res.status(201).json({
+      message: `Passageiro ${novoPassageiro.nome} adicionado com sucesso`,
+    });
   } catch (error) {
     const erro = exception(error);
     console.error(error);
     res.status(erro.code).send(erro.msg);
   }
 });
+
+
+router.get("/passageiros", async (req, res, next) => {
+  try {
+    
+    const allPassageiros = await prisma.clientes.findMany();
+    
+
+    res.status(200).json(allPassageiros);
+  } catch (error) {
+    const erro = exception(error);
+    console.error(error);
+    res.status(erro.code).send(erro.msg);
+  }
+});
+
+router.delete("/passageiros/:id", async (req, res) => {
+  try {
+
+    const deleteLoja = await prisma.clientes.delete({
+      where: {
+        id: Number(req.params.id),
+      },
+      select: {
+        id: true,
+      },
+    });
+
+    res.status(200).send();
+
+  } catch (error) {
+    const erro = exception(error);
+    console.log(error);
+    res.status(erro.code).send(erro.msg);
+  }
+});
+
 
 router.put("/lojas", async (req, res) => {
   const {  id, nome, cepInput, street, state, city, neighborhood, lat, lng } = req.body;

@@ -52,16 +52,24 @@ router.get("/pontoDeOnibus", async function (req, res, next) {
 });
 
 router.get("/passageiros", async function (req, res, next) {
-  res.render("adm/pages/cadastroPassageiro.ejs", {
-    layout: "adm/layouts/layout-index.ejs",
-    cont: "#menuPassageiros",
-  });
+  try {
+    const { data } = await axios.get("http://localhost:9000/api/adm/passageiros");
+    res.render("adm/pages/cadastroPassageiro.ejs", {
+      layout: "adm/layouts/layout-index.ejs",
+      cont: "#menuPassageiros",
+      allPassageiros: data,
+    });
+  } catch (error) {
+    res.status();
+  }
+  
+
 });
 
 router.get("/onibus", async function (req, res, next) {
   res.render("adm/pages/cadastroOnibus.ejs", {
     layout: "adm/layouts/layout-index.ejs",
-
+    cont: "#menuOnibus",
   });
 });
 

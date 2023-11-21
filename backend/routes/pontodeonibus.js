@@ -31,19 +31,6 @@ router.post("/bus-stop", async (req, res) => {
   }
 });
 
-// mostrar todos os pontos
-router.get("/bus-stop", async (req, res) => {
-  try {
-    const createBusStop = await prisma.ponto_de_onibus.findMany();
-
-    res.status(200).json(createBusStop);
-  } catch (error) {
-    const erro = exception(error);
-    console.log(error);
-    res.status(erro.code).send(erro.msg);
-  }
-});
-
 router.delete("/bus-stop/:id", async (req, res) => {
   try {
     const deleteBusStop = await prisma.ponto_de_onibus.delete({

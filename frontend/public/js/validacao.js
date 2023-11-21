@@ -339,7 +339,7 @@ class Inputs {
 
       try {
         const cadastrar = await axios.post(url, data);
-
+        console.log("validação deu certo");
         success(cadastrar);
       } catch (error) {
         if (error.response.status == 401) {
