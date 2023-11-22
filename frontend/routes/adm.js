@@ -40,7 +40,7 @@ router.get("/motorista", async function (req, res, next) {
   res.render("adm/pages/Motorista.ejs", {
     layout: "adm/layouts/layout-index.ejs",
     cont: "#menuMotorista",
-    allMotorista
+    allMotorista,
   });
 });
 
@@ -63,7 +63,9 @@ router.get("/pontoDeOnibus", async function (req, res, next) {
 
 router.get("/passageiros", async function (req, res, next) {
   try {
-    const { data } = await axios.get("http://localhost:9000/api/adm/passageiros");
+    const { data } = await axios.get(
+      "http://localhost:9000/api/adm/passageiros"
+    );
     res.render("adm/pages/cadastroPassageiro.ejs", {
       layout: "adm/layouts/layout-index.ejs",
       cont: "#menuPassageiros",
@@ -72,8 +74,6 @@ router.get("/passageiros", async function (req, res, next) {
   } catch (error) {
     res.status();
   }
-  
-
 });
 
 router.get("/onibus", async function (req, res, next) {
@@ -84,6 +84,17 @@ router.get("/onibus", async function (req, res, next) {
 });
 
 router.get("/linhas", async function (req, res, next) {
+  let linhas;
+
+  try {
+    linhas = (await axios.get("http://localhost:9000/api/linhas"))
+      .data;
+
+      
+  } catch (error) {
+    linhas = null;
+  }
+
   res.render("adm/pages/linhas.ejs", {
     layout: "adm/layouts/layout-index.ejs",
     cont: "#menuLinhas",

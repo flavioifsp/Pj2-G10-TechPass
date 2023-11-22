@@ -8,36 +8,45 @@ const exception = require("../js/erro");
 router.get("/", async function (req, res, next) {
   try {
     let linhas = await prisma.linhas.findMany({
-
-      
+      include: {
+        horario_diario_saida: true,
+        percurso: true,
+      },
     });
 
-    // const temp = []
-    // linhas.forEach((e) =>{
-    //   e
-    // })
 
-    // linhas = linhas.map((elem) => {
-    //   return {
-    //     bairro1: linhas.,
-    //     bairro2: elem.bairro2,
-    //     numLinha: elem.num_linha,
-    //     infos_da_linha: [
-    //       {
-    //         infosB1: elem.horario_b1,
-    //         infosB2: elem.horario_b2,
-    //       },
-    //       {
-    //         infosB1: elem.itinerario_b1,
-    //         infosB2: elem.itinerario_b2,
-    //       },
-    //     ],
-    //   };
-    // });
+    const linhaApos = (linhas.length);
 
-    res.json(linhas);
+
+    linhas = linhas.map((elem, i) => {
+      // console.log(horario, perc);
+      if (i % 2 === 0) {
+        const paia = elem;
+
+        paia.horario_diario_saida = [elem.horario_diario_saida];
+        paia.percurso = [elem.percurso];
+
+        return paia;
+      } else {
+        linhas[i -1].horario_diario_saida.push(elem.horario_diario_saida)
+        linhas[i -1].percurso.push(elem.percurso)
+      }
+    }).filter(element =>  element != null)
+
+
+    console.log(linhas.length);
+
+    // else if (i > 0) {
+    //   console.log(i);
+    //   return
+    //   temp[i - 1].horario_diario_saida.push(horario);
+    //   temp[i - 1].percurso.push(perc);
+    // }
+
+    res.json({linhas});
   } catch (er) {
     const erro = exception(er);
+    console.log(er);
     res.status(erro.code).send(erro.msg);
   }
 });
