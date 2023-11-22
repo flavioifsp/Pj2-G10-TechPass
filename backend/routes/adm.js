@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 const { PrismaClient, Prisma } = require("@prisma/client");
 const exception = require("../js/erro");
+const { Decimal } = require("@prisma/client/runtime/library");
 
 const prisma = new PrismaClient();
 router.get("/lojas", async (req, res, next) => {
@@ -41,25 +42,52 @@ router.post("/lojas", async (req, res, next) => {
     res.status(erro.code).send(erro.msg);
   }
 });
-router.put("/passageiros/:id", async (req, res, next) => {
+
+router.post("/passageiros", async (req, res, next) => {
   try {
-    const {  nome, username, cpf, nascimento, saldo, email, senha} = req.body;
+    const { nome, username, cpf, nascimento, saldo, email, senha} = req.body;
 
- 
-    const novoPassageiro = await prisma.clientes.update({
-   //asas
-      where:{
-        id: parseInt(req.params.id)
-     },
-
+    const novoPassageiro = await prisma.clientes.create({
       data: {
         email,
         cpf,
         username,
         senha,
         nome,
-        nascimento,
+        nascimento: new Date(nascimento),
         saldo,
+      },
+    });
+
+    res.status(201).json({
+      message: `Passageiro ${novoPassageiro.nome} adicionado com sucesso`,
+    });
+  } catch (error) {
+    const erro = exception(error);
+    console.error(error);
+    res.status(erro.code).send(erro.msg);
+  }
+});
+
+
+router.put("/passageiros", async (req, res, next) => {
+  try {
+    const {  id, nome, username, cpf, nascimento, email} = req.body;
+
+    
+    const novoPassageiro = await prisma.clientes.update({
+   
+      where:{
+        id: id
+     },
+
+      data: {
+        email,
+        cpf,
+        username,
+        nome,
+        nascimento,
+        
       },
     });
 
