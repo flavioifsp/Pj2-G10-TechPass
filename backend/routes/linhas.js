@@ -15,7 +15,55 @@ router.get("/", async function (req, res, next) {
     });
 
 
-    const linhaApos = (linhas.length);
+
+
+    // formata a consulta em um formato que eu acho melhor
+
+    // exemplo:
+
+    // {
+    //   "id": 3,
+    //   "numero_linha": 100,
+    //   "bairroOrigem": "olaria",
+    //   "bairroDestino": "tinga",
+    //   "horario_diario_saida": [
+    //     [
+    //       {
+    //         "id": 3,
+    //         "linhas_id": 3,
+    //         "horario_de_saida": "1970-01-01T14:30:00.000Z",
+    //         "duracaoEstimada": 120
+    //       }
+    //     ],
+    //     [
+    //       {
+    //         "id": 6,
+    //         "linhas_id": 4,
+    //         "horario_de_saida": "1970-01-01T14:30:00.000Z",
+    //         "duracaoEstimada": 120
+    //       }
+    //     ]
+    //   ],
+    //   "percurso": [
+    //     [
+    //       {
+    //         "id": 3,
+    //         "ordem_do_percurso": 1,
+    //         "linha_id": 3,
+    //         "pontoOnibus_id": 6
+    //       }
+    //     ],
+    //     [
+    //       {
+    //         "id": 4,
+    //         "ordem_do_percurso": 1,
+    //         "linha_id": 4,
+    //         "pontoOnibus_id": 6
+    //       }
+    //     ]
+    //   ]
+    // }
+    
 
 
     linhas = linhas.map((elem, i) => {
@@ -34,16 +82,8 @@ router.get("/", async function (req, res, next) {
     }).filter(element =>  element != null)
 
 
-    console.log(linhas.length);
 
-    // else if (i > 0) {
-    //   console.log(i);
-    //   return
-    //   temp[i - 1].horario_diario_saida.push(horario);
-    //   temp[i - 1].percurso.push(perc);
-    // }
-
-    res.json({linhas});
+    res.json(linhas);
   } catch (er) {
     const erro = exception(er);
     console.log(er);

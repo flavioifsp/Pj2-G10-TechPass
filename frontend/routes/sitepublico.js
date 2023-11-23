@@ -40,7 +40,7 @@ router.get("/", async function (req, res, next) {
 /* GET rotas e linhas. */
 router.get("/rotas&linhas", async function (req, res, next) {
   const { er, data } = await axiosGet(
-    "http://localhost:9000/api/linhas/allLinhas"
+    "http://localhost:9000/api/linhas/"
   );
 
   
