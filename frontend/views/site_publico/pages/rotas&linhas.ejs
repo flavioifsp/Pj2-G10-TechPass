@@ -19,7 +19,7 @@
 
     <ul class="border-primary-subtle ps-0" style="list-style: none" id="lista-linha">
       <% linhas.forEach(linha => { %>
-      <li class="bg-dark-subtle rounded-4 d-flex flex-column flex-lg-row px-3 my-3" data-bs-toggle="modal" style="cursor: pointer; height: 70px">
+      <li class="bg-dark-subtle rounded-4 d-flex flex-column flex-lg-row px-3 my-3" style="cursor: pointer; height: 70px" onclick="modalItinerario()">
         <div class="d-flex align-items-center column-gap-md-3 column-gap-2 py-2">
           <img src="./images/icon bus.png" alt="..." class="img-fluid" style="width: 50px" />
 
@@ -34,12 +34,10 @@
       <% }) %>
     </ul>
 
-    <nav aria-label="..." class="border-top  pt-3 border-primary-subtle">
+    <nav aria-label="..." class="border-top pt-3 border-primary-subtle">
       <ul class="pagination"></ul>
     </nav>
   </section>
-
-  
 
   <aside class="container-fluid col-md-4 mx-0 d-none d-lg-block bg-primary-subtle my-2 rounded py-2">
     <h3 class="mb-4">CONTATO E SUPORTE</h3>
@@ -50,65 +48,96 @@
 </div>
 
 <script>
-
   // paginação
-  const ulLinha = document.querySelector("#lista-linha")
-  const elemsLista = [...ulLinha.children]
-  const pagination = document.querySelector(".pagination")
+  const elemPorPag = 5;
 
+  const ulLinha = document.querySelector("#lista-linha");
+  const elemsLista = [...ulLinha.children];
+  const pagination = document.querySelector(".pagination");
 
-  const elemPorPag = 7
-  for (inicio = 0, fim = elemPorPag, n = 1; inicio <= elemsLista.length; inicio = inicio + elemPorPag, fim = inicio + elemPorPag, n++) {
-    const li = document.createElement("li")
-    li.classList.add("page-item")
-    li.innerHTML = `<button type="button" class="page-link">${n}</button>`
-    li.setAttribute("data-inicio", inicio)
-    li.setAttribute("data-fim", fim)
+  for (
+    inicio = 0, fim = elemPorPag, n = 1; inicio <= elemsLista.length; inicio = inicio + elemPorPag, fim = inicio + elemPorPag, n++
+  ) {
+    const li = document.createElement("li");
+    li.classList.add("page-item");
+    li.innerHTML = `<button type="button" class="page-link">${n}</button>`;
+    li.setAttribute("data-inicio", inicio);
+    li.setAttribute("data-fim", fim);
 
-    pagination.appendChild(li)
+    pagination.appendChild(li);
   }
-
-
 
   pagination.querySelectorAll("li").forEach((e) => {
     e.addEventListener("click", () => {
       const inicio = e.getAttribute("data-inicio"),
-        fim = e.getAttribute("data-fim")
+        fim = e.getAttribute("data-fim");
 
       elemsLista.forEach((elem, indi) => {
-
         if (indi < inicio) {
-          elem.classList.add("d-none")
+          elem.classList.add("d-none");
         } else if (indi >= fim) {
-          elem.classList.add("d-none")
+          elem.classList.add("d-none");
         } else {
-          elem.classList.remove("d-none")
+          elem.classList.remove("d-none");
         }
-      })
+      });
 
+      elemsLista.forEach((e) => e.classList.remove("active"));
+      e.classList.add("active");
+      e.blur();
+    });
+  });
 
-      pagination.querySelectorAll("li").forEach(e => e.classList.remove("active"));
-      e.classList.add("active")
-      e.blur()
-    })
-  })
-
-
-
-
-  
-  pagination.querySelector("li").click()
-  ulLinha.style.height = (ulLinha.clientHeight) +"px"
-
-
-
-
-
-
-
+  pagination.querySelector("li").click();
+  ulLinha.style.height = ulLinha.clientHeight + "px";
 
 
   // modals
+  
+    const modalHorarioHtml = `
+      <div class="modal fade"  tabindex="-1">
+        <div class="modal-dialog modal-dialog modal-dialog-centered modal-dialog-scrollable">
+          <div class="modal-content ">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" >Modal title</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              ...
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" onClick="modalItinerario()" >Itinerario</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `
+  
+    const modalHorario = criarFuncaoModal(modalHorarioHtml)
+  
 
-  // criarFuncaoModal()
+    // 
+    const modalItiHtml = `
+      <div class="modal fade"  tabindex="-1">
+        <div class="modal-dialog modal-dialog modal-dialog-centered modal-dialog-scrollable">
+          <div class="modal-content ">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" >Modal title</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              ...
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onClick="modalHorario()" >Horario</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `
+  
+    const modalItinerario = criarFuncaoModal(modalItiHtml)
+
 </script>
