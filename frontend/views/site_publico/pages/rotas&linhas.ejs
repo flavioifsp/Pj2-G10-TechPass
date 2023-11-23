@@ -19,7 +19,7 @@
 
     <ul class="border-primary-subtle ps-0" style="list-style: none" id="lista-linha">
       <% linhas.forEach(linha => { %>
-      <li class="bg-dark-subtle rounded-4 d-flex flex-column flex-lg-row px-3 my-3" style="cursor: pointer; height: 70px" onclick="modalItinerario()">
+      <li class="bg-dark-subtle rounded-4 d-flex flex-column flex-lg-row px-3 my-3" style="cursor: pointer; height: 70px" onclick='modalHorario( <%-JSON.stringify(linha)%> )'>
         <div class="d-flex align-items-center column-gap-md-3 column-gap-2 py-2">
           <img src="./images/icon bus.png" alt="..." class="img-fluid" style="width: 50px" />
 
@@ -48,9 +48,9 @@
 </div>
 
 <script>
+  //
   // paginação
   const elemPorPag = 5;
-
   const ulLinha = document.querySelector("#lista-linha");
   const elemsLista = [...ulLinha.children];
   const pagination = document.querySelector(".pagination");
@@ -82,7 +82,9 @@
         }
       });
 
-      elemsLista.forEach((e) => e.classList.remove("active"));
+      pagination
+        .querySelectorAll("li")
+        .forEach((e) => e.classList.remove("active"));
       e.classList.add("active");
       e.blur();
     });
@@ -90,54 +92,117 @@
 
   pagination.querySelector("li").click();
   ulLinha.style.height = ulLinha.clientHeight + "px";
-
-
+  //
+  //
+  //
   // modals
-  
-    const modalHorarioHtml = `
+  const modalHorario = criarFuncaoModal((objEJS) => {
+    return `
       <div class="modal fade"  tabindex="-1">
         <div class="modal-dialog modal-dialog modal-dialog-centered modal-dialog-scrollable">
-          <div class="modal-content ">
+          <div class="modal-content  ">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" >Horarios de Saida do Bairro</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body py-4">
+              <div class="container-fluid">
+                <div class="row  g-3 text-center row-cols-md-2 row-cols-1">
+                  <div class="col ">
+                    <h5 class="mb-3">Saida de ${objEJS.bairroOrigem}</h5>
+                    <ul class="list-group px-md-2 ">
+                      ${objEJS.horario_diario_saida[0]
+                      .map((elem) => {
+                        return `  <li class="list-group-item fs-3 border-dark-subtle" >${elem.horario_de_saida.match(/([\d]{2}:[\d]{2})/g)}</li> `;
+                      })
+                      .toString()
+                      .replaceAll("> ,  <", ">   <")}
+                    </ul>
+                  </div>
+
+                  <div class="col">
+                    <h5 class="mb-3">Saida de ${objEJS.bairroDestino}</h5>
+                    <ul class="list-group px-md-2" >  
+                      ${objEJS.horario_diario_saida[1]
+                      .map((elem) => {
+                        return `  <li class="list-group-item fs-3 border-dark-subtle">${elem.horario_de_saida.match(/([\d]{2}:[\d]{2})/g)}</li> `;
+                      })
+                      .toString()
+                      .replaceAll("> ,  <", ">   <")}
+                    </ul>
+                  </div>
+                </div>
+              </div>       
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+              <button type="button" class="btn btn-primary"  onClick='modalItinerario(${JSON.stringify(
+                objEJS
+              )})' >Itinerario</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  });
+
+  //
+  const modalItinerario = criarFuncaoModal((objEJS) => {
+      return `
+      <div class="modal fade"  tabindex="-1">
+        <div class="modal-dialog modal-dialog modal-xl
+         modal-dialog-centered modal-dialog-scrollable">
+          <div class="modal-content  ">
             <div class="modal-header">
               <h1 class="modal-title fs-5" >Modal title</h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              ...
+              <div class="container-fluid">
+                <div class="row  g-3 text-center row-cols-md-2 row-cols-1">
+                  <div class="col ">
+                    <h5 class="mb-3">Saida de ${objEJS.bairroOrigem}</h5>
+                    <ul class="list-group px-md-2 ">
+                     
+                    </ul>
+                  </div>
+
+                  <div class="col">
+                    <h5 class="mb-3">Saida de ${objEJS.bairroDestino}</h5>
+                    <ul class="list-group px-md-2" >  
+                     
+                    </ul>
+                  </div>
+                </div>
+              </div>   
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary" onClick="modalItinerario()" >Itinerario</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+              <button type="button" class="btn btn-primary"  onClick='modalHorario(${JSON.stringify(
+                objEJS
+              )})' >Horario</button>
             </div>
           </div>
         </div>
       </div>
-    `
-  
-    const modalHorario = criarFuncaoModal(modalHorarioHtml)
-  
+    `;
+    },
 
-    // 
-    const modalItiHtml = `
-      <div class="modal fade"  tabindex="-1">
-        <div class="modal-dialog modal-dialog modal-dialog-centered modal-dialog-scrollable">
-          <div class="modal-content ">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" >Modal title</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              ...
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onClick="modalHorario()" >Horario</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    `
-  
-    const modalItinerario = criarFuncaoModal(modalItiHtml)
+    (modal = document, objEJS) => {
+      modal.querySelectorAll("ul").forEach((e, i) => {
 
+        objEJS.percurso[i].forEach((elem, indi) => {
+          const li = document.createElement("li")
+          li.classList.add("list-group-item", "fs-5", "border-dark-subtle")
+
+          console.log(elem);
+          li.innerText = elem.ponto_de_onibus.endereco  
+          e.appendChild(li)
+        })
+      })
+
+
+    }
+
+  );
 </script>

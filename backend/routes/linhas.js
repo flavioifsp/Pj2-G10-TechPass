@@ -10,12 +10,13 @@ router.get("/", async function (req, res, next) {
     let linhas = await prisma.linhas.findMany({
       include: {
         horario_diario_saida: true,
-        percurso: true,
+        percurso: {
+          include: {
+            ponto_de_onibus: true,
+          },
+        },
       },
     });
-
-
-
 
     // formata a consulta em um formato que eu acho melhor
 
@@ -63,25 +64,23 @@ router.get("/", async function (req, res, next) {
     //     ]
     //   ]
     // }
-    
 
+    linhas = linhas
+      .map((elem, i) => {
+        // console.log(horario, perc);
+        if (i % 2 === 0) {
+          const paia = elem;
 
-    linhas = linhas.map((elem, i) => {
-      // console.log(horario, perc);
-      if (i % 2 === 0) {
-        const paia = elem;
+          paia.horario_diario_saida = [elem.horario_diario_saida];
+          paia.percurso = [elem.percurso];
 
-        paia.horario_diario_saida = [elem.horario_diario_saida];
-        paia.percurso = [elem.percurso];
-
-        return paia;
-      } else {
-        linhas[i -1].horario_diario_saida.push(elem.horario_diario_saida)
-        linhas[i -1].percurso.push(elem.percurso)
-      }
-    }).filter(element =>  element != null)
-
-
+          return paia;
+        } else {
+          linhas[i - 1].horario_diario_saida.push(elem.horario_diario_saida);
+          linhas[i - 1].percurso.push(elem.percurso);
+        }
+      })
+      .filter((element) => element != null);
 
     res.json(linhas);
   } catch (er) {

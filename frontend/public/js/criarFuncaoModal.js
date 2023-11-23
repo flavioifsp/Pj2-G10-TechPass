@@ -1,37 +1,32 @@
-function criarFuncaoModal(ModalHtml, callback = () => {}) {
+// o 159 é para n ar conflito com outras variaveis
+let boostrapModalAtual159 = null;
+function criarFuncaoModal(ModalHtml = () => {}, callback = () => {}) {
   return function (objEjs) {
     const umadiv = document.createElement("div");
 
-    umadiv.innerHTML = ModalHtml;
+    umadiv.innerHTML = ModalHtml(objEjs);
 
     const modal = umadiv.querySelector(".modal");
 
     document.body.appendChild(modal);
 
-    callback(modal);
+    callback(modal, objEjs);
 
     const InstanciaBoostrapDoModal = new bootstrap.Modal(modal);
 
-    const modalspag = document.querySelectorAll(".modal");
-    modalspag.forEach((e, i) => {
-      const modal0 = new bootstrap.Modal(e);
+    if (boostrapModalAtual159 && document.querySelector(".modal.show")) {
+      boostrapModalAtual159.hide();
+      boostrapModalAtual159._element.addEventListener("hidden.bs.modal", () => {
+        InstanciaBoostrapDoModal.show();
+      });
+    } else {
+      InstanciaBoostrapDoModal.show();
+    }
 
-      if (e.classList.contains("show")) {
-        modal0.hide();
-        e.addEventListener("hidden.bs.modal", function paia() {
-          InstanciaBoostrapDoModal.toggle();
-          e.removeEventListener(paia);
-        });
-      } else if (modalspag.length - 1 == i) {
-        InstanciaBoostrapDoModal.toggle();
-      }
+    boostrapModalAtual159 = InstanciaBoostrapDoModal;
+
+    modal.addEventListener("hidden.bs.modal", () => {
+      modal.remove();
     });
-
-    modal.addEventListener(
-      "hidden.bs.modal",
-      (abb = () => {
-        modal.remove();
-      })
-    );
   };
 }
