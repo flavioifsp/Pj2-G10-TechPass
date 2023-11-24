@@ -13,9 +13,9 @@ router.get("/", async function (req, res, next) {
       },
       include: {
         horario_diario_saida: {
-          orderBy:{
-            horario_de_saida: "asc"
-          }
+          orderBy: {
+            horario_de_saida: "asc",
+          },
         },
         percurso: {
           orderBy: { ordem_do_percurso: "asc" },
@@ -141,6 +141,41 @@ router.post("/", async (req, res, next) => {
     // https://www.prisma.io/docs/concepts/components/prisma-client/relation-queries#create-multiple-records-and-multiple-related-records
   } catch (er) {
     const erro = exception(er);
+    res.status(erro.code).send(erro.msg);
+  }
+});
+
+router.delete("/deletar/:id", async (req, res, next) => {
+  try {
+    const linhas_id = parseInt(req.params.id);
+
+    await prisma.horario_diario_saida.deleteMany({
+      where:{
+        linhas_id: linhas_id,
+      } 
+    })
+
+    await prisma.percurso.deleteMany({
+      where:{
+        linha_id: linhas_id
+      } 
+    })
+    
+    const deleteLinhas = await prisma.linhas.delete({
+      where: {
+        id: linhas_id,
+      },
+      select: {
+        numero_linha: true,
+        id: true,
+      },
+    });
+
+    res.status(204).json({
+      message: `A linha ${deleteLinhas.numero_linha} do ID ${deleteLinhas.id} foi apagada`,
+    });
+  } catch (error) {
+    const erro = exception(error);
     res.status(erro.code).send(erro.msg);
   }
 });

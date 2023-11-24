@@ -65,7 +65,7 @@
   const modalInfo = criarFuncaoModal((objEJS) => {
     return `
     <div class="modal fade"  tabindex="-1">
-        <div class="modal-dialog modal-dialog modal-dialog-centered modal-dialog-scrollable modal-sm">
+        <div class="modal-dialog modal-dialog modal-dialog-centered modal-dialog-scrollable ">
           <div class="modal-content  ">
             <div class="modal-header">
               <h1 class="modal-title fs-5" >Horarios de Saida da linha ${objEJS.numero_linha}</h1>
@@ -79,23 +79,27 @@
                     <ul class="list-group  ">
                       ${objEJS.horario_diario_saida[0]
                       .map((elem) => {
-                        return `  <li class="list-group-item fs-3 border-dark-subtle" >${elem.horario_de_saida.match(/([\d]{2}:[\d]{2})/g)}</li> `;
+                        return `  <li class="list-group-item fs-5  border-dark-subtle" >
+                          Horario: ${elem.horario_de_saida.match(/([\d]{2}:[\d]{2})/g)}  <br> 
+                          Duração: ${elem.duracaoEstimada} min</li>`;
                       })
                       .toString()
-                      .replaceAll("> ,  <", ">   <")}
+                      .replaceAll(">,  <", ">   <")}
                       </ul>
                   </div>
 
                   <div class="col">
                     <h5 class="mb-3">Saida de ${objEJS.bairroDestino}</h5>
-                    <ul class="list-group " >  
+                    <ul class="list-group  ">
                       ${objEJS.horario_diario_saida[1]
                       .map((elem) => {
-                        return `  <li class="list-group-item fs-3 border-dark-subtle">${elem.horario_de_saida.match(/([\d]{2}:[\d]{2})/g)}</li> `;
+                        return `  <li class="list-group-item fs-5  border-dark-subtle" >
+                          Horario: ${elem.horario_de_saida.match(/([\d]{2}:[\d]{2})/g)}  <br> 
+                          Duração: ${elem.duracaoEstimada} min</li>`;
                       })
                       .toString()
-                      .replaceAll("> ,  <", ">   <")}
-                    </ul>
+                      .replaceAll(">,  <", ">   <")}
+                      </ul>
 
                   </div>
                 </div>
@@ -112,9 +116,6 @@
       </div>
     `
   })
-
-
-
 
   //
   const modalItinerario = criarFuncaoModal((objEJS) => {
@@ -175,7 +176,64 @@
     }
   );
 
-  // const modalEdit = criarFuncaoModal()
 
-  // const modalDelet = criarFuncaoModal()
+
+
+  const modalEdit = criarFuncaoModal((objEJS) => {
+    return ``
+  })
+
+  const modalDelet = criarFuncaoModal((objEJS) => {
+    return `
+    <div class="modal fade" tabindex="-1" >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Deseja mesmo excluir a linha ${objEJS.numero_linha}?</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body list-group h-100 w-100">
+            <h5 class="">infomações basicas da linha que deseja excluir:</h5>
+            <ul class="list-group">
+              <li class="list-group-item fs-5 border-dark-subtle" >numero: <strong> ${objEJS.numero_linha}</strong></li> 
+              <li class="list-group-item fs-5 border-dark-subtle" >Bairro 1: <strong> ${objEJS.bairroOrigem}</strong> </li> 
+              <li class="list-group-item fs-5 border-dark-subtle" >Bairro 2:  <strong> ${objEJS.bairroDestino}</strong> <li> 
+            </ul>
+          </div >
+          <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+
+            <div>
+            <button type="button" class="btn btn-warning" onclick='' data-bs-dismiss="modal">Editar</button>
+            <button type="button" class="btn btn-danger delete" >Deletar</button>
+            </div>
+          </div>
+        </div >
+      </div >
+    </div >
+    `
+  }, async (modal, objEJS) => {
+    const btnDelet = modal.querySelector(".delete");
+
+    btnDelet.addEventListener("click", async () => {
+      try {
+        const deletado = await axios.delete(
+          `http://localhost:9000/api/linhas/deletar/${objEJS.id}`
+        );
+
+        localStorage.setItem(
+          "linhasDelete",
+          JSON.stringify({
+            cor: "danger",
+            texto: `A linha ${objEJS.numero_linha} foi apagada!`,
+            div: "#alert",
+          })
+        );
+
+        location.reload();
+      } catch (error) {
+        console.error(error);
+      }
+    });
+  })
 </script>

@@ -1,4 +1,3 @@
-
 <div id="alert">
   <script>
     alert("stopBusCreate");
@@ -545,17 +544,17 @@
         valorEdit.lat = data.location.coordinates.latitude
         valorEdit.lng = data.location.coordinates.longitude
 
-        
+
 
         const response = await axios.put(`http://localhost:9000/api/adm/lojas`, valorEdit)
 
 
 
         localStorage.setItem("stopBusEdit", JSON.stringify({
-           cor: "success",
-           texto: ` A loja ${valorEdit.nome} foi alterada com sucesso`,
-           div: "#alert",
-         }))
+          cor: "success",
+          texto: ` A loja ${valorEdit.nome} foi alterada com sucesso`,
+          div: "#alert",
+        }))
 
         location.reload()
 
@@ -582,11 +581,11 @@
   // fim modalEdit
 
 
-  function modalDelet(objEjs){
-  
-  const divdelete = document.createElement("div")
+  function modalDelet(objEjs) {
 
-  divdelete.innerHTML = `
+    const divdelete = document.createElement("div")
+
+    divdelete.innerHTML = `
         
             <div class="modal fade" id="loja${objEjs.id}" aria-labelledby="modalToggleLabel2" tabindex="-1" _mstvisible="0" style="display: none" aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered" _mstvisible="1">
@@ -610,36 +609,36 @@
 
           `
 
-                              const modalDelete = divdelete.querySelector(".modal")
+    const modalDelete = divdelete.querySelector(".modal")
 
-                              document.body.appendChild(modalDelete)
-                              const InstanciaBoostrapDoModal = new bootstrap.Modal(modalDelete)
+    document.body.appendChild(modalDelete)
+    const InstanciaBoostrapDoModal = new bootstrap.Modal(modalDelete)
 
-                              InstanciaBoostrapDoModal.toggle()
-                              document.body.removeChild(modalDelete)
+    InstanciaBoostrapDoModal.toggle()
+    document.body.removeChild(modalDelete)
 
-                              const btnDelet = modalDelete.querySelector("#deleteLojaId")
-          
-                              btnDelet.addEventListener("click", async () => {        
-                        try {
-                         
-                          const deletado = await axios.delete(`http://localhost:9000/api/adm/loja/${objEjs.id}`)
+    const btnDelet = modalDelete.querySelector("#deleteLojaId")
 
-                          localStorage.setItem("stopBusDelete", JSON.stringify({
-                            cor: "danger",
-                            texto:` A loja ${objEjs.nome} foi deletado com sucesso`,
-                            div: "#alert",
-                          }))
+    btnDelet.addEventListener("click", async () => {
+      try {
 
-                          location.reload()
-                        } catch (error) {
-                          console.error(error)
-                        }
+        const deletado = await axios.delete(`http://localhost:9000/api/adm/loja/${objEjs.id}`)
+
+        localStorage.setItem("stopBusDelete", JSON.stringify({
+          cor: "danger",
+          texto: ` A loja ${objEjs.nome} foi deletado com sucesso`,
+          div: "#alert",
+        }))
+
+        location.reload()
+      } catch (error) {
+        console.error(error)
+      }
 
     })
 
 
 
 
-}
+  }
 </script>
