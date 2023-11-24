@@ -33,7 +33,7 @@
         <tbody>
           <% linhas.forEach((elem)=> { %>
 
-          <tr class="fs-5 ">
+          <tr class="">
             <td> <%= elem.numero_linha %></td>
             <td><%= elem.bairroOrigem %> </td>
             <td><%= elem.bairroDestino  %> </td>
@@ -150,7 +150,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-              <button type="button" class="btn btn-primary"  onClick='modalHorario(${JSON.stringify(
+              <button type="button" class="btn btn-primary"  onClick='modalInfo(${JSON.stringify(
                 objEJS
               )})' >Horario</button>
             </div>
@@ -180,8 +180,70 @@
 
 
   const modalEdit = criarFuncaoModal((objEJS) => {
-    return ``
+    return `
+
+    <div class="modal fade" id="editandoLinha" tabindex="-1" aria-labelledby="editandoLinhaLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <form novalidate>
+            <div class="modal-header">
+              <h4 class="modal-title" id="editandoLinhaLabel">Editando Linha ${objEJS.numero_linha}</h4>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+              <div class="row g-2">
+                <div class="col-md-4 ">
+                  <label for="numero_linha" class="form-label">Numero da linha</label>
+                  <input type="text" class="form-control" id="numero_linha" name="numero_linha" value="${objEJS.numero_linha}" required />
+                </div>
+                <div class="col-md-8 col-12">
+                  <h5 class="form-label " style="margin-top: 7px;">Editar Horarios de Saidas</h5>
+                  <button type="button" class="btn btn-primary w-100 ">Horarios dos Bairros</button>
+                </div>
+
+                <div class="col-md-6 col-12">
+                  <label for="bairroOrigem" class="form-label">1° Bairro</label>
+                  <input type="text" class="form-control" id="bairroOrigem" name="bairroOrigem" value="${objEJS.bairroOrigem}" required />
+                  <button type="button" class="btn btn-info w-100 mt-2">Editar Itinerario</button>
+                </div>
+                <div class="col-md-6 col-12">
+                  <label for="bairroDestino" class="form-label">2° Bairro</label>
+                  <input type="text" class="form-control" id="bairroDestino" name="bairroDestino" value="${objEJS.bairroDestino}" required />
+                  <button type="button" class="btn btn-info w-100 mt-2">Editar Itinerario</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" data-bs-dismiss="modal" class="btn btn-secondary btnvoltar">
+                sair
+              </button>
+              <button type="submit" class="btn btn-warning">Salvar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    `
+  }, async (modal, data) => {
+    const instanciaValid = new Inputs(modal)
+
+
+
+    try {
+      const response = await axios.path("", instanciaValid.allValues())
+
+      
+
+
+    } catch (erro) {
+      console.error(erro);
+    }
   })
+
+
+
 
   const modalDelet = criarFuncaoModal((objEJS) => {
     return `

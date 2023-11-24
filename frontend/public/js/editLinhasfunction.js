@@ -1,4 +1,8 @@
-function addhorario(listaID, n, VALORESFINAL, form = "#formhorarios") {
+
+
+
+
+function addhorario(listaID, n,  form = "#formhorarios") {
   const divPaiLista = document.querySelector(`#${listaID}`);
   const lista = divPaiLista.querySelector("ul");
 
@@ -92,7 +96,7 @@ function addhorario(listaID, n, VALORESFINAL, form = "#formhorarios") {
   });
 }
 
-function addpercurso(n, VALORESFINAL, form = "#formhorarios") {
+function addpercurso(n,  form = "#formhorarios") {
   const lista = document.querySelector(form).querySelector("ul");
 
   const objHoras = [];

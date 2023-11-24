@@ -309,6 +309,7 @@
 <script>
   let VALORESFINAL = {}
 </script>
+<script src="../../js/editLinhasfunction.js"></script>
 <script>
   document.addEventListener("DOMContentLoaded", async () => {
 
@@ -347,10 +348,10 @@
     })
 
 
-    addhorario("lista1-horarios", 1, VALORESFINAL);
-    addhorario("lista2-horarios", 2, VALORESFINAL);
-    addpercurso(1, VALORESFINAL, "#percurso1Form");
-    addpercurso(2, VALORESFINAL, "#percurso2Form");
+    addhorario("lista1-horarios", 1);
+    addhorario("lista2-horarios", 2);
+    addpercurso(1, "#percurso1Form");
+    addpercurso(2, "#percurso2Form");
 
     formEtapasForms(
       "#abrirCadastroDelinhas",
@@ -449,8 +450,8 @@
           if (indice == 0) {
             const valuesForm1 = instanciaForm.allValues();
 
-          
-            if ( !VALORESFINAL.hasOwnProperty("rota1") ) {
+
+            if (!VALORESFINAL.hasOwnProperty("rota1")) {
               VALORESFINAL = {
                 rota1: {
                   bairroOrigem: valuesForm1.bairroOrigem,
@@ -485,6 +486,3 @@
     );
   });
 </script>
-
-
-<script src="../../js/editLinhasfunction.js"></script>
