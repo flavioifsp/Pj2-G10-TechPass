@@ -30,7 +30,7 @@
   
   
   <form id="formpaia">
-    <input class="z-n1 w-25 position-absolute top-0" type="text" name="idCard" id="idCard">
+    <input class=" w-25 position-absolute top-0" type="text" name="idCard" id="idCard">
   </form>
 
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -46,14 +46,17 @@
     forms.addEventListener("submit", async (evt) =>{
       evt.preventDefault()
 
-      const idcard = campo.value
-      // const response = await axios.post('http://localhost:3000/api/gfhfghdhdfgh', {idcard});
+      const idCard = campo.value
+      const response = await axios.get(`http://localhost:9000/api/catraca/inicio`);
+
+      //  const cartao = response.data
+
+
+
+      if (idCard == cartao.cpf) {
+        console.log("o futuro é pika")
+      }
       
-
-      // response.data {
-      //   adsasda
-      // }
-
     })
 
   </script>

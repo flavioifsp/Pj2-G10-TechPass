@@ -9,18 +9,18 @@ router.get("/", async function (req, res, next) {
   } catch (error) {}
 
 
-  res.render("catraca/pages/index.ejs", { layout: false });
+  res.render("catraca/pages/inicio.ejs", { layout: false });
 });
 
 
-router.get("/inicio", async function (req, res, next) {
-  try {
+// router.get("/inicio", async function (req, res, next) {
+//   try {
    
-  } catch (error) {}
+//   } catch (error) {}
 
 
-  res.render("catraca/pages/incio.ejs", { layout: false });
-});
+//   res.render("catraca/pages/incio.ejs", { layout: false });
+// });
 
 // erro
 router.get("/erro", function (req, res, next) {

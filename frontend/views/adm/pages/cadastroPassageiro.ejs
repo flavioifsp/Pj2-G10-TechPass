@@ -124,8 +124,7 @@
             <%= elem.email %>
           </td>
           <td>
-            <!-- ${(objEjs.nascimento.split("T")[0]).split("-")[2]}-${(objEjs.nascimento.split("T")[0]).split("-")[1]}-${(objEjs.nascimento.split("T")[0]).split("-")[0]} -->
-            <%= (elem.nascimento.split("T")[0]).split("-")[2] +"-"+ (elem.nascimento.split("T")[0]).split("-")[1] +"-"+ (elem.nascimento.split("T")[0]).split("-")[0]%>
+            <%= new Date(elem.nascimento).toLocaleDateString()%>
           </td>
 
           <td>
@@ -222,7 +221,7 @@
         <div class="modal-body list-group h-100 w-100">
           <li class="list-group-item">Nome:<span class="ms-1"> ${objEjs.nome}</span></li>
           <li class="list-group-item">username:<span class="ms-1"> ${objEjs.username}</span></li>
-          <li class="list-group-item">Nascimento:<span class="ms-1"> ${(objEjs.nascimento.split("T")[0]).split("-")[2]}-${(objEjs.nascimento.split("T")[0]).split("-")[1]}-${(objEjs.nascimento.split("T")[0]).split("-")[0]}</span></li>
+          <li class="list-group-item">Nascimento:<span class="ms-1"> ${new Date(objEjs.nascimento).toLocaleDateString()}</span></li>
           <li class="list-group-item">Email:<span class="ms-1"> ${objEjs.email}</span></li>
          
 
@@ -370,7 +369,7 @@
                   <div class="row mb-4">
                     <label class="col-sm-2 col-form-label" for="nascimento">Nascimento</label>
                     <div class="col-sm-10">
-                      <input name="nascimento" id="nascimento" class="form-control" type="text" value="${(objEjs.nascimento.split("T")[0]).split("-")[2]}-${(objEjs.nascimento.split("T")[0]).split("-")[1]}-${(objEjs.nascimento.split("T")[0]).split("-")[0]} " required />
+                      <input name="nascimento" id="nascimento" class="form-control" type="date" value="${new Date(objEjs.nascimento).toISOString().split("T")[0]}" required />
                     </div>
                   </div>
 
@@ -451,12 +450,13 @@
 
         const valorEdit = formsValidacaoEdit.allValues()
 
+  
         
-        // valorEdit.nascimento = new Date(valorEdit.nascimento);
-        valorEdit.nascimento = valorEdit.nascimento.trim();
-        valorEdit.nascimento = `${valorEdit.nascimento.split("-")[2]}-${valorEdit.nascimento.split("-")[1]}-${valorEdit.nascimento.split("-")[0]}`
+        
+        valorEdit.nascimento = valorEdit.nascimento
+        valorEdit.nascimento = new Date(valorEdit.nascimento);
+        console.log(valorEdit.nascimento);
 
-        valorEdit.nascimento = `${valorEdit.nascimento}T00:00:00.000Z`;
 
         
         valorEdit.id = objEjs.id
@@ -471,7 +471,7 @@
           div: "#alert",
         }))
 
-        location.reload()
+        // location.reload()
 
 
 
