@@ -59,7 +59,7 @@ router.post("/passageiros", async (req, res, next) => {
         username,
         senha,
         nome,
-        nascimento: new Date(nascimento),
+        nascimento,
         saldo,
       },
     });
