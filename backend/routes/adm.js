@@ -18,9 +18,14 @@ router.get("/lojas", async (req, res, next) => {
   }
 });
 
+ 
 router.post("/lojas", async (req, res, next) => {
   try {
-    const { nome, cep, street, state, city, neighborhood, lat, lng } = req.body;
+    let { nome, cep, street, state, city, neighborhood, lat, lng } = req.body;
+
+    if(lat || lng){
+      
+    }
 
     // const novaLoja = await prisma.loja_recarga.create({
     const novaLoja = await prisma.loja_recarga.create({

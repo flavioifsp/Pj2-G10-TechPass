@@ -8,9 +8,17 @@ const exception = require("../js/erro");
 router.get("/", async function (req, res, next) {
   try {
     let linhas = await prisma.linhas.findMany({
+      orderBy: {
+        numero_linha: "asc",
+      },
       include: {
-        horario_diario_saida: true,
+        horario_diario_saida: {
+          orderBy:{
+            horario_de_saida: "asc"
+          }
+        },
         percurso: {
+          orderBy: { ordem_do_percurso: "asc" },
           include: {
             ponto_de_onibus: true,
           },

@@ -1,5 +1,5 @@
 <h4 class="fw-bold py-3 mb-2">
-  <span class="text-muted fw-light">Linhas/</span> 
+  <span class="text-muted fw-light">Linhas/</span>
 </h4>
 
 <div id="alert">
@@ -13,3 +13,169 @@
 <%-include('../partials/_formsCriarLinha') %>
 
 
+
+
+
+<section class="mt-5">
+  <h4 class="">Todos os pontos de onibus</h4>
+
+  <div class="card">
+    <div class="table-responsive text-nowrap">
+      <table id="PontosDeOnibus" class="table  table-striped" data-ColNoOrden="3" style="width: 100%">
+        <thead>
+          <tr>
+            <th>Numero da Linha</th>
+            <th>bairro 1</th>
+            <th>bairro 2</th>
+            <th>Opções</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% linhas.forEach((elem)=> { %>
+
+          <tr class="fs-5 ">
+            <td> <%= elem.numero_linha %></td>
+            <td><%= elem.bairroOrigem %> </td>
+            <td><%= elem.bairroDestino  %> </td>
+
+            <td>
+              <button type="button" class="btn btn-info py-1 px-2" onclick=' modalInfo(<%-JSON.stringify(elem)%>)'>
+                <i class="bi bi-info-lg"></i>
+              </button>
+
+
+              <button class="btn btn-warning py-1 px-2" onclick='modalEdit(<%-JSON.stringify(elem)%>)'>
+                <i class="bi bi-pencil-square"></i>
+              </button>
+
+              <button class="btn btn-danger py-1 px-2" onclick='modalDelet(<%-JSON.stringify(elem)%>)'>
+                <i class="bi bi-trash-fill"></i>
+              </button>
+            </td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+
+<script>
+  const modalInfo = criarFuncaoModal((objEJS) => {
+    return `
+    <div class="modal fade"  tabindex="-1">
+        <div class="modal-dialog modal-dialog modal-dialog-centered modal-dialog-scrollable modal-sm">
+          <div class="modal-content  ">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" >Horarios de Saida da linha ${objEJS.numero_linha}</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body py-4">
+              <div class="container-fluid p-0">
+                <div class="row  g-3 text-center row-cols-md-2 row-cols-1">
+                  <div class="col ">
+                    <h5 class="mb-3">Saida de ${objEJS.bairroOrigem}</h5>
+                    <ul class="list-group  ">
+                      ${objEJS.horario_diario_saida[0]
+                      .map((elem) => {
+                        return `  <li class="list-group-item fs-3 border-dark-subtle" >${elem.horario_de_saida.match(/([\d]{2}:[\d]{2})/g)}</li> `;
+                      })
+                      .toString()
+                      .replaceAll("> ,  <", ">   <")}
+                      </ul>
+                  </div>
+
+                  <div class="col">
+                    <h5 class="mb-3">Saida de ${objEJS.bairroDestino}</h5>
+                    <ul class="list-group " >  
+                      ${objEJS.horario_diario_saida[1]
+                      .map((elem) => {
+                        return `  <li class="list-group-item fs-3 border-dark-subtle">${elem.horario_de_saida.match(/([\d]{2}:[\d]{2})/g)}</li> `;
+                      })
+                      .toString()
+                      .replaceAll("> ,  <", ">   <")}
+                    </ul>
+
+                  </div>
+                </div>
+              </div>       
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+              <button type="button" class="btn btn-primary"  onClick='modalItinerario(${JSON.stringify(
+                objEJS
+              )})' >Itinerario</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `
+  })
+
+
+
+
+  //
+  const modalItinerario = criarFuncaoModal((objEJS) => {
+      return `
+      <div class="modal fade"  tabindex="-1">
+        <div class="modal-dialog modal-dialog modal-xl
+         modal-dialog-centered modal-dialog-scrollable">
+          <div class="modal-content  ">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" >Itinerarios da linha ${objEJS.numero_linha}</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="container-fluid">
+                <div class="row  g-3 text-center row-cols-md-2 row-cols-1">
+                  <div class="col ">
+                    <h5 class="mb-3">Saida de ${objEJS.bairroOrigem}</h5>
+                    <ul class="list-group px-md-2 ">     
+                    </ul>
+                    <h5 class="mt-3">Fim: ${objEJS.bairroDestino}</h5>
+                  </div>
+
+                  <div class="col">
+                    <h5 class="mb-3">Saida de ${objEJS.bairroDestino}</h5>
+                    <ul class="list-group px-md-2" >  
+                    </ul>
+                    <h5 class="mt-3">Fim: ${objEJS.bairroOrigem}</h5>
+
+                  </div>
+                </div>
+              </div>   
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+              <button type="button" class="btn btn-primary"  onClick='modalHorario(${JSON.stringify(
+                objEJS
+              )})' >Horario</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+    },
+
+    (modal = document, objEJS) => {
+      modal.querySelectorAll("ul").forEach((e, i) => {
+        for (const elem of objEJS.percurso[i]) {
+          const li = document.createElement("li")
+          li.classList.add("list-group-item", "fs-5", "border-dark-subtle")
+
+
+          const endereco = elem.ponto_de_onibus.endereco.split(",")
+          li.innerText = `${endereco[0]}, ${endereco[1]}, ${endereco[2] } `
+
+          e.appendChild(li)
+        }
+      })
+    }
+  );
+
+  // const modalEdit = criarFuncaoModal()
+
+  // const modalDelet = criarFuncaoModal()
+</script>

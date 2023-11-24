@@ -98,6 +98,7 @@ router.get("/linhas", async function (req, res, next) {
   res.render("adm/pages/linhas.ejs", {
     layout: "adm/layouts/layout-index.ejs",
     cont: "#menuLinhas",
+    linhas
   });
 });
 
