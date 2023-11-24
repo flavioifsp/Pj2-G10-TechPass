@@ -145,22 +145,45 @@ router.post("/", async (req, res, next) => {
   }
 });
 
+router.patch("/atualizar/:id", async (req, res, next) => {
+  try {
+    const { bairroDestino, bairroOrigem } = req.body;
+
+    const linhaAtt = await prisma.linhas.update({
+      where: {
+        id: parseInt(req.params.id),
+      },
+      data: {
+        bairroDestino,
+        bairroOrigem,
+      },
+    });
+    console.log(linhaAtt);
+
+    res.json({});
+  } catch (er) {
+    const erro = exception(er);
+    res.status(erro.code).send(erro.msg);
+    console.log(er);
+  }
+});
+
 router.delete("/deletar/:id", async (req, res, next) => {
   try {
     const linhas_id = parseInt(req.params.id);
 
     await prisma.horario_diario_saida.deleteMany({
-      where:{
+      where: {
         linhas_id: linhas_id,
-      } 
-    })
+      },
+    });
 
     await prisma.percurso.deleteMany({
-      where:{
-        linha_id: linhas_id
-      } 
-    })
-    
+      where: {
+        linha_id: linhas_id,
+      },
+    });
+
     const deleteLinhas = await prisma.linhas.delete({
       where: {
         id: linhas_id,
