@@ -226,20 +226,35 @@
       </div>
     </div>
     `
-  }, async (modal, data) => {
+  },  (modal, data) => {
     const instanciaValid = new Inputs(modal)
 
+    const infos = instanciaValid.allValues()
+
+    infos.numero_linha = parseInt(infos.numero_linha)
+
+    instanciaValid.forms.addEventListener("submit", async (e) => {
+      e.preventDefault()
+
+      try {
+        const response = await axios.patch(`http://localhost:9000/api/linhas/atualizar/${data.id}`, infos)
 
 
-    try {
-      const response = await axios.path("", instanciaValid.allValues())
 
-      
+        localStorage.setItem(
+          "linhasEdit",
+          JSON.stringify({
+            cor: "warning",
+            texto: `A linha ${data.numero_linha} foi Editado!`,
+            div: "#alert",
+          })
+        );
 
-
-    } catch (erro) {
-      console.error(erro);
-    }
+        location.reload();
+      } catch (erro) {
+        console.error(erro);
+      }
+    })
   })
 
 
