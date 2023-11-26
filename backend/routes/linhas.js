@@ -26,53 +26,6 @@ router.get("/", async function (req, res, next) {
       },
     });
 
-    // formata a consulta em um formato que eu acho melhor
-
-    // exemplo:
-
-    // {
-    //   "id": 3,
-    //   "numero_linha": 100,
-    //   "bairroOrigem": "olaria",
-    //   "bairroDestino": "tinga",
-    //   "horario_diario_saida": [
-    //     [
-    //       {
-    //         "id": 3,
-    //         "linhas_id": 3,
-    //         "horario_de_saida": "1970-01-01T14:30:00.000Z",
-    //         "duracaoEstimada": 120
-    //       }
-    //     ],
-    //     [
-    //       {
-    //         "id": 6,
-    //         "linhas_id": 4,
-    //         "horario_de_saida": "1970-01-01T14:30:00.000Z",
-    //         "duracaoEstimada": 120
-    //       }
-    //     ]
-    //   ],
-    //   "percurso": [
-    //     [
-    //       {
-    //         "id": 3,
-    //         "ordem_do_percurso": 1,
-    //         "linha_id": 3,
-    //         "pontoOnibus_id": 6
-    //       }
-    //     ],
-    //     [
-    //       {
-    //         "id": 4,
-    //         "ordem_do_percurso": 1,
-    //         "linha_id": 4,
-    //         "pontoOnibus_id": 6
-    //       }
-    //     ]
-    //   ]
-    // }
-
     linhas = linhas
       .map((elem, i) => {
         // console.log(horario, perc);
@@ -147,20 +100,14 @@ router.post("/", async (req, res, next) => {
 
 router.patch("/atualizar/:id", async (req, res, next) => {
   try {
-    const { bairroDestino, bairroOrigem } = req.body;
-
     const linhaAtt = await prisma.linhas.update({
       where: {
         id: parseInt(req.params.id),
       },
-      data: {
-        bairroDestino,
-        bairroOrigem,
-      },
+      data: req.body,
     });
-    console.log(linhaAtt);
 
-    res.json({});
+    res.json(linhaAtt);
   } catch (er) {
     const erro = exception(er);
     res.status(erro.code).send(erro.msg);

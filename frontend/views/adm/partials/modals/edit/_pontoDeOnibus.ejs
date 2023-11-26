@@ -1,0 +1,64 @@
+<div class="modal fade" id="modalToggle" aria-labelledby="modalToggleLabel" tabindex="-1" style="display: none" _mstvisible="0" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" _mstvisible="1">
+    <div class="modal-content" _mstvisible="2">
+      <form id="resetForm">
+        <div class="modal-header" _mstvisible="3">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar" _mstaria-label="59709" _msthash="308" _mstvisible="4"></button>
+        </div>
+        <div class="modal-body" _msttexthash="1992003" _msthash="309" _mstvisible="3">
+          <div class="row" _mstvisible="4">
+            <div class="card-body form-group">
+              <div class="row mb-4">
+                <label class="col-sm-2 col-form-label" for="cepInput">CEP</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" name="cepInput" id="cepInput" placeholder="Enter CPF" value="${
+                              objEjs.cep
+                            }" required>
+
+                </div>
+              </div>
+
+              <div class="row mb-4">
+                <label class="col-sm-2 col-form-label" for="street">Rua</label>
+                <div class="col-sm-10">
+                  <input type="text" name="street" id="street" class="form-control phone-mask" value="${objEjs.endereco.split(',')[0].trim()}" />
+                </div>
+              </div>
+
+              <div class="row mb-4">
+                <label class="col-sm-2 col-form-label" for="neighborhood">Bairro</label>
+                <div class="col-sm-10">
+                  <input type="text" id="neighborhood" name="neighborhood" class="form-control phone-mask" value="${objEjs.endereco.split(',')[1].trim()}" />
+                </div>
+              </div>
+
+              <div class="row mb-4">
+                <label class="col-sm-2 col-form-label" for="city">Cidade</label>
+                <div class="col-sm-10">
+                  <input type="text" id="city" class="form-control phone-mask" name="city" value="${objEjs.endereco.split(',')[2].trim()}" />
+                </div>
+              </div>
+
+              <div class="row mb-4">
+                <label class="col-sm-2 col-form-label" for="state">Estado</label>
+                <div class="col-sm-10">
+                  <input type="text" id="state" class="form-control phone-mask" name="state" value="${objEjs.endereco.split(',')[3].trim()}" />
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer" _mstvisible="3">
+          <button type="button" class="btn btn-warning" id="resetar" onclick="document.getElementById('resetForm').reset()">
+            Resetar
+          </button>
+
+          <button type="submit" class="btn btn-success">
+            Salvar alterações
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

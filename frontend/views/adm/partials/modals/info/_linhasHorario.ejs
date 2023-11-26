@@ -1,0 +1,48 @@
+<div class="modal fade" tabindex="-1">
+  <div class="modal-dialog modal-dialog modal-dialog-centered modal-dialog-scrollable ">
+    <div class="modal-content  ">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5">Horarios de Saida da linha ${objEJS.numero_linha}</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body py-4">
+        <div class="container-fluid p-0">
+          <div class="row  g-3 text-center row-cols-md-2 row-cols-1">
+            <div class="col ">
+              <h5 class="mb-3">Saida de ${objEJS.bairroOrigem}</h5>
+              <ul class="list-group  ">
+                ${objEJS.horario_diario_saida[0]
+                .map((elem) => {
+                return ` <li class="list-group-item fs-5  border-dark-subtle">
+                  Horario: ${elem.horario_de_saida.match(/([\d]{2}:[\d]{2})/g)} <br>
+                  Duração: ${elem.duracaoEstimada} min</li>`;
+                })
+                .toString()
+                .replaceAll(">, <", ">   <" )} </ul>
+            </div>
+
+            <div class="col">
+              <h5 class="mb-3">Saida de ${objEJS.bairroDestino}</h5>
+              <ul class="list-group  ">
+                ${objEJS.horario_diario_saida[1]
+                .map((elem) => {
+                return ` <li class="list-group-item fs-5  border-dark-subtle">
+                  Horario: ${elem.horario_de_saida.match(/([\d]{2}:[\d]{2})/g)} <br>
+                  Duração: ${elem.duracaoEstimada} min</li>`;
+                })
+                .toString()
+                .replaceAll(">, <", ">   <" )} </ul>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+        <button type="button" class="btn btn-primary" onClick='modalInfo2(${JSON.stringify(
+            objEJS
+          )})'>Itinerario</button>
+      </div>
+    </div>
+  </div>
+</div>

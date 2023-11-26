@@ -1,0 +1,66 @@
+<div class="modal fade modalForm" tabindex="-1" aria-labelledby="createLinhas2Label" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content moldal-lg">
+      <form novalidate id="percurso2Form">
+        <div class="modal-header border-bottom">
+          <h4 class="modal-title d-flex w-100">
+            Adicionando linha <span class="ms-auto">4/4</span>
+          </h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+          <div class="row g-1">
+            <div class="col-12 d-flex">
+              <h5 class="mx-auto mt-3">
+                crie o itinerario da saida de <span class="bairro2"></span>
+              </h5>
+            </div>
+
+            <ul class="list-group">
+              <li class="list-group-item" aria-disabled="true">
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button p-1" type="button" data-bs-toggle="collapse" data-bs-target="#acordionPercurso2">
+                      adicionar um ponto
+                    </button>
+                  </h2>
+                  <div id="acordionPercurso2" class="accordion-collapse collapse show">
+                    <div class="accordion-body p-1">
+                      <div class="row">
+                        <div class="col-12">
+                          <label class="m-0 mt-auto form-label pe-3" for="percurso2">ponto:
+                          </label>
+
+                          <div class="row">
+                            <div class="col-11">
+                              <select class="form-select pontos" id="percurso2" name="percurso2">
+                                <option selected>Escolha um ponto</option>
+                              </select>
+                            </div>
+                            <div class="col-1 p-0 d-flex">
+                              <button class="btn py-1 m-auto px-2 btn-success btnadd" type="button">
+                                <i class="bi bi-plus-lg"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary btnvoltar">
+              voltar
+            </button>
+            <button type="submit" class="btn btn-primary">avançar</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

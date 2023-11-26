@@ -1,0 +1,43 @@
+<div class="modal fade" id="formCreateMotorista" tabindex="-1" aria-labelledby="formCreateMotoristaLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="formCreateMotoristaLabel">
+          Editando motorista do CPF ${objEjs.cpf}
+        </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <form novalidate>
+        <div class="modal-body">
+          <div class="row g-2">
+            <!-- nome real -->
+
+            <div class="col-sm-4 col-12">
+              <label for="nascimento" class="form-label">Data de Nascimento</label>
+              <input name="nascimento" id="nascimento" class="form-control" type="date" value="${new Date(objEjs.nascimento).toISOString().split(" T")[0]}" required />
+            </div>
+
+            <!-- cpf -->
+            <div class="col-sm-8 col-12">
+              <label for="cnh" class="form-label">CNH:</label>
+              <input class="form-control" id="cnh" name="cnh" type="text" value="${objEjs.cnh}" required />
+            </div>
+
+            <!-- cpf -->
+            <div class="col-12">
+              <label for="cpf" class="form-label">CPF</label>
+              <input class="form-control" id="cpf" name="cpf" type="text" value="${objEjs.cpf}" required />
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Cancelar
+          </button>
+          <button type="submit" class="btn btn-primary">Criar ponto</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

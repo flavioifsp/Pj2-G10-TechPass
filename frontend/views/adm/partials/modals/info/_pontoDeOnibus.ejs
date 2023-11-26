@@ -1,0 +1,37 @@
+<div class="modal fade" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Detalhes do Ponto</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body list-group h-100 w-100">
+        <li class="list-group-item">CEP:<span class="ms-1"> ${
+            objEjs.cep
+            }</span></li>
+        <li class="list-group-item">Rua: <span class="ms-1"> ${
+            objEjs.endereco.split(",")[0]
+            }</span> </li>
+        <li class="list-group-item">Bairro: <span class="ms-1"> ${
+            objEjs.endereco.split(",")[1]
+            }</span></li>
+        <li class="list-group-item">Cidade: <span class="ms-1">${
+            objEjs.endereco.split(",")[2]
+            }</span> </li>
+        <li class="list-group-item">Estado: <span class="ms-1">${
+            objEjs.endereco.split(",")[3]
+            }</span></li>
+      </div>
+      <div class="modal-footer justify-content-between">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+
+        <div>
+          <button type="button" class="btn btn-warning" onclick='modalEdit(${JSON.stringify(
+            objEjs
+          )})' data-bs-dismiss="modal">Editar</button>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Deletar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -10,7 +10,7 @@
   </script>
 </div>
 
-<%-include('../partials/_formsCriarLinha') %>
+<%-include('../partials/modals/create/_formsCriarLinha') %>
 
 
 
@@ -63,232 +63,14 @@
 
 <script>
   const modalInfo = criarFuncaoModal((objEJS) => {
-    return `
-    <div class="modal fade"  tabindex="-1">
-        <div class="modal-dialog modal-dialog modal-dialog-centered modal-dialog-scrollable ">
-          <div class="modal-content  ">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" >Horarios de Saida da linha ${objEJS.numero_linha}</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body py-4">
-              <div class="container-fluid p-0">
-                <div class="row  g-3 text-center row-cols-md-2 row-cols-1">
-                  <div class="col ">
-                    <h5 class="mb-3">Saida de ${objEJS.bairroOrigem}</h5>
-                    <ul class="list-group  ">
-                      ${objEJS.horario_diario_saida[0]
-                      .map((elem) => {
-                        return `  <li class="list-group-item fs-5  border-dark-subtle" >
-                          Horario: ${elem.horario_de_saida.match(/([\d]{2}:[\d]{2})/g)}  <br> 
-                          Duração: ${elem.duracaoEstimada} min</li>`;
-                      })
-                      .toString()
-                      .replaceAll(">,  <", ">   <")}
-                      </ul>
-                  </div>
-
-                  <div class="col">
-                    <h5 class="mb-3">Saida de ${objEJS.bairroDestino}</h5>
-                    <ul class="list-group  ">
-                      ${objEJS.horario_diario_saida[1]
-                      .map((elem) => {
-                        return `  <li class="list-group-item fs-5  border-dark-subtle" >
-                          Horario: ${elem.horario_de_saida.match(/([\d]{2}:[\d]{2})/g)}  <br> 
-                          Duração: ${elem.duracaoEstimada} min</li>`;
-                      })
-                      .toString()
-                      .replaceAll(">,  <", ">   <")}
-                      </ul>
-
-                  </div>
-                </div>
-              </div>       
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-              <button type="button" class="btn btn-primary"  onClick='modalItinerario(${JSON.stringify(
-                objEJS
-              )})' >Itinerario</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    `
-  })
-
-  //
-  const modalItinerario = criarFuncaoModal((objEJS) => {
-      return `
-      <div class="modal fade"  tabindex="-1">
-        <div class="modal-dialog modal-dialog modal-xl
-         modal-dialog-centered modal-dialog-scrollable">
-          <div class="modal-content  ">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" >Itinerarios da linha ${objEJS.numero_linha}</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <div class="container-fluid">
-                <div class="row  g-3 text-center row-cols-md-2 row-cols-1">
-                  <div class="col ">
-                    <h5 class="mb-3">Saida de ${objEJS.bairroOrigem}</h5>
-                    <ul class="list-group px-md-2 ">     
-                    </ul>
-                    <h5 class="mt-3">Fim: ${objEJS.bairroDestino}</h5>
-                  </div>
-
-                  <div class="col">
-                    <h5 class="mb-3">Saida de ${objEJS.bairroDestino}</h5>
-                    <ul class="list-group px-md-2" >  
-                    </ul>
-                    <h5 class="mt-3">Fim: ${objEJS.bairroOrigem}</h5>
-
-                  </div>
-                </div>
-              </div>   
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-              <button type="button" class="btn btn-primary"  onClick='modalInfo(${JSON.stringify(
-                objEJS
-              )})' >Horario</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    `;
-    },
-
-    (modal = document, objEJS) => {
-      modal.querySelectorAll("ul").forEach((e, i) => {
-        for (const elem of objEJS.percurso[i]) {
-          const li = document.createElement("li")
-          li.classList.add("list-group-item", "fs-5", "border-dark-subtle")
-
-
-          const endereco = elem.ponto_de_onibus.endereco.split(",")
-          li.innerText = `${endereco[0]}, ${endereco[1]}, ${endereco[2] } `
-
-          e.appendChild(li)
-        }
-      })
-    }
-  );
-
-
-
-
-  const modalEdit = criarFuncaoModal((objEJS) => {
-    return `
-
-    <div class="modal fade" id="editandoLinha" tabindex="-1" aria-labelledby="editandoLinhaLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <form novalidate>
-            <div class="modal-header">
-              <h4 class="modal-title" id="editandoLinhaLabel">Editando Linha ${objEJS.numero_linha}</h4>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-
-            <div class="modal-body">
-              <div class="row g-2">
-                <div class="col-md-4 ">
-                  <label for="numero_linha" class="form-label">Numero da linha</label>
-                  <input type="text" class="form-control" id="numero_linha" name="numero_linha" value="${objEJS.numero_linha}" required />
-                </div>
-                <div class="col-md-8 col-12">
-                  <h5 class="form-label " style="margin-top: 7px;">Editar Horarios de Saidas</h5>
-                  <button type="button" class="btn btn-primary w-100 ">Horarios dos Bairros</button>
-                </div>
-
-                <div class="col-md-6 col-12">
-                  <label for="bairroOrigem" class="form-label">1° Bairro</label>
-                  <input type="text" class="form-control" id="bairroOrigem" name="bairroOrigem" value="${objEJS.bairroOrigem}" required />
-                  <button type="button" class="btn btn-info w-100 mt-2">Editar Itinerario</button>
-                </div>
-                <div class="col-md-6 col-12">
-                  <label for="bairroDestino" class="form-label">2° Bairro</label>
-                  <input type="text" class="form-control" id="bairroDestino" name="bairroDestino" value="${objEJS.bairroDestino}" required />
-                  <button type="button" class="btn btn-info w-100 mt-2">Editar Itinerario</button>
-                </div>
-              </div>
-            </div>
-
-            <div class="modal-footer">
-              <button type="button" data-bs-dismiss="modal" class="btn btn-secondary btnvoltar">
-                sair
-              </button>
-              <button type="submit" class="btn btn-warning">Salvar</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-    `
-  },  (modal, data) => {
-    const instanciaValid = new Inputs(modal)
-
-    const infos = instanciaValid.allValues()
-
-    infos.numero_linha = parseInt(infos.numero_linha)
-
-    instanciaValid.forms.addEventListener("submit", async (e) => {
-      e.preventDefault()
-
-      try {
-        const response = await axios.patch(`http://localhost:9000/api/linhas/atualizar/${data.id}`, infos)
-
-
-
-        localStorage.setItem(
-          "linhasEdit",
-          JSON.stringify({
-            cor: "warning",
-            texto: `A linha ${data.numero_linha} foi Editado!`,
-            div: "#alert",
-          })
-        );
-
-        location.reload();
-      } catch (erro) {
-        console.error(erro);
-      }
-    })
+    return ` <%- include("../partials/modals/info/_linhasHorario.ejs") %> `
   })
 
 
 
 
   const modalDelet = criarFuncaoModal((objEJS) => {
-    return `
-    <div class="modal fade" tabindex="-1" >
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Deseja mesmo excluir a linha ${objEJS.numero_linha}?</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body list-group h-100 w-100">
-            <h5 class="">infomações basicas da linha que deseja excluir:</h5>
-            <ul class="list-group">
-              <li class="list-group-item fs-5 border-dark-subtle" >numero: <strong> ${objEJS.numero_linha}</strong></li> 
-              <li class="list-group-item fs-5 border-dark-subtle" >Bairro 1: <strong> ${objEJS.bairroOrigem}</strong> </li> 
-              <li class="list-group-item fs-5 border-dark-subtle" >Bairro 2:  <strong> ${objEJS.bairroDestino}</strong> <li> 
-            </ul>
-          </div >
-          <div class="modal-footer justify-content-between">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-
-            <div>
-            <button type="button" class="btn btn-warning" onclick='' data-bs-dismiss="modal">Editar</button>
-            <button type="button" class="btn btn-danger delete" >Deletar</button>
-            </div>
-          </div>
-        </div >
-      </div >
-    </div >
-    `
+    return `<%- include("../partials/modals/delete/_linhas.ejs") %>`
   }, async (modal, objEJS) => {
     const btnDelet = modal.querySelector(".delete");
 
@@ -312,5 +94,113 @@
         console.error(error);
       }
     });
+  })
+
+
+
+
+  // 
+  const modalInfo2 = criarFuncaoModal((objEJS) => {
+      return ` <%- include("../partials/modals/info/_linhasItinerario.ejs") %>`;
+    },
+
+    (modal, objEJS) => {
+      modal.querySelectorAll("ul").forEach((e, i) => {
+        for (const elem of objEJS.percurso[i]) {
+          const li = document.createElement("li")
+          li.classList.add("list-group-item", "fs-5", "border-dark-subtle")
+
+
+          const endereco = elem.ponto_de_onibus.endereco.split(",")
+          li.innerText = `${endereco[0]}, ${endereco[1]}, ${endereco[2] } `
+
+          e.appendChild(li)
+        }
+      })
+    }
+  );
+
+
+
+  const modalEdit = criarFuncaoModal((objEJS) => {
+    return `<%- include("../partials/modals/edit/_linhas-inicio.ejs") %>`
+
+  }, (modal, data) => {
+    const instanciaValid = new Inputs(modal)
+
+
+    instanciaValid.allvalidacao({
+      numero_linha: {
+        min: 1,
+        max: 4,
+        caractereNpermitido: [
+          "Nletra",
+          "NcaractereEspecial",
+          "Nacentuacao",
+        ],
+        pattern: ["^(\\d{1,4})$", "numero valido", "numero invalido"],
+        btnoff: "required",
+      },
+      bairroDestino: {
+        min: 3,
+        max: 20,
+        caractereNpermitido: ["Nnumber", "NcaractereEspecial"],
+        pattern: [
+          "(^[a-zA-ZÀ-ÿ0-9\\s'\\-]{3,20}$)",
+          "bairro valido",
+          "bairro invalido",
+        ],
+        btnoff: "required",
+      },
+      bairroOrigem: {
+        min: 3,
+        max: 20,
+        caractereNpermitido: ["Nnumber", "NcaractereEspecial"],
+        pattern: [
+          "(^[a-zA-ZÀ-ÿ0-9\\s'\\-]{3,20}$)",
+          "bairro valido",
+          "bairro invalido",
+        ],
+        btnoff: "required",
+      },
+    });
+
+
+    instanciaValid.inputs((input) => {
+      input.focus()
+      input.blur()
+    })
+
+    instanciaValid.forms.addEventListener("submit", async (e) => {
+      e.preventDefault()
+
+      const infos = instanciaValid.allValues()
+
+      infos.numero_linha = parseInt(infos.numero_linha)
+
+      try {
+        const response = await axios.patch(`http://localhost:9000/api/linhas/atualizar/${data.id}`, infos)
+
+
+
+        localStorage.setItem(
+          "linhasEdit",
+          JSON.stringify({
+            cor: "warning",
+            texto: `A linha ${data.numero_linha} foi Editado!`,
+            div: "#alert",
+          })
+        );
+
+        location.reload();
+      } catch (erro) {
+        console.error(erro);
+      }
+    })
+  })
+
+
+  const modalEditItinerario = criarFuncaoModal((objEJS) => {
+    return `<%- include("../partials/modals/edit/_linhasITI.ejs") %>`
   })
 </script>

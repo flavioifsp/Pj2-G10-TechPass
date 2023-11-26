@@ -1,0 +1,27 @@
+
+<div class="modal fade" tabindex="-1" >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Deseja mesmo excluir a linha ${objEJS.numero_linha}?</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body list-group h-100 w-100">
+          <h5 class="">infomações basicas da linha que deseja excluir:</h5>
+          <ul class="list-group">
+            <li class="list-group-item fs-5 border-dark-subtle" >numero: <strong> ${objEJS.numero_linha}</strong></li> 
+            <li class="list-group-item fs-5 border-dark-subtle" >Bairro 1: <strong> ${objEJS.bairroOrigem}</strong> </li> 
+            <li class="list-group-item fs-5 border-dark-subtle" >Bairro 2:  <strong> ${objEJS.bairroDestino}</strong> <li> 
+          </ul>
+        </div >
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+
+          <div>
+          <button type="button" class="btn btn-warning" onclick='' data-bs-dismiss="modal">Editar</button>
+          <button type="button" class="btn btn-danger delete" >Deletar</button>
+          </div>
+        </div>
+      </div >
+    </div >
+  </div >
