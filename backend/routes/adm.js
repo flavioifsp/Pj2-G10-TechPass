@@ -17,7 +17,40 @@ router.get("/lojas", async (req, res, next) => {
     res.status(erro.code).send(erro.msg);
   }
 });
+router.get("/cartoes", async (req, res, next) => {
+  try {
+    // const novaLoja = await prisma.loja_recarga.create({
+    const allcartoes = await prisma.cartao.findMany();
 
+    res.status(200).json(allcartoes);
+  } catch (error) {
+    const erro = exception(error);
+    console.error(error);
+    res.status(erro.code).send(erro.msg);
+  }
+});
+router.post("/cartoes", async (req, res, next) => {
+  try {
+    let { modalidade,tarifa} = req.body;
+
+
+    // const novaLoja = await prisma.loja_recarga.create({
+    const novoCartao = await prisma.cartao.create({
+      data: {
+        modalidade,
+        tarifa
+      },
+    });
+
+    res.status(201).json({
+      message: `Loja no endereço ${novaLoja.endereco} criado com sucesso`,
+    });
+  } catch (error) {
+    const erro = exception(error);
+    console.error(error);
+    res.status(erro.code).send(erro.msg);
+  }
+});
  
 router.post("/lojas", async (req, res, next) => {
   try {

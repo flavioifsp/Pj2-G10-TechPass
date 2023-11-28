@@ -83,6 +83,25 @@ router.get("/onibus", async function (req, res, next) {
   });
 });
 
+router.get("/cartoes", async function (req, res, next) {
+  let allcartoes;
+
+  try {
+    allcartoes = (await axios.get("http://localhost:9000/api/adm/cartoes"))
+      .data;
+
+
+  } catch (error) {
+    cartoes = null;
+  }
+
+  res.render("adm/pages/cartoes.ejs", {
+    layout: "adm/layouts/layout-index.ejs",
+    cont: "#menuCartoes",
+    allcartoes,
+  });
+});
+
 router.get("/linhas", async function (req, res, next) {
   let linhas;
 

@@ -1,0 +1,229 @@
+<div id="alert">
+    <script>
+      alert("stopBusCreate");
+      alert("stopBusDelete");
+      alert("stopBusEdit");
+    </script>
+  </div>
+  
+  <h4 class="fw-bold py-3 mb-2">
+    <span class="text-muted fw-light">Cartões/</span> Cartões atuais
+  </h4>
+  
+  <div class="mt-3">
+  
+  
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createloja">
+      Adicionar Novo Cartão
+    </button>
+  
+    <!-- modal para criar um ponto de onibus -->
+    <div class="modal fade" id="createloja" tabindex="-1" aria-labelledby="createlojaLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="createlojaLabel">
+              adicionando novo Cartão
+            </h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+  
+          <form novalidate id="formularioDeCadastroCartao">
+            <div class="modal-body">
+              <div class="row g-2">
+               
+
+               
+  
+                
+                <div class="col-md-10 col-9 mt-3">
+                  <label for="modalidade" class="form-label">Modalidade do Cartão</label>
+                  <input type="text" class="form-control" id="modalidade" name="modalidade" required/>
+                </div>
+
+                <div class="col-md-4 col-4">
+                    <label for="tarifa" class="form-label">Tarifa</label>
+                    <div class="input-group input-group-merge">
+                        <span class="input-group-text">R$</span>
+                    <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)"  id="tarifa" name="tarifa">
+                  </div>
+                </div>
+               
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                Cancelar
+              </button>
+              <button type="submit" class="btn btn-primary">Adicionar Cartão</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- fim meu  -->
+  
+  <!-- / Content -->
+  
+  
+  <!-- Content -->
+  
+  
+  <h4 class="fw-bold py-3 mb-4">
+    <span class="text-muted fw-light">Cartões atuais </span>
+  </h4>
+  
+  <div class="card">
+    <div class="table-responsive text-nowrap">
+      <table id="example" class="table table-striped" style="width: 100%" data-ColNoOrden = "3">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Modalidae</th>
+            <th>Tarifa</th>
+            <th>Config</th>
+          </tr>
+        </thead>
+        <tbody>
+            <% allcartoes.forEach((elem)=> { %>
+
+           <tr>
+                    <td>
+                      <%= elem.id %>
+                    </td>
+                    <td>
+                      <%= elem.modalidade %>
+                    </td>
+                    <td>
+                      <%= elem.tarifa %>
+                    </td>
+                    <td>
+                      <button type="button" class="btn btn-info py-1 px-2" onclick='modalInfo(<%-JSON.stringify(elem)%>)'>
+                        <i class="bi bi-info-lg"></i>
+                      </button>
+          
+                      <button class="btn btn-warning py-1 px-2" onclick='modalEdit(<%-JSON.stringify(elem)%>)'>
+                        <i class="bi bi-pencil-square"></i>
+                      </button>
+          
+                      <button class="btn btn-danger py-1 px-2" data-bs-target="#pontodeonibus<%= elem.id%>" onclick='modalDelet(<%-JSON.stringify(elem)%>)'>
+                        <i class="bi bi-trash-fill"></i>
+                      </button>
+          
+                    </td>
+                  </tr>
+             
+                <% }) %>
+        </tbody>
+
+
+
+
+      </table>
+    </div>
+  </div>
+  
+  <script>
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const formCartao = new Inputs("#formularioDeCadastroCartao");
+
+    formCartao.cadastrar(
+      "http://localhost:9000/api/adm/cartoes",
+      null,
+      (erro) => {
+        console.log(erro);
+      },
+      (success = (response) => {
+        localStorage.setItem(
+          "stopBusCreate",
+          JSON.stringify({
+            cor: "success",
+            texto: response.data.message,
+            div: "#alert",
+          })
+        );
+
+        location.reload();
+      }),
+
+    );
+  });
+
+
+
+function modalInfo(objEjs) {
+
+// transformando o objeto que está transformado em string para objeto dnv
+
+// criando uma div no js
+const umadiv = document.createElement("div")
+
+// adicionando o innerHTML com um template
+// https://www.w3schools.com/js/js_string_templates.asp
+// e
+// adicionando uma div de modal pego do site do boostrap
+umadiv.innerHTML = `
+<div class="modal fade" tabindex="-1" >
+<div class="modal-dialog modal-dialog-centered">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">Detalhes do Ponto</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body list-group h-100 w-100">
+      <li class="list-group-item">ID:<span class="ms-1"> ${objEjs.id}</span></li>
+      <li class="list-group-item">Modalidade:<span class="ms-1"> ${objEjs.modalidade}</span></li>
+      <li class="list-group-item">Tarifa:<span class="ms-1"> R$ ${objEjs.tarifa}</span></li>
+
+    </div >
+    <div class="modal-footer justify-content-between">
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+
+      <div>
+      <button type="button" class="btn btn-warning" onclick='modalEdit(${JSON.stringify(objEjs)})' data-bs-dismiss="modal">Editar</button>
+      <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Deletar</button>
+      </div>
+    </div>
+  </div >
+</div >
+</div >
+`
+
+
+
+
+// criando uma variavel que recebe o modal dentro do umadiv
+const modal = umadiv.querySelector(".modal")
+
+// adicionando o modal ao BODY do HTML
+document.body.appendChild(modal)
+
+
+// criando uma instancia seguindo as instruções do boostrap
+// https://getbootstrap.com/docs/5.3/components/modal/#how-it-works
+const InstanciaBoostrapDoModal = new bootstrap.Modal(modal)
+
+// abrindo o modal
+InstanciaBoostrapDoModal.toggle()
+
+
+
+// vai para a parte de eventos que encontrara mais informações
+// https://getbootstrap.com/docs/5.3/components/modal/#how-it-works
+modal.addEventListener("hidden.bs.modal", () => {
+
+  // quando o modal for fechado esse evento acionara e excluira o modal do body
+  document.body.removeChild(modal)
+})
+// fim da função
+}
+
+
+
+
+  </script>
+  
