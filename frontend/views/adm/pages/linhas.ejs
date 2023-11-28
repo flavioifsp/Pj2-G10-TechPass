@@ -129,41 +129,8 @@
     const instanciaValid = new Inputs(modal)
 
 
-    instanciaValid.allvalidacao({
-      numero_linha: {
-        min: 1,
-        max: 4,
-        caractereNpermitido: [
-          "Nletra",
-          "NcaractereEspecial",
-          "Nacentuacao",
-        ],
-        pattern: ["^(\\d{1,4})$", "numero valido", "numero invalido"],
-        btnoff: "required",
-      },
-      bairroDestino: {
-        min: 3,
-        max: 20,
-        caractereNpermitido: ["Nnumber", "NcaractereEspecial"],
-        pattern: [
-          "(^[a-zA-ZÀ-ÿ0-9\\s'\\-]{3,20}$)",
-          "bairro valido",
-          "bairro invalido",
-        ],
-        btnoff: "required",
-      },
-      bairroOrigem: {
-        min: 3,
-        max: 20,
-        caractereNpermitido: ["Nnumber", "NcaractereEspecial"],
-        pattern: [
-          "(^[a-zA-ZÀ-ÿ0-9\\s'\\-]{3,20}$)",
-          "bairro valido",
-          "bairro invalido",
-        ],
-        btnoff: "required",
-      },
-    });
+    instanciaValid.allvalidacao(linhasInicioEdit);
+
 
 
 
@@ -217,33 +184,65 @@
     const instanciaValid = new Inputs(modal)
 
 
-
-    // para carregar os horarios já salvos
-    for (let i = 1; i <= 2; i++) {
-      const horarios = alldata["rota" + i].horarios
-
-      
-
+    let allvalores = {
+      rota1: {
+        horario:{}
+      },
+      rota2: {
+        horario:{}
+      },
     }
-
-
-
 
     function guardarObjNoForm(obj, n) {
-      console.log(allvalores, obj);
-      alldata[`rota${n}`].horarios = obj;
+      console.log(obj);
+      allvalores[`rota${n}`].horario = obj;
     }
+
 
 
 
     const lista1EditHora = modal.querySelector("#lista1-horarios")
     const lista2EditHora = modal.querySelector("#lista2-horarios")
+
+
+    // para carregar os horarios já salvos
+
+    alldata.horario_diario_saida[0].forEach(({horario_de_saida, duracaoEstimada}, indice) => {
+      addLiHorario(
+        new Date(horario_de_saida).toLocaleTimeString().match(/([\d]{2}:[\d]{2})/g),
+        duracaoEstimada,
+        indice,
+        lista1EditHora.querySelector("ul"),
+        guardarObjNoForm,
+        allvalores,
+        1
+      );
+
+      allvalores.
+
+      guardarObjNoForm({horario_de_saida, duracaoEstimada}, 1)
+    })
+
+    alldata.horario_diario_saida[1].forEach(({horario_de_saida, duracaoEstimada}, indice) => {
+      addLiHorario(
+        new Date(horario_de_saida).toLocaleTimeString().match(/([\d]{2}:[\d]{2})/g),
+        duracaoEstimada,
+        indice,
+        lista2EditHora.querySelector("ul"),
+        guardarObjNoForm,
+        allvalores,
+        2
+      );
+
+      guardarObjNoForm({horario_de_saida, duracaoEstimada}, 2)
+    })
+
     // addpercurso(1, "#percurso1Form", guardarObjNoForm);
     addhorario(lista1EditHora, 1, guardarObjNoForm);
     addhorario(lista2EditHora, 2, guardarObjNoForm);
 
 
-    instanciaValid.allvalidacao(linhasHorariosListaVALID);
+    instanciaValid.allvalidacao(linhasHorariosEditVALID);
 
 
     instanciaValid.forms.addEventListener("submit", async (e) => {

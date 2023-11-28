@@ -39,7 +39,6 @@ function addLiPercurso(
   endereco,
   indice,
   lista,
-  array,
   guardarObjNoForm,
   array,
   n

@@ -10,8 +10,8 @@
         <div class="modal-body">
           <div class="row g-2">
             <div class="col-md-4 ">
-              <label for="numero_linha" class="form-label">Numero da linha</label>
-              <input type="text" class="form-control" id="numero_linha" name="numero_linha" value="${objEJS.numero_linha}" required />
+              <label for="numero_linhaEdit" class="form-label">Numero da linha</label>
+              <input type="text" class="form-control" id="numero_linhaEdit" name="numero_linha" value="${objEJS.numero_linha}" required />
             </div>
             <div class="col-md-8 col-12">
               <h5 class="form-label " style="margin-top: 7px;">Editar Horarios de Saidas</h5>
@@ -20,15 +20,15 @@
 
             <div class="col-md-6 col-12">
               <div>
-                <label for="bairroOrigem" class="form-label">1° Bairro</label>
-                <input type="text" class="form-control" id="bairroOrigem" name="bairroOrigem" value="${objEJS.bairroOrigem}" required />
+                <label for="bairroOrigemEdit" class="form-label">1° Bairro</label>
+                <input type="text" class="form-control" id="bairroOrigemEdit" name="bairroOrigem" value="${objEJS.bairroOrigem}" required />
               </div>
               <button type="button" class="btn btn-info w-100 mt-2" onclick='modalEditItinerario(${JSON.stringify(objEJS)})'>Editar Itinerario</button>
             </div>
             <div class="col-md-6 col-12">
               <div>
-                <label for="bairroDestino" class="form-label">2° Bairro</label>
-                <input type="text" class="form-control" id="bairroDestino" name="bairroDestino" value="${objEJS.bairroDestino}" required />
+                <label for="bairroDestinoEdit" class="form-label">2° Bairro</label>
+                <input type="text" class="form-control" id="bairroDestinoEdit" name="bairroDestino" value="${objEJS.bairroDestino}" required />
               </div>
               <button type="button" class="btn btn-info w-100 mt-2" onclick='modalEditItinerario(${JSON.stringify(objEJS)})'>Editar Itinerario</button>
             </div>

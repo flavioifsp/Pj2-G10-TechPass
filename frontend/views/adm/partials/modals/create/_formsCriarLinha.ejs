@@ -300,7 +300,7 @@
             <button type="button" class="btn btn-secondary btnvoltar">
               voltar
             </button>
-            <button type="submit" class="btn btn-primary">avançar</button>
+            <button type="submit" class="btn btn-success">Criar</button>
           </div>
         </div>
       </form>
@@ -387,41 +387,7 @@
           }
         },
         (formvalidacao) => {
-          formvalidacao[0].allvalidacao({
-            numero_linha: {
-              min: 1,
-              max: 4,
-              caractereNpermitido: [
-                "Nletra",
-                "NcaractereEspecial",
-                "Nacentuacao",
-              ],
-              pattern: ["^(\\d{1,4})$", "numero valido", "numero invalido"],
-              btnoff: "required",
-            },
-            bairroDestino: {
-              min: 3,
-              max: 20,
-              caractereNpermitido: ["Nnumber", "NcaractereEspecial"],
-              pattern: [
-                "(^[a-zA-ZÀ-ÿ0-9\\s'\\-]{3,20}$)",
-                "bairro valido",
-                "bairro invalido",
-              ],
-              btnoff: "required",
-            },
-            bairroOrigem: {
-              min: 3,
-              max: 20,
-              caractereNpermitido: ["Nnumber", "NcaractereEspecial"],
-              pattern: [
-                "(^[a-zA-ZÀ-ÿ0-9\\s'\\-]{3,20}$)",
-                "bairro valido",
-                "bairro invalido",
-              ],
-              btnoff: "required",
-            },
-          });
+          formvalidacao[0].allvalidacao(linhasInicioCreate);
 
           formvalidacao[1].allvalidacao(linhasHorariosListaVALID);
         },
