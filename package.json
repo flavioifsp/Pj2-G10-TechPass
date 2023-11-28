@@ -6,12 +6,12 @@
     "iniciarMysql": "start abrirMysql.bat",
     "inicarBack": "start  /MIN cmd /k  \"cd backend && npm i && npx prisma db push && npm run dev\"",
     "inicarFront": "start  /MIN cmd /k  \"cd frontend && npm i && npm run dev\"",
-    
     "fecharNodeMysql": "start /MIN cmd /C \"fecharNodeMysql.bat\"",
-    
-
     "start": "npm run iniciarMysql && npm run inicarBack && npm run inicarFront",
     "onDev": "npm run iniciarMysql && start /MIN cmd /k \"cd backend && npm run dev\" && start /MIN cmd /k \"cd frontend && npm run dev\"",
     "offDev": "npm run fecharNodeMysql"
+  },
+  "dependencies": {
+    "multer": "^1.4.5-lts.1"
   }
 }

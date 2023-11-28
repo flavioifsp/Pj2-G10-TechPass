@@ -175,9 +175,11 @@
 
       let allvalores = {
         rota1: {
+          id: alldata.id[0],
           horario: [],
         },
         rota2: {
+          id: alldata.id[1],
           horario: [],
         },
       };
@@ -193,6 +195,7 @@
 
       alldata.horario_diario_saida[0].forEach((elem, indice) => {
         const {
+          id,
           horario_de_saida,
           duracaoEstimada
         } = elem;
@@ -210,6 +213,7 @@
         );
 
         allvalores.rota1.horario.push({
+          id,
           horario_de_saida,
           duracaoEstimada,
         });
@@ -217,6 +221,7 @@
 
       alldata.horario_diario_saida[1].forEach((elem, indice) => {
         const {
+          id,
           horario_de_saida,
           duracaoEstimada
         } = elem;
@@ -235,6 +240,7 @@
         );
 
         allvalores.rota2.horario.push({
+          id,
           horario_de_saida,
           duracaoEstimada,
         });
@@ -251,25 +257,32 @@
 
 
         console.log(allvalores);
-        // try {
-        //   const response = await axios.patch(
-        //     `http://localhost:9000/api/linhas/atualizar/${data.id}`,
-        //     alldata
-        //   );
 
-        //   localStorage.setItem(
-        //     "linhasEdit",
-        //     JSON.stringify({
-        //       cor: "warning",
-        //       texto: `A linha ${data.numero_linha} foi Editado!`,
-        //       div: "#alert",
-        //     })
-        //   );
+        allvalores
 
-        //   location.reload();
-        // } catch (erro) {
-        //   console.error(erro);
-        // }
+
+
+        try {
+          console.log(allvalores.rota1.horario);
+          const response = await axios.patch(
+            `http://localhost:9000/api/linhas/atualizar/horarios/${allvalores.rota1.id}`, {
+              horario_diario_saida: allvalores.rota1.horario
+            }
+          );
+
+          localStorage.setItem(
+            "linhasEdit",
+            JSON.stringify({
+              cor: "warning",
+              texto: `A linha ${data.numero_linha} foi Editado!`,
+              div: "#alert",
+            })
+          );
+
+          location.reload();
+        } catch (erro) {
+          console.error(erro);
+        }
       });
     }
   );
