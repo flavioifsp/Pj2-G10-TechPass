@@ -166,10 +166,17 @@
     });
 
 
-    instanciaValid.inputs((input) => {
-      input.focus()
-      input.blur()
+
+    modal.addEventListener("shown.bs.modal", function validarAntigos() {
+
+      instanciaValid.inputs((input) => {
+        input.focus()
+        input.blur()
+      })
+
+      modal.removeEventListener("shown.bs.modal", validarAntigos)
     })
+
 
     instanciaValid.forms.addEventListener("submit", async (e) => {
       e.preventDefault()
@@ -180,8 +187,6 @@
 
       try {
         const response = await axios.patch(`http://localhost:9000/api/linhas/atualizar/${data.id}`, infos)
-
-
 
         localStorage.setItem(
           "linhasEdit",
@@ -202,5 +207,66 @@
 
   const modalEditItinerario = criarFuncaoModal((objEJS) => {
     return `<%- include("../partials/modals/edit/_linhasITI.ejs") %>`
+  }, (modal) => {
+
+  })
+
+  const modalEditHorario = criarFuncaoModal((objEJS) => {
+    return `<%- include("../partials/modals/edit/_linhasHorario.ejs") %>`
+  }, (modal, alldata) => {
+    const instanciaValid = new Inputs(modal)
+
+
+
+    // para carregar os horarios já salvos
+    for (let i = 1; i <= 2; i++) {
+      const horarios = alldata["rota" + i].horarios
+
+      
+
+    }
+
+
+
+
+    function guardarObjNoForm(obj, n) {
+      console.log(allvalores, obj);
+      alldata[`rota${n}`].horarios = obj;
+    }
+
+
+
+    const lista1EditHora = modal.querySelector("#lista1-horarios")
+    const lista2EditHora = modal.querySelector("#lista2-horarios")
+    // addpercurso(1, "#percurso1Form", guardarObjNoForm);
+    addhorario(lista1EditHora, 1, guardarObjNoForm);
+    addhorario(lista2EditHora, 2, guardarObjNoForm);
+
+
+    instanciaValid.allvalidacao(linhasHorariosListaVALID);
+
+
+    instanciaValid.forms.addEventListener("submit", async (e) => {
+      e.preventDefault()
+
+      try {
+        const response = await axios.patch(`http://localhost:9000/api/linhas/atualizar/${data.id}`, alldata)
+
+        localStorage.setItem(
+          "linhasEdit",
+          JSON.stringify({
+            cor: "warning",
+            texto: `A linha ${data.numero_linha} foi Editado!`,
+            div: "#alert",
+          })
+        );
+
+        location.reload();
+      } catch (erro) {
+        console.error(erro);
+      }
+    })
+
+
   })
 </script>

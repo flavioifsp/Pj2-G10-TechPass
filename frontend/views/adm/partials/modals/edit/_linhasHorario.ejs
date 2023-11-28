@@ -1,0 +1,124 @@
+<!-- modal para criar um ponto de onibus -->
+<div class="modal fade " id="createLinhas2" tabindex="-1" aria-labelledby="createLinhas2Label" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content moldal-lg">
+      <form novalidate id="formhorarios">
+        <div class="modal-header border-bottom">
+          <h4 class="modal-title d-flex w-100">
+            Adicionando linha <span class="ms-auto">2/3</span>
+          </h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+          <div class="row row-cols-2 g-3">
+            <div class="col-12 d-flex">
+              <h5 class="mx-auto mt-3">Crie os Horarios de Saidas do Bairro</h5>
+            </div>
+
+            <div class="col-6" id="lista1-horarios">
+              <h6>Saida de <span class="bairro1"></span></h6>
+              <ul class="list-group">
+                <li class="list-group-item p-0 m-0 d-flex add">
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="ul1">
+                      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#addhorario1edit" aria-expanded="true" aria-controls="addhorario1">
+                        adicionar um novo horario
+                      </button>
+                    </h2>
+                    <div id="addhorario1edit" class="accordion-collapse collapse show addhorario1" aria-labelledby="ul1" data-bs-parent="#accordionExample">
+                      <div class="accordion-body">
+                        <!-- <div class="mx-auto d-flex" style="width: fit-content"> -->
+                        <div class="row">
+                          <div class="col-12">
+                            <label class="m-0 mt-auto form-label pe-3" for="addHora1">horas:
+                            </label>
+
+                            <div class="row">
+                              <div class="col-8">
+                                <input class="form-control py-1 px-2 addHora1" style="width: fit-content" type="time" id="addHora1" name="addHora1" />
+                              </div>
+                              <div class="col-4">
+                                <button class="btn py-1 px-2 ms-2 btn-success btnadd" type="button">
+                                  <i class="bi bi-plus-lg"></i>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-12">
+                            <label class="m-0 mt-auto form-label pe-3" for="addduracao1">Duracao em minutos:
+                            </label>
+                            <input class="form-control py-1 px-2 addduracao1" type="number" id="addduracao1" name="addduracao1" />
+                          </div>
+                        </div>
+
+                        <!-- </form> -->
+                      </div>
+                    </div>
+                  </div>
+
+                </li>
+              </ul>
+            </div>
+
+            <div class="col-6" id="lista2-horarios">
+              <h6>Saida de <span class="bairro2"></span></h6>
+
+              <ul class="list-group">
+                <li class="list-group-item p-0 m-0 d-flex add">
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#addhorario2Edit" aria-expanded="true" aria-controls="addhorario2">
+                        adicionar um novo horario
+                      </button>
+                    </h2>
+                    <div id="addhorario2Edit" class="accordion-collapse collapse show addhorario2" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                      <div class="accordion-body">
+                        <!-- <div class="mx-auto d-flex" style="width: fit-content"> -->
+                        <div class="row">
+                          <div class="col-12">
+                            <label class="m-0 mt-auto form-label pe-3" for="addHora2">horas:
+                            </label>
+
+                            <div class="row">
+                              <div class="col-8">
+                                <input class="form-control py-1 px-2 addHora2" style="width: fit-content" type="time" id="addHora2" name="addHora2" />
+                              </div>
+                              <div class="col-4">
+                                <button class="btn py-1 px-2 ms-2 btn-success btnadd" type="button">
+                                  <i class="bi bi-plus-lg"></i>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-12">
+                            <label class="m-0 mt-auto form-label pe-3" for="addduracao2">Duracao em minutos:
+                            </label>
+                            <input class="form-control py-1 px-2 addduracao2" type="number" id="addduracao2" name="addduracao2" />
+                          </div>
+                        </div>
+
+                        <!-- </form> -->
+                      </div>
+                    </div>
+                  </div>
+
+
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btnvoltar" onclick='modalEdit(${JSON.stringify(objEJS)})'>
+            voltar
+          </button>
+          <button type="submit" class="btn btn-warning">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

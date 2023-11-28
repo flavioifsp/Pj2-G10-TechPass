@@ -14,7 +14,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
-      <form novalidate>
+      <form novalidate enctype="multipart/form-data">
         <div class="modal-body">
           <div class="row g-2">
             <!-- nome real -->
@@ -31,6 +31,14 @@
               <label for="cnh" class="form-label">CNH:</label>
               <input class="form-control" id="cnh" name="cnh" type="text" required />
             </div>
+
+
+       
+            <div class=" col-12">
+              <label for="nascimento" class="form-label">Sua foto</label>
+              <input name="nascimento" id="nascimento" class="form-control" type="file" required />
+            </div>
+            
 
             <!-- cpf -->
             <div class="col-12">

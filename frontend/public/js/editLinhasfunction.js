@@ -1,23 +1,15 @@
-
-
-
-
-function addhorario(listaID, n,  form = "#formhorarios") {
-  const divPaiLista = document.querySelector(`#${listaID}`);
-  const lista = divPaiLista.querySelector("ul");
-
-  const objHoras = [];
-
-  function guardarObjNoForm(obj) {
-    VALORESFINAL[`rota${n}`].horarios = obj;
-    console.log(VALORESFINAL);
-
-  }
-
-  function addLi(horas, duracao, indice) {
-    const li = document.createElement("li");
-    li.classList.add("list-group-item", "d-flex");
-    li.innerHTML = `
+function addLiHorario(
+  horas,
+  duracao,
+  indice,
+  lista,
+  guardarObjNoForm,
+  array,
+  n
+) {
+  const li = document.createElement("li");
+  li.classList.add("list-group-item", "d-flex");
+  li.innerHTML = `
       <p class="my-auto p-0 m-0">${horas} | Duracao: ${duracao}m</p>
       <div class="list-group ms-auto list-group-horizontal">
 
@@ -27,27 +19,114 @@ function addhorario(listaID, n,  form = "#formhorarios") {
       </div>
       `;
 
-    li.querySelector(".excluir").addEventListener("click", () => {
-      const ul = li.parentNode.children;
-      for (const indice in ul) {
-        if (ul[indice] == li) {
-          objHoras.splice(indice, 1);
+  li.querySelector(".excluir").addEventListener("click", () => {
+    const ul = li.parentNode.children;
+    for (const indice in ul) {
+      if (ul[indice] == li) {
+        array.splice(indice, 1);
+      }
+    }
+    li.remove();
+    guardarObjNoForm(array, n);
+  });
+
+  lista.insertBefore(li, lista.children[indice]);
+  // <button class="subir  list-group-item list-group-item-action py-0 px-2"><i class="bi bi-arrow-up"></i></button>
+  // <button class="descer  list-group-item list-group-item-action py-0 px-2"><i class="bi bi-arrow-down"></i></button>
+}
+
+function addLiPercurso(
+  endereco,
+  indice,
+  lista,
+  array,
+  guardarObjNoForm,
+  array,
+  n
+) {
+  endereco;
+
+  const li = document.createElement("li");
+  li.classList.add("list-group-item", "d-flex");
+  li.innerHTML = `
+    <p class="my-auto p-0 m-0">${endereco}</p>
+    <div class="list-group ms-auto list-group-horizontal">
+
+      <button type="button" class="excluir btn border ms-auto py-0 px-2">
+        <i class="bi bi-x-lg text-danger"></i>
+      </button>
+      <button type="button" class="subir  list-group-item list-group-item-action py-0 px-2"><i class="bi bi-arrow-up"></i></button>
+      <button type="button" class="descer  list-group-item list-group-item-action py-0 px-2"><i class="bi bi-arrow-down"></i></button>
+    </div>
+    `;
+
+  li.querySelectorAll("button").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const ul = li.parentNode;
+      let indice = Array.from(ul.children).indexOf(li);
+
+      if (btn.classList.contains("excluir")) {
+        let indi;
+        if (indice !== ul.children.length - 2) indi = indice + 1;
+        else indi = indice;
+
+        array[indi].ordem_do_percurso = indi;
+        array.splice(indice, 1);
+        li.remove();
+      } else if (btn.classList.contains("subir")) {
+        if (indice > 0 && indice <= ul.children.length) {
+          const temp = array[indice];
+          array[indice] = array[indice - 1];
+          array[indice - 1] = temp;
+
+          array[indice].ordem_do_percurso = indice + 1;
+          array[indice - 1].ordem_do_percurso = indice;
+
+          if (li.previousElementSibling) {
+            ul.insertBefore(li, li.previousElementSibling);
+          }
+        }
+      } else if (btn.classList.contains("descer")) {
+        if (indice >= 0 && indice < ul.children.length - 2) {
+          const temp = array[indice];
+          array[indice] = array[indice + 1];
+          array[indice + 1] = temp;
+
+          array[indice].ordem_do_percurso = indice + 1;
+          array[indice + 1].ordem_do_percurso = indice + 2;
+
+          if (li.nextElementSibling) {
+            ul.insertBefore(li.nextElementSibling, li);
+          }
         }
       }
-      li.remove();
-      guardarObjNoForm(objHoras);
+
+      guardarObjNoForm(array, n);
     });
 
     lista.insertBefore(li, lista.children[indice]);
-    // <button class="subir  list-group-item list-group-item-action py-0 px-2"><i class="bi bi-arrow-up"></i></button>
-    // <button class="descer  list-group-item list-group-item-action py-0 px-2"><i class="bi bi-arrow-down"></i></button>
-  }
+  });
+}
+
+//
+//
+//
+
+function addhorario(listaID, n, guardarObjNoForm) {
+  const divPaiLista =
+    typeof listaID === "string"
+      ? document.querySelector(`#${listaID}`)
+      : listaID;
+  const lista = divPaiLista.querySelector("ul");
+
+  const objHoras = [];
 
   lista.querySelectorAll("button").forEach((e) => {
     e.addEventListener("click", (evt) => {
+      console.log(lista);
       if (e.classList.contains("btnadd")) {
-        let inputhoras = lista.querySelector("#addHora" + n),
-          inputduracao = lista.querySelector("#addduracao" + n);
+        let inputhoras = lista.querySelector(".addHora" + n),
+          inputduracao = lista.querySelector(".addduracao" + n);
         if (
           inputduracao.classList.contains("is-valid") &&
           inputhoras.classList.contains("is-valid")
@@ -68,7 +147,15 @@ function addhorario(listaID, n,  form = "#formhorarios") {
           for (const i in objHoras) {
             if (objHoras[i] === horarioSaida) {
               setTimeout(() => {
-                addLi(horas, duracao, i);
+                addLiHorario(
+                  horas,
+                  duracao,
+                  i,
+                  lista,
+                  guardarObjNoForm,
+                  objHoras,
+                  n
+                );
               }, 500);
 
               break;
@@ -81,7 +168,9 @@ function addhorario(listaID, n,  form = "#formhorarios") {
           inputhoras.classList.remove("is-valid");
           inputduracao.classList.remove("is-valid");
 
-          const bsCollapse = new bootstrap.Collapse("#addhorario" + n);
+          const bsCollapse = new bootstrap.Collapse(
+            lista.querySelector(".addhorario" + n)
+          );
           bsCollapse.hide();
         } else {
           evt.stopPropagation();
@@ -91,86 +180,15 @@ function addhorario(listaID, n,  form = "#formhorarios") {
           inputduracao.blur();
         }
       }
-      guardarObjNoForm(objHoras);
+      guardarObjNoForm(objHoras, n);
     });
   });
 }
 
-function addpercurso(n,  form = "#formhorarios") {
+function addpercurso(n, form = "#formhorarios", guardarObjNoForm) {
   const lista = document.querySelector(form).querySelector("ul");
 
   const objHoras = [];
-
-  function guardarObjNoForm(obj) {
-
-    VALORESFINAL[`rota${n}`].percursos = obj;
-  }
-
-  function addLi(endereco, indice) {
-    endereco;
-
-    const li = document.createElement("li");
-    li.classList.add("list-group-item", "d-flex");
-    li.innerHTML = `
-      <p class="my-auto p-0 m-0">${endereco}</p>
-      <div class="list-group ms-auto list-group-horizontal">
-
-        <button type="button" class="excluir btn border ms-auto py-0 px-2">
-          <i class="bi bi-x-lg text-danger"></i>
-        </button>
-        <button type="button" class="subir  list-group-item list-group-item-action py-0 px-2"><i class="bi bi-arrow-up"></i></button>
-        <button type="button" class="descer  list-group-item list-group-item-action py-0 px-2"><i class="bi bi-arrow-down"></i></button>
-      </div>
-      `;
-
-    li.querySelectorAll("button").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const ul = li.parentNode;
-        let indice = Array.from(ul.children).indexOf(li);
-
-        if (btn.classList.contains("excluir")) {
-          let indi;
-          if (indice !== ul.children.length - 2) indi = indice + 1;
-          else indi = indice;
-
-          objHoras[indi].ordem_do_percurso = indi;
-          objHoras.splice(indice, 1);
-          li.remove();
-        } else if (btn.classList.contains("subir")) {
-          if (indice > 0 && indice <= ul.children.length) {
-            const temp = objHoras[indice];
-            objHoras[indice] = objHoras[indice - 1];
-            objHoras[indice - 1] = temp;
-
-            objHoras[indice].ordem_do_percurso = indice + 1;
-            objHoras[indice - 1].ordem_do_percurso = indice;
-
-            if (li.previousElementSibling) {
-              ul.insertBefore(li, li.previousElementSibling);
-            }
-          }
-        } else if (btn.classList.contains("descer")) {
-          if (indice >= 0 && indice < ul.children.length - 2) {
-            const temp = objHoras[indice];
-            objHoras[indice] = objHoras[indice + 1];
-            objHoras[indice + 1] = temp;
-
-            objHoras[indice].ordem_do_percurso = indice + 1;
-            objHoras[indice + 1].ordem_do_percurso = indice + 2;
-
-            if (li.nextElementSibling) {
-              ul.insertBefore(li.nextElementSibling, li);
-            }
-          }
-        }
-
-        guardarObjNoForm(objHoras);
-        console.log(objHoras);
-      });
-
-      lista.insertBefore(li, lista.children[indice]);
-    });
-  }
 
   lista.querySelectorAll("button").forEach((e) => {
     e.addEventListener("click", (evt) => {
@@ -180,9 +198,7 @@ function addpercurso(n,  form = "#formhorarios") {
         if (inputendereco.classList.contains("is-valid")) {
           const endereco = inputendereco.value;
 
-          const percurso = {};  
-
-
+          const percurso = {};
 
           objHoras.push(percurso);
 
@@ -200,7 +216,14 @@ function addpercurso(n,  form = "#formhorarios") {
                 (percurso.pontoOnibus_id = parseInt(endereco));
 
               setTimeout(() => {
-                addLi(enderecoTexto, i);
+                addLiPercurso(
+                  enderecoTexto,
+                  i,
+                  lista,
+                  guardarObjNoForm,
+                  objHoras,
+                  n
+                );
               }, 500);
 
               break;
@@ -211,7 +234,9 @@ function addpercurso(n,  form = "#formhorarios") {
 
           inputendereco.classList.remove("is-valid");
 
-          const bsCollapse = new bootstrap.Collapse("#acordionPercurso" + n);
+          const bsCollapse = new bootstrap.Collapse(
+            lista.querySelector(".acordionPercurso" + n)
+          );
           bsCollapse.hide();
         } else {
           evt.stopPropagation();
@@ -219,8 +244,7 @@ function addpercurso(n,  form = "#formhorarios") {
           inputendereco.blur();
         }
       }
-      guardarObjNoForm(objHoras);
+      guardarObjNoForm(objHoras, n);
     });
   });
 }
-

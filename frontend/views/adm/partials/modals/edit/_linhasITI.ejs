@@ -4,7 +4,7 @@
       <form novalidate id="percurso2Form">
         <div class="modal-header border-bottom">
           <h4 class="modal-title d-flex w-100">
-            Adicionando linha <span class="ms-auto">4/4</span>
+            editando o Itinerario 
           </h4>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
@@ -13,7 +13,7 @@
           <div class="row g-1">
             <div class="col-12 d-flex">
               <h5 class="mx-auto mt-3">
-                crie o itinerario da saida de <span class="bairro2"></span>
+                editando o itinerario do bairro 
               </h5>
             </div>
 
@@ -53,11 +53,11 @@
             </ul>
           </div>
 
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary btnvoltar">
+          <div class="modal-footer p-0 mt-4">
+            <button type="button" class="btn btn-secondary" onclick='modalEdit(${JSON.stringify(objEJS)})'>
               voltar
             </button>
-            <button type="submit" class="btn btn-primary">avançar</button>
+            <button type="submit" class="btn btn-warning">Salvar</button>
           </div>
         </div>
       </form>

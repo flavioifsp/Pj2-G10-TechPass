@@ -8,8 +8,11 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <form novalidate>
-        <div class="modal-header">
-          <h4 class="modal-title" id="createLinhas1Label">Adicionando linha</h4>
+        <div class="modal-header border-bottom mb-4 ">
+          <h4 class="modal-title d-flex w-100">
+            Adicionando linha <span class="ms-auto">1/4</span>
+
+          </h4>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
 
@@ -32,7 +35,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" data-bs-dismiss="modal" class="btn btn-secondary btnvoltar">
+          <button type="button" data-bs-dismiss="modal" class="btn btn-secondary">
             sair
           </button>
           <button type="submit" class="btn btn-primary">avançar</button>
@@ -49,7 +52,8 @@
       <form novalidate id="formhorarios">
         <div class="modal-header border-bottom">
           <h4 class="modal-title d-flex w-100">
-            Adicionando linha <span class="ms-auto">2/3</span>
+            Adicionando linha <span class="ms-auto">2/4</span>
+
           </h4>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
@@ -70,7 +74,7 @@
                         adicionar um novo horario
                       </button>
                     </h2>
-                    <div id="addhorario1" class="accordion-collapse collapse show" aria-labelledby="ul1" data-bs-parent="#accordionExample">
+                    <div id="addhorario1" class="accordion-collapse collapse show addhorario1" aria-labelledby="ul1" data-bs-parent="#accordionExample">
                       <div class="accordion-body">
                         <!-- <div class="mx-auto d-flex" style="width: fit-content"> -->
                         <div class="row">
@@ -80,7 +84,7 @@
 
                             <div class="row">
                               <div class="col-8">
-                                <input class="form-control py-1 px-2" style="width: fit-content" type="time" id="addHora1" name="addHora1" />
+                                <input class="form-control py-1 px-2 addHora1" style="width: fit-content" type="time" id="addHora1" name="addHora1" />
                               </div>
                               <div class="col-4">
                                 <button class="btn py-1 px-2 ms-2 btn-success btnadd" type="button">
@@ -93,7 +97,7 @@
                           <div class="col-12">
                             <label class="m-0 mt-auto form-label pe-3" for="addduracao1">Duracao em minutos:
                             </label>
-                            <input class="form-control py-1 px-2" type="number" id="addduracao1" name="addduracao1" />
+                            <input class="form-control py-1 px-2 addduracao1" type="number" id="addduracao1" name="addduracao1" />
                           </div>
                         </div>
 
@@ -102,7 +106,7 @@
                     </div>
                   </div>
 
-                  <script></script>
+
                 </li>
               </ul>
             </div>
@@ -118,7 +122,7 @@
                         adicionar um novo horario
                       </button>
                     </h2>
-                    <div id="addhorario2" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                    <div id="addhorario2" class="accordion-collapse collapse show addhorario2" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                       <div class="accordion-body">
                         <!-- <div class="mx-auto d-flex" style="width: fit-content"> -->
                         <div class="row">
@@ -128,7 +132,7 @@
 
                             <div class="row">
                               <div class="col-8">
-                                <input class="form-control py-1 px-2" style="width: fit-content" type="time" id="addHora2" name="addHora2" />
+                                <input class="form-control py-1 px-2 addHora2" style="width: fit-content" type="time" id="addHora2" name="addHora2" />
                               </div>
                               <div class="col-4">
                                 <button class="btn py-1 px-2 ms-2 btn-success btnadd" type="button">
@@ -141,7 +145,7 @@
                           <div class="col-12">
                             <label class="m-0 mt-auto form-label pe-3" for="addduracao2">Duracao em minutos:
                             </label>
-                            <input class="form-control py-1 px-2" type="number" id="addduracao2" name="addduracao2" />
+                            <input class="form-control py-1 px-2 addduracao2" type="number" id="addduracao2" name="addduracao2" />
                           </div>
                         </div>
 
@@ -150,7 +154,7 @@
                     </div>
                   </div>
 
-                  <script></script>
+
                 </li>
               </ul>
             </div>
@@ -196,16 +200,16 @@
                       adicionar um ponto
                     </button>
                   </h2>
-                  <div id="acordionPercurso1" class="accordion-collapse collapse show">
+                  <div id="acordionPercurso1" class="accordion-collapse collapse show acordionPercurso1">
                     <div class="accordion-body p-1">
                       <div class="row">
                         <div class="col-12">
-                          <label class="m-0 mt-auto form-label pe-3" for="percurso1">ponto:
+                          <label class="m-0 mt-auto form-label pe-3 percurso1" for="percurso1">ponto:
                           </label>
 
                           <div class="row">
                             <div class="col-11">
-                              <select class="form-select pontos" id="percurso1" name="percurso1">
+                              <select class="form-select pontos percurso1" id="percurso1" name="percurso1">
                                 <option selected>Escolha um ponto</option>
                               </select>
                             </div>
@@ -264,7 +268,7 @@
                       adicionar um ponto
                     </button>
                   </h2>
-                  <div id="acordionPercurso2" class="accordion-collapse collapse show">
+                  <div id="acordionPercurso2" class="accordion-collapse collapse show acordionPercurso2">
                     <div class="accordion-body p-1">
                       <div class="row">
                         <div class="col-12">
@@ -314,7 +318,6 @@
   document.addEventListener("DOMContentLoaded", async () => {
 
 
-
     let pontos
     try {
 
@@ -347,11 +350,19 @@
 
     })
 
+    function guardarObjNoForm1(obj, n) {
+      VALORESFINAL[`rota${n}`].horarios = obj;
+    }
 
-    addhorario("lista1-horarios", 1);
-    addhorario("lista2-horarios", 2);
-    addpercurso(1, "#percurso1Form");
-    addpercurso(2, "#percurso2Form");
+    function guardarObjNoForm2(obj, n) {
+      VALORESFINAL[`rota${n}`].percursos = obj;
+    }
+
+
+    addhorario("lista1-horarios", 1, guardarObjNoForm1);
+    addhorario("lista2-horarios", 2, guardarObjNoForm1);
+    addpercurso(1, "#percurso1Form", guardarObjNoForm2);
+    addpercurso(2, "#percurso2Form", guardarObjNoForm2);
 
     formEtapasForms(
       "#abrirCadastroDelinhas",
@@ -412,38 +423,7 @@
             },
           });
 
-          formvalidacao[1].allvalidacao({
-            addHora2: {
-              min: 5,
-              max: 5,
-              caractereNpermitido: ["Number", "caractereEspecial"],
-              pattern: [
-                /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/, // Válido: Formato HH:mm
-                "Hora válida",
-                "Hora inválida",
-              ],
-            },
-            addduracao2: {
-              min: 1,
-              max: 500,
-              pattern: [".*", "duração valida", "duração invalida"],
-            },
-            addHora1: {
-              min: 5,
-              max: 5,
-              caractereNpermitido: ["Number", "caractereEspecial"],
-              pattern: [
-                /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/, // Válido: Formato HH:mm
-                "Hora válida",
-                "Hora inválida",
-              ],
-            },
-            addduracao1: {
-              min: 1,
-              max: 500,
-              pattern: [".*", "duração valida", "duração invalida"],
-            },
-          });
+          formvalidacao[1].allvalidacao(linhasHorariosListaVALID);
         },
         document,
         (indice, instanciaForm) => {
