@@ -31,7 +31,7 @@ router.get("/", async function (req, res, next) {
         // console.log(horario, perc);
         if (i % 2 === 0) {
           const paia = elem;
-
+          paia.id = [elem.id]
           paia.horario_diario_saida = [elem.horario_diario_saida];
           paia.percurso = [elem.percurso];
 
@@ -39,6 +39,7 @@ router.get("/", async function (req, res, next) {
         } else {
           linhas[i - 1].horario_diario_saida.push(elem.horario_diario_saida);
           linhas[i - 1].percurso.push(elem.percurso);
+          linhas[i - 1].id.push(elem.id);
         }
       })
       .filter((element) => element != null);
@@ -103,6 +104,23 @@ router.patch("/atualizar/:id", async (req, res, next) => {
     const linhaAtt = await prisma.linhas.update({
       where: {
         id: parseInt(req.params.id),
+      },
+      data: req.body,
+    });
+
+    res.json(linhaAtt);
+  } catch (er) {
+    const erro = exception(er);
+    res.status(erro.code).send(erro.msg);
+    console.log(er);
+  }
+})
+
+router.patch("/atualizar/horarios/:id", async (req, res, next) => {
+  try {
+    const linhaAtt = await prisma.horario_diario_saida.updateMany({
+      where: {
+        linhas_id: parseInt(req.params.id),
       },
       data: req.body,
     });
