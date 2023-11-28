@@ -23,6 +23,7 @@ function addLiHorario(
     const ul = li.parentNode.children;
     for (const indice in ul) {
       if (ul[indice] == li) {
+        console.log(array);
         array.splice(indice, 1);
       }
     }
@@ -122,7 +123,7 @@ function addhorario(listaID, n, guardarObjNoForm) {
 
   lista.querySelectorAll("button").forEach((e) => {
     e.addEventListener("click", (evt) => {
-      console.log(lista);
+
       if (e.classList.contains("btnadd")) {
         let inputhoras = lista.querySelector(".addHora" + n),
           inputduracao = lista.querySelector(".addduracao" + n);

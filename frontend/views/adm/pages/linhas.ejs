@@ -12,16 +12,12 @@
 
 <%-include('../partials/modals/create/_formsCriarLinha') %>
 
-
-
-
-
 <section class="mt-5">
   <h4 class="">Todos os pontos de onibus</h4>
 
   <div class="card">
     <div class="table-responsive text-nowrap">
-      <table id="PontosDeOnibus" class="table  table-striped" data-ColNoOrden="3" style="width: 100%">
+      <table id="PontosDeOnibus" class="table table-striped" data-ColNoOrden="3" style="width: 100%">
         <thead>
           <tr>
             <th>Numero da Linha</th>
@@ -34,15 +30,14 @@
           <% linhas.forEach((elem)=> { %>
 
           <tr class="">
-            <td> <%= elem.numero_linha %></td>
-            <td><%= elem.bairroOrigem %> </td>
-            <td><%= elem.bairroDestino  %> </td>
+            <td><%= elem.numero_linha %></td>
+            <td><%= elem.bairroOrigem %></td>
+            <td><%= elem.bairroDestino %></td>
 
             <td>
               <button type="button" class="btn btn-info py-1 px-2" onclick=' modalInfo(<%-JSON.stringify(elem)%>)'>
                 <i class="bi bi-info-lg"></i>
               </button>
-
 
               <button class="btn btn-warning py-1 px-2" onclick='modalEdit(<%-JSON.stringify(elem)%>)'>
                 <i class="bi bi-pencil-square"></i>
@@ -60,212 +55,222 @@
   </div>
 </section>
 
-
 <script>
   const modalInfo = criarFuncaoModal((objEJS) => {
-    return ` <%- include("../partials/modals/info/_linhasHorario.ejs") %> `
-  })
+    return ` <%- include("../partials/modals/info/_linhasHorario.ejs") %> `;
+  });
 
+  const modalDelet = criarFuncaoModal(
+    (objEJS) => {
+      return `<%- include("../partials/modals/delete/_linhas.ejs") %>`;
+    },
+    async (modal, objEJS) => {
+      const btnDelet = modal.querySelector(".delete");
 
+      btnDelet.addEventListener("click", async () => {
+        try {
+          const deletado = await axios.delete(
+            `http://localhost:9000/api/linhas/deletar/${objEJS.id}`
+          );
 
+          localStorage.setItem(
+            "linhasDelete",
+            JSON.stringify({
+              cor: "danger",
+              texto: `A linha ${objEJS.numero_linha} foi apagada!`,
+              div: "#alert",
+            })
+          );
 
-  const modalDelet = criarFuncaoModal((objEJS) => {
-    return `<%- include("../partials/modals/delete/_linhas.ejs") %>`
-  }, async (modal, objEJS) => {
-    const btnDelet = modal.querySelector(".delete");
+          location.reload();
+        } catch (error) {
+          console.error(error);
+        }
+      });
+    }
+  );
 
-    btnDelet.addEventListener("click", async () => {
-      try {
-        const deletado = await axios.delete(
-          `http://localhost:9000/api/linhas/deletar/${objEJS.id}`
-        );
-
-        localStorage.setItem(
-          "linhasDelete",
-          JSON.stringify({
-            cor: "danger",
-            texto: `A linha ${objEJS.numero_linha} foi apagada!`,
-            div: "#alert",
-          })
-        );
-
-        location.reload();
-      } catch (error) {
-        console.error(error);
-      }
-    });
-  })
-
-
-
-
-  // 
-  const modalInfo2 = criarFuncaoModal((objEJS) => {
+  //
+  const modalInfo2 = criarFuncaoModal(
+    (objEJS) => {
       return ` <%- include("../partials/modals/info/_linhasItinerario.ejs") %>`;
     },
 
     (modal, objEJS) => {
       modal.querySelectorAll("ul").forEach((e, i) => {
         for (const elem of objEJS.percurso[i]) {
-          const li = document.createElement("li")
-          li.classList.add("list-group-item", "fs-5", "border-dark-subtle")
+          const li = document.createElement("li");
+          li.classList.add("list-group-item", "fs-5", "border-dark-subtle");
 
+          const endereco = elem.ponto_de_onibus.endereco.split(",");
+          li.innerText = `${endereco[0]}, ${endereco[1]}, ${endereco[2]} `;
 
-          const endereco = elem.ponto_de_onibus.endereco.split(",")
-          li.innerText = `${endereco[0]}, ${endereco[1]}, ${endereco[2] } `
-
-          e.appendChild(li)
+          e.appendChild(li);
         }
-      })
+      });
     }
   );
 
+  const modalEdit = criarFuncaoModal(
+    (objEJS) => {
+      return `<%- include("../partials/modals/edit/_linhas-inicio.ejs") %>`;
+    },
+    (modal, data) => {
+      const instanciaValid = new Inputs(modal);
 
+      instanciaValid.allvalidacao(linhasInicioEdit);
 
-  const modalEdit = criarFuncaoModal((objEJS) => {
-    return `<%- include("../partials/modals/edit/_linhas-inicio.ejs") %>`
+      modal.addEventListener("shown.bs.modal", function validarAntigos() {
+        instanciaValid.inputs((input) => {
+          input.focus();
+          input.blur();
+        });
 
-  }, (modal, data) => {
-    const instanciaValid = new Inputs(modal)
+        modal.removeEventListener("shown.bs.modal", validarAntigos);
+      });
 
+      instanciaValid.forms.addEventListener("submit", async (e) => {
+        e.preventDefault();
 
-    instanciaValid.allvalidacao(linhasInicioEdit);
+        const infos = instanciaValid.allValues();
 
+        infos.numero_linha = parseInt(infos.numero_linha);
 
+        try {
+          const response = await axios.patch(
+            `http://localhost:9000/api/linhas/atualizar/${data.id}`,
+            infos
+          );
 
+          localStorage.setItem(
+            "linhasEdit",
+            JSON.stringify({
+              cor: "warning",
+              texto: `A linha ${data.numero_linha} foi Editado!`,
+              div: "#alert",
+            })
+          );
 
-    modal.addEventListener("shown.bs.modal", function validarAntigos() {
+          location.reload();
+        } catch (erro) {
+          console.error(erro);
+        }
+      });
+    }
+  );
 
-      instanciaValid.inputs((input) => {
-        input.focus()
-        input.blur()
-      })
+  const modalEditItinerario = criarFuncaoModal(
+    (objEJS) => {
+      return `<%- include("../partials/modals/edit/_linhasITI.ejs") %>`;
+    },
+    (modal) => {}
+  );
 
-      modal.removeEventListener("shown.bs.modal", validarAntigos)
-    })
+  const modalEditHorario = criarFuncaoModal(
+    (objEJS) => {
+      return `<%- include("../partials/modals/edit/_linhasHorario.ejs") %>`;
+    },
+    (modal, alldata) => {
+      const instanciaValid = new Inputs(modal);
 
+      let allvalores = {
+        rota1: {
+          horario: [],
+        },
+        rota2: {
+          horario: [],
+        },
+      };
 
-    instanciaValid.forms.addEventListener("submit", async (e) => {
-      e.preventDefault()
+      function guardarObjNoForm(obj, n) {
+        allvalores[`rota${n}`].horario = obj;
+      }
 
-      const infos = instanciaValid.allValues()
+      const lista1EditHora = modal.querySelector("#lista1-horarios");
+      const lista2EditHora = modal.querySelector("#lista2-horarios");
 
-      infos.numero_linha = parseInt(infos.numero_linha)
+      // para carregar os horarios já salvos
 
-      try {
-        const response = await axios.patch(`http://localhost:9000/api/linhas/atualizar/${data.id}`, infos)
+      alldata.horario_diario_saida[0].forEach((elem, indice) => {
+        const {
+          horario_de_saida,
+          duracaoEstimada
+        } = elem;
 
-        localStorage.setItem(
-          "linhasEdit",
-          JSON.stringify({
-            cor: "warning",
-            texto: `A linha ${data.numero_linha} foi Editado!`,
-            div: "#alert",
-          })
+        addLiHorario(
+          new Date(horario_de_saida)
+          .toLocaleTimeString()
+          .match(/([\d]{2}:[\d]{2})/g),
+          duracaoEstimada,
+          indice,
+          lista1EditHora.querySelector("ul"),
+          guardarObjNoForm,
+          allvalores.rota1.horario,
+          1
         );
 
-        location.reload();
-      } catch (erro) {
-        console.error(erro);
-      }
-    })
-  })
+        allvalores.rota1.horario.push({
+          horario_de_saida,
+          duracaoEstimada,
+        });
+      });
+
+      alldata.horario_diario_saida[1].forEach((elem, indice) => {
+        const {
+          horario_de_saida,
+          duracaoEstimada
+        } = elem;
 
 
-  const modalEditItinerario = criarFuncaoModal((objEJS) => {
-    return `<%- include("../partials/modals/edit/_linhasITI.ejs") %>`
-  }, (modal) => {
-
-  })
-
-  const modalEditHorario = criarFuncaoModal((objEJS) => {
-    return `<%- include("../partials/modals/edit/_linhasHorario.ejs") %>`
-  }, (modal, alldata) => {
-    const instanciaValid = new Inputs(modal)
-
-
-    let allvalores = {
-      rota1: {
-        horario:{}
-      },
-      rota2: {
-        horario:{}
-      },
-    }
-
-    function guardarObjNoForm(obj, n) {
-      console.log(obj);
-      allvalores[`rota${n}`].horario = obj;
-    }
-
-
-
-
-    const lista1EditHora = modal.querySelector("#lista1-horarios")
-    const lista2EditHora = modal.querySelector("#lista2-horarios")
-
-
-    // para carregar os horarios já salvos
-
-    alldata.horario_diario_saida[0].forEach(({horario_de_saida, duracaoEstimada}, indice) => {
-      addLiHorario(
-        new Date(horario_de_saida).toLocaleTimeString().match(/([\d]{2}:[\d]{2})/g),
-        duracaoEstimada,
-        indice,
-        lista1EditHora.querySelector("ul"),
-        guardarObjNoForm,
-        allvalores,
-        1
-      );
-
-      allvalores.
-
-      guardarObjNoForm({horario_de_saida, duracaoEstimada}, 1)
-    })
-
-    alldata.horario_diario_saida[1].forEach(({horario_de_saida, duracaoEstimada}, indice) => {
-      addLiHorario(
-        new Date(horario_de_saida).toLocaleTimeString().match(/([\d]{2}:[\d]{2})/g),
-        duracaoEstimada,
-        indice,
-        lista2EditHora.querySelector("ul"),
-        guardarObjNoForm,
-        allvalores,
-        2
-      );
-
-      guardarObjNoForm({horario_de_saida, duracaoEstimada}, 2)
-    })
-
-    // addpercurso(1, "#percurso1Form", guardarObjNoForm);
-    addhorario(lista1EditHora, 1, guardarObjNoForm);
-    addhorario(lista2EditHora, 2, guardarObjNoForm);
-
-
-    instanciaValid.allvalidacao(linhasHorariosEditVALID);
-
-
-    instanciaValid.forms.addEventListener("submit", async (e) => {
-      e.preventDefault()
-
-      try {
-        const response = await axios.patch(`http://localhost:9000/api/linhas/atualizar/${data.id}`, alldata)
-
-        localStorage.setItem(
-          "linhasEdit",
-          JSON.stringify({
-            cor: "warning",
-            texto: `A linha ${data.numero_linha} foi Editado!`,
-            div: "#alert",
-          })
+        addLiHorario(
+          new Date(horario_de_saida)
+          .toLocaleTimeString()
+          .match(/([\d]{2}:[\d]{2})/g),
+          duracaoEstimada,
+          indice,
+          lista2EditHora.querySelector("ul"),
+          guardarObjNoForm,
+          allvalores.rota2.horario,
+          2
         );
 
-        location.reload();
-      } catch (erro) {
-        console.error(erro);
-      }
-    })
+        allvalores.rota2.horario.push({
+          horario_de_saida,
+          duracaoEstimada,
+        });
+      });
+
+      // addpercurso(1, "#percurso1Form", guardarObjNoForm);
+      addhorario(lista1EditHora, 1, guardarObjNoForm);
+      addhorario(lista2EditHora, 2, guardarObjNoForm);
+
+      instanciaValid.allvalidacao(linhasHorariosEditVALID);
+
+      instanciaValid.forms.addEventListener("submit", async (e) => {
+        e.preventDefault();
 
 
-  })
+        console.log(allvalores);
+        // try {
+        //   const response = await axios.patch(
+        //     `http://localhost:9000/api/linhas/atualizar/${data.id}`,
+        //     alldata
+        //   );
+
+        //   localStorage.setItem(
+        //     "linhasEdit",
+        //     JSON.stringify({
+        //       cor: "warning",
+        //       texto: `A linha ${data.numero_linha} foi Editado!`,
+        //       div: "#alert",
+        //     })
+        //   );
+
+        //   location.reload();
+        // } catch (erro) {
+        //   console.error(erro);
+        // }
+      });
+    }
+  );
 </script>
