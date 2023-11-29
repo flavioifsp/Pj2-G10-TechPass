@@ -13,6 +13,7 @@ model adm {
   cpf          String?   @db.VarChar(14)
   nascimento   DateTime? @db.Date
   telefone     String?   @db.VarChar(13)
+  nome         String?   @db.VarChar(90)
   superuser    superuser @relation(fields: [superUser_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_ADM_superUser1")
 
   @@index([superUser_id], map: "fk_ADM_superUser1_idx")
@@ -21,12 +22,13 @@ model adm {
 model atendente {
   id                   Int          @id @default(autoincrement())
   local_de_trabalho_id Int
-  superUser_id         Int          @db.UnsignedInt @unique
+  superUser_id         Int          @db.UnsignedInt
   cpf                  String       @unique(map: "cpf_UNIQUE") @db.VarChar(14)
   turno                String?      @db.VarChar(45)
   nascimento           DateTime?    @db.Date
   telefone             String?      @db.VarChar(13)
   endereco             String?      @db.VarChar(255)
+  nome                 String?      @db.VarChar(90)
   loja_recarga         loja_recarga @relation(fields: [local_de_trabalho_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_atendente_loja_recarga1")
   superuser            superuser    @relation(fields: [superUser_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_atendente_superUser1")
 
@@ -37,7 +39,7 @@ model atendente {
 model cartao {
   id                 Int                  @id @default(autoincrement())
   modalidade         String               @db.VarChar(45)
-  tarifa             Decimal?             @db.Decimal(4, 2)
+  tarifa             Decimal?             @db.Decimal(6, 2)
   cliente_tem_cartao cliente_tem_cartao[]
 }
 
@@ -115,6 +117,7 @@ model motorista {
   foto       String?   @db.VarChar(200)
   nascimento DateTime? @db.Date
   cnh        String?   @db.VarChar(11)
+  nome       String?   @db.VarChar(90)
   viagem     viagem[]
 }
 
@@ -140,7 +143,6 @@ model superuser {
   id        Int         @id @default(autoincrement()) @db.UnsignedInt
   email     String      @unique(map: "email_UNIQUE") @db.VarChar(64)
   senha     String?     @db.VarChar(100)
-  username  String?     @db.VarChar(45)
   adm       adm[]
   atendente atendente[]
 }
