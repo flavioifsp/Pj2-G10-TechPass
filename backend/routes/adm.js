@@ -71,6 +71,36 @@ router.delete("/cartoes/:id", async (req, res) => {
   }
 });
 
+router.put("/cartoes", async (req, res, next) => {
+  try {
+    const {  id, tarifa, modalidade } = req.body;
+
+
+    
+    const novoCartao = await prisma.cartao.update({
+   
+      where:{
+        id: id
+     },
+
+      data: {
+        tarifa: parseFloat(tarifa),
+        modalidade,
+      },
+      
+    });
+    console.log(novoCartao);
+
+    res.status(201).json({
+      message: `Cartao ${modalidade} adicionado com sucesso`,
+    });
+  } catch (error) {
+    const erro = exception(error);
+    console.error(error);
+    res.status(erro.code).send(erro.msg);
+  }
+});
+
  
 router.post("/lojas", async (req, res, next) => {
   try {
