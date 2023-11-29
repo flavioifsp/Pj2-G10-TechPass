@@ -9,7 +9,7 @@ router.post("/atendente", async (req, res) => {
   const {
     email,
     senha,
-    username,
+    nome,
     cpf,
     endereco,
     nascimento,
@@ -23,9 +23,10 @@ router.post("/atendente", async (req, res) => {
       data: {
         email,
         senha,
-        username,
+        
         atendente: {
           create: {
+            nome,
             cpf,
             endereco,
             nascimento: new Date(nascimento),
@@ -37,7 +38,11 @@ router.post("/atendente", async (req, res) => {
       },
 
       select: {
-        username: true,
+        atendente:{
+          select:{
+            nome: true
+          }
+        }
       },
     });
 
@@ -53,7 +58,7 @@ router.put("/atendente/:id", async (req, res) => {
   const {
     email,
     senha,
-    username,
+    nome,
     cpf,
     endereco,
     nascimento,
@@ -71,11 +76,12 @@ router.put("/atendente/:id", async (req, res) => {
       data: {
         email,
         senha,
-        username,
+        
         atendente: {
           update: {
             where: { superUser_id: superUserID },
             data: {
+              nome,
               cpf,
               endereco,
               nascimento: new Date(nascimento),
@@ -88,7 +94,9 @@ router.put("/atendente/:id", async (req, res) => {
       },
 
       select: {
-        username: true,
+        atendente:{
+          nome: true
+        }
       },
     });
 
@@ -124,9 +132,9 @@ router.delete("/atendente/:id", async (req, res) => {
         id: parseInt(id),
       },
       select: {
+        nome: true,
         superuser: {
           select: {
-            username: true,
             email: true,
           },
         },

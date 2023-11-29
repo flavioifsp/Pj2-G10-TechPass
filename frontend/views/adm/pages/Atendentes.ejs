@@ -19,7 +19,7 @@
       <table id="PontosDeOnibus" class="table table-striped" style="width: 100%">
         <thead>
           <tr>
-            <th>username</th>
+            <th>nome</th>
             <th>cpf</th>
             <th>turno</th>
             <th>Opções</th>
@@ -29,13 +29,13 @@
           <% allAtendentes.forEach((elem)=> { %>
 
           <tr>
-            <td><%= elem.superuser.username %></td>
+            <td><%= elem.nome %></td>
             <td><%= elem.cpf %></td>
             <td><%= elem.turno %></td>
             <td>
               <% const info = {
               email: elem.email,
-              username: elem.superuser.username,
+              nome: elem.nome,
               cpf: elem.cpf,
               endereco: elem.endereco,
               nascimento: new Date(elem.nascimento).toLocaleDateString(),
@@ -82,7 +82,7 @@
                     </div>
                     <div class="modal-body" _msttexthash="1998048" _msthash="313" _mstvisible="3">
                       <span>
-                        Tem certeza que desja excluir a atendente  ${objEjs.superuser.username}?</span>
+                        Tem certeza que desja excluir a atendente  ${objEjs.nome}?</span>
                     </div>
                     <div class="modal-footer" _mstvisible="3">
                       <button class="btn btn-secondary" data-bs-dismiss="modal" _msttexthash="324714" _msthash="314" _mstvisible="4">
@@ -114,7 +114,7 @@
           "AtendenteDelete",
           JSON.stringify({
             cor: "danger",
-            texto: `a atendente ${objEjs.superuser.username} foi apagada`,
+            texto: `a atendente ${objEjs.nome} foi apagada`,
             div: "#alert",
           })
         );
@@ -136,7 +136,7 @@
     <div class="modal-content">
       <div class="modal-header border-bottom">
         <h4 class="modal-title d-flex w-100">
-          editando a atendente  '<strong> ${objEjs.superuser.username}</strong>' <span class="ms-auto">1/2</span>
+          editando a atendente  '<strong> ${objEjs.nome}</strong>' <span class="ms-auto">1/2</span>
         </h4>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -152,8 +152,8 @@
 
             <!-- username -->
             <div class="col-12 col-sm-8">
-              <label for="username" class="form-label">Apelido (username)</label>
-              <input name="username" id="username" class="form-control" type="text" value="${objEjs.superuser.username}" required />
+              <label for="nome" class="form-label">Nome</label>
+              <input name="nome" id="nome" class="form-control" type="text" value="${objEjs.nome}" required />
             </div>
             <!-- nasc -->
             <div class="col-sm-4 col-12">
@@ -197,7 +197,7 @@
     <div class="modal-content">
       <div class="modal-header border-bottom">
         <h4 class="modal-title d-flex w-100">
-          editando a atendente  '<strong> ${objEjs.superuser.username}</strong>' <span class="ms-auto">2/2</span>
+          editando a atendente  '<strong> ${objEjs.nome}</strong>' <span class="ms-auto">2/2</span>
 
         </h4>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -287,7 +287,7 @@
               "AtendenteEdit",
               JSON.stringify({
                 cor: "warning",
-                texto: `Atendente '${response.data.username}' foi Alterado com sucesso`,
+                texto: `Atendente '${response.data.nome}' foi Alterado com sucesso`,
                 div: "#alert"
               })
             );
@@ -299,80 +299,15 @@
         },
         (formvalidacao) => {
 
-          ;
-          formvalidacao[0].inputs((input) => {
+          
+          // formvalidacao[0].inputs((input) => {
 
 
-          });
+          // });
 
 
 
-          formvalidacao[0].allvalidacao({
-            cpf: {
-              max: 14,
-              min: 14,
-              caractereNpermitido: ["Nletra", "Nacentuacao"],
-              pattern: [
-                "(\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2,5})",
-                // "\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}",
-                "cpf valido",
-                "cpf invalido",
-              ],
-              autopontuar: [
-                /(\d{3})(\d{3})(\d{3})(\d{2})/,
-                "$1.$2.$3-$4",
-                /[.-]/g,
-                "",
-              ],
-              customErro: [
-                [
-                  /(\d{3}\.\d{3}\.\d{3}-\d{3,6})/,
-                  "não existe cpf com mais de 11 numeros",
-                ],
-              ],
-            },
-            nome: {
-              max: 120,
-              min: 3,
-              caractereNpermitido: ["NcaractereEspecial", "Nnumber"],
-              pattern: ["[a-zA-Z\\s]{3,120}", "nome valido", "nome invalido"],
-            },
-            username: {
-              max: 90,
-              min: 3,
-              caractereNpermitido: ["NcaractereEspecial"],
-              pattern: [
-                "[a-zA-Z\\s_\\-\\d]{2,90}",
-                "apelido valido",
-                "apelido invalido",
-              ],
-            },
-            email: {
-              max: 64,
-              pattern: [
-                "^[a-zA-Z0-9\\._+\\-]+@[a-zA-Z0-9\\.\\-]+\\.[a-zA-Z]{2,6}$",
-                "email valido",
-                "email invalido",
-              ],
-            },
-            nascimento: {
-              max: "2024-12-31",
-              min: "1900-01-01",
-              pattern: ["", "nascimento valido", "nascimento invalido"],
-            },
-
-            senha: {
-              max: 50,
-              min: 8,
-              caractereNpermitido: ["NcaractereEspecial", "Nacentuacao"],
-              pattern: [
-                "^[a-zA-Z0-9\\sáéíóúâêîôûàèìòùãõäëïöüçãõẽĩũâêîôûũṹỹḿẽĩỹẽẽỹẽỹã\´`~^]{8,50}$",
-                "senha valida",
-                "senha invalido",
-              ],
-            },
-          });
-        },
+          formvalidacao[0].allvalidacao(),
         divEdit
     );
   }
@@ -394,7 +329,7 @@
             <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title">Detalhes da atendente ${objEjs.username}</h5>
+                  <h5 class="modal-title">Detalhes da atendente ${objEjs.nome}</h5>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body list-group h-100 w-100">

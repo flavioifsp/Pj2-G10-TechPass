@@ -4,8 +4,9 @@ const prisma = new (require("@prisma/client").PrismaClient)();
 const exception = require("../js/erro");
 const { gerarCookieToken, autenticar } = require("../js/functionJWT");
 const bcry = require("bcryptjs");
+const multerCustom = require("../js/multer.js")("motoristas")
 
-router.post("/motorista", async (req, res) => {
+router.post("/motorista", multerCustom, async (req, res) => {
   try {
     const response = await prisma.motorista.create({
       data: req.body,
@@ -17,7 +18,7 @@ router.post("/motorista", async (req, res) => {
     console.log(erro);
     res.status(erro.code).send(erro.msg.toString());
   }
-});
+}); 
 
 router.get("/motoristas", async (req, res) => {
   try {
