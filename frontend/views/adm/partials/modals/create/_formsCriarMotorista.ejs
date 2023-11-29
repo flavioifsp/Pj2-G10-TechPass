@@ -18,6 +18,10 @@
         <div class="modal-body">
           <div class="row g-2">
             <!-- nome real -->
+            <div class="col-12">
+              <label for="nome" class="form-label">Nome Completo</label>
+              <input class="form-control" id="nome" name="nome" type="text" required />
+            </div>
 
 
             <!-- nasc -->
@@ -35,8 +39,8 @@
 
        
             <div class=" col-12">
-              <label for="nascimento" class="form-label">Sua foto</label>
-              <input name="nascimento" id="foto" class="form-control" type="file" required />
+              <label for="foto" class="form-label">Sua foto</label>
+              <input name="foto" id="foto" class="form-control" type="file" required />
             </div>
             
 
@@ -64,49 +68,7 @@
     const formsponto = new Inputs("#formCreateMotorista");
 
     formsponto.allvalidacao({
-      nome: {
-        max: 50,
-        min: 3,
-        caractereNpermitido: [],
-        pattern: [".*", "nome valido", "nome invalido"],
-        btnoff: "required",
-      },
-      nascimento: {
-        caractereNpermitido: [],
-        pattern: [".*", "nascimento valido", "nascimento invalido"],
-        btnoff: "required",
-      },
-      cnh: {
-        min: 11,
-        max: 11,
-        caractereNpermitido: [],
-        pattern: [".*", "cnh valido", "cnh invalido"],
-        btnoff: "required",
-      },
-      cpf: {
-        max: 14,
-        min: 14,
-        caractereNpermitido: ["Nletra", "Nacentuacao"],
-        pattern: [
-          "(\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2,5})",
-          // "\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}",
-          "cpf valido",
-          "cpf invalido",
-        ],
-        autopontuar: [
-          /(\d{3})(\d{3})(\d{3})(\d{2})/,
-          "$1.$2.$3-$4",
-          /[.-]/g,
-          "",
-        ],
-        customErro: [
-          [
-            /(\d{3}\.\d{3}\.\d{3}-\d{3,6})/,
-            "não existe cpf com mais de 11 numeros",
-          ],
-        ],
-        btnoff: "required",
-      },
+    
     });
 
     formsponto.forms.addEventListener("submit", async (evt) => {
