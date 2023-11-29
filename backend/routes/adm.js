@@ -43,7 +43,7 @@ router.post("/cartoes", async (req, res, next) => {
     });
 
     res.status(201).json({
-      message: `Loja no endereço ${novaLoja.endereco} criado com sucesso`,
+      message: `Cartão com modalidade - ${novoCartao.modalidade} e tarifa de - R$ ${novoCartao.tarifa} criado com sucesso`,
     });
   } catch (error) {
     const erro = exception(error);
@@ -51,6 +51,26 @@ router.post("/cartoes", async (req, res, next) => {
     res.status(erro.code).send(erro.msg);
   }
 });
+
+router.delete("/cartoes/:id", async (req, res) => {
+  try {
+    const deleteLoja = await prisma.cartao.delete({
+      where: {
+        id: Number(req.params.id),
+      },
+      select: {
+        id: true,
+      },
+    });
+
+    res.status(200).send();
+  } catch (error) {
+    const erro = exception(error);
+    console.log(error);
+    res.status(erro.code).send(erro.msg);
+  }
+});
+
  
 router.post("/lojas", async (req, res, next) => {
   try {
