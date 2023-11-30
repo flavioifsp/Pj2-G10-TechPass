@@ -1,10 +1,10 @@
 <!-- botao -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#formCreateMotorista">
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCreateMotorista">
   Adicionar motorista
 </button>
 
 <!-- modal para criar um motorista -->
-<div class="modal fade" id="formCreateMotorista" tabindex="-1" aria-labelledby="formCreateMotoristaLabel" aria-hidden="true">
+<div class="modal fade" id="modalCreateMotorista" tabindex="-1" aria-labelledby="formCreateMotoristaLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -14,7 +14,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
-      <form novalidate enctype="multipart/form-data">
+      <form novalidate enctype="multipart/form-data" id="formCreateMotorista">
         <div class="modal-body">
           <div class="row g-2">
             <!-- nome real -->
@@ -23,32 +23,45 @@
               <input class="form-control" id="nome" name="nome" type="text" required />
             </div>
 
+ <!-- email -->
+            <div class="col-sm-8 col-12">
+              <label for="email" class="form-label">Email</label>
+              <input name="email" id="email" class="form-control" type="email" placeholder="digite seu email" required />
+            </div>
+
 
             <!-- nasc -->
             <div class="col-sm-4 col-12">
-              <label for="nascimento" class="form-label">Data de Nascimento</label>
+              <label for="nascimento" class="form-label">Nascimento</label>
               <input name="nascimento" id="nascimento" class="form-control" type="date" required />
             </div>
 
-            <!-- cpf -->
-            <div class="col-sm-8 col-12">
-              <label for="cnh" class="form-label">CNH:</label>
-              <input class="form-control" id="cnh" name="cnh" type="text" required />
-            </div>
 
-
-       
-            <div class=" col-12">
+            <div class="col-sm-7 col-12">
               <label for="foto" class="form-label">Sua foto</label>
               <input name="foto" id="foto" class="form-control" type="file" required />
             </div>
-            
 
             <!-- cpf -->
-            <div class="col-12">
+            <div class="col-sm-5 col-12">
               <label for="cpf" class="form-label">CPF</label>
               <input class="form-control" id="cpf" name="cpf" type="text" required />
             </div>
+
+
+            <!-- cpf -->
+            <div class="col-sm-7 col-12">
+              <label for="cnh" class="form-label">CNH:</label>
+              <input class="form-control" id="cnh" name="cnh" type="text" required />
+            </div>
+           
+
+            <!-- senha -->
+            <div class="col-sm-5 col-12">
+              <label for="senha" class="form-label">Insira uma senha</label>
+              <input name="senha" id="senha" class="form-control" type="text" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" />
+            </div>
+
           </div>
         </div>
         <div class="modal-footer">
@@ -67,18 +80,22 @@
   document.addEventListener("DOMContentLoaded", () => {
     const formsponto = new Inputs("#formCreateMotorista");
 
-    formsponto.allvalidacao({
-    
-    });
+    formsponto.allvalidacao(motoristasVALID);
 
     formsponto.forms.addEventListener("submit", async (evt) => {
       evt.preventDefault();
 
       try {
 
-        const data = formsponto.allValues()
+        const data = formsponto.allValues({
+          nascimento: nascimento => new Date(nascimento).toISOString()
+        })
 
-        data.nascimento = new Date(data.nascimento)
+        // data.foto =  formsponto.forms.foto
+      
+        // console.log(new FormData(document.querySelector("form")).getAll(foto));
+
+ 
 
         const response = await axios.post(
           "http://localhost:9000/api/userADM/motorista",

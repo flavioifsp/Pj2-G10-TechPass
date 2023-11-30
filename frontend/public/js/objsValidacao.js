@@ -148,14 +148,16 @@ const motoristasVALID = {
   nome: validGeral.nome,
   nascimento: validGeral.nascimento,
   cnh: validGeral.cnh,
-  foto: validGeral.foto,
+  // foto: validGeral.foto,
   cpf: validGeral.cpf,
+  senha: validGeral.senha,
+  email: validGeral.email,
 };
 
 const atendenteVALID = {
   nome: validGeral.nome,
+  // foto: validGeral.foto,
   nascimento: validGeral.nascimento,
-  username: validGeral.username,
   email: validGeral.email,
   senha: validGeral.senha,
   cpf: validGeral.cpf

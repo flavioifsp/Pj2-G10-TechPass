@@ -9,7 +9,7 @@ const linhas = require("./routes/linhas");
 const ponto = require("./routes/pontodeonibus");
 const catraca = require("./routes/catraca");
 const users = require("./routes/users");
-const usersADM = require("./routes/usersADM");
+const atendentes = require("./routes/atendentes");
 const motorista = require("./routes/motorista");
 const adm = require("./routes/adm");
 
@@ -38,7 +38,7 @@ app.use("/api/linhas", linhas);
 app.use("/api/linhas", ponto);
 app.use("/api/catraca", catraca);
 app.use("/api/user", users);
-app.use("/api/userADM", usersADM);
+app.use("/api/userADM", atendentes);
 app.use("/api/userADM", motorista);
 app.use("/api/adm", adm);
 

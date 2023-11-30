@@ -297,7 +297,7 @@
             console.error(error);
           }
         },
-        (formvalidacao) => {
+        // (formvalidacao) => {
 
           
           // formvalidacao[0].inputs((input) => {
@@ -359,29 +359,17 @@
       }
     }
 
-    // o split divide uma string em substrings
-    // https://www.w3schools.com/jsref/jsref_split.asp
-
-    // criando uma variavel que recebe o modal dentro do umadiv
     const modal = umadiv.querySelector(".modal");
 
-    // adicionando o modal ao BODY do HTML
     document.body.appendChild(modal);
 
-    // criando uma instancia seguindo as instruções do boostrap
-    // https://getbootstrap.com/docs/5.3/components/modal/#how-it-works
     const InstanciaBoostrapDoModal = new bootstrap.Modal(modal);
 
-    // abrindo o modal
     InstanciaBoostrapDoModal.toggle();
 
-    // vai para a parte de eventos que encontrara mais informações
-    // https://getbootstrap.com/docs/5.3/components/modal/#how-it-works
     modal.addEventListener("hidden.bs.modal", () => {
-      // quando o modal for fechado esse evento acionara e excluira o modal do body
       document.body.removeChild(modal);
     });
-    // fim da função
   }
 
   // veja a linha 117

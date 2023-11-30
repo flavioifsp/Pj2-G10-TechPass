@@ -1,4 +1,3 @@
-
 <!-- botao -->
 <button type="button" class="btn btn-primary" id="createAtendente">
   Adicionar Atendente
@@ -24,19 +23,20 @@
               <input class="form-control" id="nome" name="nome" type="text" required />
             </div>
 
-            <!-- username -->
-            <div class="col-12 col-sm-8">
-              <label for="username" class="form-label">Apelido (username)</label>
-              <input name="username" id="username" class="form-control" type="text" required />
+            <!-- cpf -->
+            <div class="col-sm-7 col-12">
+              <label for="cpf" class="form-label">CPF</label>
+              <input class="form-control" id="cpf" name="cpf" type="text" required />
             </div>
+
             <!-- nasc -->
-            <div class="col-sm-4 col-12">
+            <div class="col-sm-5 col-12">
               <label for="nascimento" class="form-label">Data de Nascimento</label>
               <input name="nascimento" id="nascimento" class="form-control" type="date" required />
             </div>
 
             <!-- email -->
-            <div class="col-12">
+            <div class="col-sm-7 col-12">
               <label for="email" class="form-label">Email</label>
               <input name="email" id="email" class="form-control" type="email" placeholder="digite seu email" required />
             </div>
@@ -47,11 +47,7 @@
               <input name="senha" id="senha" class="form-control" type="text" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" />
             </div>
 
-            <!-- cpf -->
-            <div class="col-sm-7 col-12">
-              <label for="cpf" class="form-label">CPF</label>
-              <input class="form-control" id="cpf" name="cpf" type="text" required />
-            </div>
+
           </div>
         </div>
         <div class="modal-footer">
@@ -91,7 +87,8 @@
               <input name="telefone" id="telefone" class="form-control" type="text" placeholder="digite seu telefone" required />
             </div>
 
-            <!-- username -->
+
+
             <div class="col-6">
               <label for="local_de_trabalho_id" class="form-label">local de trabalho</label>
               <select class="form-select" aria-label="Default select example" name="local_de_trabalho_id" id="local_de_trabalho_id">
@@ -99,7 +96,7 @@
               </select>
             </div>
 
-            <!-- username -->
+
             <div class="col-6">
               <label for="turno" class="form-label">turno</label>
               <select class="form-select" aria-label="Default select example" name="turno" id="turno">
@@ -150,7 +147,7 @@
               "AtendenteCreate",
               JSON.stringify({
                 cor: "success",
-                texto: `Atendente ${response.data.username} adicionada(o)`,
+                texto: `Atendente ${response.data.superUser.username} adicionada(o)`,
                 div: "#alert",
               })
             );

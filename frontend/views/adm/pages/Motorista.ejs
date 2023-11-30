@@ -20,7 +20,8 @@
       <table id="PontosDeOnibus" class="table table-striped" style="width: 100%">
         <thead>
           <tr>
-            <th>cpf</th>
+            <th>foto</th>
+            <th>nome</th>
             <th>cnh</th>
             <th>nascimento</th>
             <th>Opções</th>
@@ -30,10 +31,11 @@
           <% allMotorista.forEach((elem)=> { %>
 
           <tr>
-            <td><%= elem.cpf %></td>
+            <td> <img src="http://localhost:9000/public/foto_motorista/<%= elem.foto %>"> </td>
+            <td><%= elem.superuser.nome %></td>
             <td><%= elem.cnh %></td>
             <td>
-              <%= new Date(elem.nascimento).toISOString().split("T")[0] %>
+              <%= new Date(elem.superuser.nascimento).toISOString().split("T")[0] %>
             </td>
             <td>
 
@@ -70,17 +72,18 @@
 
     const btnDelet = modalDelete.querySelector("#deletePontoId");
 
+    console.log();
     btnDelet.addEventListener("click", async () => {
       try {
         const deletado = await axios.delete(
-          `http://localhost:9000/api/userADM/motorista/${objEjs.id}`
+          `http://localhost:9000/api/userADM/motorista/${objEjs.superUser_id}`
         );
 
         localStorage.setItem(
           "motoristaDelete",
           JSON.stringify({
             cor: "danger",
-            texto: `o motorista do cpf ${objEjs.cpf} foi apagado`,
+            texto: `o motorista  ${objEjs.superuser.nome} foi apagado`,
             div: "#alert",
           })
         );

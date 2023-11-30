@@ -8,27 +8,21 @@ datasource db {
 }
 
 model adm {
-  id           Int       @id @default(autoincrement())
-  superUser_id Int       @db.UnsignedInt
-  cpf          String?   @db.VarChar(14)
-  nascimento   DateTime? @db.Date
+  superUser_id Int       @id @default(autoincrement()) @db.UnsignedInt
   telefone     String?   @db.VarChar(13)
-  nome         String?   @db.VarChar(90)
+  cargo        String?   @db.VarChar(45)
   superuser    superuser @relation(fields: [superUser_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_ADM_superUser1")
 
   @@index([superUser_id], map: "fk_ADM_superUser1_idx")
 }
 
 model atendente {
-  id                   Int          @id @default(autoincrement())
+  superUser_id         Int          @id @unique(map: "superUser_id_UNIQUE") @default(autoincrement()) @db.UnsignedInt
   local_de_trabalho_id Int
-  superUser_id         Int          @db.UnsignedInt
-  cpf                  String       @unique(map: "cpf_UNIQUE") @db.VarChar(14)
   turno                String?      @db.VarChar(45)
-  nascimento           DateTime?    @db.Date
   telefone             String?      @db.VarChar(13)
   endereco             String?      @db.VarChar(255)
-  nome                 String?      @db.VarChar(90)
+  foto                 String?      @db.VarChar(200)
   loja_recarga         loja_recarga @relation(fields: [local_de_trabalho_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_atendente_loja_recarga1")
   superuser            superuser    @relation(fields: [superUser_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_atendente_superUser1")
 
@@ -39,7 +33,7 @@ model atendente {
 model cartao {
   id                 Int                  @id @default(autoincrement())
   modalidade         String               @db.VarChar(45)
-  tarifa             Decimal?             @db.Decimal(6, 2)
+  tarifa             Decimal?             @db.Decimal(4, 2)
   cliente_tem_cartao cliente_tem_cartao[]
 }
 
@@ -64,7 +58,7 @@ model clientes {
   senha              String?              @db.VarChar(200)
   nome               String?              @db.VarChar(120)
   nascimento         DateTime?            @db.Date
-  saldo              Decimal?             @db.Decimal(5, 3)
+  saldo              Decimal?             @db.Decimal(6, 2)
   cliente_tem_cartao cliente_tem_cartao[]
 }
 
@@ -112,13 +106,11 @@ model loja_recarga {
 }
 
 model motorista {
-  id         Int       @id @default(autoincrement())
-  cpf        String?   @db.VarChar(14)
-  foto       String?   @db.VarChar(200)
-  nascimento DateTime? @db.Date
-  cnh        String?   @db.VarChar(11)
-  nome       String?   @db.VarChar(90)
-  viagem     viagem[]
+  superUser_id Int       @id @db.UnsignedInt
+  foto         String?   @db.VarChar(200)
+  cnh          String?   @db.VarChar(11)
+  superuser    superuser @relation(fields: [superUser_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_motorista_superUser1")
+  viagem       viagem[]
 }
 
 model onibus {
@@ -140,27 +132,31 @@ model ponto_de_onibus {
 }
 
 model superuser {
-  id        Int         @id @default(autoincrement()) @db.UnsignedInt
-  email     String      @unique(map: "email_UNIQUE") @db.VarChar(64)
-  senha     String?     @db.VarChar(100)
-  adm       adm[]
-  atendente atendente[]
+  id         Int        @id @default(autoincrement()) @db.UnsignedInt
+  email      String     @unique(map: "email_UNIQUE") @db.VarChar(64)
+  senha      String?    @db.VarChar(100)
+  nome       String     @db.VarChar(100)
+  nascimento DateTime   @db.Date
+  cpf        String     @db.VarChar(14)
+  adm        adm?
+  atendente  atendente?
+  motorista  motorista?
 }
 
 model viagem {
-  id           Int        @id @default(autoincrement())
-  inicio       DateTime?  @db.DateTime(0)
-  duracao      Int?
-  linhas_id    Int        @db.UnsignedInt
-  onibus_id    Int
-  motorista_id Int
-  embarque     embarque[]
-  linhas       linhas     @relation(fields: [linhas_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_viagem_linhas1")
-  motorista    motorista  @relation(fields: [motorista_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_viagem_motorista1")
-  onibus       onibus     @relation(fields: [onibus_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_viagem_onibus1")
+  id              Int        @id @default(autoincrement())
+  inicio          DateTime?  @db.DateTime(0)
+  duracao         Int?
+  linhas_id       Int        @db.UnsignedInt
+  onibus_id       Int
+  motorista_SU_id Int        @db.UnsignedInt
+  embarque        embarque[]
+  linhas          linhas     @relation(fields: [linhas_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_viagem_linhas1")
+  motorista       motorista  @relation(fields: [motorista_SU_id], references: [superUser_id], onDelete: NoAction, onUpdate: NoAction, map: "fk_viagem_motorista1")
+  onibus          onibus     @relation(fields: [onibus_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_viagem_onibus1")
 
   @@index([linhas_id], map: "fk_viagem_linhas1_idx")
-  @@index([motorista_id], map: "fk_viagem_motorista1_idx")
+  @@index([motorista_SU_id], map: "fk_viagem_motorista1_idx")
   @@index([onibus_id], map: "fk_viagem_onibus1_idx")
 }
 

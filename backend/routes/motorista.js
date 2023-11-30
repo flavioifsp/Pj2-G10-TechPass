@@ -8,8 +8,22 @@ const multerCustom = require("../js/multer.js")("motoristas")
 
 router.post("/motorista", multerCustom, async (req, res) => {
   try {
+    const { nome, nascimento, cpf, foto, cnh, email, senha} = req.body
+
     const response = await prisma.motorista.create({
-      data: req.body,
+      data: {
+        cnh,
+        foto,
+        superuser:{
+          create:{
+            cpf,
+            email,
+            nascimento,
+            nome,
+            senha
+          }
+        }
+      },
     });
 
     res.status(201).json(response);
@@ -22,7 +36,11 @@ router.post("/motorista", multerCustom, async (req, res) => {
 
 router.get("/motoristas", async (req, res) => {
   try {
-    const response = await prisma.motorista.findMany();
+    const response = await prisma.motorista.findMany({
+      include: {
+        superuser: true
+      }
+    });
 
     res.status(200).json(response);
   } catch (error) {
@@ -32,11 +50,17 @@ router.get("/motoristas", async (req, res) => {
   }
 });
 
-router.delete("/motorista/:id", async (req, res) => {
+router.delete("/motorista/:superuser_id", async (req, res) => {
   try {
-    const response = await prisma.motorista.delete({
+    await prisma.motorista.delete({
       where: {
-        id: parseInt(req.params.id),
+        superUser_id: parseInt(req.params.superuser_id),
+      },
+    });
+
+    const response = await prisma.superuser.delete({
+      where: {
+        id: parseInt(req.params.superuser_id),
       },
     });
 
@@ -52,7 +76,7 @@ router.put("/motorista/:id", async (req, res) => {
   try {
     const response = await prisma.motorista.update({
       where: {
-        id: parseInt(req.params.id),
+        id: parseInt(req.params.superuser_id),
       },
       data: req.body,
     });

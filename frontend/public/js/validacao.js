@@ -7,22 +7,36 @@ class Inputs {
 
     // essa funcao recebe uma funcao que rodara em todos os inputs
     this.inputs = (funcao) => {
-      for (const campo of [...this.forms.querySelectorAll("input"), ...this.forms.querySelectorAll("select")]) {
+      for (const campo of [
+        ...this.forms.querySelectorAll("input"),
+        ...this.forms.querySelectorAll("select"),
+      ]) {
         funcao(campo);
       }
     };
   }
 
   // ele retorna um objeto com todos os valores do input do site
-  allValues() {
+  allValues(modificarFormData) {
     const valores = {};
 
-    // ele usa o metodo inputs para pegar o name e o value de cada input para montar o objeto
-    this.inputs(({ name, value }) => {
-      valores[name] = value;
+    // para o codigo antigo ainda funcionar
+    new FormData(this.forms).forEach((value, key) => {
+      valores[key] = value;
     });
 
-    return valores;
+    const formobj = new FormData(this.forms);
+
+    // modificarFormData é um objeto composto de metodos para modificar os valores do input
+    for (const key in modificarFormData) {
+      if (Object.hasOwnProperty.call(modificarFormData, key)) {
+        const valor = formobj.get(key);
+
+        formobj.set(key, modificarFormData[key](valor));
+      }
+    }
+
+    return modificarFormData ? formobj : valores;
   }
 
   // tudo isso é para validacao, está mt bagunçado
@@ -290,7 +304,7 @@ class Inputs {
             } else if (input.value.length > inputvalida.max) {
               validdiv.innerText = `Este campo permite apenas  ${inputvalida.max} caracteres!`;
             } else if (input.type == "number") {
-              if (input.value < inputvalida.min ) {
+              if (input.value < inputvalida.min) {
                 validdiv.innerText = `O minimo é ${inputvalida.min}`;
               } else {
                 validdiv.innerText = `O limite é ${inputvalida.max}`;
