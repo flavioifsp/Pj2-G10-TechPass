@@ -3,40 +3,77 @@
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="formCreateMotoristaLabel">
-          Editando motorista do CPF ${objEjs.cpf}
+          Editando o cadastro do motorista ${objEjs.superuser.nome}
         </h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
       <form novalidate>
         <div class="modal-body">
-          <div class="row g-2">
+          <div class="row gx-2 gy-3 ">
             <!-- nome real -->
-
-            <div class="col-sm-4 col-12">
-              <label for="nascimento" class="form-label">Data de Nascimento</label>
-              <input name="nascimento" id="nascimento" class="form-control" type="date" value="${new Date(objEjs.nascimento).toISOString().split(" T")[0]}" required />
-            </div>
-
-            <!-- cpf -->
-            <div class="col-sm-8 col-12">
-              <label for="cnh" class="form-label">CNH:</label>
-              <input class="form-control" id="cnh" name="cnh" type="text" value="${objEjs.cnh}" required />
-            </div>
-
-            <!-- cpf -->
             <div class="col-12">
-              <label for="cpf" class="form-label">CPF</label>
-              <input class="form-control" id="cpf" name="cpf" type="text" value="${objEjs.cpf}" required />
+              <label for="nome" class="form-label">Nome Completo</label>
+              <input class="form-control" id="nome" name="nome" type="text" required value="${objEjs.superuser.nome}" />
             </div>
+
+            <!-- email -->
+            <div class="col-sm-8 col-12">
+              <label for="email" class="form-label">Email</label>
+              <input name="email" id="email" class="form-control" type="email" placeholder="digite seu email" required value="${objEjs.superuser.email}" />
+            </div>
+
+
+            <!-- nasc -->
+            <div class="col-sm-4 col-12">
+              <label for="nascimento" class="form-label">Nascimento</label>
+              <input name="nascimento" id="nascimento" class="form-control" type="date" required value="${objEjs.superuser.nascimento.split('T')[0]}" />
+            </div>
+
+
+            <!-- cpf -->
+            <div class="col-sm-7 col-12">
+              <label for="cnh" class="form-label">CNH:</label>
+              <input class="form-control" id="cnh" name="cnh" type="text" required value="${objEjs.cnh}" />
+            </div>
+
+            <!-- cpf -->
+            <div class="col-sm-5 col-12">
+              <label for="cpf" class="form-label">CPF</label>
+              <input class="form-control" id="cpf" name="cpf" type="text" required value="${objEjs.superuser.cpf}" />
+            </div>
+
+
+
+            <div class="col-sm-7 col-12">
+              <label for="foto" class="form-label">Sua foto</label>
+              <input name="foto" id="foto" class="form-control" type="file" required accept="image/*" />
+            </div>
+
+            <!-- senha -->
+            <div class="col-sm-5 col-12">
+              <label for="senha" class="form-label">Insira uma senha</label>
+              <input name="senha" id="senha" class="form-control" type="text" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" />
+            </div>
+
           </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-            Cancelar
-          </button>
-          <button type="submit" class="btn btn-primary">Criar ponto</button>
-        </div>
+
+          <div class="modal-footer pb-1 px-0 pt-5 d-flex justify-content-between">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+              sair
+            </button>
+
+            <div>
+              <button type="button" class="btn btn-secondary"  onclick="this.parentNode.parentNode.parentNode.reset()">
+                Resetar
+              </button>
+
+              <button type="submit" class="btn btn-warning">
+                Salvar alterações
+              </button>
+            </div>
+
+          </div>
       </form>
     </div>
   </div>

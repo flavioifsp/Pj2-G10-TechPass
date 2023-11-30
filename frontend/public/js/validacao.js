@@ -46,6 +46,9 @@ class Inputs {
     this.inputs((input) => {
       const inputvalida = restricao[input.name];
 
+      const eventoCertoParaOinput =
+        input.nodeName == "INPUT" ? "blur" : "onchange";
+
       // esse if vai ser servir para evitar erro se nem todos os inputs tiverem validacao
       if (inputvalida) {
         // estou rodando um for no objeto que foi inserido na hr que chamou o metodo allvalidacao. Esse objeto contem os parametros de config de cd input
@@ -170,7 +173,7 @@ class Inputs {
             label.innerHTML += '<span class="text-danger ">*</span>';
           }
 
-          input.addEventListener("blur", () => {
+          input.addEventListener(eventoCertoParaOinput, () => {
             setTimeout(() => {
               // desabilitar e ativar o botao cadastrar
 
@@ -209,7 +212,8 @@ class Inputs {
           }
         });
 
-        input.addEventListener("blur", async () => {
+        //
+        input.addEventListener(eventoCertoParaOinput, async () => {
           // erro
           let erroCustom = null;
           if (inputvalida.customErro) {
@@ -276,12 +280,7 @@ class Inputs {
           //
 
           //   checar a restricao final
-          if (
-            input.checkValidity() &&
-            input.value.length != 0 &&
-            !eventoCustom &&
-            !erroCustom
-          ) {
+          if (input.checkValidity() && !eventoCustom && !erroCustom) {
             // div de texto
             validdiv.classList.add("valid-feedback");
             validdiv.classList.remove("invalid-feedback");
@@ -340,6 +339,18 @@ class Inputs {
           });
         });
       }
+    });
+  }
+
+  // validar automaticamente os inputs
+  autovalidar() {
+    this.inputs((input) => {
+      setTimeout(() => {
+        // input.focus();
+        input.nodeName == "INPUT" ? input.focus() : input.change();
+        // console.log("s");
+        input.blur();
+      }, 200);
     });
   }
 

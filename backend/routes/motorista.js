@@ -14,7 +14,7 @@ router.post("/motorista", multerCustom, async (req, res) => {
       data: {
         cnh,
         foto,
-        superuser:{
+        superuser:{ 
           create:{
             cpf,
             email,

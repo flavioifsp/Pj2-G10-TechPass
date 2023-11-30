@@ -150,52 +150,8 @@
     })
 
 
-    formsValidacaoEdit.allvalidacao({
-      nome: {
-        max: 50,
-        min: 3,
-        caractereNpermitido: [],
-        pattern: [".*", "nome valido", "nome invalido"],
-        btnoff: "aa",
-      },
-      nascimento: {
-        caractereNpermitido: [],
-        pattern: [".*", "nascimento valido", "nascimento invalido"],
-        btnoff: "aaa",
-      },
-      cnh: {
-        min: 11,
-        max: 11,
-        caractereNpermitido: [],
-        pattern: [".*", "cnh valido", "cnh invalido"],
-        btnoff: "aaa",
-      },
-      cpf: {
-        max: 14,
-        min: 14,
-        caractereNpermitido: ["Nletra", "Nacentuacao"],
-        pattern: [
-          "(\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2,5})",
-          // "\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}",
-          "cpf valido",
-          "cpf invalido",
-        ],
-        autopontuar: [
-          /(\d{3})(\d{3})(\d{3})(\d{2})/,
-          "$1.$2.$3-$4",
-          /[.-]/g,
-          "",
-        ],
-        customErro: [
-          [
-            /(\d{3}\.\d{3}\.\d{3}-\d{3,6})/,
-            "não existe cpf com mais de 11 numeros",
-          ],
-        ],
-        btnoff: "aaa",
-      },
-    });
-
+    formsValidacaoEdit.allvalidacao(motoristasEdit_VALID);
+    formsValidacaoEdit.autovalidar()
 
     modal.addEventListener("hidden.bs.modal", () => {
 

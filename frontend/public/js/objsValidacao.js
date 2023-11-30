@@ -1,5 +1,5 @@
 const validGeral = {
-  //
+  //HORA
   addhora: {
     min: 5,
     max: 5,
@@ -10,12 +10,13 @@ const validGeral = {
       "Hora inválida",
     ],
   },
+  // DURACAO
   addduracao: {
     min: 1,
     max: 500,
     pattern: [".*", "duração valida", "duração invalida"],
   },
-  //
+  //NUMERO LINHA
   numero_linha: {
     min: 1,
     max: 4,
@@ -23,6 +24,7 @@ const validGeral = {
     pattern: ["^(\\d{1,4})$", "numero valido", "numero invalido"],
     btnoff: "required",
   },
+  // BAIRRO DESTINO
   bairroDestino: {
     min: 3,
     max: 20,
@@ -34,6 +36,7 @@ const validGeral = {
     ],
     btnoff: "required",
   },
+  // BAIRRO ORIGEM
   bairroOrigem: {
     min: 3,
     max: 20,
@@ -45,6 +48,7 @@ const validGeral = {
     ],
     btnoff: "required",
   },
+  // NOME
   nome: {
     max: 50,
     min: 3,
@@ -52,11 +56,13 @@ const validGeral = {
     pattern: [".*", "nome valido", "nome invalido"],
     btnoff: "required",
   },
+  // NASC
   nascimento: {
     caractereNpermitido: [],
     pattern: [".*", "nascimento valido", "nascimento invalido"],
     btnoff: "required",
   },
+  // CNH
   cnh: {
     min: 11,
     max: 11,
@@ -64,6 +70,7 @@ const validGeral = {
     pattern: [".*", "cnh valido", "cnh invalido"],
     btnoff: "required",
   },
+  // CPF
   cpf: {
     max: 14,
     min: 14,
@@ -84,13 +91,7 @@ const validGeral = {
     btnoff: "required",
   },
 
-  username: {
-    max: 90,
-    min: 3,
-    caractereNpermitido: ["NcaractereEspecial"],
-    pattern: ["[a-zA-Z\\s_\\-\\d]{2,90}", "apelido valido", "apelido invalido"],
-    btnoff: "required",
-  },
+  // EMAIL
   email: {
     max: 64,
     pattern: [
@@ -100,7 +101,7 @@ const validGeral = {
     ],
     btnoff: "required",
   },
-
+  // SENHA
   senha: {
     max: 50,
     min: 8,
@@ -111,6 +112,31 @@ const validGeral = {
       "senha invalido",
     ],
     btnoff: "required",
+  },
+  // SENHA EDIT
+  senha_edit: {
+    max: 50,
+    min: 0,
+    caractereNpermitido: ["NcaractereEspecial", "Nacentuacao"],
+    pattern: [
+      "(^[a-zA-Z0-9\\sáéíóúâêîôûàèìòùãõäëïöüçãõẽĩũâêîôûũṹỹḿẽĩỹẽẽỹẽỹã´`~^]{0,50}$)",
+      "senha valida",
+      "senha invalido",
+    ],
+    customErro: [
+      [
+        /([.]{1,7})/,
+        "a senha deve conter ao menos 8 caractere",
+      ],
+    ],
+    btnoff: "required",
+  },
+  // FOTO
+  foto: {
+    min: 0,
+    max: 200,
+    btnoff: "required",
+    pattern: [".*", "foto valida", "insira uma foto"],
   },
   //
 };
@@ -148,9 +174,19 @@ const motoristasVALID = {
   nome: validGeral.nome,
   nascimento: validGeral.nascimento,
   cnh: validGeral.cnh,
-  // foto: validGeral.foto,
+  foto: validGeral.foto,
   cpf: validGeral.cpf,
   senha: validGeral.senha,
+  email: validGeral.email,
+};
+
+const motoristasEdit_VALID = {
+  nome: validGeral.nome,
+  nascimento: validGeral.nascimento,
+  cnh: validGeral.cnh,
+  foto: validGeral.foto,
+  cpf: validGeral.cpf,
+  senha: validGeral.senha_edit,
   email: validGeral.email,
 };
 
@@ -160,5 +196,5 @@ const atendenteVALID = {
   nascimento: validGeral.nascimento,
   email: validGeral.email,
   senha: validGeral.senha,
-  cpf: validGeral.cpf
+  cpf: validGeral.cpf,
 };

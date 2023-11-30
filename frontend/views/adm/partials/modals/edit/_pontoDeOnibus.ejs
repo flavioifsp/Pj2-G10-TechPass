@@ -49,14 +49,21 @@
             </div>
           </div>
         </div>
-        <div class="modal-footer" _mstvisible="3">
-          <button type="button" class="btn btn-warning" id="resetar" onclick="document.getElementById('resetForm').reset()">
-            Resetar
+        <div class="modal-footer pb-1 px-0 pt-4 d-flex justify-content-between">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            sair
           </button>
 
-          <button type="submit" class="btn btn-success">
-            Salvar alterações
-          </button>
+          <div>
+            <button type="button" class="btn btn-secondary" id="resetar" onclick="this.parentNode.parentNode.parentNode.reset()">
+              Resetar
+            </button>
+
+            <button type="submit" class="btn btn-warning">
+              Salvar alterações
+            </button>
+          </div>
+
         </div>
       </form>
     </div>
