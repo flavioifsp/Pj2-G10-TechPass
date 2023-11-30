@@ -64,10 +64,6 @@
                 <input class="form-control" id="cpf" name="cpf" type="text" required />
               </div>
 
-              <div class=" col-6">
-                <label for="cpf" class="form-label">CPF</label>
-                
-              </div>
               <!-- cpf -->
 
             </div>
@@ -112,6 +108,7 @@
           <th>Email</th>
           <th>Nascimento</th>
           <th>Config</th>
+          <th>Recarga</th>
         </tr>
       </thead>
       <tbody>
@@ -145,6 +142,13 @@
             </button>
 
           </td>
+          <td>
+               <button class="btn btn-success py-1 px-2" data-bs-target="#pontodeonibus<%= elem.id%>" onclick='modalRecarg(<%-JSON.stringify(elem)%>)'>
+                 Recarregar
+               </button>
+          </td>
+
+       
 
 
 
@@ -170,7 +174,7 @@
         min: 3,
         max: 255,
         caractereNpermitido: ["Nnumber", "NcaractereEspecial"],
-       pattern: [".+", "nome valido", "nome invalido"],
+        pattern: [".+", "nome valido", "nome invalido"],
         btnoff: "naoEobrigatorio",
       },
       username: {
@@ -205,6 +209,79 @@
     );
   });
 
+ function modalRecarg(objEjs) {
+
+ // transformando o objeto que está transformado em string para objeto dnv
+
+ // criando uma div no js
+ const divRecarg = document.createElement("div")
+
+ // adicionando o innerHTML com um template
+ // https://www.w3schools.com/js/js_string_templates.asp
+ // e
+ // adicionando uma div de modal pego do site do boostrap
+ divRecarg.innerHTML = `
+ <div class="modal fade" tabindex="-1">
+   <div class="modal-dialog modal-sm modal-dialog-centered">
+     <div class="modal-content">
+       <div class="modal-header">
+         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+       </div>
+       <div class="modal-body" _msttexthash="1992003" _msthash="309" _mstvisible="3">
+         <span class="ms-1 d-flex justify-content-center ">Saldo Atual: R$ ${objEjs.saldo}</span>
+         <div class="row" _mstvisible="4">
+           <div class="card-body form-group">
+             <div class="row mb-2 d-flex justify-content-center">
+                <div class=" d-flex justify-content-center
+"><span class="mt-5">Valor da recarga R$</span></div>
+               
+               <div class="col-sm-8 d-flex ">
+               
+                <input type="number" step="0.01" name="recarga" id="recarga" class="form-control phone-mask" required>
+               </div>
+             </div>
+           </div>
+         </div>
+       </div>
+       <div class="modal-footer justify-content-center">
+         <button type="button" class="btn btn-success" data-bs-dismiss="modal">Recarregar</button>
+       </div>
+     </div>
+   </div>
+ </div>
+
+ `
+
+
+
+
+ // criando uma variavel que recebe o modal dentro do umadiv
+ const modalRecarg = divRecarg.querySelector(".modal")
+
+ // adicionando o modal ao BODY do HTML
+ document.body.appendChild(modalRecarg)
+
+
+ // criando uma instancia seguindo as instruções do boostrap
+ // https://getbootstrap.com/docs/5.3/components/modal/#how-it-works
+ const InstanciaBoostrapDoModal = new bootstrap.Modal(modalRecarg)
+
+ // abrindo o modal
+ InstanciaBoostrapDoModal.toggle()
+
+
+
+ // vai para a parte de eventos que encontrara mais informações
+ // https://getbootstrap.com/docs/5.3/components/modal/#how-it-works
+ modalRecarg.addEventListener("hidden.bs.modal", () => {
+
+ // quando o modal for fechado esse evento acionara e excluira o modal do body
+ document.body.removeChild(modalRecarg)
+ })
+ // fim da função
+ }
+
+  
   function modalInfo(objEjs) {
 
     // transformando o objeto que está transformado em string para objeto dnv
@@ -456,15 +533,14 @@
 
         const valorEdit = formsValidacaoEdit.allValues()
 
-  
-        
-        
+
+
+
         valorEdit.nascimento = valorEdit.nascimento
         valorEdit.nascimento = new Date(valorEdit.nascimento);
-        console.log(valorEdit.nascimento);
 
 
-        
+
         valorEdit.id = objEjs.id
 
         const response = await axios.put(`http://localhost:9000/api/adm/passageiros`, valorEdit)
@@ -477,7 +553,7 @@
           div: "#alert",
         }))
 
-        location.reload():
+        location.reload();
 
 
 
