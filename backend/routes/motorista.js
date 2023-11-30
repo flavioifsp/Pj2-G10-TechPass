@@ -24,8 +24,12 @@ router.post("/motorista", multerCustom, async (req, res) => {
           }
         }
       },
+      include:{
+        superuser: true
+      }
     });
 
+    console.log(response);
     res.status(201).json(response);
   } catch (error) {
     const erro = exception(error);

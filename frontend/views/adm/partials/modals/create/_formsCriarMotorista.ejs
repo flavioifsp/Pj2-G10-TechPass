@@ -23,7 +23,7 @@
               <input class="form-control" id="nome" name="nome" type="text" required />
             </div>
 
- <!-- email -->
+            <!-- email -->
             <div class="col-sm-8 col-12">
               <label for="email" class="form-label">Email</label>
               <input name="email" id="email" class="form-control" type="email" placeholder="digite seu email" required />
@@ -39,7 +39,7 @@
 
             <div class="col-sm-7 col-12">
               <label for="foto" class="form-label">Sua foto</label>
-              <input name="foto" id="foto" class="form-control" type="file" required />
+              <input name="foto" id="foto" class="form-control" type="file" required accept="image/*" />
             </div>
 
             <!-- cpf -->
@@ -54,7 +54,7 @@
               <label for="cnh" class="form-label">CNH:</label>
               <input class="form-control" id="cnh" name="cnh" type="text" required />
             </div>
-           
+
 
             <!-- senha -->
             <div class="col-sm-5 col-12">
@@ -92,20 +92,21 @@
         })
 
         // data.foto =  formsponto.forms.foto
-      
+
         // console.log(new FormData(document.querySelector("form")).getAll(foto));
 
- 
+
 
         const response = await axios.post(
           "http://localhost:9000/api/userADM/motorista",
           data
         );
+        
         localStorage.setItem(
           "motoristaCreate",
           JSON.stringify({
             cor: "success",
-            texto: `motorista com cpf ${response.data.cpf} criado com sucesso`,
+            texto: `motorista  ${response.data.superuser.nome} criado com sucesso`,
             div: "#alert",
           })
         );

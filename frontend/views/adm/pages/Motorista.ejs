@@ -17,7 +17,7 @@
 
   <div class="card">
     <div class="table-responsive text-nowrap">
-      <table id="PontosDeOnibus" class="table table-striped" style="width: 100%">
+      <table id="PontosDeOnibus" class="table table-striped" style="width: 100%" data-ColNoOrden="[0,3]">
         <thead>
           <tr>
             <th>foto</th>
@@ -31,11 +31,13 @@
           <% allMotorista.forEach((elem)=> { %>
 
           <tr>
-            <td> <img src="http://localhost:9000/public/foto_motorista/<%= elem.foto %>"> </td>
+            <td >
+              <div class="ratio ratio-1x1 " style="width: 80px;" ><img class=" w-100 rounded-1 img-fluid " src="http://localhost:9000/<%= elem.foto %>"></div>
+            </td>
             <td><%= elem.superuser.nome %></td>
             <td><%= elem.cnh %></td>
             <td>
-              <%= new Date(elem.superuser.nascimento).toISOString().split("T")[0] %>
+              <%= elem.superuser.nascimento.split("T")[0] %>
             </td>
             <td>
 
@@ -59,8 +61,8 @@
 <script>
   function modalDelet(objEjs) {
     const divdelete = document.createElement("div");
-    
-    divdelete.innerHTML =  ` <%- include("../partials/modals/delete/_motorista.ejs") %> ` 
+
+    divdelete.innerHTML = ` <%- include("../partials/modals/delete/_motorista.ejs") %> `
 
     const modalDelete = divdelete.querySelector(".modal");
 
@@ -124,13 +126,13 @@
 
       try {
 
-       
+
         const valorEdit = formsValidacaoEdit.allValues()
 
         valorEdit.nascimento = new Date(valorEdit.nascimento)
 
-  
-       const response = await axios.put(`http://localhost:9000/api/userADM/motorista/${objEjs.id}`, valorEdit)
+
+        const response = await axios.put(`http://localhost:9000/api/userADM/motorista/${objEjs.id}`, valorEdit)
 
         localStorage.setItem("motoristaEdit", JSON.stringify({
           cor: "warning",
