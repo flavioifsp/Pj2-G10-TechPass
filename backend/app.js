@@ -12,6 +12,7 @@ const users = require("./routes/users");
 const atendentes = require("./routes/atendentes");
 const motorista = require("./routes/motorista");
 const adm = require("./routes/adm");
+const multer = require("multer");
 
 const app = express();
 
@@ -28,12 +29,12 @@ const app = express();
 // }
 
 app.use(cors());
-
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+app.use(multer().array())
 
 
 app.use("/api/linhas", linhas);

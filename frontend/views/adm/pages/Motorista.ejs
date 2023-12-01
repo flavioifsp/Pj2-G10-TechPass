@@ -40,6 +40,10 @@
               <%= elem.superuser.nascimento.split("T")[0] %>
             </td>
             <td>
+              <button type="button" class="btn btn-info py-1 px-2" onclick=' modalInfo(<%-JSON.stringify(elem)%>)'>
+                <i class="bi bi-info-lg"></i>
+              </button>
+
 
               <button class="btn btn-warning py-1 px-2" onclick='modalEdit(<%-JSON.stringify(elem)%>)'>
                 <i class="bi bi-pencil-square"></i>
@@ -163,4 +167,9 @@
 
   }
   // fim modalEdit
+
+
+  const modalInfo = criarFuncaoModal((objEJS) => {
+    return ` <%- include("../partials/modals/info/_linhasHorario.ejs") %> `;
+  });
 </script>

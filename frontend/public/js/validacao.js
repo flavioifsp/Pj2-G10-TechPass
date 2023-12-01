@@ -45,6 +45,7 @@ class Inputs {
       formobj.delete(key);
     });
 
+    console.log(modificarFormData ? formobj : valores);
     return modificarFormData ? formobj : valores;
   }
 
