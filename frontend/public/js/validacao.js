@@ -292,10 +292,10 @@ class Inputs {
           //
 
           // console.log(!(typeof this.neutralidade !== "undefined" && !input.value));
-          
+
           // //
 
-          if (!(typeof this.neutralidade !== "undefined" && !input.value) ) {
+          if (!(typeof this.neutralidade !== "undefined" && !input.value)) {
             //   checar a restricao final
             if (
               input.checkValidity() &&
@@ -351,6 +351,13 @@ class Inputs {
               input.classList.remove("is-invalid");
             }
             errfinal = false;
+          });
+
+          this.forms.addEventListener("reset", () => {
+            this.inputs((elemINPUT) => {
+              elemINPUT.classList.remove("is-invalid");
+              elemINPUT.classList.remove("is-valid");
+            });
           });
 
           input.addEventListener("focus", () => {

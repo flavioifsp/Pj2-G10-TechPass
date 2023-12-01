@@ -31,8 +31,8 @@
           <% allMotorista.forEach((elem)=> { %>
 
           <tr>
-            <td >
-              <div class="ratio ratio-1x1 " style="width: 80px;" ><img class=" w-100 rounded-1 img-fluid " src="http://localhost:9000/<%= elem.foto %>"></div>
+            <td>
+              <div class="ratio ratio-1x1 " style="width: 80px;"><img class=" w-100 rounded-1 img-fluid " src="http://localhost:9000/<%= elem.foto %>"></div>
             </td>
             <td><%= elem.superuser.nome %></td>
             <td><%= elem.cnh %></td>
@@ -126,18 +126,15 @@
 
       try {
 
-        
         const data = formsValidacaoEdit.allValues({
           nascimento: nascimento => new Date(nascimento).toISOString()
         })
 
-        
-
-        const response = await axios.put(`http://localhost:9000/api/userADM/motorista/${objEjs.id}`, data)
+        const response = await axios.put(`http://localhost:9000/api/userADM/motorista/${objEjs.superUser_id}`, data)
 
         localStorage.setItem("motoristaEdit", JSON.stringify({
           cor: "warning",
-          texto: `O cadastro do motorista do CPF ${objEjs.cpf} foi alterado`,
+          texto: `O cadastro do motorista do CPF ${objEjs.superuser.cpf} foi alterado`,
           div: "#alert",
         }))
 
@@ -151,7 +148,7 @@
     })
 
 
-    
+
     formsValidacaoEdit.allvalidacao(motoristasEdit_VALID);
     formsValidacaoEdit.neutralidadeON();
     // formsValidacaoEdit.autovalidar()
