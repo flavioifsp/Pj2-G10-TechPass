@@ -94,6 +94,7 @@ const validGeral = {
   // EMAIL
   email: {
     max: 64,
+    min: 10,
     pattern: [
       "^[a-zA-Z0-9\\._+\\-]+@[a-zA-Z0-9\\.\\-]+\\.[a-zA-Z]{2,6}$",
       "email valido",
@@ -113,24 +114,7 @@ const validGeral = {
     ],
     btnoff: "required",
   },
-  // SENHA EDIT
-  senha_edit: {
-    max: 50,
-    min: 0,
-    caractereNpermitido: ["NcaractereEspecial", "Nacentuacao"],
-    pattern: [
-      "(^[a-zA-Z0-9\\sáéíóúâêîôûàèìòùãõäëïöüçãõẽĩũâêîôûũṹỹḿẽĩỹẽẽỹẽỹã´`~^]{0,50}$)",
-      "senha valida",
-      "senha invalido",
-    ],
-    customErro: [
-      [
-        /([.]{1,7})/,
-        "a senha deve conter ao menos 8 caractere",
-      ],
-    ],
-    btnoff: "required",
-  },
+
   // FOTO
   foto: {
     min: 0,
@@ -140,6 +124,16 @@ const validGeral = {
   },
   //
 };
+
+const validEdit = {
+    nome: {...validGeral.nome, ...{btnoff: null}},
+    nascimento: {...validGeral.nascimento, ...{btnoff: null}},
+    cnh: {...validGeral.cnh, ...{btnoff: null}},
+    foto: {...validGeral.foto, ...{btnoff: null}},
+    cpf: {...validGeral.cpf, ...{btnoff: null}},
+    senha: {...validGeral.senha, ...{btnoff: null}},
+    email: {...validGeral.email, ...{btnoff: null}},
+}
 
 // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // validações de forms
@@ -181,13 +175,13 @@ const motoristasVALID = {
 };
 
 const motoristasEdit_VALID = {
-  nome: validGeral.nome,
-  nascimento: validGeral.nascimento,
-  cnh: validGeral.cnh,
-  foto: validGeral.foto,
-  cpf: validGeral.cpf,
-  senha: validGeral.senha_edit,
-  email: validGeral.email,
+  nome: validEdit.nome,
+  nascimento: validEdit.nascimento,
+  cnh: validEdit.cnh,
+  foto: validEdit.foto,
+  cpf: validEdit.cpf,
+  senha: validEdit.senha,
+  email: validEdit.email,
 };
 
 const atendenteVALID = {

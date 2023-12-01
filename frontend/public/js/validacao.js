@@ -36,7 +36,21 @@ class Inputs {
       }
     }
 
+    const keysNull = [];
+    formobj.forEach((value, key) => {
+      if (!value || value.size === 0) keysNull.push(key);
+    });
+
+    keysNull.forEach((key) => {
+      formobj.delete(key);
+    });
+
     return modificarFormData ? formobj : valores;
+  }
+
+  // n vai validar se o input estiver vazio
+  neutralidadeON() {
+    this.neutralidade = true;
   }
 
   // tudo isso é para validacao, está mt bagunçado
@@ -276,49 +290,58 @@ class Inputs {
           }
 
           //
+
+          // console.log(!(typeof this.neutralidade !== "undefined" && !input.value));
+          
           // //
-          //
 
-          //   checar a restricao final
-          if (input.checkValidity() && !eventoCustom && !erroCustom) {
-            // div de texto
-            validdiv.classList.add("valid-feedback");
-            validdiv.classList.remove("invalid-feedback");
-            // texto se a restricao final for aceita
+          if (!(typeof this.neutralidade !== "undefined" && !input.value) ) {
+            //   checar a restricao final
+            if (
+              input.checkValidity() &&
+              !eventoCustom &&
+              !erroCustom &&
+              input.value.length !== 0
+            ) {
+              // div de texto
+              validdiv.classList.add("valid-feedback");
+              validdiv.classList.remove("invalid-feedback");
+              // texto se a restricao final for aceita
 
-            validdiv.innerText = inputvalida.pattern[1];
+              validdiv.innerText = inputvalida.pattern[1];
 
-            // classe do input
-            input.classList.add("is-valid");
-            input.classList.remove("is-invalid");
-          } else {
-            // div de texto
-            validdiv.classList.add("invalid-feedback");
-            validdiv.classList.remove("valid-feedback");
-            // texto se a restricao final for negada
-
-            // conferir o minimo de caracteres
-            if (input.value.length < inputvalida.min) {
-              validdiv.innerText = `insira ao menos ${inputvalida.min} caracteres`;
-            } else if (input.value.length > inputvalida.max) {
-              validdiv.innerText = `Este campo permite apenas  ${inputvalida.max} caracteres!`;
-            } else if (input.type == "number") {
-              if (input.value < inputvalida.min) {
-                validdiv.innerText = `O minimo é ${inputvalida.min}`;
-              } else {
-                validdiv.innerText = `O limite é ${inputvalida.max}`;
-              }
-            } else if (erroCustom) {
-              validdiv.innerText = erroCustom;
-            } else if (eventoCustom) {
-              validdiv.innerText = eventoCustom;
+              // classe do input
+              input.classList.add("is-valid");
+              input.classList.remove("is-invalid");
             } else {
-              validdiv.innerText = inputvalida.pattern[2];
-            }
+              // div de texto
+              validdiv.classList.add("invalid-feedback");
+              validdiv.classList.remove("valid-feedback");
+              // texto se a restricao final for negada
 
-            // classe do input
-            input.classList.add("is-invalid");
-            input.classList.remove("is-valid");
+              // conferir o minimo de caracteres
+              if (input.value.length < inputvalida.min) {
+                validdiv.innerText = `insira ao menos ${inputvalida.min} caracteres`;
+              } else if (input.value.length > inputvalida.max) {
+                validdiv.innerText = `Este campo permite apenas  ${inputvalida.max} caracteres!`;
+              } else if (input.type == "number") {
+                if (input.value < inputvalida.min) {
+                  validdiv.innerText = `O minimo é ${inputvalida.min}`;
+                } else {
+                  validdiv.innerText = `O limite é ${inputvalida.max}`;
+                }
+              } else if (erroCustom) {
+                validdiv.innerText = erroCustom;
+              } else if (eventoCustom) {
+                validdiv.innerText = eventoCustom;
+              } else {
+                validdiv.innerText = inputvalida.pattern[2];
+              }
+
+              // classe do input
+              input.classList.add("is-invalid");
+              input.classList.remove("is-valid");
+            }
           }
 
           let errfinal = true;
@@ -342,17 +365,17 @@ class Inputs {
     });
   }
 
-  // validar automaticamente os inputs
-  autovalidar() {
-    this.inputs((input) => {
-      setTimeout(() => {
-        // input.focus();
-        input.nodeName == "INPUT" ? input.focus() : input.change();
-        // console.log("s");
-        input.blur();
-      }, 200);
-    });
-  }
+  // // validar automaticamente os inputs
+  // autovalidar() {
+  //   this.inputs((input) => {
+  //     setTimeout(() => {
+  //       // input.focus();
+  //       input.nodeName == "INPUT" ? input.focus() : input.change();
+  //       // console.log("s");
+  //       input.blur();
+  //     }, 200);
+  //   });
+  // }
 
   // é para simplificar na hr de criar um post de criacao
   cadastrar(url, data = null, erro = () => {}, success = () => {}) {
@@ -426,19 +449,6 @@ class Inputs {
           this.allValues(),
           getCookie("token")
         );
-        success();
-      } catch (error) {
-        acionarerro(error);
-      }
-    });
-  }
-
-  patchInfoSemToken(url, erro = () => {}, success = () => {}) {
-    this.forms.addEventListener("submit", async () => {
-      evt.preventDefault();
-
-      try {
-        const paia = await axios.patch(url, this.allValues());
         success();
       } catch (error) {
         acionarerro(error);

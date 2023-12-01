@@ -126,13 +126,14 @@
 
       try {
 
+        
+        const data = formsValidacaoEdit.allValues({
+          nascimento: nascimento => new Date(nascimento).toISOString()
+        })
 
-        const valorEdit = formsValidacaoEdit.allValues()
+        
 
-        valorEdit.nascimento = new Date(valorEdit.nascimento)
-
-
-        const response = await axios.put(`http://localhost:9000/api/userADM/motorista/${objEjs.id}`, valorEdit)
+        const response = await axios.put(`http://localhost:9000/api/userADM/motorista/${objEjs.id}`, data)
 
         localStorage.setItem("motoristaEdit", JSON.stringify({
           cor: "warning",
@@ -150,8 +151,10 @@
     })
 
 
+    
     formsValidacaoEdit.allvalidacao(motoristasEdit_VALID);
-    formsValidacaoEdit.autovalidar()
+    formsValidacaoEdit.neutralidadeON();
+    // formsValidacaoEdit.autovalidar()
 
     modal.addEventListener("hidden.bs.modal", () => {
 
