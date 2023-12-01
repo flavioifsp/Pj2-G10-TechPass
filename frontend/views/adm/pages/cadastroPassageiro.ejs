@@ -107,6 +107,7 @@
           <th>CPF</th>
           <th>Email</th>
           <th>Nascimento</th>
+          <th>saldo R$</th>
           <th>Config</th>
           <th>Recarga</th>
         </tr>
@@ -127,7 +128,10 @@
           <td>
             <%= new Date(elem.nascimento).toLocaleDateString()%>
           </td>
-
+          
+          <td>
+            <%= elem.saldo %>
+          </td>
           <td>
             <button type="button" class="btn btn-info py-1 px-2" onclick='modalInfo(<%-JSON.stringify(elem)%>)'>
               <i class="bi bi-info-lg"></i>
@@ -148,6 +152,7 @@
                </button>
           </td>
 
+
        
 
 
@@ -166,8 +171,9 @@
 
 
     const formspassageiro = new Inputs("#formPassageiro");
-
-
+    // const data = formspassageiro.allValues({
+    //       nascimento: nascimento => new Date(nascimento).toISOString()
+    //     })
 
     formspassageiro.allvalidacao({
       nome: {
@@ -228,13 +234,12 @@
          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
        </div>
        <div class="modal-body" _msttexthash="1992003" _msthash="309" _mstvisible="3">
+        <span class="ms-1 d-flex justify-content-center ">CPF: ${objEjs.cpf}</span>
          <span class="ms-1 d-flex justify-content-center ">Saldo Atual: R$ ${objEjs.saldo}</span>
          <div class="row" _mstvisible="4">
            <div class="card-body form-group">
              <div class="row mb-2 d-flex justify-content-center">
-                <div class=" d-flex justify-content-center
-"><span class="mt-5">Valor da recarga R$</span></div>
-               
+                <div class=" d-flex justify-content-center"><span class="mt-5">Valor da recarga R$</span></div>
                <div class="col-sm-8 d-flex ">
                
                 <input type="number" step="0.01" name="recarga" id="recarga" class="form-control phone-mask" required>
@@ -244,7 +249,7 @@
          </div>
        </div>
        <div class="modal-footer justify-content-center">
-         <button type="button" class="btn btn-success" data-bs-dismiss="modal">Recarregar</button>
+         <button type="button" class="btn btn-success" id="btnRecarga">Recarregar</button>
        </div>
      </div>
    </div>
@@ -270,6 +275,52 @@
  InstanciaBoostrapDoModal.toggle()
 
 
+
+ const btnRecarga = modalRecarg.querySelector("#btnRecarga")
+ const inputRecarga = modalRecarg.querySelector("#recarga") 
+
+ 
+
+ btnRecarga.addEventListener("click", async () =>{
+  event.preventDefault()
+
+   let Recarga = parseFloat(inputRecarga.value)
+   
+
+
+  if (Recarga !== null && Recarga !== '' && Recarga !== 0 && Recarga > 0  ) {
+    // recarga = recarga.toFixed(2)
+  
+    try {
+      
+      const response = await axios.patch(`http://localhost:9000/api/adm/passageirosRecarga/${objEjs.id}/${recarga.value}`)
+     
+      localStorage.setItem("stopBusEdit", JSON.stringify({
+          cor: "success",
+          texto: `${objEjs.cep} saldo adicionado com sucesso `,
+          div: "#alert",
+        }))
+      location.reload();
+      
+
+    } catch (error) {
+      console.log(error);
+
+    }
+
+
+  } else{
+
+localStorage.setItem("stopBusDelete", JSON.stringify({
+          cor: "danger",
+          texto: `Digite um valor valido `,
+          div: "#alert",
+        }))
+location.reload();
+
+  }
+
+ })
 
  // vai para a parte de eventos que encontrara mais informações
  // https://getbootstrap.com/docs/5.3/components/modal/#how-it-works
@@ -338,6 +389,8 @@
 
     // abrindo o modal
     InstanciaBoostrapDoModal.toggle()
+
+
 
 
 
@@ -558,7 +611,6 @@
 
 
       } catch (error) {
-        console.log(error);
       }
 
 

@@ -142,7 +142,7 @@ router.post("/passageiros", async (req, res, next) => {
         username,
         senha,
         nome,
-        nascimento,
+        nascimento: `${nascimento}T00:00:00Z`,
         saldo,
       },
     });
@@ -181,6 +181,40 @@ router.put("/passageiros", async (req, res, next) => {
 
     res.status(201).json({
       message: `Passageiro ${nome} adicionado com sucesso`,
+    });
+  } catch (error) {
+    const erro = exception(error);
+    console.error(error);
+    res.status(erro.code).send(erro.msg);
+  }
+});
+
+router.patch("/passageirosRecarga/:id/:recarga", async (req, res, next) => {
+  
+  try {
+
+    const { id, recarga} = req.params;
+
+ const idN = parseInt(id)
+    const recargaN = parseFloat(recarga)
+
+
+    const novaRecarga = await prisma.clientes.update({
+   
+      where:{
+        id: idN
+     },
+
+      data: {
+    saldo: {
+      
+      increment: recargaN,  
+      },
+    },
+    });
+
+    res.status(201).json({
+      message: `Passageiro adicionado com sucesso`,
     });
   } catch (error) {
     const erro = exception(error);
