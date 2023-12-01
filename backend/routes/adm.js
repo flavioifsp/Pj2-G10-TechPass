@@ -238,40 +238,40 @@ router.get("/passageiros", async (req, res, next) => {
   }
 });
 
-router.put("/lojas", async (req, res) => {
-  const {  id, username, nascimento, email, cpf, saldo, nome} = req.body;
+// router.put("/lojas", async (req, res) => {
+//   const {  id, username, nascimento, email, cpf, saldo, nome} = req.body;
 
   
-  try {
-    const editLoja = await prisma.loja_recarga.update({
+//   try {
+//     const editLoja = await prisma.loja_recarga.update({
 
-      where:{
-        id: id
-      },
+//       where:{
+//         id: id
+//       },
 
-      data: {
-        email,
-       cpf,
-       username,
-       nome,
-       nascimento: new Date(nascimento),
-       saldo,
-      },
-      select: {
-        endereco: true,
-      },
+//       data: {
+//         email,
+//        cpf,
+//        username,
+//        nome,
+//        nascimento: new Date(nascimento),
+//        saldo,
+//       },
+//       select: {
+//         endereco: true,
+//       },
       
-    });
-    console.log(editLoja)
-    res.status(201).json({
-      message: `Loja no endereço foi  alterado com sucesso!`,
-    });
-  } catch (error) {
-    const erro = exception(error);
-    console.log(error);
-    res.status(erro.code).send(erro.msg);
-  }
-});
+//     });
+//     console.log(editLoja)
+//     res.status(201).json({
+//       message: `Loja no endereço foi  alterado com sucesso!`,
+//     });
+//   } catch (error) {
+//     const erro = exception(error);
+//     console.log(error);
+//     res.status(erro.code).send(erro.msg);
+//   }
+// });
 
 router.delete("/passageiros/:id", async (req, res) => {
   try {
@@ -298,12 +298,12 @@ router.delete("/passageiros/:id", async (req, res) => {
 router.put("/lojas", async (req, res) => {
   const {  id, nome, cepInput, street, state, city, neighborhood, lat, lng } = req.body;
 
-  
+
   try {
     const editLoja = await prisma.loja_recarga.update({
 
       where:{
-        id: id
+        id: parseInt(id)
       },
 
       data: {
@@ -318,7 +318,7 @@ router.put("/lojas", async (req, res) => {
       },
       
     });
-    console.log(editLoja)
+
     res.status(201).json({
       message: `Loja no endereço foi  alterado com sucesso!`,
     });
