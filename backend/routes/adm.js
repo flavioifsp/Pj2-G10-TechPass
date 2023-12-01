@@ -135,6 +135,7 @@ router.post("/passageiros", async (req, res, next) => {
   try {
     const { nome, username, cpf, nascimento, saldo, email, senha} = req.body;
 
+    
     const novoPassageiro = await prisma.clientes.create({
       data: {
         email,
@@ -143,7 +144,7 @@ router.post("/passageiros", async (req, res, next) => {
         senha,
         nome,
         nascimento: `${nascimento}T00:00:00Z`,
-        saldo,
+        saldo: 0,
       },
     });
 
@@ -198,8 +199,8 @@ router.patch("/passageirosRecarga/:id/:recarga", async (req, res, next) => {
  const idN = parseInt(id)
     const recargaN = parseFloat(recarga)
 
-
     const novaRecarga = await prisma.clientes.update({
+
    
       where:{
         id: idN
@@ -212,6 +213,7 @@ router.patch("/passageirosRecarga/:id/:recarga", async (req, res, next) => {
       },
     },
     });
+    console.log(novaRecarga);
 
     res.status(201).json({
       message: `Passageiro adicionado com sucesso`,
@@ -221,6 +223,8 @@ router.patch("/passageirosRecarga/:id/:recarga", async (req, res, next) => {
     console.error(error);
     res.status(erro.code).send(erro.msg);
   }
+
+  
 });
 
 
