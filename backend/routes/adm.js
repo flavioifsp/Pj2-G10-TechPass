@@ -20,7 +20,7 @@ router.get("/lojas", async (req, res, next) => {
 router.get("/cartoes", async (req, res, next) => {
   try {
     // const novaLoja = await prisma.loja_recarga.create({
-    const allcartoes = await prisma.cartao.findMany();
+    const allcartoes = await prisma.tipos_de_cartao.findMany();
 
     res.status(200).json(allcartoes);
   } catch (error) {
@@ -35,7 +35,7 @@ router.post("/cartoes", async (req, res, next) => {
 
 
     // const novaLoja = await prisma.loja_recarga.create({
-    const novoCartao = await prisma.cartao.create({
+    const novoCartao = await prisma.tipos_de_cartao.create({
       data: {
         modalidade,
         tarifa
@@ -54,7 +54,7 @@ router.post("/cartoes", async (req, res, next) => {
 
 router.delete("/cartoes/:id", async (req, res) => {
   try {
-    const deleteLoja = await prisma.cartao.delete({
+    const deleteLoja = await prisma.tipos_de_cartao.delete({
       where: {
         id: Number(req.params.id),
       },
@@ -77,7 +77,7 @@ router.put("/cartoes", async (req, res, next) => {
 
 
     
-    const novoCartao = await prisma.cartao.update({
+    const novoCartao = await prisma.tipos_de_cartao.update({
    
       where:{
         id: id

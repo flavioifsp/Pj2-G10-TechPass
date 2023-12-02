@@ -27,6 +27,28 @@ router.get('/tarifa', function(req, res, next){
 // }
 
 // })
+
+router.get('/inicio/:id', async function(req, res, next){
+
+
+  try {
+    const cartao = await prisma.clientes.update({
+
+      where:{
+        cliente_tem_cartao: {
+          
+        },
+
+      },
+     
+    })
+    
+
+    
+  } catch (error) {
+    
+  }
+  })
    
 
 module.exports = router;

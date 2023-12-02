@@ -105,11 +105,12 @@
         <tr>
           <th>Nome</th>
           <th>CPF</th>
-          <th>Email</th>
+          
           <th>Nascimento</th>
-          <th>saldo R$</th>
-          <th>Config</th>
+          <th>Cartões</th>
+          <th>Adiconar Cartões</th>
           <th>Recarga</th>
+          <th>Config</th>
         </tr>
       </thead>
       <tbody>
@@ -122,16 +123,25 @@
           <td>
             <%= elem.cpf %>
           </td>
-          <td>
-            <%= elem.email %>
-          </td>
+        
           <td>
             <%= new Date(elem.nascimento).toLocaleDateString()%>
           </td>
           
           <td>
-            <%= elem.saldo %>
+            "alterar codigo"
           </td>
+          <td>
+            <button class="btn btn-primary py-1 px-2" data-bs-target="#pontodeonibus<%= elem.id%>" onclick='modalCartao(<%-JSON.stringify(elem)%>)'>
+              Adiconar cartão
+            </button>
+          </td>
+          <td>
+               <button class="btn btn-success py-1 px-2" data-bs-target="#pontodeonibus<%= elem.id%>" onclick='modalRecarg(<%-JSON.stringify(elem)%>)'>
+                 Recarregar
+               </button>
+          </td>
+
           <td>
             <button type="button" class="btn btn-info py-1 px-2" onclick='modalInfo(<%-JSON.stringify(elem)%>)'>
               <i class="bi bi-info-lg"></i>
@@ -145,11 +155,6 @@
               <i class="bi bi-trash-fill"></i>
             </button>
 
-          </td>
-          <td>
-               <button class="btn btn-success py-1 px-2" data-bs-target="#pontodeonibus<%= elem.id%>" onclick='modalRecarg(<%-JSON.stringify(elem)%>)'>
-                 Recarregar
-               </button>
           </td>
 
 
@@ -167,7 +172,7 @@
 
 
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
+  document.addEventListener("DOMContentLoaded", async (event) => {
 
 
     const formspassageiro = new Inputs("#formPassageiro");
@@ -215,6 +220,90 @@
     );
   });
 
+  function modalCartao(objEjs) {
+    const divRecarg = document.createElement("div")
+
+// adicionando o innerHTML com um template
+// https://www.w3schools.com/js/js_string_templates.asp
+// e
+// adicionando uma div de modal pego do site do boostrap
+divRecarg.innerHTML = `
+<div class="modal fade" tabindex="-1">
+  <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" _msttexthash="1992003" _msthash="309" _mstvisible="3">
+        <div class="col-12">
+              <label for="modalidae_cartao" class="form-label">Modalidade do cartão</label>
+              <select class="form-select" aria-label="Default select example" name="modalidae_cartao" id="modalidae_cartao">
+                <option selected>Selecione a modalidade desejada</option>
+              </select>
+            </div>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-success" id="btnAdiconarCArtao">Adiconar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+`
+
+
+
+
+// criando uma variavel que recebe o modal dentro do umadiv
+const modalRecarg = divRecarg.querySelector(".modal")
+
+// adicionando o modal ao BODY do HTML
+document.body.appendChild(modalRecarg)
+
+
+// criando uma instancia seguindo as instruções do boostrap
+// https://getbootstrap.com/docs/5.3/components/modal/#how-it-works
+const InstanciaBoostrapDoModal = new bootstrap.Modal(modalRecarg)
+
+// abrindo o modal
+InstanciaBoostrapDoModal.toggle()
+
+
+const btnRecargaCartao = document.querySelector("#btnAdiconarCArtao")
+
+// btnRecargaCartao.addEventListener("click", async (event) => {
+try {
+  // const cartoes = (await axios.get("http://localhost:9000/api/adm/cartoes")).data;
+
+        console.log("cartoes");
+
+      // const campo = document.querySelector("#modalidae_cartao");
+      // cartoes.forEach((loja) => {
+      //   const option = document.createElement("option");
+      //   option.innerText = cartoes.modalidade;
+      //   // option.value = loja.id;
+
+      //   campo.appendChild(option);
+      // })
+    } catch (error) {
+      const erro = exception(error);
+    console.error(error);
+    res.status(erro.code).send(erro.msg);    }
+  // })
+
+ // vai para a parte de eventos que encontrara mais informações
+ // https://getbootstrap.com/docs/5.3/components/modal/#how-it-works
+ modalRecarg.addEventListener("hidden.bs.modal", () => {
+
+// quando o modal for fechado esse evento acionara e excluira o modal do body
+document.body.removeChild(modalRecarg)
+})
+// fim da função
+
+  
+  
+
+}
  function modalRecarg(objEjs) {
 
  // transformando o objeto que está transformado em string para objeto dnv
@@ -471,86 +560,81 @@ location.reload();
 
 
 
-  function modalEdit(objEjs) {
-
-    const div = document.createElement("div")
+ 
 
 
-    div.innerHTML = `
+  const modalEdit = criarFuncaoModal((objEjs) => {
+    return `
       
-    <div class="modal fade" id="modalToggle" aria-labelledby="modalToggleLabel" tabindex="-1" style="display: none" _mstvisible="0" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" _mstvisible="1">
-        <div class="modal-content" _mstvisible="2">
-          <form id="resetForm">
-            <div class="modal-header" _mstvisible="3">
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar" _mstaria-label="59709" _msthash="308" _mstvisible="4"></button>
-            </div>
-            <div class="modal-body" _msttexthash="1992003" _msthash="309" _mstvisible="3">
-              <div class="row" _mstvisible="4">
-                <div class="card-body form-group">
-                  <div class="row mb-4">
-                    <label class="col-sm-2 col-form-label" for="nome">Nome</label>
-                    <div class="col-sm-10">
-                      <input type="text" class="form-control" name="nome" id="nome" value="${objEjs.nome}" required>
-
+      <div class="modal fade" id="modalToggle" aria-labelledby="modalToggleLabel" tabindex="-1" style="display: none" _mstvisible="0" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" _mstvisible="1">
+          <div class="modal-content" _mstvisible="2">
+            <form id="resetForm">
+              <div class="modal-header" _mstvisible="3">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar" _mstaria-label="59709" _msthash="308" _mstvisible="4"></button>
+              </div>
+              <div class="modal-body" _msttexthash="1992003" _msthash="309" _mstvisible="3">
+                <div class="row" _mstvisible="4">
+                  <div class="card-body form-group">
+                    <div class="row mb-4">
+                      <label class="col-sm-2 col-form-label" for="nome">Nome</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" name="nome" id="nome" value="${objEjs.nome}" required>
+  
+                      </div>
                     </div>
-                  </div>
-
-                  <div class="row mb-4">
-                    <label class="col-sm-2 col-form-label" for="username">username</label>
-                    <div class="col-sm-10">
-                      <input type="text" name="username" id="username" class="form-control phone-mask" value="${objEjs.username}" />
+  
+                    <div class="row mb-4">
+                      <label class="col-sm-2 col-form-label" for="username">username</label>
+                      <div class="col-sm-10">
+                        <input type="text" name="username" id="username" class="form-control phone-mask" value="${objEjs.username}" />
+                      </div>
                     </div>
-                  </div>
-                  <div class="row mb-4">
-                    <label class="col-sm-2 col-form-label" for="nascimento">Nascimento</label>
-                    <div class="col-sm-10">
-                      <input name="nascimento" id="nascimento" class="form-control" type="date" value="${new Date(objEjs.nascimento).toISOString().split("T")[0]}" required />
+                    <div class="row mb-4">
+                      <label class="col-sm-2 col-form-label" for="nascimento">Nascimento</label>
+                      <div class="col-sm-10">
+                        <input name="nascimento" id="nascimento" class="form-control" type="date" value="${new Date(objEjs.nascimento).toISOString().split("T")[0]}" required />
+                      </div>
                     </div>
-                  </div>
-
-                  <div class="row mb-4">
-                    <label class="col-sm-2 col-form-label" for="nascimento">Email</label>
-                    <div class="col-sm-10">
-                      <input type="text" id="email" name="email" class="form-control phone-mask" value="${objEjs.email}" />
+  
+                    <div class="row mb-4">
+                      <label class="col-sm-2 col-form-label" for="nascimento">Email</label>
+                      <div class="col-sm-10">
+                        <input type="text" id="email" name="email" class="form-control phone-mask" value="${objEjs.email}" />
+                      </div>
                     </div>
-                  </div>
-                  <div class="row mb-4">
-                    <label class="col-sm-2 col-form-label" for="cpf">CPF</label>
-                    <div class="col-sm-10">
-                      <input type="text" id="cpf" name="cpf" class="form-control phone-mask" value="${objEjs.cpf}" />
+                    <div class="row mb-4">
+                      <label class="col-sm-2 col-form-label" for="cpf">CPF</label>
+                      <div class="col-sm-10">
+                        <input type="text" id="cpf" name="cpf" class="form-control phone-mask" value="${objEjs.cpf}" />
+                      </div>
                     </div>
+  
                   </div>
-
                 </div>
               </div>
-            </div>
-            <div class="modal-footer" _mstvisible="3">
-              <button type="button" class="btn btn-warning" id="resetar" onclick="document.getElementById('resetForm').reset()">
-                Resetar
-              </button>
-
-              <button type="submit" class="btn btn-success">
-                Salvar alterações
-              </button>
-            </div>
-          </form>
+              <div class="modal-footer" _mstvisible="3">
+                <button type="button" class="btn btn-warning" id="resetar" onclick="document.getElementById('resetForm').reset()">
+                  Resetar
+                </button>
+  
+                <button type="submit" class="btn btn-success">
+                  Salvar alterações
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
+  
+        `;
 
-      `
 
-    const modal = div.querySelector(".modal")
+  },
+  
+ (modal,objEjs)=> {
 
-    //selecionando o modoal  e adicionando o modal ao BODY do HTML
-    document.body.appendChild(modal)
-
-    const InstanciaBoostrapDoModal = new bootstrap.Modal(modal)
-
-    InstanciaBoostrapDoModal.toggle()
-
-    formsValidacaoEdit = new Inputs("#resetForm") // pega todos os inputs do form 
+  formsValidacaoEdit = new Inputs(modal.querySelector("form")) // pega todos os inputs do form 
     const btnSalvarAlteracoes = document.querySelector("#btnSalvarAlteracoes")
 
 
@@ -615,17 +699,6 @@ location.reload();
 
 
     })
+  });
 
-
-
-
-    modal.addEventListener("hidden.bs.modal", () => {
-
-      // quando o modal for fechado esse evento acionara e excluira o modal do body
-      document.body.removeChild(modal)
-    })
-
-
-
-  }
 </script>

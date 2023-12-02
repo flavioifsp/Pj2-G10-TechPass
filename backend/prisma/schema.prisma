@@ -30,26 +30,6 @@ model atendente {
   @@index([superUser_id], map: "fk_atendente_superUser1_idx")
 }
 
-model cartao {
-  id                 Int                  @id @default(autoincrement())
-  modalidade         String               @db.VarChar(45)
-  tarifa             Decimal?             @db.Decimal(4, 2)
-  cliente_tem_cartao cliente_tem_cartao[]
-}
-
-model cliente_tem_cartao {
-  id           Int        @id @default(autoincrement())
-  clientes_id  Int
-  cartao_id    Int
-  limiteDiario Int?
-  clientes     clientes   @relation(fields: [clientes_id], references: [id], onUpdate: Restrict, map: "fk_clientes_has_cartao_passe_clientes")
-  cartao       cartao     @relation(fields: [cartao_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_clliente_tem_cartao_cartao1")
-  embarque     embarque[]
-
-  @@index([clientes_id], map: "fk_clientes_has_cartao_passe_clientes")
-  @@index([cartao_id], map: "fk_clliente_tem_cartao_cartao1_idx")
-}
-
 model clientes {
   id                 Int                  @id @default(autoincrement())
   email              String               @unique(map: "email_UNIQUE") @db.VarChar(64)
@@ -58,17 +38,17 @@ model clientes {
   senha              String?              @db.VarChar(200)
   nome               String?              @db.VarChar(120)
   nascimento         DateTime?            @db.Date
-  saldo              Decimal?             @db.Decimal(6, 2)
-  cliente_tem_cartao cliente_tem_cartao[]
+  saldo              Decimal?             @default(0.00) @db.Decimal(6, 2)
+  cartoes_do_cliente cartoes_do_cliente[]
 }
 
 model embarque {
   id                     Int                @id @default(autoincrement())
   viagem_id              Int
   clliente_tem_cartao_id Int
-  tarifa                 Decimal?           @db.Decimal(3, 2)
+  historico_tarifa       Decimal?           @db.Decimal(6, 2)
   data                   DateTime?          @default(now()) @db.DateTime(0)
-  cliente_tem_cartao     cliente_tem_cartao @relation(fields: [clliente_tem_cartao_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_embarque_clliente_tem_cartao1")
+  cliente_tem_cartao     cartoes_do_cliente @relation(fields: [clliente_tem_cartao_id], references: [codigo_do_cartao], onDelete: NoAction, onUpdate: NoAction, map: "fk_embarque_clliente_tem_cartao1")
   viagem                 viagem             @relation(fields: [viagem_id], references: [id], onUpdate: Restrict, map: "fk_viagem_has_cliente_has_cartao_passe_viagem1")
 
   @@index([clliente_tem_cartao_id], map: "fk_embarque_clliente_tem_cartao1_idx")
@@ -170,4 +150,24 @@ model percurso {
 
   @@index([pontoOnibus_id], map: "fk_rotas_pontoOnibus1_idx")
   @@index([linha_id], map: "fk_trajeto_paradas_linha1_idx")
+}
+
+model cartoes_do_cliente {
+  codigo_do_cartao Int             @id
+  clientes_id      Int
+  cartao_id        Int
+  clientes         clientes        @relation(fields: [clientes_id], references: [id], onUpdate: Restrict, map: "fk_clientes_has_cartao_passe_clientes")
+  tipos_de_cartao  tipos_de_cartao @relation(fields: [cartao_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_clliente_tem_cartao_cartao1")
+  embarque         embarque[]
+
+  @@index([clientes_id], map: "fk_clientes_has_cartao_passe_clientes")
+  @@index([cartao_id], map: "fk_clliente_tem_cartao_cartao1_idx")
+}
+
+model tipos_de_cartao {
+  id                 Int                  @id @default(autoincrement())
+  modalidade         String               @db.VarChar(45)
+  tarifa             Decimal?             @db.Decimal(6, 2)
+  tipos_de_cartaocol String?              @db.VarChar(45)
+  cartoes_do_cliente cartoes_do_cliente[]
 }
