@@ -14,6 +14,7 @@ router.post("/atendente", multerCustom, async (req, res) => {
     nome,
     cpf,
     endereco,
+    foto,
     nascimento,
     turno,
     telefone,
@@ -28,9 +29,10 @@ router.post("/atendente", multerCustom, async (req, res) => {
         nascimento: new Date(nascimento),
         nome,
         cpf,
-
+        
         atendente: {
           create: {
+            foto,
             endereco,
             turno,
             telefone,
@@ -40,7 +42,7 @@ router.post("/atendente", multerCustom, async (req, res) => {
       },
 
       select: {
-        nome: true,
+       cpf:true 
       },
     });
 

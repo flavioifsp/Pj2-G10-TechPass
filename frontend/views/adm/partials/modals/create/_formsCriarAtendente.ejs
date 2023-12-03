@@ -116,7 +116,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button " class="btn btn-secondary btnvoltar">
+          <button type="button" class="btn btn-secondary btnvoltar">
             voltar
           </button>
           <button type="submit" class="btn btn-primary">Criar ponto</button>
@@ -145,6 +145,7 @@
     formEtapasForms(
       "#createAtendente",
       async (dataValues) => {
+        console.log(dataValues);
           try {
             const response = await axios.post(
               "http://localhost:9000/api/userADM/atendente",
@@ -154,7 +155,7 @@
               "AtendenteCreate",
               JSON.stringify({
                 cor: "success",
-                texto: `Atendente do CPF ${response.data.superUser.cpf} adicionada(o)`,
+                texto: `Atendente do CPF ${response.data.cpf} adicionada(o)`,
                 div: "#alert",
               })
             );

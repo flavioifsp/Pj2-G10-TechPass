@@ -48,22 +48,17 @@ function formEtapasForms(
       evt.preventDefault();
 
       modalAtual.hide();
-      const avancar = (evt) => {
-        formAtual.inputs(({ name, value }) => {
-          dataValues.set(name, value);
+      const avancar = () => {
+        formAtual.inputs((input) => {
+          const { name, value, files } = input;
+          dataValues.set(name, files ? files[0] : value);
         });
 
         if (indice == div.querySelectorAll(".modalForm").length - 1) {
           // enviar para o servidor
-          let dataValuesFile;
-          dataValues.forEach((_, value) => {
-            value.size || dataValuesFile
-              ? dataValues
-              : null;
-          });
 
-          if (dataValuesFile) {
-            callBackSV(dataValuesFile);
+          if (Array.from(dataValues.keys()).includes("foto")) {
+            callBackSV(dataValues);
           } else {
             callBackSV(Object.fromEntries(dataValues));
           }
@@ -75,7 +70,6 @@ function formEtapasForms(
         callbackIndice(indice, formAtual);
         elem.removeEventListener("hidden.bs.modal", avancar);
       };
-
       elem.addEventListener("hidden.bs.modal", avancar);
     });
   });

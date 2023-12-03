@@ -23,7 +23,7 @@ function addLiHorario(
     const ul = li.parentNode.children;
     for (const indice in ul) {
       if (ul[indice] == li) {
-        console.log(array);
+        
         array.splice(indice, 1);
       }
     }
