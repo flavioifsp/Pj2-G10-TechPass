@@ -118,22 +118,48 @@ const validGeral = {
   // FOTO
   foto: {
     min: 0,
-    max: 200,
+    max: 500,
     btnoff: "required",
     pattern: [".*", "foto valida", "insira uma foto"],
   },
-  //
+  // LOCAL DE TRABALHO
+  local_de_trabalho_id: {
+    min: 0,
+    max: 500,
+    btnoff: "required",
+    pattern: [".*", "loja valida", "escolha uma loja"],
+  },
+  // TURNO
+  turno: {
+    min: 0,
+    max: 500,
+    btnoff: "required",
+    pattern: [".*", "turno valido", "escolha um tunro"],
+  },
+  // TELEFONE
+  telefone: {
+    min: 0,
+    max: 500,
+    btnoff: "required",
+    pattern: [".*", "telefone valido", "telefone invalido"],
+  },
+  endereco:{
+    min: 0,
+    max: 500,
+    btnoff: "required",
+    pattern: [".*", "endereco valido", "endereco invalido"],
+  }
 };
 
 const validEdit = {
-    nome: {...validGeral.nome, ...{btnoff: null}},
-    nascimento: {...validGeral.nascimento, ...{btnoff: null}},
-    cnh: {...validGeral.cnh, ...{btnoff: null}},
-    foto: {...validGeral.foto, ...{btnoff: null}},
-    cpf: {...validGeral.cpf, ...{btnoff: null}},
-    senha: {...validGeral.senha, ...{btnoff: null}},
-    email: {...validGeral.email, ...{btnoff: null}},
-}
+  nome: { ...validGeral.nome, ...{ btnoff: null } },
+  nascimento: { ...validGeral.nascimento, ...{ btnoff: null } },
+  cnh: { ...validGeral.cnh, ...{ btnoff: null } },
+  foto: { ...validGeral.foto, ...{ btnoff: null } },
+  cpf: { ...validGeral.cpf, ...{ btnoff: null } },
+  senha: { ...validGeral.senha, ...{ btnoff: null } },
+  email: { ...validGeral.email, ...{ btnoff: null } },
+};
 
 // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // validações de forms
@@ -184,11 +210,18 @@ const motoristasEdit_VALID = {
   email: validEdit.email,
 };
 
-const atendenteVALID = {
+const atendenteVALID_1 = {
   nome: validGeral.nome,
-  // foto: validGeral.foto,
   nascimento: validGeral.nascimento,
   email: validGeral.email,
   senha: validGeral.senha,
   cpf: validGeral.cpf,
+};
+const atendenteVALID_2 = {
+  foto: validGeral.foto,
+  endereco: validGeral.endereco,
+  // endereco: validGeral.endereco,
+  turno: validGeral.turno,
+  local_de_trabalho_id: validGeral.local_de_trabalho_id,
+  telefone: validGeral.telefone
 };

@@ -4,8 +4,10 @@ const prisma = new (require("@prisma/client").PrismaClient)();
 const exception = require("../js/erro");
 const { gerarCookieToken, autenticar } = require("../js/functionJWT");
 const bcry = require("bcryptjs");
+const multerCustom = require("../js/multer.js")("atendentes");
 
-router.post("/atendente", async (req, res) => {
+
+router.post("/atendente", multerCustom, async (req, res) => {
   const {
     email,
     senha,
@@ -15,8 +17,8 @@ router.post("/atendente", async (req, res) => {
     nascimento,
     turno,
     telefone,
-    local_de_trabalho_id,
   } = req.body;
+
 
   try {
     const response = await prisma.superuser.create({
@@ -32,7 +34,7 @@ router.post("/atendente", async (req, res) => {
             endereco,
             turno,
             telefone,
-            local_de_trabalho_id: parseInt(local_de_trabalho_id),
+            local_de_trabalho_id: parseInt(req.body.local_de_trabalho_id) || undefined,
           },
         },
       },
@@ -50,7 +52,7 @@ router.post("/atendente", async (req, res) => {
   }
 });
 
-router.put("/atendente/:id", async (req, res) => {
+router.put("/atendente/:id", multerCustom,async (req, res) => {
   const {
     email,
     senha,

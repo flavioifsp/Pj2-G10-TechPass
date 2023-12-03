@@ -11,7 +11,7 @@ function formEtapasForms(
   const modalsBoostrap = [];
   const formvalidacao = [];
   let ultimoFechado;
-  const dataValues = {};
+  const dataValues = new FormData();
 
   div.querySelectorAll(".modalForm").forEach((elem, indice) => {
     // definindo as instancias dos modals e jogando para um array
@@ -50,12 +50,23 @@ function formEtapasForms(
       modalAtual.hide();
       const avancar = (evt) => {
         formAtual.inputs(({ name, value }) => {
-          dataValues[name] = value;
+          dataValues.set(name, value);
         });
 
         if (indice == div.querySelectorAll(".modalForm").length - 1) {
           // enviar para o servidor
-          callBackSV(dataValues);
+          let dataValuesFile;
+          dataValues.forEach((_, value) => {
+            value.size || dataValuesFile
+              ? dataValues
+              : null;
+          });
+
+          if (dataValuesFile) {
+            callBackSV(dataValuesFile);
+          } else {
+            callBackSV(Object.fromEntries(dataValues));
+          }
         } else {
           // avancar de pagina
           modalsBoostrap[indice + 1].show();

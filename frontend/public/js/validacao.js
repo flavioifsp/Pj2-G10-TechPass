@@ -60,7 +60,7 @@ class Inputs {
       const inputvalida = restricao[input.name];
 
       const eventoCertoParaOinput =
-        input.nodeName == "INPUT" ? "blur" : "onchange";
+        input.nodeName == "INPUT" ? "blur" : "change";
 
       // esse if vai ser servir para evitar erro se nem todos os inputs tiverem validacao
       if (inputvalida) {
@@ -290,8 +290,47 @@ class Inputs {
 
           //
 
-          // console.log(!(typeof this.neutralidade !== "undefined" && !input.value));
+          // if (input.options) {
+          //   input.setCustomValidity(
+          //     input.value == input.options[0].value ? "escolha um campo" : ""
+          //   );
+          // }
 
+          //  texto de erro que ira mostrar
+          const textoDeErro = [
+            [
+              input.value.length < inputvalida.min,
+              `insira ao menos ${inputvalida.min} caracteres`,
+            ],
+            [
+              input.value.length > inputvalida.max,
+              `Este campo permite apenas  ${inputvalida.max} caracteres!`,
+            ],
+            [
+              input.type == "number" && input.value < inputvalida.min,
+              `O minimo é ${inputvalida.min}`,
+            ],
+            [
+              input.type == "number" && input.value > inputvalida.max,
+              `O limite é ${inputvalida.max}`,
+            ],
+            [
+              input.options && input.value === input.options[0].value,
+              "escolha um campo",
+            ],
+            [erroCustom, erroCustom],
+            [eventoCustom, eventoCustom],
+          ];
+
+          for (const [condicao, texto] of textoDeErro) {
+            
+            if (condicao) {
+              input.setCustomValidity(texto);
+              break;
+            } else {
+              input.setCustomValidity("");
+            }
+          }
           // //
 
           if (!(typeof this.neutralidade !== "undefined" && !input.value)) {
@@ -318,24 +357,8 @@ class Inputs {
               validdiv.classList.remove("valid-feedback");
               // texto se a restricao final for negada
 
-              // conferir o minimo de caracteres
-              if (input.value.length < inputvalida.min) {
-                validdiv.innerText = `insira ao menos ${inputvalida.min} caracteres`;
-              } else if (input.value.length > inputvalida.max) {
-                validdiv.innerText = `Este campo permite apenas  ${inputvalida.max} caracteres!`;
-              } else if (input.type == "number") {
-                if (input.value < inputvalida.min) {
-                  validdiv.innerText = `O minimo é ${inputvalida.min}`;
-                } else {
-                  validdiv.innerText = `O limite é ${inputvalida.max}`;
-                }
-              } else if (erroCustom) {
-                validdiv.innerText = erroCustom;
-              } else if (eventoCustom) {
-                validdiv.innerText = eventoCustom;
-              } else {
-                validdiv.innerText = inputvalida.pattern[2];
-              }
+              validdiv.innerText =
+                input.validationMessage || inputvalida.pattern[2];
 
               // classe do input
               input.classList.add("is-invalid");
@@ -371,17 +394,6 @@ class Inputs {
     });
   }
 
-  // // validar automaticamente os inputs
-  // autovalidar() {
-  //   this.inputs((input) => {
-  //     setTimeout(() => {
-  //       // input.focus();
-  //       input.nodeName == "INPUT" ? input.focus() : input.change();
-  //       // console.log("s");
-  //       input.blur();
-  //     }, 200);
-  //   });
-  // }
 
   // é para simplificar na hr de criar um post de criacao
   cadastrar(url, data = null, erro = () => {}, success = () => {}) {

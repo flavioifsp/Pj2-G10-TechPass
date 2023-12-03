@@ -81,15 +81,22 @@
               <input class="form-control" id="endereco" name="endereco" type="text" required />
             </div>
 
+
+            <div class="col-sm-7 col-12">
+              <label for="foto" class="form-label">Sua foto</label>
+              <input name="foto" id="foto" class="form-control" type="file" required accept="image/*" />
+            </div>
+
+
             <!-- email -->
-            <div class="col-12">
+            <div class="col-12 col-sm-5">
               <label for="telefone" class="form-label">Telefone</label>
               <input name="telefone" id="telefone" class="form-control" type="text" placeholder="digite seu telefone" required />
             </div>
 
 
 
-            <div class="col-6">
+            <div class="col-sm-7 col-12">
               <label for="local_de_trabalho_id" class="form-label">local de trabalho</label>
               <select class="form-select" aria-label="Default select example" name="local_de_trabalho_id" id="local_de_trabalho_id">
                 <option selected>selecione o local de trabalho</option>
@@ -97,7 +104,7 @@
             </div>
 
 
-            <div class="col-6">
+            <div class="col-12 col-sm-5">
               <label for="turno" class="form-label">turno</label>
               <select class="form-select" aria-label="Default select example" name="turno" id="turno">
                 <option selected>Selecione um turno</option>
@@ -147,7 +154,7 @@
               "AtendenteCreate",
               JSON.stringify({
                 cor: "success",
-                texto: `Atendente ${response.data.superUser.username} adicionada(o)`,
+                texto: `Atendente do CPF ${response.data.superUser.cpf} adicionada(o)`,
                 div: "#alert",
               })
             );
@@ -158,7 +165,8 @@
           }
         },
         (formvalidacao) => {
-          formvalidacao[0].allvalidacao(atendenteVALID);
+          formvalidacao[0].allvalidacao(atendenteVALID_1);
+          formvalidacao[1].allvalidacao(atendenteVALID_2);
         }
     );
   });
