@@ -20,7 +20,7 @@ router.get("/lojas", async (req, res, next) => {
 router.get("/cartoes", async (req, res, next) => {
   try {
     // const novaLoja = await prisma.loja_recarga.create({
-    const allcartoes = await prisma.tipos_de_cartao.findMany();
+    const allcartoes = await prisma.tipos_de_cartao.findMany()
 
     res.status(200).json(allcartoes);
   } catch (error) {
@@ -29,6 +29,9 @@ router.get("/cartoes", async (req, res, next) => {
     res.status(erro.code).send(erro.msg);
   }
 });
+
+
+
 router.post("/cartoes", async (req, res, next) => {
   try {
     let { modalidade,tarifa} = req.body;

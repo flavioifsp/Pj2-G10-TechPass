@@ -22,8 +22,8 @@
           <tr>
             <th>foto</th>
             <th>nome</th>
+            <th>cpf</th>
             <th>cnh</th>
-            <th>nascimento</th>
             <th>Opções</th>
           </tr>
         </thead>
@@ -32,18 +32,18 @@
 
           <tr>
             <td>
-              <div class="ratio ratio-1x1 " style="width: 80px;"><img class=" w-100 rounded-1 img-fluid " src="http://localhost:9000/<%= elem.foto %>"></div>
+              <div class="ratio ratio-1x1" style="width: 80px">
+                <img class="w-100 rounded-1 img-fluid" src="http://localhost:9000/<%= elem.foto %>" />
+              </div>
             </td>
             <td><%= elem.superuser.nome %></td>
+            <td><%= elem.superuser.cpf %></td>
             <td><%= elem.cnh %></td>
-            <td>
-              <%= elem.superuser.nascimento.split("T")[0] %>
-            </td>
+          
             <td>
               <button type="button" class="btn btn-info py-1 px-2" onclick=' modalInfo(<%-JSON.stringify(elem)%>)'>
                 <i class="bi bi-info-lg"></i>
               </button>
-
 
               <button class="btn btn-warning py-1 px-2" onclick='modalEdit(<%-JSON.stringify(elem)%>)'>
                 <i class="bi bi-pencil-square"></i>
@@ -102,74 +102,54 @@
   }
 
 
-  function modalEdit(objEjs) {
 
-    const div = document.createElement("div")
+  const modalEdit = criarFuncaoModal((objEjs) => {
+      return `<%- include("../partials/modals/edit/_motorista.ejs") %>`
+    },
+    (modal, objEjs) => {
 
+      formsValidacaoEdit = new Inputs(modal.querySelector("form")) // pega todos os inputs do form
+      const btnSalvarAlteracoes = document.querySelector("#btnSalvarAlteracoes")
 
-    div.innerHTML = ` <%- include("../partials/modals/edit/_motorista.ejs") %> `
+      formsValidacaoEdit.forms.addEventListener("submit", async (event) => {
 
-    const modal = div.querySelector(".modal")
+        event.preventDefault()
 
-    //selecionando o modoal  e adicionando o modal ao BODY do HTML
-    document.body.appendChild(modal)
+        try {
 
-    const InstanciaBoostrapDoModal = new bootstrap.Modal(modal)
+          const data = formsValidacaoEdit.allValues({
+            nascimento: nascimento => new Date(nascimento).toISOString()
+          })
 
-    InstanciaBoostrapDoModal.toggle()
+          const response = await axios.put(`http://localhost:9000/api/userADM/motorista/${objEjs.superUser_id}`, data)
 
-    formsValidacaoEdit = new Inputs(modal.querySelector("form")) // pega todos os inputs do form 
-    const btnSalvarAlteracoes = document.querySelector("#btnSalvarAlteracoes")
+          localStorage.setItem("motoristaEdit", JSON.stringify({
+            cor: "warning",
+            texto: `O cadastro do motorista do CPF ${objEjs.superuser.cpf} foi alterado`,
+            div: "#alert",
+          }))
 
+          location.reload()
 
-
-
-    formsValidacaoEdit.forms.addEventListener("submit", async (event) => {
-
-      event.preventDefault()
-
-      try {
-
-        const data = formsValidacaoEdit.allValues({
-          nascimento: nascimento => new Date(nascimento).toISOString()
-        })
-
-        const response = await axios.put(`http://localhost:9000/api/userADM/motorista/${objEjs.superUser_id}`, data)
-
-        localStorage.setItem("motoristaEdit", JSON.stringify({
-          cor: "warning",
-          texto: `O cadastro do motorista do CPF ${objEjs.superuser.cpf} foi alterado`,
-          div: "#alert",
-        }))
-
-        location.reload()
-
-      } catch (error) {
-        console.log(error);
-      }
+        } catch (error) {
+          console.log(error);
+        }
 
 
+      })
+
+
+
+      formsValidacaoEdit.allvalidacao(motoristasEdit_VALID);
+      formsValidacaoEdit.neutralidadeON();
+      // formsValidacaoEdit.autovalidar()
     })
 
 
 
-    formsValidacaoEdit.allvalidacao(motoristasEdit_VALID);
-    formsValidacaoEdit.neutralidadeON();
-    // formsValidacaoEdit.autovalidar()
+  const modalInfo = criarFuncaoModal((objEjs) => {
+    return ` <%- include("../partials/modals/info/_motorista.ejs") %> `;
+  }, (modal, objEJS) => {
 
-    modal.addEventListener("hidden.bs.modal", () => {
-
-      // quando o modal for fechado esse evento acionara e excluira o modal do body
-      document.body.removeChild(modal)
-    })
-
-
-
-  }
-  // fim modalEdit
-
-
-  const modalInfo = criarFuncaoModal((objEJS) => {
-    return ` <%- include("../partials/modals/info/_linhasHorario.ejs") %> `;
   });
 </script>

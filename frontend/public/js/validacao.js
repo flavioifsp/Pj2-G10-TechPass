@@ -17,14 +17,7 @@ class Inputs {
   }
 
   // ele retorna um objeto com todos os valores do input do site
-  allValues(modificarFormData) {
-    const valores = {};
-
-    // para o codigo antigo ainda funcionar
-    new FormData(this.forms).forEach((value, key) => {
-      valores[key] = value;
-    });
-
+  allValues(modificarFormData = {}) {
     const formobj = new FormData(this.forms);
 
     // modificarFormData é um objeto composto de metodos para modificar os valores do input
@@ -45,8 +38,13 @@ class Inputs {
       formobj.delete(key);
     });
 
-    console.log(modificarFormData ? formobj : valores);
-    return modificarFormData ? formobj : valores;
+    for (const [_, value] of formobj.entries()) {
+      if (typeof value == "object") {
+        return formobj;
+      }
+    }
+
+    return Object.fromEntries(formobj.entries());
   }
 
   // n vai validar se o input estiver vazio

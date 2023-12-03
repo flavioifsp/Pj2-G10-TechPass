@@ -1,0 +1,58 @@
+<div class="modal fade" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header border-bottom">
+        <h5 class="modal-title">Detalhes do Motorista</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row ">
+          <div class="col-5 ">
+            <div class="ratio ratio-1x1">
+              <img src="http://localhost:9000/${ objEjs.foto }" class="img-fluid w-100 rounded-1 border" />
+            </div>
+          </div>
+          <div class="col-7 list-group list-group-flush">
+            <!-- cnh cpf email nascimento nome senha -->
+
+            <li class="list-group-item pt-0">
+              Nome:
+              <span class="ms-1"> ${ objEjs.superuser.nome }</span>
+            </li>
+            <li class="list-group-item">
+              nascimento: <span class="ms-1"> ${ objEjs.superuser.nascimento.split("T")[0] }</span>
+            </li>
+            <li class="list-group-item">
+              cpf:
+              <span class="ms-1"> ${ objEjs.superuser.cpf }</span>
+            </li>
+            <li class="list-group-item">
+              cpf:
+              <span class="ms-1"> ${ objEjs.cnh }</span>
+            </li>
+            <li class="list-group-item">
+              email:
+              <span class="ms-1">${ objEjs.superuser.email }</span>
+            </li>
+
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-between border-top pt-1 pb-3">
+
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Fechar
+        </button>
+
+        <div>
+          <button type="button" class="btn btn-warning" onclick='modalEdit(${JSON.stringify(objEjs)})' data-bs-dismiss="modal">
+            Editar
+          </button>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onclick='modalDelet(${JSON.stringify(objEjs)})'>
+            Deletar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
