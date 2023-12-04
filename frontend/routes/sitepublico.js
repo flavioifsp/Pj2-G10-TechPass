@@ -15,7 +15,7 @@ async function UserInfoPagNav(token, headers) {
       {
         headers: headers,
       }
-    );
+    );  
 
     return UserAtual.data;
   } catch (error) {}

@@ -4,10 +4,14 @@ const axios = require("axios");
 const prisma = new (require("@prisma/client").PrismaClient)();
 const exception = require("../js/erro");
 
+router.use(
+  require("../js/functionJWT").autenticarADM(["motorista", "atendente"])
+);
+
 // criar ponto de onibus
 router.post("/bus-stop", async (req, res) => {
   const { cep, street, state, city, neighborhood, lat, lng } = req.body;
-console.log(req.body);
+  console.log(req.body);
   try {
     const createBusStop = await prisma.ponto_de_onibus.create({
       data: {
@@ -16,7 +20,7 @@ console.log(req.body);
         lat: lat,
         lng: lng,
       },
-      select: {
+      select: { 
         endereco: true,
       },
     });
@@ -32,14 +36,13 @@ console.log(req.body);
 });
 
 router.put("/bus-stop", async (req, res) => {
-  const {  id, cepInput, street, state, city, neighborhood, lat, lng } = req.body;
+  const { id, cepInput, street, state, city, neighborhood, lat, lng } =
+    req.body;
 
-  
   try {
     const editBusStop = await prisma.ponto_de_onibus.update({
-
-      where:{
-        id: id
+      where: {
+        id: id,
       },
 
       data: {
@@ -51,9 +54,8 @@ router.put("/bus-stop", async (req, res) => {
       select: {
         endereco: true,
       },
-      
     });
-    console.log(editBusStop)
+    console.log(editBusStop);
     res.status(201).json({
       message: `Ponto no endereço foi  alterado com sucesso!`,
     });

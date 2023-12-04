@@ -2,7 +2,7 @@ var express = require("express");
 var router = express.Router();
 const prisma = new (require("@prisma/client").PrismaClient)();
 const exception = require("../js/erro");
-const { gerarCookieTokenADM, autenticarADM } = require("../js/functionJWT");
+const { gerarCookieTokenADM } = require("../js/functionJWT");
 const bcry = require("bcryptjs");
 
 // post para login
@@ -18,7 +18,7 @@ router.post("/login", async (req, res, next) => {
       },
       select: {
         senha: true,
-        adm: {
+        adm: { 
           select: {
             superUser_id: true,
           },
@@ -44,7 +44,9 @@ router.post("/login", async (req, res, next) => {
 
     for (const key in userADM) {
       if (Object.hasOwnProperty.call(userADM, key)) {
-        if (userADM[key]) {
+        if (userADM[key] && userADM[key] && key !== "senha" ) {
+
+          
           return res.json({
             token: gerarCookieTokenADM(userADM[key].superUser_id, key),
           });

@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-  <title>Login Basic - Pages | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+  <title>Passtech Login</title>
 
   <meta name="description" content="" />
 
@@ -108,6 +108,9 @@
           const response = await axios.post("http://localhost:9000/api/userADM/login", form.allValues())
 
           document.cookie = response.data.token;
+
+
+          location.href = "/adm"
 
         } catch (error) {
 

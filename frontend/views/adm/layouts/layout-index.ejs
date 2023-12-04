@@ -75,6 +75,7 @@
     <script src="../js/FormModalEtapas.js"></script>
     <script src="../js/objsValidacao.js"></script>
     <script src="../js/alert.js"></script>
+    <script src="../js/tokenHeader.js"></script>
 
 
 
@@ -292,10 +293,10 @@
                 <div class="navbar-nav align-items-center">
                   <div class="nav-item d-flex align-items-center">
                     <li>
-                      <a class="dropdown-item" href="#">
+                      <button class="dropdown-item" type="button" id="BTNsairADM">
                         <i class="bx bx-power-off me-2"></i>
                         <span class="align-middle">Log Out</span>
-                      </a>
+                      </button>
                     </li>
                   </div>
                 </div>
@@ -344,6 +345,11 @@
     <script>
       document.addEventListener("DOMContentLoaded", () => {
 
+        document.querySelector("#BTNsairADM").addEventListener("click", () =>{
+          document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+
+          location.href = "/adm/login"
+        })
 
         const tabela = document.querySelector(".table")
         if (tabela) {

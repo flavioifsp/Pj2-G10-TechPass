@@ -12,6 +12,9 @@ router.get("/", async function (req, res, next) {
 });
 
 router.get("/login", async function (req, res, next) {
+  if (req.cookies.token || req.headers["authorization"]) {
+    return res.redirect("/adm/")
+  }
   res.render("adm/pages/loginADM.ejs", {
     layout: false,
   });
@@ -55,16 +58,19 @@ router.get("/pontoDeOnibus", async function (req, res, next) {
   let pontos;
 
   try {
-    pontos = (await axios.get("http://localhost:9000/api/linhas/bus-stop"))
-      .data;
+    pontos = (
+      await axios.get("http://localhost:9000/api/linhas/bus-stop", {
+        headers: req.headers,
+      })
+    ).data;
   } catch (error) {
-    pontos = null;
+    res.redirect("/adm/login");
   }
 
   res.render("adm/pages/cadastroPontoDeOnibus.ejs", {
     layout: "adm/layouts/layout-index.ejs",
     cont: "#menuPontoDeOnibus",
-    pontos,
+    pontos: pontos || [],
   });
 });
 
