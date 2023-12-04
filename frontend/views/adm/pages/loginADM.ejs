@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+
+<html lang="en" class="light-style layout-wide customizer-hide" dir="ltr" data-theme="theme-default" data-assets-path="/adm/assets/" data-template="vertical-menu-template-free">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+
+  <title>Login Basic - Pages | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+
+  <meta name="description" content="" />
+
+  <!-- custom js -->
+  <script src="../js/validacao.js"></script>
+  <script src="../js/objsValidacao.js"></script>
+  <script src="../js/alert.js"></script>
+
+
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/adm/assets/img/favicon/favicon.ico" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/adm/assets/vendor/fonts/boxicons.css" />
+
+  <!-- Core CSS -->
+  <link rel="stylesheet" href="/adm/assets/vendor/css/core.css" class="template-customizer-core-css" />
+  <link rel="stylesheet" href="/adm/assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
+  <link rel="stylesheet" href="/adm/assets/css/demo.css" />
+
+  <!-- Vendors CSS -->
+  <link rel="stylesheet" href="/adm/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+
+  <!-- Page CSS -->
+  <!-- Page -->
+  <link rel="stylesheet" href="/adm/assets/vendor/css/pages/page-auth.css" />
+
+  <!-- Helpers -->
+  <script src="/adm/assets/vendor/js/helpers.js"></script>
+  <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+  <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+  <script src="/adm/assets/js/config.js"></script>
+</head>
+
+<body>
+  <!-- Content -->
+
+  <div class="container-xxl">
+    <div class="authentication-wrapper authentication-basic container-p-y">
+      <div class="authentication-inner">
+        <!-- Register -->
+        <div class="card">
+          <div class="card-body">
+
+            <h4 class="mb-2">Bem-vindo ao TechPass! 👋</h4>
+            <p class="mb-4">Por favor, faça login na sua conta e comece a trabalhar</p>
+
+
+            <div id="alert">
+              <script>
+                alert("alert");
+              </script>
+            </div>
+
+
+            <form id="formAuthentication" class="mb-3">
+              <div class="mb-3">
+                <label for="email" class="form-label">E-mail </label>
+                <input type="text" class="form-control" id="email" name="email" placeholder="Digite seu e-mail ou nome de usuário" autofocus />
+              </div>
+              <div class="mb-3 form-password-toggle">
+                <div class="d-flex justify-content-between">
+                  <label class="form-label" for="senha">Senha</label>
+
+                </div>
+                <div class="input-group input-group-merge">
+                  <input type="password" id="senha" class="form-control" name="senha" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" />
+                  <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                </div>
+              </div>
+              <div class="mb-3">
+                <button class="btn btn-primary d-grid w-100" type="submit">Entrar</button>
+              </div>
+            </form>
+
+
+          </div>
+        </div>
+        <!-- /Register -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const form = new Inputs("form")
+
+      //   form.allvalidacao(loginVALID)
+
+      form.forms.addEventListener("submit", async (evt) => {
+        evt.preventDefault()
+
+        try {
+          const response = await axios.post("http://localhost:9000/api/userADM/login", form.allValues())
+
+          document.cookie = response.data.token;
+
+        } catch (error) {
+
+
+          if (error.response) {
+
+            console.log(error.response);
+            localStorage.setItem("alert", JSON.stringify({
+              cor: "danger",
+              texto: error.response.data,
+              div: "#alert",
+            }))
+            location.reload()
+          }
+
+        }
+      })
+
+    })
+  </script>
+
+  <!-- Core JS -->
+  <!-- build:js assets/vendor/js/core.js -->
+
+  <script src="/adm/assets/vendor/libs/jquery/jquery.js"></script>
+  <script src="/adm/assets/vendor/libs/popper/popper.js"></script>
+  <script src="/adm/assets/vendor/js/bootstrap.js"></script>
+  <script src="/adm/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+  <script src="/adm/assets/vendor/js/menu.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+  <!-- endbuild -->
+
+  <!-- Vendors JS -->
+
+  <!-- Main JS -->
+  <script src="/adm/assets/js/main.js"></script>
+
+  <!-- Page JS -->
+
+  <!-- Place this tag in your head or just before your close body tag. -->
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+</body>
+
+</html>

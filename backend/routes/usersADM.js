@@ -9,10 +9,12 @@ const bcry = require("bcryptjs");
 router.post("/login", async (req, res, next) => {
   const { email, senha } = req.body;
 
+  console.log(email, senha);
+  
   try {
     const userADM = await prisma.superuser.findUnique({
       where: {
-        email,
+        email: email || "",
       },
       select: {
         senha: true,
@@ -36,7 +38,7 @@ router.post("/login", async (req, res, next) => {
 
     if (!userADM) {
       throw { code: 404, msg: "este email não existe!" };
-    } else if (!(await bcry.compare(senha, userADM.senha))) {
+    } else if (!(await bcry.compare(senha || "", userADM.senha))) {
       throw { code: 401, msg: "senha incorreta!" };
     }
 
@@ -56,7 +58,7 @@ router.post("/login", async (req, res, next) => {
     throw { code: 401, msg: "Esse usuario não tem categoria, use outra conta" };
   } catch (error) {
     const erro = error.msg ? error : exception(error);
-    // console.log(error);
+    console.log(error);
     res.status(erro.code).send(erro.msg);
   }
 });

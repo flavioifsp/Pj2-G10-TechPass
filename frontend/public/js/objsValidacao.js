@@ -243,3 +243,10 @@ const atendenteEDIT = {
   local_de_trabalho_id: validEdit.local_de_trabalho_id,
   telefone: validEdit.telefone,
 };
+
+
+
+const loginVALID ={
+  email: validGeral.email,
+  senha: validGeral.senha
+}

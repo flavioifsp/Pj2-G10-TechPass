@@ -3,10 +3,17 @@ var express = require("express");
 var router = express.Router();
 
 /* GET home page. */
+
 router.get("/", async function (req, res, next) {
   res.render("adm/pages/index.ejs", {
     layout: "adm/layouts/layout-index.ejs",
     cont: "#menuDashboard",
+  });
+});
+
+router.get("/login", async function (req, res, next) {
+  res.render("adm/pages/loginADM.ejs", {
+    layout: false,
   });
 });
 
@@ -89,8 +96,6 @@ router.get("/cartoes", async function (req, res, next) {
   try {
     allcartoes = (await axios.get("http://localhost:9000/api/adm/cartoes"))
       .data;
-
-
   } catch (error) {
     cartoes = null;
   }
@@ -106,10 +111,7 @@ router.get("/linhas", async function (req, res, next) {
   let linhas;
 
   try {
-    linhas = (await axios.get("http://localhost:9000/api/linhas"))
-      .data;
-
-      
+    linhas = (await axios.get("http://localhost:9000/api/linhas")).data;
   } catch (error) {
     linhas = null;
   }
@@ -117,7 +119,7 @@ router.get("/linhas", async function (req, res, next) {
   res.render("adm/pages/linhas.ejs", {
     layout: "adm/layouts/layout-index.ejs",
     cont: "#menuLinhas",
-    linhas
+    linhas,
   });
 });
 
