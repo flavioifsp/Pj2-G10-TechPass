@@ -5,11 +5,9 @@
 <div id="alert"></div>
 <script>
   alert("atendenteFlash");
- 
 </script>
 
 <%- include('../partials/modals/create/_formsCriarAtendente.ejs') %>
-
 
 
 
@@ -297,67 +295,82 @@
 
 
 
-
-  // criando uma função que recebe a informação em um objeto transformado pelo JSON.stringify
-  function modalInfo(objEjs) {
-    // transformando o objeto que está transformado em string para objeto dnv
-
-    // criando uma div no js
-    const umadiv = document.createElement("div");
-
-    // adicionando o innerHTML com um template
-    // https://www.w3schools.com/js/js_string_templates.asp
-    // e
-    // adicionando uma div de modal pego do site do boostrap
-    umadiv.innerHTML = `
-          <div class="modal fade" tabindex="-1" >
-            <div class="modal-dialog modal-dialog-centered">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title">Detalhes da atendente ${objEjs.nome}</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  const modalInfo = criarFuncaoModal((objEjs) => {
+    return `
+    <div class="modal fade" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header border-bottom">
+            <h5 class="modal-title">Detalhes da atendente ${objEjs.superuser.nome}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row ">
+              <div class="col-5 ">
+                <div class="ratio ratio-1x1">
+                  <img src="http://localhost:9000/${ objEjs.foto }" class="img-fluid w-100 rounded-1 border" />
                 </div>
-                <div class="modal-body list-group h-100 w-100">
-                  <ul class="list-group">
-                  
-                  </ul>
-                </div >
-                <div class="modal-footer justify-content-between">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+              </div>
+              <div class="col-7 list-group list-group-flush">
+                <!-- cnh cpf email nascimento nome senha -->
 
-                  <div>
-                  <button type="button" class="btn btn-warning" onclick='' data-bs-dismiss="modal">Editar</button>
-                  <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Deletar</button>
-                  </div>
-                </div>
-              </div >
-            </div >
-          </div >
-          `;
+                <li class="list-group-item pt-0">
+                  Nome:
+                  <span class="ms-1"> ${ objEjs.superuser.nome }</span>
+                </li>
+                <li class="list-group-item">
+                  Nascimento: <span class="ms-1"> ${ objEjs.superuser.nascimento.split("T")[0] }</span>
+                </li>
+                <li class="list-group-item">
+                  CPF:
+                  <span class="ms-1"> ${ objEjs.superuser.cpf }</span>
+                </li>
+                <li class="list-group-item">
+                  Telefone:
+                  <span class="ms-1"> ${ objEjs.telefone }</span>
+                </li>
 
-    for (const key in objEjs) {
-      if (Object.hasOwnProperty.call(objEjs, key)) {
-        const li = document.createElement("li");
-        li.classList.add("list-group-item");
-        li.innerText = `${key}: ${objEjs[key]}`;
-        umadiv.querySelector("ul").appendChild(li);
-      }
-    }
+              </div>
+            </div>
+            <div class="row list-group list-group-flush border-top pt-3">
 
-    const modal = umadiv.querySelector(".modal");
+              <li class="list-group-item pt-0">
+                Email:
+                <span class="ms-1"> ${ objEjs.superuser.email }</span>
+              </li>
+              <li class="list-group-item">
+                Endereço: <span class="ms-1"> ${ objEjs.endereco }</span>
+              </li>
+              <li class="list-group-item">
+                Loja:
+                <span class="ms-1"> ${ objEjs.loja_recarga.nome }</span>
+              </li>
+              <li class="list-group-item border-bottom">
+                Turno:
+                <span class="ms-1"> ${ objEjs.turno }</span>
+              </li>
 
-    document.body.appendChild(modal);
+            </div>
+          </div>
+          <div class="modal-footer justify-content-between pt-1 pb-3">
 
-    const InstanciaBoostrapDoModal = new bootstrap.Modal(modal);
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+              Fechar
+            </button>
 
-    InstanciaBoostrapDoModal.toggle();
+            <div>
+              <button type="button" class="btn btn-warning" onclick='modalEdit(${JSON.stringify(objEjs)})' data-bs-dismiss="modal">
+                Editar
+              </button>
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onclick='modalDelet(${JSON.stringify(objEjs)})'>
+                Deletar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>`
+  }, (modal, objEjs) =>{
 
-    modal.addEventListener("hidden.bs.modal", () => {
-      document.body.removeChild(modal);
-    });
-  }
-
-  // veja a linha 117
-
-  // //  chamando a função com ela recebendo as informações da primeira linha
+  })
 </script>
