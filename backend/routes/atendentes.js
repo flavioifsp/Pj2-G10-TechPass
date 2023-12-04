@@ -6,7 +6,6 @@ const { gerarCookieToken, autenticar } = require("../js/functionJWT");
 const bcry = require("bcryptjs");
 const multerCustom = require("../js/multer.js")("atendentes");
 
-
 router.post("/atendente", multerCustom, async (req, res) => {
   const {
     email,
@@ -20,7 +19,6 @@ router.post("/atendente", multerCustom, async (req, res) => {
     telefone,
   } = req.body;
 
-
   try {
     const response = await prisma.superuser.create({
       data: {
@@ -29,20 +27,21 @@ router.post("/atendente", multerCustom, async (req, res) => {
         nascimento: new Date(nascimento),
         nome,
         cpf,
-        
+
         atendente: {
           create: {
             foto,
             endereco,
             turno,
             telefone,
-            local_de_trabalho_id: parseInt(req.body.local_de_trabalho_id) || undefined,
+            local_de_trabalho_id:
+              parseInt(req.body.local_de_trabalho_id) || undefined,
           },
         },
       },
 
       select: {
-       cpf:true 
+        cpf: true,
       },
     });
 
@@ -54,17 +53,17 @@ router.post("/atendente", multerCustom, async (req, res) => {
   }
 });
 
-router.put("/atendente/:id", multerCustom,async (req, res) => {
+router.put("/atendente/:id", multerCustom, async (req, res) => {
   const {
     email,
     senha,
     nome,
     cpf,
     endereco,
+    foto,
     nascimento,
     turno,
     telefone,
-    local_de_trabalho_id,
   } = req.body;
 
   const superUserID = parseInt(req.params.id);
@@ -76,25 +75,26 @@ router.put("/atendente/:id", multerCustom,async (req, res) => {
       data: {
         email,
         senha,
-        cpf,
-        nome,
         nascimento: new Date(nascimento),
-
+        nome,
+        cpf,
         atendente: {
           update: {
             where: { superUser_id: superUserID },
             data: {
+              foto,
               endereco,
               turno,
               telefone,
-              local_de_trabalho_id: parseInt(local_de_trabalho_id),
+              local_de_trabalho_id:
+                parseInt(req.body.local_de_trabalho_id) || undefined,
             },
           },
         },
       },
 
       select: {
-        nome: true,
+        cpf: true,
       },
     });
 
@@ -129,15 +129,22 @@ router.delete("/atendente/:id", async (req, res) => {
       where: {
         superUser_id: parseInt(id),
       },
+
       select: {
         superuser: {
           select: {
-            email: true,
-            nome: true,
+            cpf: true,
           },
         },
       },
     });
+
+    await prisma.superuser.delete({
+      where: {
+        id: parseInt(id),
+      },
+    });
+
     res.status(204).json(atendentes);
   } catch (error) {
     const erro = exception(error);

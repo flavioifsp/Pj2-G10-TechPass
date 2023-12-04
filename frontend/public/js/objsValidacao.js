@@ -143,12 +143,12 @@ const validGeral = {
     btnoff: "required",
     pattern: [".*", "telefone valido", "telefone invalido"],
   },
-  endereco:{
+  endereco: {
     min: 0,
     max: 500,
     btnoff: "required",
     pattern: [".*", "endereco valido", "endereco invalido"],
-  }
+  },
 };
 
 const validEdit = {
@@ -159,6 +159,11 @@ const validEdit = {
   cpf: { ...validGeral.cpf, ...{ btnoff: null } },
   senha: { ...validGeral.senha, ...{ btnoff: null } },
   email: { ...validGeral.email, ...{ btnoff: null } },
+  nome: { ...validGeral.nome, ...{ btnoff: null } },
+  endereco: {...validGeral.endereco, ...{btnoff: null}},
+  turno: {...validGeral.turno, ...{btnoff: null}},
+  local_de_trabalho_id: {...validGeral.local_de_trabalho_id, ...{btnoff: null}},
+  telefone: {...validGeral.telefone, ...{btnoff: null}},
 };
 
 // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -223,5 +228,18 @@ const atendenteVALID_2 = {
   // endereco: validGeral.endereco,
   turno: validGeral.turno,
   local_de_trabalho_id: validGeral.local_de_trabalho_id,
-  telefone: validGeral.telefone
+  telefone: validGeral.telefone,
+};
+
+const atendenteEDIT = {
+  nome: validEdit.nome,
+  nascimento: validEdit.nascimento,
+  email: validEdit.email,
+  senha: validEdit.senha,
+  cpf: validEdit.cpf,
+  foto: validEdit.foto,
+  endereco: validEdit.endereco,
+  turno: validEdit.turno,
+  local_de_trabalho_id: validEdit.local_de_trabalho_id,
+  telefone: validEdit.telefone,
 };
