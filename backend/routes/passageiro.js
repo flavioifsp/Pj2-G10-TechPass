@@ -56,7 +56,8 @@ router.post("/passageiros", async (req, res, next) => {
         email,
         cpf,
         username,
-        senha,
+        senha: await bcry.hash(senha, 10),
+
         nome,
         nascimento: `${nascimento}T00:00:00Z`,
         saldo: 0,
@@ -101,28 +102,23 @@ router.put("/passageiros", async (req, res, next) => {
   }
 });
 
-
-
 router.delete("/passageiros/:id", async (req, res) => {
-    try {
-  
-      const deleteLoja = await prisma.clientes.delete({
-        where: {
-          id: Number(req.params.id),
-        },
-        select: {
-          id: true,
-        },
-      });
-  
-      res.status(200).send();
-  
-    } catch (error) {
-      const erro = exception(error);
-      console.log(error);
-      res.status(erro.code).send(erro.msg);
-    }
-  });
-  
+  try {
+    const deleteLoja = await prisma.clientes.delete({
+      where: {
+        id: Number(req.params.id),
+      },
+      select: {
+        id: true,
+      },
+    });
+
+    res.status(200).send();
+  } catch (error) {
+    const erro = exception(error);
+    console.log(error);
+    res.status(erro.code).send(erro.msg);
+  }
+});
 
 module.exports = router;

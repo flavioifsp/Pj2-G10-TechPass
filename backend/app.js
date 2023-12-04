@@ -12,6 +12,7 @@ const catraca = require("./routes/catraca");
 const users = require("./routes/users");
 const atendentes = require("./routes/atendentes");
 const motorista = require("./routes/motorista");
+const userADM = require("./routes/usersADM");
 const analise = require("./routes/indexADM");
 const passageiro = require("./routes/passageiro")
 const lojas = require("./routes/lojas")
@@ -45,6 +46,7 @@ app.use("/api/catraca", catraca);
 app.use("/api/user", users);
 app.use("/api/userADM", atendentes);
 app.use("/api/userADM", motorista);
+app.use("/api/userADM", userADM);
 app.use("/api/analise", analise);
 app.use("/api/adm", passageiro);
 app.use("/api/adm", lojas);

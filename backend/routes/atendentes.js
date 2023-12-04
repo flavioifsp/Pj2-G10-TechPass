@@ -23,7 +23,7 @@ router.post("/atendente", multerCustom, async (req, res) => {
     const response = await prisma.superuser.create({
       data: {
         email,
-        senha,
+        senha: await bcry.hash(senha, 10),
         nascimento: new Date(nascimento),
         nome,
         cpf,
@@ -74,7 +74,7 @@ router.put("/atendente/:id", multerCustom, async (req, res) => {
       },
       data: {
         email,
-        senha,
+        senha: senha ? await bcry.hash(senha, 10) : undefined,
         nascimento: new Date(nascimento),
         nome,
         cpf,

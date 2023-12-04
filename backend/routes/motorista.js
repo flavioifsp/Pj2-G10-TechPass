@@ -20,7 +20,7 @@ router.post("/motorista", multerCustom, async (req, res) => {
             email,
             nascimento,
             nome,
-            senha,
+            senha: await bcry.hash(senha, 10),
           },
         },
       },
@@ -91,7 +91,7 @@ router.put("/motorista/:id", multerCustom, async (req, res) => {
             where: { id: parseInt(req.params.id) },
             data: {
               nome,
-              senha,
+              senha: senha ? await bcry.hash(senha, 10) : undefined,
               email,
               cpf,
               nascimento,
