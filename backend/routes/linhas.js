@@ -4,9 +4,7 @@ const axios = require("axios");
 const prisma = new (require("@prisma/client").PrismaClient)();
 const exception = require("../js/erro");
 
-router.use(
-  require("../js/functionJWT").autenticarADM(["motorista", "atendente"])
-);
+const autenticar = require("../js/functionJWT").autenticarADM(["motorista", "atendente"])
 
 /* retorna todas as linhas. */
 router.get("/", async function (req, res, next) {
@@ -56,7 +54,7 @@ router.get("/", async function (req, res, next) {
   }
 });
 
-router.post("/", async (req, res, next) => {
+router.post("/", autenticar, async (req, res, next) => {
   try {
     const { rota1, rota2, numero_linha } = req.body;
 
@@ -103,7 +101,7 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-router.patch("/atualizar/:id", async (req, res, next) => {
+router.patch("/atualizar/:id", autenticar, async (req, res, next) => {
   try {
     const linhaAtt = await prisma.linhas.update({
       where: {
@@ -120,7 +118,7 @@ router.patch("/atualizar/:id", async (req, res, next) => {
   }
 });
 
-router.patch("/atualizar/horarios/:id", async (req, res, next) => {
+router.patch("/atualizar/horarios/:id", autenticar, async (req, res, next) => {
   try {
     const linhaAtt = await prisma.horario_diario_saida.updateMany({
       where: {
@@ -137,7 +135,7 @@ router.patch("/atualizar/horarios/:id", async (req, res, next) => {
   }
 });
 
-router.delete("/deletar/:id", async (req, res, next) => {
+router.delete("/deletar/:id", autenticar, async (req, res, next) => {
   try {
     const linhas_id = parseInt(req.params.id);
 

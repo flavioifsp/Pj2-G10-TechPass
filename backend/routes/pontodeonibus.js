@@ -4,12 +4,12 @@ const axios = require("axios");
 const prisma = new (require("@prisma/client").PrismaClient)();
 const exception = require("../js/erro");
 
-router.use(
-  require("../js/functionJWT").autenticarADM(["motorista", "atendente"])
-);
+const  autenticar = require("../js/functionJWT").autenticarADM(["motorista", "atendente"])
+
+
 
 // criar ponto de onibus
-router.post("/bus-stop", async (req, res) => {
+router.post("/bus-stop", autenticar, async (req, res) => {
   const { cep, street, state, city, neighborhood, lat, lng } = req.body;
   console.log(req.body);
   try {
@@ -35,7 +35,7 @@ router.post("/bus-stop", async (req, res) => {
   }
 });
 
-router.put("/bus-stop", async (req, res) => {
+router.put("/bus-stop", autenticar, async (req, res) => {
   const { id, cepInput, street, state, city, neighborhood, lat, lng } =
     req.body;
 
@@ -67,7 +67,7 @@ router.put("/bus-stop", async (req, res) => {
 });
 
 // mostrar todos os pontos
-router.get("/bus-stop", async (req, res) => {
+router.get("/bus-stop",  async (req, res) => {
   try {
     const createBusStop = await prisma.ponto_de_onibus.findMany();
 
@@ -79,7 +79,7 @@ router.get("/bus-stop", async (req, res) => {
   }
 });
 
-router.delete("/bus-stop/:id", async (req, res) => {
+router.delete("/bus-stop/:id", autenticar, async (req, res) => {
   try {
     const deleteBusStop = await prisma.ponto_de_onibus.delete({
       where: {

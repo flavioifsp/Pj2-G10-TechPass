@@ -5,11 +5,9 @@ const exception = require("../js/erro");
 const bcry = require("bcryptjs");
 
 
-router.use(
-  require("../js/functionJWT").autenticarADM(["motorista", "atendente"])
-);
+  const autenticar = require("../js/functionJWT").autenticarADM(["motorista", "atendente"])
 
-router.patch("/passageirosRecarga/:id/:recarga", async (req, res, next) => {
+router.patch("/passageirosRecarga/:id/:recarga", autenticar, async (req, res, next) => {
   try {
     const { id, recarga } = req.params;
 
@@ -39,7 +37,7 @@ router.patch("/passageirosRecarga/:id/:recarga", async (req, res, next) => {
   }
 });
 
-router.get("/passageiros", async (req, res, next) => {
+router.get("/passageiros", autenticar, async (req, res, next) => {
   try {
     const allPassageiros = await prisma.clientes.findMany();
 
@@ -51,7 +49,7 @@ router.get("/passageiros", async (req, res, next) => {
   }
 });
 
-router.post("/passageiros", async (req, res, next) => {
+router.post("/passageiros", autenticar, async (req, res, next) => {
   try {
     const { nome, username, cpf, nascimento, saldo, email, senha } = req.body;
 
@@ -78,7 +76,7 @@ router.post("/passageiros", async (req, res, next) => {
   }
 });
 
-router.put("/passageiros", async (req, res, next) => {
+router.put("/passageiros", autenticar, async (req, res, next) => {
   try {
     const { id, nome, username, cpf, nascimento, email } = req.body;
 
@@ -106,7 +104,7 @@ router.put("/passageiros", async (req, res, next) => {
   }
 });
 
-router.delete("/passageiros/:id", async (req, res) => {
+router.delete("/passageiros/:id", autenticar, async (req, res) => {
   try {
     const deleteLoja = await prisma.clientes.delete({
       where: {
