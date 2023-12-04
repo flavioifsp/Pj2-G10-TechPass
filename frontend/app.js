@@ -7,6 +7,7 @@ const expressLayouts = require("express-ejs-layouts");
 const dotenv = require("dotenv").config();
 const cors = require("cors");
 
+
 const sitepublicoRouter = require("./routes/sitepublico");
 const profileRouter = require("./routes/profile");
 const catraca = require("./routes/catraca");

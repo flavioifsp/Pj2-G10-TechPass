@@ -84,9 +84,11 @@
     />
     <link
       rel="stylesheet"
-      href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css"
+      href="/DataTables-1.13.8/css/dataTables.bootstrap5.min.css"
     />
 
+
+    
     <link
       rel="stylesheet"
       href="/adm/assets/vendor/libs/apex-charts/apex-charts.css"
@@ -344,15 +346,18 @@
 
 
         const tabela = document.querySelector(".table")
-        const ColNoOrden = JSON.parse( tabela.getAttribute("data-ColNoOrden")) || 3
+        if (tabela) {
+          const ColNoOrden = JSON.parse( tabela.getAttribute("data-ColNoOrden")) || 3
         
 
         new DataTable(tabela, {
           language: {
-            url: "https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese.json",
+            url: "/DataTables-1.13.8/Portuguese.json",
           },
           columnDefs: [{ orderable: false, targets: ColNoOrden }],
         });
+        }
+        
       });
 
     </script>
@@ -383,7 +388,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script src="/DataTables-1.13.8/js/jquery.dataTables.min.js"></script>
+    <script src="/DataTables-1.13.8/js/dataTables.bootstrap5.min.js"></script>
   </body>
 </html>
