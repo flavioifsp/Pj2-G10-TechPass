@@ -5,11 +5,11 @@ const exception = require("../js/erro");
 
 const bcry = require("bcryptjs");
 
-// router.use(
-//   require("../js/functionJWT").autenticarADM(["motorista", "atendente"])
-// );
 
-router.get("/lojas", async (req, res, next) => {
+const autenticar =  require("../js/functionJWT").autenticarADM(["motorista", "atendente"])
+
+
+router.get("/lojas",  async (req, res, next) => {
   try {
     // const novaLoja = await prisma.loja_recarga.create({
     const allLojas = await prisma.loja_recarga.findMany();
@@ -22,7 +22,7 @@ router.get("/lojas", async (req, res, next) => {
   }
 });
 
-router.post("/lojas", async (req, res, next) => {
+router.post("/lojas", autenticar, async (req, res, next) => {
   try {
     let { nome, cep, street, state, city, neighborhood, lat, lng } = req.body;
 
@@ -51,7 +51,7 @@ router.post("/lojas", async (req, res, next) => {
   }
 });
 
-router.put("/lojas", async (req, res) => {
+router.put("/lojas",autenticar, async (req, res) => {
   const { id, nome, cepInput, street, state, city, neighborhood, lat, lng } =
     req.body;
 
@@ -83,7 +83,7 @@ router.put("/lojas", async (req, res) => {
   }
 });
 
-router.delete("/loja/:id", async (req, res) => {
+router.delete("/loja/:id", autenticar,async (req, res) => {
   try {
     const deleteLoja = await prisma.loja_recarga.delete({
       where: {

@@ -4,10 +4,10 @@ const { PrismaClient, Prisma } = require("@prisma/client");
 const exception = require("../js/erro");
 const prisma = new PrismaClient();
 
-
-router.use(
-  require("../js/functionJWT").autenticarADM(["motorista", "atendente"])
-);
+const autenticar = require("../js/functionJWT").autenticarADM([
+  "motorista",
+  "atendente",
+]);
 
 router.get("/cartoes", async (req, res, next) => {
   try {
@@ -22,7 +22,7 @@ router.get("/cartoes", async (req, res, next) => {
   }
 });
 
-router.post("/cartoes", async (req, res, next) => {
+router.post("/cartoes", autenticar, async (req, res, next) => {
   try {
     let { modalidade, tarifa } = req.body;
 
@@ -44,7 +44,7 @@ router.post("/cartoes", async (req, res, next) => {
   }
 });
 
-router.delete("/cartoes/:id", async (req, res) => {
+router.delete("/cartoes/:id", autenticar, async (req, res) => {
   try {
     const deleteLoja = await prisma.tipos_de_cartao.delete({
       where: {
@@ -63,7 +63,7 @@ router.delete("/cartoes/:id", async (req, res) => {
   }
 });
 
-router.put("/cartoes", async (req, res, next) => {
+router.put("/cartoes", autenticar, async (req, res, next) => {
   try {
     const { id, tarifa, modalidade } = req.body;
 

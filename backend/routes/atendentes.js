@@ -2,15 +2,16 @@ var express = require("express");
 var router = express.Router();
 const prisma = new (require("@prisma/client").PrismaClient)();
 const exception = require("../js/erro");
-const { gerarCookieToken, autenticar } = require("../js/functionJWT");
+
 const bcry = require("bcryptjs");
 const multerCustom = require("../js/multer.js")("atendentes");
 
-router.use(
-  require("../js/functionJWT").autenticarADM(["motorista", "atendente"])
-);
+const autenticar = require("../js/functionJWT").autenticarADM([
+  "motorista",
+  "atendente",
+]);
 
-router.post("/atendente", multerCustom, async (req, res) => {
+router.post("/atendente", autenticar, multerCustom, async (req, res) => {
   const {
     email,
     senha,
@@ -57,7 +58,7 @@ router.post("/atendente", multerCustom, async (req, res) => {
   }
 });
 
-router.put("/atendente/:id", multerCustom, async (req, res) => {
+router.put("/atendente/:id", autenticar, multerCustom, async (req, res) => {
   const {
     email,
     senha,
@@ -110,7 +111,7 @@ router.put("/atendente/:id", multerCustom, async (req, res) => {
   }
 });
 
-router.get("/atendentes", async (req, res) => {
+router.get("/atendentes", autenticar, async (req, res) => {
   try {
     const atendentes = await prisma.atendente.findMany({
       include: {
@@ -126,7 +127,7 @@ router.get("/atendentes", async (req, res) => {
   }
 });
 
-router.delete("/atendente/:id", async (req, res) => {
+router.delete("/atendente/:id", autenticar, async (req, res) => {
   const { id } = req.params;
   try {
     const atendentes = await prisma.atendente.delete({

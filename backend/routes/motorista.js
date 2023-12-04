@@ -5,11 +5,12 @@ const exception = require("../js/erro");
 const bcry = require("bcryptjs");
 const multerCustom = require("../js/multer.js")("motoristas");
 
-router.use(
-  require("../js/functionJWT").autenticarADM(["motorista", "atendente"])
-);
+const autenticar = require("../js/functionJWT").autenticarADM([
+  "motorista",
+  "atendente",
+]);
 
-router.post("/motorista", multerCustom, async (req, res) => {
+router.post("/motorista", autenticar, multerCustom, async (req, res) => {
   try {
     const { nome, nascimento, cpf, foto, cnh, email, senha } = req.body;
 
@@ -40,7 +41,7 @@ router.post("/motorista", multerCustom, async (req, res) => {
   }
 });
 
-router.get("/motoristas", async (req, res) => {
+router.get("/motoristas", autenticar, async (req, res) => {
   try {
     const response = await prisma.motorista.findMany({
       include: {
@@ -56,7 +57,7 @@ router.get("/motoristas", async (req, res) => {
   }
 });
 
-router.delete("/motorista/:superuser_id", async (req, res) => {
+router.delete("/motorista/:superuser_id", autenticar, async (req, res) => {
   try {
     await prisma.motorista.delete({
       where: {
@@ -78,7 +79,7 @@ router.delete("/motorista/:superuser_id", async (req, res) => {
   }
 });
 
-router.put("/motorista/:id", multerCustom, async (req, res) => {
+router.put("/motorista/:id", autenticar, multerCustom, async (req, res) => {
   try {
     const { cnh, foto, nome, senha, email, cpf, nascimento } = req.body;
 
