@@ -62,6 +62,14 @@ router.get("/login", async function (req, res, next) {
   });
 });
 
+router.get("/teste", async function (req, res, next) {
+  res.render("site_publico/pages/teste", {
+    title: "teste",
+    layout: "site_publico/layouts/layout_auth.ejs",
+    navUser: (await UserInfoPagNav(req.cookies.token, req.headers))
+  });
+});
+
 
 /* GET cadastrar. */
 router.get("/cadastrar", async function (req, res, next) {
