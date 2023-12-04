@@ -105,7 +105,7 @@
         <tr>
           <th>Nome</th>
           <th>CPF</th>
-          
+
           <th>Nascimento</th>
           <th>Cartões</th>
           <th>Adiconar Cartões</th>
@@ -123,11 +123,11 @@
           <td>
             <%= elem.cpf %>
           </td>
-        
+
           <td>
             <%= new Date(elem.nascimento).toLocaleDateString()%>
           </td>
-          
+
           <td>
             "alterar codigo"
           </td>
@@ -137,9 +137,9 @@
             </button>
           </td>
           <td>
-               <button class="btn btn-success py-1 px-2" data-bs-target="#pontodeonibus<%= elem.id%>" onclick='modalRecarg(<%-JSON.stringify(elem)%>)'>
-                 Recarregar
-               </button>
+            <button class="btn btn-success py-1 px-2" data-bs-target="#pontodeonibus<%= elem.id%>" onclick='modalRecarg(<%-JSON.stringify(elem)%>)'>
+              Recarregar
+            </button>
           </td>
 
           <td>
@@ -157,8 +157,6 @@
 
           </td>
 
-
-       
 
 
 
@@ -223,11 +221,11 @@
   function modalCartao(objEjs) {
     const divRecarg = document.createElement("div")
 
-// adicionando o innerHTML com um template
-// https://www.w3schools.com/js/js_string_templates.asp
-// e
-// adicionando uma div de modal pego do site do boostrap
-divRecarg.innerHTML = `
+    // adicionando o innerHTML com um template
+    // https://www.w3schools.com/js/js_string_templates.asp
+    // e
+    // adicionando uma div de modal pego do site do boostrap
+    divRecarg.innerHTML = `
 <div class="modal fade" tabindex="-1">
   <div class="modal-dialog modal-sm modal-dialog-centered">
     <div class="modal-content">
@@ -254,28 +252,28 @@ divRecarg.innerHTML = `
 
 
 
-// criando uma variavel que recebe o modal dentro do umadiv
-const modalRecarg = divRecarg.querySelector(".modal")
+    // criando uma variavel que recebe o modal dentro do umadiv
+    const modalRecarg = divRecarg.querySelector(".modal")
 
-// adicionando o modal ao BODY do HTML
-document.body.appendChild(modalRecarg)
-
-
-// criando uma instancia seguindo as instruções do boostrap
-// https://getbootstrap.com/docs/5.3/components/modal/#how-it-works
-const InstanciaBoostrapDoModal = new bootstrap.Modal(modalRecarg)
-
-// abrindo o modal
-InstanciaBoostrapDoModal.toggle()
+    // adicionando o modal ao BODY do HTML
+    document.body.appendChild(modalRecarg)
 
 
-const btnRecargaCartao = document.querySelector("#btnAdiconarCArtao")
+    // criando uma instancia seguindo as instruções do boostrap
+    // https://getbootstrap.com/docs/5.3/components/modal/#how-it-works
+    const InstanciaBoostrapDoModal = new bootstrap.Modal(modalRecarg)
 
-// btnRecargaCartao.addEventListener("click", async (event) => {
-try {
-  // const cartoes = (await axios.get("http://localhost:9000/api/adm/cartoes")).data;
+    // abrindo o modal
+    InstanciaBoostrapDoModal.toggle()
 
-        console.log("cartoes");
+
+    const btnRecargaCartao = document.querySelector("#btnAdiconarCArtao")
+
+    // btnRecargaCartao.addEventListener("click", async (event) => {
+    try {
+      const cartoes = await axios.get("http://localhost:9000/api/adm/cartoes")
+
+      console.log("cartoes");
 
       // const campo = document.querySelector("#modalidae_cartao");
       // cartoes.forEach((loja) => {
@@ -287,35 +285,37 @@ try {
       // })
     } catch (error) {
       const erro = exception(error);
-    console.error(error);
-    res.status(erro.code).send(erro.msg);    }
-  // })
+      console.error(error);
+      res.status(erro.code).send(erro.msg);
+    }
+    // })
 
- // vai para a parte de eventos que encontrara mais informações
- // https://getbootstrap.com/docs/5.3/components/modal/#how-it-works
- modalRecarg.addEventListener("hidden.bs.modal", () => {
+    // vai para a parte de eventos que encontrara mais informações
+    // https://getbootstrap.com/docs/5.3/components/modal/#how-it-works
+    modalRecarg.addEventListener("hidden.bs.modal", () => {
 
-// quando o modal for fechado esse evento acionara e excluira o modal do body
-document.body.removeChild(modalRecarg)
-})
-// fim da função
+      // quando o modal for fechado esse evento acionara e excluira o modal do body
+      document.body.removeChild(modalRecarg)
+    })
+    // fim da função
 
-  
-  
 
-}
- function modalRecarg(objEjs) {
 
- // transformando o objeto que está transformado em string para objeto dnv
 
- // criando uma div no js
- const divRecarg = document.createElement("div")
+  }
 
- // adicionando o innerHTML com um template
- // https://www.w3schools.com/js/js_string_templates.asp
- // e
- // adicionando uma div de modal pego do site do boostrap
- divRecarg.innerHTML = `
+  function modalRecarg(objEjs) {
+
+    // transformando o objeto que está transformado em string para objeto dnv
+
+    // criando uma div no js
+    const divRecarg = document.createElement("div")
+
+    // adicionando o innerHTML com um template
+    // https://www.w3schools.com/js/js_string_templates.asp
+    // e
+    // adicionando uma div de modal pego do site do boostrap
+    divRecarg.innerHTML = `
  <div class="modal fade" tabindex="-1">
    <div class="modal-dialog modal-sm modal-dialog-centered">
      <div class="modal-content">
@@ -349,79 +349,79 @@ document.body.removeChild(modalRecarg)
 
 
 
- // criando uma variavel que recebe o modal dentro do umadiv
- const modalRecarg = divRecarg.querySelector(".modal")
+    // criando uma variavel que recebe o modal dentro do umadiv
+    const modalRecarg = divRecarg.querySelector(".modal")
 
- // adicionando o modal ao BODY do HTML
- document.body.appendChild(modalRecarg)
-
-
- // criando uma instancia seguindo as instruções do boostrap
- // https://getbootstrap.com/docs/5.3/components/modal/#how-it-works
- const InstanciaBoostrapDoModal = new bootstrap.Modal(modalRecarg)
-
- // abrindo o modal
- InstanciaBoostrapDoModal.toggle()
+    // adicionando o modal ao BODY do HTML
+    document.body.appendChild(modalRecarg)
 
 
+    // criando uma instancia seguindo as instruções do boostrap
+    // https://getbootstrap.com/docs/5.3/components/modal/#how-it-works
+    const InstanciaBoostrapDoModal = new bootstrap.Modal(modalRecarg)
 
- const btnRecarga = modalRecarg.querySelector("#btnRecarga")
- const inputRecarga = modalRecarg.querySelector("#recarga") 
-
- 
-
- btnRecarga.addEventListener("click", async () =>{
-  event.preventDefault()
-
-   let Recarga = parseFloat(inputRecarga.value)
-   
+    // abrindo o modal
+    InstanciaBoostrapDoModal.toggle()
 
 
-  if (Recarga !== null && Recarga !== '' && Recarga !== 0 && Recarga > 0  ) {
-    // recarga = recarga.toFixed(2)
-  
-    try {
-      
-      const response = await axios.patch(`http://localhost:9000/api/adm/passageirosRecarga/${objEjs.id}/${recarga.value}`)
-     
-      localStorage.setItem("stopBusEdit", JSON.stringify({
-          cor: "success",
-          texto: `${objEjs.cpf} saldo adicionado com sucesso `,
-          div: "#alert",
-        }))
-      location.reload();
-      
 
-    } catch (error) {
-      console.log(error);
-
-    }
+    const btnRecarga = modalRecarg.querySelector("#btnRecarga")
+    const inputRecarga = modalRecarg.querySelector("#recarga")
 
 
-  } else{
 
-localStorage.setItem("stopBusDelete", JSON.stringify({
+    btnRecarga.addEventListener("click", async () => {
+      event.preventDefault()
+
+      let Recarga = parseFloat(inputRecarga.value)
+
+
+
+      if (Recarga !== null && Recarga !== '' && Recarga !== 0 && Recarga > 0) {
+        // recarga = recarga.toFixed(2)
+
+        try {
+
+          const response = await axios.patch(`http://localhost:9000/api/adm/passageirosRecarga/${objEjs.id}/${recarga.value}`)
+
+          localStorage.setItem("stopBusEdit", JSON.stringify({
+            cor: "success",
+            texto: `${objEjs.cpf} saldo adicionado com sucesso `,
+            div: "#alert",
+          }))
+          location.reload();
+
+
+        } catch (error) {
+          console.log(error);
+
+        }
+
+
+      } else {
+
+        localStorage.setItem("stopBusDelete", JSON.stringify({
           cor: "danger",
           texto: `Digite um valor valido `,
           div: "#alert",
         }))
-location.reload();
+        location.reload();
 
+      }
+
+    })
+
+    // vai para a parte de eventos que encontrara mais informações
+    // https://getbootstrap.com/docs/5.3/components/modal/#how-it-works
+    modalRecarg.addEventListener("hidden.bs.modal", () => {
+
+      // quando o modal for fechado esse evento acionara e excluira o modal do body
+      document.body.removeChild(modalRecarg)
+    })
+    // fim da função
   }
 
- })
 
- // vai para a parte de eventos que encontrara mais informações
- // https://getbootstrap.com/docs/5.3/components/modal/#how-it-works
- modalRecarg.addEventListener("hidden.bs.modal", () => {
-
- // quando o modal for fechado esse evento acionara e excluira o modal do body
- document.body.removeChild(modalRecarg)
- })
- // fim da função
- }
-
-  
   function modalInfo(objEjs) {
 
     // transformando o objeto que está transformado em string para objeto dnv
@@ -482,7 +482,6 @@ location.reload();
 
 
 
-
     // vai para a parte de eventos que encontrara mais informações
     // https://getbootstrap.com/docs/5.3/components/modal/#how-it-works
     modal.addEventListener("hidden.bs.modal", () => {
@@ -537,7 +536,7 @@ location.reload();
     btnDelet.addEventListener("click", async () => {
       try {
 
-        const deletado = await axios.delete(`http://localhost:9000/api/adm/passageiros/${objEjs.id}`)
+      const deletado = await axios.delete(`http://localhost:9000/api/adm/passageiros/${objEjs.id}`)
 
         localStorage.setItem("stopBusDelete", JSON.stringify({
           cor: "danger",
@@ -560,11 +559,8 @@ location.reload();
 
 
 
- 
-
-
   const modalEdit = criarFuncaoModal((objEjs) => {
-    return `
+      return `
       
       <div class="modal fade" id="modalToggle" aria-labelledby="modalToggleLabel" tabindex="-1" style="display: none" _mstvisible="0" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" _mstvisible="1">
@@ -630,75 +626,73 @@ location.reload();
         `;
 
 
-  },
-  
- (modal,objEjs)=> {
+    },
 
-  formsValidacaoEdit = new Inputs(modal.querySelector("form")) // pega todos os inputs do form 
-    const btnSalvarAlteracoes = document.querySelector("#btnSalvarAlteracoes")
+    (modal, objEjs) => {
 
-
+      formsValidacaoEdit = new Inputs(modal.querySelector("form")) // pega todos os inputs do form 
+      const btnSalvarAlteracoes = document.querySelector("#btnSalvarAlteracoes")
 
 
-    formsValidacaoEdit.allvalidacao({
-      nome: {
-        min: 3,
-        max: 255,
-        caractereNpermitido: ["Nnumber", "NcaractereEspecial"],
-        pattern: [".+", "nome valido", "nome invalido"],
-        btnoff: "naoEobrigatorio",
-      },
-      username: {
-        min: 3,
-        max: 45,
-        caractereNpermitido: ["Nnumber", "NcaractereEspecial"],
-        pattern: ["[a-zA-ZÀ-ú\s]{3,45}", "username valido", "username invalido"],
-        btnoff: "naoEobrigatorio",
-      },
 
 
+      formsValidacaoEdit.allvalidacao({
+        nome: {
+          min: 3,
+          max: 255,
+          caractereNpermitido: ["Nnumber", "NcaractereEspecial"],
+          pattern: [".+", "nome valido", "nome invalido"],
+          btnoff: "naoEobrigatorio",
+        },
+        username: {
+          min: 3,
+          max: 45,
+          caractereNpermitido: ["Nnumber", "NcaractereEspecial"],
+          pattern: ["[a-zA-ZÀ-ú\s]{3,45}", "username valido", "username invalido"],
+          btnoff: "naoEobrigatorio",
+        },
+
+
+      });
+
+
+
+      formsValidacaoEdit.forms.addEventListener("submit", async (event) => {
+
+        event.preventDefault()
+
+
+        try {
+
+          const valorEdit = formsValidacaoEdit.allValues()
+
+
+
+
+          valorEdit.nascimento = valorEdit.nascimento
+          valorEdit.nascimento = new Date(valorEdit.nascimento);
+
+
+
+          valorEdit.id = objEjs.id
+
+          const response = await axios.put(`http://localhost:9000/api/adm/passageiros, valorEdit`)
+
+
+
+          localStorage.setItem("stopBusEdit", JSON.stringify({
+            cor: "success",
+            texto: `O ponto do cep ${objEjs.nome} foi alterado para o cep ${valorEdit.nome} com sucesso`,
+            div: "#alert",
+          }))
+
+          location.reload();
+
+
+
+        } catch (error) {}
+
+
+      })
     });
-
-
-
-    formsValidacaoEdit.forms.addEventListener("submit", async (event) => {
-
-      event.preventDefault()
-
-
-      try {
-
-        const valorEdit = formsValidacaoEdit.allValues()
-
-
-
-
-        valorEdit.nascimento = valorEdit.nascimento
-        valorEdit.nascimento = new Date(valorEdit.nascimento);
-
-
-
-        valorEdit.id = objEjs.id
-
-        const response = await axios.put(`http://localhost:9000/api/adm/passageiros`, valorEdit)
-
-
-
-        localStorage.setItem("stopBusEdit", JSON.stringify({
-          cor: "success",
-          texto: `O ponto do cep ${objEjs.nome} foi alterado para o cep ${valorEdit.nome} com sucesso`,
-          div: "#alert",
-        }))
-
-        location.reload();
-
-
-
-      } catch (error) {
-      }
-
-
-    })
-  });
-
 </script>
