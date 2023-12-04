@@ -41,7 +41,7 @@ class Menu {
     router.get(`${href}/subpags/:pags`, function (req, res, next) {
       const { pags } = req.params;
       const caminho = `site_publico/pages/profile/partialsprofile${href}/_${pags}`;
-
+    
       res.render(caminho, { layout: false });
     });
   }
@@ -56,10 +56,10 @@ elemenu.addpag(
   "Meu Perfil"
 );
 elemenu.addpag(
-  "site_publico/pages/profile/partialsprofile/payment/_inicio.ejs",
-  "/payment",
+  "site_publico/pages/profile/partialsprofile/recarga/_inicio.ejs",
+  "/recarga",
   "bi bi-wallet2",
-  "Formas de Pagamento"
+  "Recarga"
 );
 elemenu.addpag(
   "site_publico/pages/profile/partialsprofile/mycard/_inicio.ejs",

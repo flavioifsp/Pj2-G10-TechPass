@@ -1,0 +1,45 @@
+<!-- RECARGA -->
+<section class="container-fluid mt-4" id="iniciopag">
+
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <button class="nav-link active">Minha Conta</button>
+    </li>
+    <li class="nav-item">
+      <button class="nav-link " id="btnPaia2" aria-current="page">Conta de Outra Pessoa</button>
+    </li>
+  </ul>
+
+
+  <div class="border p-3 rounded-bottom">
+
+    <div class="col-12 d-flex justify-content-center align-items-center">
+      <div class="col-md-8">
+        <h2 class="text-center mb-4">Recarga da Conta</h2>
+
+        <form>
+
+          <div class="mb-3">
+            <label for="valor" class="form-label visually-hidden">Valor</label>
+            <div class="input-group">
+              <span class="input-group-text">R$</span>
+              <input type="number" class="form-control" id="valor" placeholder="Digite o valor" required>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block">Recarregar</button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+<!-- RECARGA -->
+
+
+
+
+<script>
+  AlternarDePag("btnPaia2", "recarga", "recarga2")
+</script>

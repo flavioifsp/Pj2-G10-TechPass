@@ -1,0 +1,49 @@
+<!-- RECARGA -->
+<section class="container-fluid mt-4" id="iniciopag">
+
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <button class="nav-link " id="btnPaiaINICIO" >Minha Conta</button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link active"  aria-current="page" >Conta de Outra Pessoa</button>
+      </li>
+    </ul>
+  
+  
+    <div class="border p-3 rounded-bottom">
+  
+      <div class="col-12 d-flex justify-content-center align-items-center">
+        <div class="col-md-8">
+          <h2 class="text-center mb-4">Recarga por CPF</h2>
+  
+          <form>
+            <div class="mb-3">
+              <label for="cpf" class="form-label visually-hidden">CPF</label>
+              <input type="text" class="form-control" id="cpf" placeholder="Digite o CPF" required>
+            </div>
+  
+            <div class="mb-3">
+              <label for="valor" class="form-label visually-hidden">Valor</label>
+              <div class="input-group">
+                <span class="input-group-text">R$</span>
+                <input type="number" class="form-control" id="valor" placeholder="Digite o valor" required>
+              </div>
+            </div>
+  
+            <button type="submit" class="btn btn-primary btn-block">Recarregar</button>
+          </form>
+        </div>
+      </div>
+  
+    </div>
+  
+  </section>
+  <!-- RECARGA -->
+  
+  
+  
+  
+  <script>
+    AlternarDePag("btnPaiaINICIO", "recarga", "inicio")
+  </script>
