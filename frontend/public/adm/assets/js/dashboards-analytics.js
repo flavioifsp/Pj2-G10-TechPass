@@ -19,7 +19,7 @@
       series: [
         {
           name: '2021',
-          data: [18, 7, 15, 29, 18, 12, 9,12,15,12,15]
+          data: [18, 7, 15, 29, 18, 12]
         },
        
       ],
@@ -75,7 +75,7 @@
         }
       },
       xaxis: {
-        categories: ['Jan', 'Fev', 'Mar', 'Abr', 'Maio', 'Jun', 'Jul','Ago','Out','Nov','Dez'],
+        categories: ['Jan', 'Mar', 'Maio', 'Jul','Out','Dez'],
         labels: {
           style: {
             fontSize: '13px',
