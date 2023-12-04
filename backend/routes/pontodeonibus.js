@@ -20,7 +20,7 @@ router.post("/bus-stop", async (req, res) => {
         lat: lat,
         lng: lng,
       },
-      select: { 
+      select: {
         endereco: true,
       },
     });

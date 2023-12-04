@@ -2,9 +2,12 @@ var express = require("express");
 var router = express.Router();
 const prisma = new (require("@prisma/client").PrismaClient)();
 const exception = require("../js/erro");
-const { gerarCookieToken, autenticar } = require("../js/functionJWT");
 const bcry = require("bcryptjs");
 const multerCustom = require("../js/multer.js")("motoristas");
+
+router.use(
+  require("../js/functionJWT").autenticarADM(["motorista", "atendente"])
+);
 
 router.post("/motorista", multerCustom, async (req, res) => {
   try {
@@ -99,7 +102,6 @@ router.put("/motorista/:id", multerCustom, async (req, res) => {
           },
         },
       },
-    
     });
 
     console.log(response);

@@ -4,6 +4,10 @@ const axios = require("axios");
 const prisma = new (require("@prisma/client").PrismaClient)();
 const exception = require("../js/erro");
 
+router.use(
+  require("../js/functionJWT").autenticarADM(["motorista", "atendente"])
+);
+
 /* retorna todas as linhas. */
 router.get("/", async function (req, res, next) {
   try {
@@ -31,7 +35,7 @@ router.get("/", async function (req, res, next) {
         // console.log(horario, perc);
         if (i % 2 === 0) {
           const paia = elem;
-          paia.id = [elem.id]
+          paia.id = [elem.id];
           paia.horario_diario_saida = [elem.horario_diario_saida];
           paia.percurso = [elem.percurso];
 
@@ -114,7 +118,7 @@ router.patch("/atualizar/:id", async (req, res, next) => {
     res.status(erro.code).send(erro.msg);
     console.log(er);
   }
-})
+});
 
 router.patch("/atualizar/horarios/:id", async (req, res, next) => {
   try {

@@ -30,32 +30,29 @@ function gerarCookieTokenADM(id, tipo, miliSeg = 15000) {
 
 function autenticarADM(autorizado = []) {
   return (req, res, next) => {
-    
     let token =
       req.cookies.token ||
       (req.headers["authorization"]
         ? req.headers["authorization"].split(" ")[1]
         : false);
 
-    
-
     if (!token) {
       return res.status(401).send("token nâo fornecido");
     }
 
     jwt.verify(token, process.env.SECRET_KEY, (er, decoded) => {
-      if (er) return res.status(401).send("falha na autenticacâo do token");
+      if (er) return res.status(400).send("falha na autenticacâo do token");
 
       req.superUser_id = decoded.superUser_id;
 
       for (const iterator of autorizado) {
-        console.log( autorizado);
+        console.log(autorizado);
         if (decoded.tipo === iterator || decoded.tipo === "ADM") {
           return next();
         }
       }
 
-      res.status(401).json({ msg: "você não está autorizado" });
+      res.status(401).json({ inicio: true, msg: "você não está autorizado" });
     });
   };
 }

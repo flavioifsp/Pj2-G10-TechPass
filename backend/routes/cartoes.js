@@ -4,6 +4,11 @@ const { PrismaClient, Prisma } = require("@prisma/client");
 const exception = require("../js/erro");
 const prisma = new PrismaClient();
 
+
+router.use(
+  require("../js/functionJWT").autenticarADM(["motorista", "atendente"])
+);
+
 router.get("/cartoes", async (req, res, next) => {
   try {
     // const novaLoja = await prisma.loja_recarga.create({

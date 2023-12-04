@@ -6,6 +6,10 @@ const { gerarCookieToken, autenticar } = require("../js/functionJWT");
 const bcry = require("bcryptjs");
 const multerCustom = require("../js/multer.js")("atendentes");
 
+router.use(
+  require("../js/functionJWT").autenticarADM(["motorista", "atendente"])
+);
+
 router.post("/atendente", multerCustom, async (req, res) => {
   const {
     email,

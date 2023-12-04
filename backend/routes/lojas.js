@@ -2,8 +2,12 @@ var express = require("express");
 var router = express.Router();
 const prisma = new (require("@prisma/client").PrismaClient)();
 const exception = require("../js/erro");
-const { gerarCookieToken, autenticar } = require("../js/functionJWT");
+
 const bcry = require("bcryptjs");
+
+// router.use(
+//   require("../js/functionJWT").autenticarADM(["motorista", "atendente"])
+// );
 
 router.get("/lojas", async (req, res, next) => {
   try {
@@ -98,9 +102,5 @@ router.delete("/loja/:id", async (req, res) => {
     res.status(erro.code).send(erro.msg);
   }
 });
-
-
-
-
 
 module.exports = router;
