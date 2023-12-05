@@ -1,0 +1,109 @@
+<div class="modal fade" id="exLargeModal" tabindex="-1" style="display: none;" aria-hidden="true">
+  <div class="modal-dialog modal modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header ">
+        <h1 class="modal-title fs-5" id="createlojaLabel">
+          Adicionando novo Ônibus
+        </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <form id="formCreateCliente">
+        <div class="modal-body">
+          <div class="row g-2">
+            <!-- nome real -->
+            <div class="col-12">
+              <label for="nome" class="form-label">Nome Completo</label>
+              <input class="form-control" id="nome" name="nome" type="text" required />
+            </div>
+
+            <!-- username -->
+            <div class="col-12 col-sm-8">
+              <label for="username" class="form-label">Apelido (username)</label>
+              <input name="username" id="username" class="form-control" type="text" required />
+            </div>
+            <!-- nasc -->
+            <div class="col-sm-4 col-12">
+              <label for="nascimento" class="form-label">Data de Nascimento</label>
+              <input name="nascimento" id="nascimento" class="form-control" type="date" required />
+            </div>
+
+
+
+            <div class=" col-6">
+              <label for="senha" class="form-label">Senha</label>
+              <input class="form-control" id="senha" name="senha" type="text" required />
+            </div>
+
+            <div class=" col-6">
+              <label for="cpf" class="form-label">CPF</label>
+              <input class="form-control" id="cpf" name="cpf" type="text" required />
+            </div>
+
+
+            <!-- email -->
+            <div class="col-12">
+              <label for="email" class="form-label">Email</label>
+              <input name="email" id="email" class="form-control" type="email" placeholder="digite seu email" required />
+            </div>
+            <!-- cpf -->
+
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btnvoltar">
+            Cancelar
+          </button>
+          <button type="submit" class="btn btn-primary">Concluir</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exLargeModal">
+  Adicionar Novo Passageiro
+</button>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const formsponto = new Inputs("#formCreateCliente");
+
+    // formsponto.allvalidacao({
+
+    // });
+
+    formsponto.forms.addEventListener("submit", async (evt) => {
+      evt.preventDefault();
+
+      try {
+
+        const data = formsponto.allValues({
+          nascimento: nascimento => new Date(nascimento).toISOString()
+        })
+
+
+
+        const response = await axios.post(
+          "http://localhost:9000/api/adm/passageiros",
+          data, getCookie()
+        );
+
+        localStorage.setItem(
+          "alert",
+          JSON.stringify({
+            cor: "success",
+            texto: `O cliente do CPF ${response.data.cpf} foi cadastrado `,
+
+            div: "#alert",
+          })
+        );
+
+        location.reload();
+      } catch (error) {
+        console.error(error);
+      }
+    });
+  });
+</script>
