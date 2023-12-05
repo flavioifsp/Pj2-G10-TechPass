@@ -271,7 +271,7 @@
 
     // btnRecargaCartao.addEventListener("click", async (event) => {
     try {
-      const cartoes = await axios.get("http://localhost:9000/api/adm/cartoes")
+      const cartoes = await axios.get("http://localhost:9000/api/adm/cartoes", getCookie())
 
       console.log("cartoes");
 
@@ -382,7 +382,7 @@
 
         try {
 
-          const response = await axios.patch(`http://localhost:9000/api/adm/passageirosRecarga/${objEjs.id}/${recarga.value}`)
+          const response = await axios.patch(`http://localhost:9000/api/adm/passageirosRecarga/${objEjs.id}/${recarga.value}`, getCookie())
 
           localStorage.setItem("stopBusEdit", JSON.stringify({
             cor: "success",
@@ -536,7 +536,7 @@
     btnDelet.addEventListener("click", async () => {
       try {
 
-      const deletado = await axios.delete(`http://localhost:9000/api/adm/passageiros/${objEjs.id}`)
+      const deletado = await axios.delete(`http://localhost:9000/api/adm/passageiros/${objEjs.id}`, getCookie())
 
         localStorage.setItem("stopBusDelete", JSON.stringify({
           cor: "danger",
@@ -676,7 +676,7 @@
 
           valorEdit.id = objEjs.id
 
-          const response = await axios.put(`http://localhost:9000/api/adm/passageiros, valorEdit`)
+          const response = await axios.put(`http://localhost:9000/api/adm/passageiros`, valorEdit, getCookie())
 
 
 

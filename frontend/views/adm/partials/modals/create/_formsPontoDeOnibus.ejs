@@ -69,7 +69,7 @@
           async (value) => {
             try {
               informacoesdaAPI = (
-                await axios.get(`https://brasilapi.com.br/api/cep/v2/${value}`)
+                await axios.get(`https://brasilapi.com.br/api/cep/v2/${value}`, getCookie())
               ).data;
 
               formsponto.inputs((input) => {

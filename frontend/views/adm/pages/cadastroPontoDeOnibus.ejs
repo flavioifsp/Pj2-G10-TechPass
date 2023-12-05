@@ -74,7 +74,7 @@
     btnDelet.addEventListener("click", async () => {
       try {
         const deletado = await axios.delete(
-          `http://localhost:9000/api/linhas/bus-stop/${objEjs.id}`
+          `http://localhost:9000/api/linhas/bus-stop/${objEjs.id}, getCookie()`
         );
 
         localStorage.setItem(
@@ -121,7 +121,7 @@
           async (value) => {
             try {
               informacoesdaAPI = (
-                await axios.get(`https://brasilapi.com.br/api/cep/v2/${value}`)
+                await axios.get(`https://brasilapi.com.br/api/cep/v2/${value}`, getCookie())
               ).data;
 
               formsValidacaoEdit.inputs((input) => {
@@ -208,7 +208,7 @@
         valorEdit.lng = data.location.coordinates.longitude;
 
         const response = await axios.put(
-          `http://localhost:9000/api/linhas/bus-stop`,
+          `http://localhost:9000/api/linhas/bus-stop`, getCookie(),
           valorEdit
         );
         console.log(response);

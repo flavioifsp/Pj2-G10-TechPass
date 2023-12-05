@@ -16,23 +16,10 @@ const autenticar =
         where: {
           email: email || "",
         },
-        select: {
-          senha: true,
-          adm: {
-            select: {
-              superUser_id: true,
-            },
-          },
-          atendente: {
-            select: {
-              superUser_id: true,
-            },
-          },
-          motorista: {
-            select: {
-              superUser_id: true,
-            },
-          },
+        include: {
+          adm: true,
+          atendente: true,
+          motorista: true,
         },
       });
 
@@ -44,9 +31,10 @@ const autenticar =
 
       for (const key in userADM) {
         if (Object.hasOwnProperty.call(userADM, key)) {
-          if (userADM[key] && userADM[key] && key !== "senha") {
+          if (userADM[key] && typeof userADM[key] === "object" && key !== "nascimento") {
+            console.log(userADM[key]);
             return res.json({
-              token: gerarCookieTokenADM(userADM[key].superUser_id, key, userADM),
+              token: gerarCookieTokenADM({ ...userADM }, key),
             });
           }
         }
@@ -64,7 +52,6 @@ const autenticar =
   });
 
 router.get("/confirmar/?", async (req, res, next) => {
-  
   autenticarADM(Object.keys(req.query || {}))(req, res, () => {
     res.status(200).json(req.tokenInfo);
   });

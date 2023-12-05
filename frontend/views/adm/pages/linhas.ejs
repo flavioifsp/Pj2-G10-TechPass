@@ -70,7 +70,7 @@
       btnDelet.addEventListener("click", async () => {
         try {
           const deletado = await axios.delete(
-            `http://localhost:9000/api/linhas/deletar/${objEJS.id}`
+            `http://localhost:9000/api/linhas/deletar/${objEJS.id}`, getCookie()
           );
 
           localStorage.setItem(
@@ -139,7 +139,7 @@
         try {
           const response = await axios.patch(
             `http://localhost:9000/api/linhas/atualizar/${data.id}`,
-            infos
+            infos, getCookie()
           );
 
           localStorage.setItem(
@@ -267,8 +267,7 @@
           const response = await axios.patch(
             `http://localhost:9000/api/linhas/atualizar/horarios/${allvalores.rota1.id}`, {
               horario_diario_saida: allvalores.rota1.horario
-            }
-          );
+            }, getCookie())
 
           localStorage.setItem(
             "linhasEdit",

@@ -268,15 +268,15 @@
                       <div class="flex-shrink-0 me-3">
                         <div class="avatar avatar-online">
                           <img
-                            src="/adm/assets/img/avatars/1.png"
+                            src="http://localhost:9000/<%= token.user[token.tipo].foto %> "
                             alt
-                            class="w-px-40 h-auto rounded-circle"
+                            class="img-fluid p-0 m-0 rounded-circle"
                           />
                         </div>
                       </div>
                       <div class="flex-grow-1">
-                        <span class="fw-semibold d-block">John Doe</span>
-                        <small class="text-muted">Admin</small>
+                        <span class="fw-semibold d-block"><%= token.user.nome %> </span>
+                        <small class="text-muted"> <%= token.tipo %> </small>
                       </div>
                     </div>
                   </a>

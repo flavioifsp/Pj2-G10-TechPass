@@ -408,7 +408,7 @@
 
           (async (value) => {
             try {
-              informacoesdaAPI = (await axios.get(`https://brasilapi.com.br/api/cep/v2/${value}`)).data
+              informacoesdaAPI = (await axios.get(`https://brasilapi.com.br/api/cep/v2/${value}`, getCookie())).data
 
 
               formsValidacaoEdit.inputs((input) => {
@@ -510,7 +510,7 @@
         valorEdit.set("lat", coord.data.location.coordinates.latitude)
         valorEdit.set("lng", coord.data.location.coordinates.latitude)
 
-        const response = await axios.put(`http://localhost:9000/api/adm/lojas`, valorEdit)
+        const response = await axios.put(`http://localhost:9000/api/adm/lojas`, valorEdit, getCookie())
 
 
 
@@ -586,7 +586,7 @@
     btnDelet.addEventListener("click", async () => {
       try {
 
-        const deletado = await axios.delete(`http://localhost:9000/api/adm/loja/${objEjs.id}`)
+        const deletado = await axios.delete(`http://localhost:9000/api/adm/loja/${objEjs.id}`, getCookie())
 
         localStorage.setItem("stopBusDelete", JSON.stringify({
           cor: "danger",

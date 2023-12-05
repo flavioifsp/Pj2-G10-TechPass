@@ -39,7 +39,7 @@
             <td><%= elem.superuser.nome %></td>
             <td><%= elem.superuser.cpf %></td>
             <td><%= elem.cnh %></td>
-          
+
             <td>
               <button type="button" class="btn btn-info py-1 px-2" onclick=' modalInfo(<%-JSON.stringify(elem)%>)'>
                 <i class="bi bi-info-lg"></i>
@@ -78,11 +78,13 @@
 
     const btnDelet = modalDelete.querySelector("#deletePontoId");
 
-    
+
     btnDelet.addEventListener("click", async () => {
       try {
         const deletado = await axios.delete(
-          `http://localhost:9000/api/userADM/motorista/${objEjs.superUser_id}`
+          `http://localhost:9000/api/userADM/motorista/${objEjs.superUser_id}`,  getCookie()
+
+
         );
 
         localStorage.setItem(
@@ -121,7 +123,7 @@
             nascimento: nascimento => new Date(nascimento).toISOString()
           })
 
-          const response = await axios.put(`http://localhost:9000/api/userADM/motorista/${objEjs.superUser_id}`, data)
+          const response = await axios.put(`http://localhost:9000/api/userADM/motorista/${objEjs.superUser_id}`, data, getCookie())
 
           localStorage.setItem("motoristaEdit", JSON.stringify({
             cor: "warning",
