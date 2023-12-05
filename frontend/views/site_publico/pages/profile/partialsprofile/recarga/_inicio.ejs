@@ -30,7 +30,7 @@
             <label for="valor" class="form-label visually-hidden">Valor</label>
             <div class="input-group">
               <span class="input-group-text">R$</span>
-              <input type="number" class="form-control" id="valor" name="valor" placeholder="Digite o valor" required>
+              <input type="number" class="form-control" step="0.01" value="" id="valor" name="valor" placeholder="Digite o valor" required>
             </div>
           </div>
 
@@ -57,16 +57,19 @@
         valor
       } = form.allValues()
 
-      console.log(form.allValues());
 
-      const {id} = (await axios.get("http://localhost:9000/api/user/infos/?id", getCookie())).data
 
-      console.log(id);
-      const response = axios.patch(`http://localhost:9000/api/adm/passageiros/recarga/${id}/${valor}`)
+      const {
+        id
+      } = (await axios.get("http://localhost:9000/api/user/infos/?id", getCookie())).data
 
-      localStorage.setItem("stopBusEdit", JSON.stringify({
+      const response = await axios.patch(`http://localhost:9000/api/adm/passageiros/recarga/${id}/${valor}`)
+
+      console.log(response);
+
+      localStorage.setItem("alert", JSON.stringify({
         cor: "success",
-        texto: ` vc recarregou a sua conta no valor de R$ ${valor}. Seu saldo agora é de R$${response.data.saldo}  `,
+        texto: ` vc recarregou a sua conta no valor de R$ ${ parseFloat(valor).toFixed(2).replace(".", ",") }. Seu saldo agora é de R$${ parseFloat(response.data.saldo).toFixed(2).replace(".", ",") }  `,
         div: "#alert",
       }))
 

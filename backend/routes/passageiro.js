@@ -36,36 +36,34 @@ router.patch("/passageiros/card/:id", autenticar, async (req, res, next) => {
   }
 });
 
-router.patch(
-  "/passageiros/recarga/:ic/:valor",
-  async (req, res, next) => {
-    console.log(req.params);
-    try {
-      const { ic, valor } = req.params;
+router.patch("/passageiros/recarga/:ic/:valor", async (req, res, next) => {
+  console.log(req.params);
+  try {
+    const { ic, valor } = req.params;
 
-      const novaRecarga = await prisma.clientes.update({
-        where: {
-          OR: [{ id: parseInt(ic) }, { cpf: ic }],
+    const identificador = ic.match(/(,)|(\.)/g)
+      ? { cpf: ic }
+      : { id: parseInt(ic) };
+
+    const novaRecarga = await prisma.clientes.update({
+      where: identificador,
+      data: {
+        saldo: {
+          increment: parseFloat(valor),
         },
+      },
+      select: {
+        saldo: true,
+      },
+    });
 
-        data: {
-          saldo: {
-            increment: parseFloat(valor),
-          },
-        },
-        select:{
-          saldo: true
-        }
-      });
-
-      res.status(201).json(novaRecarga);
-    } catch (error) {
-      const erro = exception(error);
-      console.error(error);
-      res.status(erro.code).send(erro.msg);
-    }
+    res.status(201).json(novaRecarga);
+  } catch (error) {
+    const erro = exception(error);
+    console.error(error);
+    res.status(erro.code).send(erro.msg);
   }
-);
+});
 
 router.get("/passageiros", autenticar, async (req, res, next) => {
   try {
