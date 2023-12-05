@@ -9,12 +9,12 @@ const autenticar = require("../js/functionJWT").autenticarADM([
   "atendente",
 ]);
 
-router.get("/cartoes", async (req, res, next) => {
+router.get("/card", async (req, res, next) => {
   try {
     // const novaLoja = await prisma.loja_recarga.create({
-    const allcartoes = await prisma.tipos_de_cartao.findMany();
+    const card = await prisma.tipos_de_cartao.findMany();
 
-    res.status(200).json(allcartoes);
+    res.status(200).json(card);
   } catch (error) {
     const erro = exception(error);
     console.error(error);
@@ -22,7 +22,7 @@ router.get("/cartoes", async (req, res, next) => {
   }
 });
 
-router.post("/cartoes", autenticar, async (req, res, next) => {
+router.post("/card", autenticar, async (req, res, next) => {
   try {
     let { modalidade, tarifa } = req.body;
 
@@ -44,7 +44,7 @@ router.post("/cartoes", autenticar, async (req, res, next) => {
   }
 });
 
-router.delete("/cartoes/:id", autenticar, async (req, res) => {
+router.delete("/card/:id", autenticar, async (req, res) => {
   try {
     const deleteLoja = await prisma.tipos_de_cartao.delete({
       where: {
@@ -63,7 +63,7 @@ router.delete("/cartoes/:id", autenticar, async (req, res) => {
   }
 });
 
-router.put("/cartoes", autenticar, async (req, res, next) => {
+router.put("/card", autenticar, async (req, res, next) => {
   try {
     const { id, tarifa, modalidade } = req.body;
 

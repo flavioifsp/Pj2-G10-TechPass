@@ -165,7 +165,7 @@ router.get("/onibus", async function (req, res, next) {
   }
 });
 
-router.get("/cartoes", async function (req, res, next) {
+router.get("/card", async function (req, res, next) {
   try {
     const { data } = await axios.get(
       "http://localhost:9000/api/userADM/confirmar/?motorista&atendente",
@@ -174,16 +174,16 @@ router.get("/cartoes", async function (req, res, next) {
       }
     );
 
-    const allcartoes = (
-      await axios.get("http://localhost:9000/api/adm/cartoes", {
+    const allcard = (
+      await axios.get("http://localhost:9000/api/adm/card", {
         headers: req.headers,
       })
     ).data;
 
     res.render("adm/pages/cartoes.ejs", {
       layout: "adm/layouts/layout-index.ejs",
-      cont: "#menuCartoes",
-      allcartoes: allcartoes || [],
+      cont: "#menucard",
+      allcard: allcard || [],
       token: data,
     });
   } catch (error) {
