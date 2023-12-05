@@ -118,7 +118,6 @@
               <i class="bi bi-trash-fill"></i>
             </button>
 
-            <!-- <button class="btn btn-danger py-1 px-2" data-bs-target="#loja<%= elem.id%>" data-bs-toggle="modal" data-bs-dismiss="modal" _msttexthash="350038" _msthash="310" _mstvisible="4"><i class="bi bi-trash-fill"></i></button> -->
 
 
 
@@ -191,35 +190,53 @@
       },
 
 
-
-
-    });
-
-    formsloja.cadastrar("http://localhost:9000/api/adm/lojas",async () => {
-      let cep
-      const values  = formsloja.allValues({
-        cepInput: (value) => {
-          cep = value
-          return value
-        },
-      })
-
-      const coord = await axios.get(`https://brasilapi.com.br/api/cep/v2/${cep}`)
-
-      values.set("lat", coord.data.location.coordinates.latitude)
-      values.set("lng", coord.data.location.coordinates.latitude)
-
-      return values
-    }, null, success = (response) => {
-      localStorage.setItem("stopBusCreate", JSON.stringify({
-        cor: "success",
-        texto: response.data.message,
-        div: "#alert",
-      }))
-      // location.reload()
     })
-  })
 
+
+
+
+    formsloja.forms.addEventListener("submit", async (evt) => {
+      evt.preventDefault()
+
+      try {
+
+        let cep
+        const values = formsloja.allValues({
+          cep: (value) => {
+            cep = value
+            return value
+          },
+        })
+
+
+        console.log(cep);
+
+
+        values.lat = informacoesdaAPI.location.coordinates.latitude;
+        values.lng = informacoesdaAPI.location.coordinates.longitude;
+
+        const response = await axios.post("http://localhost:9000/api/adm/lojas", values, getCookie())
+
+
+        localStorage.setItem(
+          "stopBusCreate",
+          JSON.stringify({
+            cor: "success",
+            texto: response.data.message,
+            div: "#alert",
+          })
+        );
+
+        location.reload();
+      } catch (error) {
+        console.log(error);
+      }
+
+    })
+
+
+
+  })
   function modalInfo(objEjs) {
 
     // transformando o objeto que está transformado em string para objeto dnv
@@ -319,9 +336,9 @@
                     </div>
                   </div>
                   <div class="row mb-4">
-                    <label class="col-sm-2 col-form-label" for="cepInput">CEP</label>
+                    <label class="col-sm-2 col-form-label" for="cep">CEP</label>
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" name="cepInput" id="cepInput" placeholder="Enter CPF" value="${objEjs.cep}" required>
+                      <input type="text" class="form-control" name="cep" id="cep" placeholder="Enter CPF" value="${objEjs.cep}" required>
 
                     </div>
                   </div>
@@ -398,7 +415,7 @@
         btnoff: "naoEobrigatorio",
       },
 
-      cepInput: {
+      cep: {
         min: 9,
         max: 9,
         caractereNpermitido: ["Nletra", "Nacentuacao", ],
@@ -408,7 +425,7 @@
 
           (async (value) => {
             try {
-              informacoesdaAPI = (await axios.get(`https://brasilapi.com.br/api/cep/v2/${value}`)).data
+              informacoesdaAPI = (await axios.get(`https://brasilapi.com.br/api/cep/v2/${value}`, getCookie())).data
 
 
               formsValidacaoEdit.inputs((input) => {
@@ -494,29 +511,29 @@
 
       try {
 
+
         let cep
-        const valorEdit = formsValidacaoEdit.allValues({
+        const values = formsValidacaoEdit.allValues({
           id: () => objEjs.id,
-          cepInput: (value) => {
+          cep: (value) => {
             cep = value
             return value
           },
         })
 
 
-
         const coord = await axios.get(`https://brasilapi.com.br/api/cep/v2/${cep}`)
 
-        valorEdit.set("lat", coord.data.location.coordinates.latitude)
-        valorEdit.set("lng", coord.data.location.coordinates.latitude)
+        values.lat = coord.data.location.coordinates.latitude
+        values.lng = coord.data.location.coordinates.longitudelongitude
 
-        const response = await axios.put(`http://localhost:9000/api/adm/lojas`, valorEdit)
+        const response = await axios.put(`http://localhost:9000/api/adm/lojas/`, values, getCookie())
 
 
 
         localStorage.setItem("stopBusEdit", JSON.stringify({
           cor: "warning",
-          texto: ` A loja ${valorEdit.get(nome)} foi alterada `,
+          texto: ` A loja ${values.nome} foi alterada `,
           div: "#alert",
         }))
 
@@ -586,7 +603,7 @@
     btnDelet.addEventListener("click", async () => {
       try {
 
-        const deletado = await axios.delete(`http://localhost:9000/api/adm/loja/${objEjs.id}`)
+        const deletado = await axios.delete(`http://localhost:9000/api/adm/loja/${objEjs.id}`, getCookie())
 
         localStorage.setItem("stopBusDelete", JSON.stringify({
           cor: "danger",
@@ -600,9 +617,5 @@
       }
 
     })
-
-
-
-
   }
 </script>

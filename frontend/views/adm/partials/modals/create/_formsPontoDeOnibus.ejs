@@ -100,18 +100,32 @@
       },
     });
 
-    formsponto.cadastrar(
-      "http://localhost:9000/api/linhas/bus-stop",
-      () => {
-        const values = formsponto.allValues();
 
-        values.lat = informacoesdaAPI.location.coordinates.latitude;
-        values.lng = informacoesdaAPI.location.coordinates.longitude;
+    formsponto.forms.addEventListener("submit", async (evt) => {
+      evt.preventDefault()
 
-        return values;
-      },
-      null,
-      (success = (response) => {
+      try {
+
+        let cep
+        const values = formsponto.allValues({
+
+          cep: (value) => {
+            cep = value
+            return value
+          },
+        })
+
+        
+        
+
+        const coord = await axios.get(`https://brasilapi.com.br/api/cep/v2/${cep}`)
+     
+        values.lat = coord.data.location.coordinates.latitude
+        values.lng = coord.data.location.coordinates.longitude
+       
+        const response = await axios.post("http://localhost:9000/api/linhas/bus-stop", values, getCookie())
+
+
         localStorage.setItem(
           "stopBusCreate",
           JSON.stringify({
@@ -122,7 +136,12 @@
         );
 
         location.reload();
-      })
-    );
+      } catch (error) {
+        console.log(error);
+      }
+
+    })
+
+
   });
 </script>

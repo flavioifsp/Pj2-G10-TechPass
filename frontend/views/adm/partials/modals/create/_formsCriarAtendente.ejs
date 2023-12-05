@@ -129,7 +129,7 @@
 <script>
   document.addEventListener("DOMContentLoaded", async () => {
     try {
-      const lojas = (await axios.get("http://localhost:9000/api/adm/lojas"))
+      const lojas = (await axios.get("http://localhost:9000/api/adm/lojas", getCookie()))
         .data;
 
       const campo = document.querySelector("#local_de_trabalho_id");
@@ -149,7 +149,7 @@
           try {
             const response = await axios.post(
               "http://localhost:9000/api/userADM/atendente",
-              dataValues
+              dataValues, getCookie()
             );
             localStorage.setItem(
               "AtendenteCreate",

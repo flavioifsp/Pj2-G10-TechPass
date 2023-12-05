@@ -248,7 +248,7 @@ document.addEventListener("DOMContentLoaded", () => {
         valorEdit.id = objEjs.id
         
 
-        const response = await axios.put(`http://localhost:9000/api/adm/cartoes`, valorEdit)
+        const response = await axios.put(`http://localhost:9000/api/adm/cartoes`, valorEdit, getCookie())
 
 
 
@@ -323,7 +323,7 @@ document.addEventListener("DOMContentLoaded", () => {
     btnDelet.addEventListener("click", async () => {
       try {
 
-        const deletado = await axios.delete(`http://localhost:9000/api/adm/cartoes/${objEjs.id}`)
+        const deletado = await axios.delete(`http://localhost:9000/api/adm/cartoes/${objEjs.id}`, getCookie())
 
         localStorage.setItem("stopBusDelete", JSON.stringify({
           cor: "danger",

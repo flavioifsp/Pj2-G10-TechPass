@@ -3,20 +3,17 @@ var express = require("express");
 var router = express.Router();
 
 const catchSuperUser = (error, res) => {
-  if (error.inicio && error.response.incio) {
-    res.redirect("/adm/");
-  } else {
-    res.redirect("/adm/login");
-  }
+  res.redirect("/adm/login");
 };
 
 router.get("/login", async function (req, res, next) {
-  if (req.cookies.token || req.headers["authorization"]) {
-    return res.redirect("/adm/");
-  }
-  res.render("adm/pages/loginADM.ejs", {
-    layout: false,
-  });
+  // if (req.cookies.token || req.headers["authorization"]) {
+  //   res.redirect("/adm/");
+  // } else {
+    res.render("adm/pages/loginADM.ejs", {
+      layout: false,
+    });
+  // }
 });
 
 /* GET home page. */
@@ -28,11 +25,12 @@ router.get("/", async function (req, res, next) {
         headers: req.headers,
       }
     );
+    
 
     res.render("adm/pages/index.ejs", {
       layout: "adm/layouts/layout-index.ejs",
       cont: "#menuDashboard",
-      user: data,
+      token: data,
     });
   } catch (error) {
     catchSuperUser(error, res);
@@ -58,7 +56,7 @@ router.get("/atendente", async function (req, res, next) {
       layout: "adm/layouts/layout-index.ejs",
       cont: "#menuAtendente",
       allAtendentes: allAtendentes || [],
-      user: data,
+      token: data,
     });
   } catch (error) {
     catchSuperUser(error, res);
@@ -84,7 +82,7 @@ router.get("/motorista", async function (req, res, next) {
       layout: "adm/layouts/layout-index.ejs",
       cont: "#menuMotorista",
       allMotorista: allMotorista || [],
-      user: data,
+      token: data,
     });
   } catch (error) {
     catchSuperUser(error, res);
@@ -110,7 +108,7 @@ router.get("/pontoDeOnibus", async function (req, res, next) {
       layout: "adm/layouts/layout-index.ejs",
       cont: "#menuPontoDeOnibus",
       pontos: pontos || [],
-      user: data,
+      token: data,
     });
   } catch (error) {
     catchSuperUser(error, res);
@@ -135,7 +133,7 @@ router.get("/passageiros", async function (req, res, next) {
       layout: "adm/layouts/layout-index.ejs",
       cont: "#menuPassageiros",
       allPassageiros: allPassageiros || [],
-      user: data,
+      token: data,
     });
   } catch (error) {
     catchSuperUser(error, res);
@@ -154,7 +152,7 @@ router.get("/onibus", async function (req, res, next) {
     res.render("adm/pages/cadastroOnibus.ejs", {
       layout: "adm/layouts/layout-index.ejs",
       cont: "#menuOnibus",
-      user: data,
+      token: data,
     });
   } catch (error) {
     catchSuperUser(error, res);
@@ -180,7 +178,7 @@ router.get("/cartoes", async function (req, res, next) {
       layout: "adm/layouts/layout-index.ejs",
       cont: "#menuCartoes",
       allcartoes: allcartoes || [],
-      user: data,
+      token: data,
     });
   } catch (error) {
     catchSuperUser(error, res);
@@ -206,7 +204,7 @@ router.get("/linhas", async function (req, res, next) {
       layout: "adm/layouts/layout-index.ejs",
       cont: "#menuLinhas",
       linhas: linhas || [],
-      user: data,
+      token: data,
     });
   } catch (error) {
     catchSuperUser(error, res);
@@ -232,7 +230,7 @@ router.get("/lojas", async function (req, res, next) {
       layout: "adm/layouts/layout-index.ejs",
       cont: "#menuLojas",
       allLojas: allLojas || [],
-      user: data,
+      token: data,
     });
   } catch (error) {
     catchSuperUser(error, res);

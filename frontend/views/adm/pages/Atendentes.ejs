@@ -97,7 +97,7 @@
       // evt.preventDefault();
       try {
         const deletado = await axios.delete(
-          `http://localhost:9000/api/userADM/atendente/${objEjs.superuser.id}`
+          `http://localhost:9000/api/userADM/atendente/${objEjs.superuser.id}`, getCookie()
         );
 
         localStorage.setItem(
@@ -229,7 +229,7 @@
       `;
   }, async (modal, objEjs) => {
 
-    const lojas = (await axios.get("http://localhost:9000/api/adm/lojas"))
+    const lojas = (await axios.get("http://localhost:9000/api/adm/lojas", getCookie()))
       .data;
 
     const campo = modal.querySelector("#local_de_trabalho_idasd");
@@ -269,7 +269,7 @@
           nascimento: nascimento => new Date(nascimento).toISOString()
         })
 
-        const response = await axios.put(`http://localhost:9000/api/userADM/atendente/${objEjs.superUser_id}`, data)
+        const response = await axios.put(`http://localhost:9000/api/userADM/atendente/${objEjs.superUser_id}`, data, getCookie())
 
         localStorage.setItem("atendenteFlash", JSON.stringify({
           cor: "warning",
@@ -370,7 +370,7 @@
         </div>
       </div>
     </div>`
-  }, (modal, objEjs) =>{
+  }, (modal, objEjs) => {
 
   })
 </script>

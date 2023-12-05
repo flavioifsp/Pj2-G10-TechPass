@@ -321,7 +321,7 @@
     let pontos
     try {
 
-      pontos = (await axios.get("http://localhost:9000/api/linhas/bus-stop")).data
+      pontos = (await axios.get("http://localhost:9000/api/linhas/bus-stop", getCookie())).data
     } catch (error) {
       pontos = []
     }
@@ -370,7 +370,7 @@
           try {
             const response = await axios.post(
               "http://localhost:9000/api/linhas",
-              VALORESFINAL
+              VALORESFINAL, getCookie()
             );
             localStorage.setItem(
               "linhasCreate",

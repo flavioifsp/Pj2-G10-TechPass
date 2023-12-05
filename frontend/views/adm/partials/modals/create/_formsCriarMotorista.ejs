@@ -99,7 +99,7 @@
 
         const response = await axios.post(
           "http://localhost:9000/api/userADM/motorista",
-          data
+          data, getCookie()
         );
         
         localStorage.setItem(
