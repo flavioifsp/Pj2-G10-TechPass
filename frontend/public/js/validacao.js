@@ -19,6 +19,11 @@ class Inputs {
   // ele retorna um objeto com todos os valores do input do site
   allValues(modificarFormData = {}) {
     const formobj = new FormData(this.forms);
+    const valoresPuro = {};
+
+    this.inputs(({ name, value }) => {
+      valoresPuro[name] = value;
+    });
 
     // modificarFormData é um objeto composto de metodos para modificar os valores do input
     for (const key in modificarFormData) {
@@ -26,6 +31,10 @@ class Inputs {
         const valor = formobj.get(key);
 
         formobj.set(key, modificarFormData[key](valor));
+
+        if (valoresPuro) {
+          valoresPuro[key] = modificarFormData[key](valor);
+        }
       }
     }
 
@@ -44,7 +53,9 @@ class Inputs {
       }
     }
 
-    return Object.fromEntries(formobj.entries());
+    // modificarFormData é um objeto composto de metodos para modificar os valores do input
+
+    return valoresPuro;
   }
 
   // n vai validar se o input estiver vazio
@@ -323,7 +334,6 @@ class Inputs {
           ];
 
           for (const [condicao, texto] of textoDeErro) {
-            
             if (condicao) {
               input.setCustomValidity(texto);
               break;
@@ -393,7 +403,6 @@ class Inputs {
       }
     });
   }
-
 
   // é para simplificar na hr de criar um post de criacao
   cadastrar(url, data = null, erro = () => {}, success = () => {}) {
