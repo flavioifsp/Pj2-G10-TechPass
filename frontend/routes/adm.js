@@ -10,9 +10,9 @@ router.get("/login", async function (req, res, next) {
   // if (req.cookies.token || req.headers["authorization"]) {
   //   res.redirect("/adm/");
   // } else {
-    res.render("adm/pages/loginADM.ejs", {
-      layout: false,
-    });
+  res.render("adm/pages/loginADM.ejs", {
+    layout: false,
+  });
   // }
 });
 
@@ -25,7 +25,6 @@ router.get("/", async function (req, res, next) {
         headers: req.headers,
       }
     );
-    
 
     res.render("adm/pages/index.ejs", {
       layout: "adm/layouts/layout-index.ejs",
@@ -149,9 +148,16 @@ router.get("/onibus", async function (req, res, next) {
       }
     );
 
+    const onibusAll = (
+      await axios.get("http://localhost:9000/api/onibus", {
+        headers: req.headers,
+      })
+    ).data;
+
     res.render("adm/pages/cadastroOnibus.ejs", {
       layout: "adm/layouts/layout-index.ejs",
       cont: "#menuOnibus",
+      onibusAll: onibusAll || [],
       token: data,
     });
   } catch (error) {

@@ -1,0 +1,102 @@
+<!-- botao -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCreateonibus">
+  Adicionar onibus
+</button>
+
+<!-- modal para criar um onibus -->
+<div class="modal fade" id="modalCreateonibus" tabindex="-1" aria-labelledby="formCreateonibusLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="formCreateonibusLabel">
+          Adicionando onibus
+        </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <form novalidate enctype="multipart/form-data" id="formCreateonibus">
+        <div class="modal-body">
+          <div class="row gy-3 gx-2">
+            <!-- nome real -->
+            <div class="col-6">
+              <label for="placa" class="form-label">placa</label>
+              <input class="form-control" id="placa" name="placa" type="text" required />
+            </div>
+            <div class="col-6">
+              <label for="quantidade_passageiros" class="form-label">quantidade passageiros</label>
+              <input class="form-control" id="quantidade_passageiros" name="quantidade_passageiros" type="number" required />
+            </div>
+            <div class="col-6">
+              <label for="estado_atual" class="form-label">estado atual</label>
+              <select class="form-control" id="estado_atual" name="estado_atual" required>
+                <option selected>Selecione um estado</option>
+                <option value="Funcionando">Funcionando</option>
+                <option value="manutenção">em manutenção</option>
+                <option value="parado">parado</option>
+              </select>
+
+            </div>
+            <div class="col-6">
+              <label for="possui_acessibilidade" class="form-label">possui acessibilidade?</label>
+              <select class="form-control" id="possui_acessibilidade" name="possui_acessibilidade" required>
+                <option selected>Selecione um estado</option>
+                <option value="sim">sim</option>
+                <option value="nao">não</option>
+              </select>
+
+            </div>
+
+
+
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Cancelar
+          </button>
+          <button type="submit" class="btn btn-success">Cadastrar onibus</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const form = new Inputs("#formCreateonibus");
+
+    // form.allvalidacao(motoristasVALID);
+
+    form.forms.addEventListener("submit", async (evt) => {
+      evt.preventDefault();
+
+      try {
+
+        const data = form.allValues()
+
+   
+
+
+        const response = await axios.post(
+          "http://localhost:9000/api/onibus",
+          data, getCookie()
+        );
+
+        localStorage.setItem(
+          "alert",
+          JSON.stringify({
+            cor: "success",
+            texto: `O onibus da Placa ${response.data.placa} foi cadastrado `,
+
+            div: "#alert",
+          })
+        );
+
+        location.reload();
+      } catch (error) {
+        console.error(error);
+      }
+    });
+  });
+</script>

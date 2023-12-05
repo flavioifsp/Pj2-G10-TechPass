@@ -1,8 +1,6 @@
 <div id="alert">
   <script>
-    alert("stopBusCreate");
-    alert("stopBusDelete");
-    alert("stopBusEdit");
+    alert("alert");
   </script>
 </div>
 
@@ -11,119 +9,52 @@
 </h4>
 
 <div class="mt-3">
+  <%-include('../partials/modals/create/_formsOnibus.ejs') %>
 
 
-  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createloja">
-    Adicionar Novo Ônibus
-  </button>
 
-  <!-- modal para criar um ponto de onibus -->
-  <div class="modal fade" id="createloja" tabindex="-1" aria-labelledby="createlojaLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="createlojaLabel">
-            adicionando novo Ônibus
-          </h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
+  <section class="mt-5">
+    <h4 class="">Todos os pontos de onibus</h4>
 
-        <form novalidate id="formularioDeCadastroOnibus">
-          <div class="modal-body">
-            <div class="row g-2">
-              <div class="col-8">
-                <label for="passageiros" class="form-label">Capacidade máxima de passageiros</label>
-                <input type="passageiros" class="form-control" id="passageiros" name="cep" required placeholder="50 " />
-              </div>
+    <div class="card">
+      <div class="table-responsive text-nowrap">
+        <table id="PontosDeOnibus" class="table table-striped" style="width: 100%">
+          <thead>
+            <tr>
+              <th>placa</th>
+              <th>quantidade passageiros</th>
+              <th>possui_acessibilidade</th>
+              <th>estado atual</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% onibusAll.forEach((elem)=> { %>
 
-              <div class="col-md-4 col-4">
-                <label for="placa" class="form-label">Placa</label>
-                <input type="text" class="form-control" id="placa" name="placa" required placeholder="EQX0143 " />
-              </div>
+            <tr>
+              <td><%= elem.placa %></td>
+              <td><%= elem.quantidade_passageiros %></td>
+              <td><%= elem.possui_acessibilidade %></td>
+              <td><%= elem.estado_atual %></td>
+              <td>
+                <button type="button" class="btn btn-info py-1 px-2" onclick='modalInfo(<%-JSON.stringify(elem)%>)'>
+                  <i class="bi bi-info-lg"></i>
+                </button>
 
-              <div class="col-md-10 col-9 mt-3">
-                <label for="street" class="form-label">Estado atual</label>
-                <select class="form-select" aria-label="Default select example" id="estadoAtual">
-                  <option selected>Opções</option>
-                  <option value="Rodando">Rodando</option>
-                  <option value="Em manutenção">Em manutenção</option>
-                  <option value="Desativado">Desativado</option>
-                </select>
-              </div>
-              <div class="col-md-10 col-9 mt-3">
-                <label for="street" class="form-label">Possui Acesibilidade?</label>
-                <select class="form-select" aria-label="Default select example" id="Acesibilidade">
-                  <option selected>Opções</option>
-                  <option value="Sim">Sim</option>
-                  <option value="Não">Não</option>
-                </select>
-              </div>
-             
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-              Cancelar
-            </button>
-            <button type="submit" class="btn btn-primary">Adicionar Ônibus</button>
-          </div>
-        </form>
+                <button class="btn btn-warning py-1 px-2" onclick='modalEdit(<%-JSON.stringify(elem)%>)'>
+                  <i class="bi bi-pencil-square"></i>
+                </button>
+
+                <button class="btn btn-danger py-1 px-2" onclick='modalDelet(<%-JSON.stringify(elem)%>)'>
+                  <i class="bi bi-trash-fill"></i>
+                </button>
+              </td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
       </div>
     </div>
-  </div>
+  </section>
+
+
 </div>
-
-<!-- fim meu  -->
-
-<!-- / Content -->
-
-
-<!-- Content -->
-
-
-<h4 class="fw-bold py-3 mb-4">
-  <span class="text-muted fw-light">Ônibus atuais </span>
-</h4>
-
-<div class="card">
-  <div class="table-responsive text-nowrap">
-    <table id="example" class="table table-striped" style="width: 100%">
-      <thead>
-        <tr>
-          <th>Placa</th>
-          <th>Estado Atual</th>
-          <th>Config</th>
-        </tr>
-      </thead>
-      <tbody>
-       
-
-      </tbody>
-    </table>
-  </div>
-</div>
-
-
-
-<script>
-
-document.addEventListener("DOMContentLoaded", () => {
-  let select = document.getElementById('estadoAtual')
-  let select2 = document.getElementById('Acesibilidade')
-
-select.addEventListener('change', function(){
-    console.log(select.value)
-})
-
-  
-select2.addEventListener('change', function(){
-    console.log(select2.value)
-})
-
-
-})
-
-
-
-
-</script>

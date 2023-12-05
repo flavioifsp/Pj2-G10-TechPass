@@ -46,7 +46,7 @@ function autenticarADM(autorizado = []) {
       req.superUser_id = decoded.superUser_id;
 
       for (const iterator of autorizado) {
-        if (decoded.tipo === iterator || decoded.tipo === "ADM") {
+        if (decoded.tipo === iterator || decoded.tipo === "adm") {
           req.tokenInfo = decoded;
           return next();
         }

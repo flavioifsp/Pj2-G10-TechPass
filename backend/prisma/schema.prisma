@@ -94,11 +94,11 @@ model motorista {
 }
 
 model onibus {
-  id                     Int      @id
+  id                     Int      @id @default(autoincrement())
   placa                  String   @db.VarChar(15)
   quantidade_passageiros Int?
-  estado_atual           String?  @db.VarChar(1)
-  possui_acessibilidade  String?  @db.VarChar(1)
+  estado_atual           String?  @db.VarChar(20)
+  possui_acessibilidade  String?  @db.VarChar(3)
   viagem                 viagem[]
 }
 

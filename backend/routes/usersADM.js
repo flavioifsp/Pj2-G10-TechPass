@@ -31,8 +31,14 @@ const autenticar =
 
       for (const key in userADM) {
         if (Object.hasOwnProperty.call(userADM, key)) {
-          if (userADM[key] && typeof userADM[key] === "object" && key !== "nascimento") {
-            console.log(userADM[key]);
+          if (
+            userADM[key] &&
+            typeof userADM[key] === "object" &&
+            key !== "nascimento"
+          ) {
+            if (key === "adm") {
+              userADM.adm.foto = "/adm/adm.jpg"
+            }
             return res.json({
               token: gerarCookieTokenADM({ ...userADM }, key),
             });
