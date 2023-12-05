@@ -9,9 +9,6 @@ const autenticar = require("../js/functionJWT").autenticarADM([
   "atendente",
 ]);
 
-
-
-
 router.patch("/passageiros/card/:id", autenticar, async (req, res, next) => {
   try {
     const { codigo_do_cartao, cartao_id } = req.body;
@@ -30,7 +27,6 @@ router.patch("/passageiros/card/:id", autenticar, async (req, res, next) => {
         },
       },
     });
-    
 
     res.status(201).json(response);
   } catch (error) {
@@ -41,31 +37,28 @@ router.patch("/passageiros/card/:id", autenticar, async (req, res, next) => {
 });
 
 router.patch(
-  "/passageirosRecarga/:id/:recarga",
-  autenticar,
+  "/passageiros/recarga/:ic/:valor",
   async (req, res, next) => {
+    console.log(req.params);
     try {
-      const { id, recarga } = req.params;
-
-      const idN = parseInt(id);
-      const recargaN = parseFloat(recarga);
+      const { ic, valor } = req.params;
 
       const novaRecarga = await prisma.clientes.update({
         where: {
-          id: idN,
+          OR: [{ id: parseInt(ic) }, { cpf: ic }],
         },
 
         data: {
           saldo: {
-            increment: recargaN,
+            increment: parseFloat(valor),
           },
         },
+        select:{
+          saldo: true
+        }
       });
-      console.log(novaRecarga);
 
-      res.status(201).json({
-        message: `Passageiro adicionado com sucesso`,
-      });
+      res.status(201).json(novaRecarga);
     } catch (error) {
       const erro = exception(error);
       console.error(error);
@@ -77,13 +70,13 @@ router.patch(
 router.get("/passageiros", autenticar, async (req, res, next) => {
   try {
     const allPassageiros = await prisma.clientes.findMany({
-      include:{
-        cartoes_do_cliente:{
-          include:{
-            tipos_de_cartao: true
-          }
-        }
-      }
+      include: {
+        cartoes_do_cliente: {
+          include: {
+            tipos_de_cartao: true,
+          },
+        },
+      },
     });
 
     res.status(200).json(allPassageiros);

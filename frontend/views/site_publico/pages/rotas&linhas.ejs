@@ -150,7 +150,7 @@
   });
 
 
-  
+
   //
   const modalItinerario = criarFuncaoModal((objEJS) => {
       return `
@@ -205,40 +205,39 @@
 
 
 
-
-      for (const elem of objEJS.percurso[i]) {
-        const li = document.createElement("li")
-        li.classList.add("list-group-item", "fs-5", "border-dark-subtle")
-
-
-        const endereco = elem.ponto_de_onibus.endereco.split(",")
-        li.innerText = `${endereco[0]}, ${endereco[1]}, ${endereco[2] } `
-
-        e.appendChild(li)
-      }
+        for (const elem of objEJS.percurso[i]) {
+          const li = document.createElement("li")
+          li.classList.add("list-group-item", "fs-5", "border-dark-subtle")
 
 
+          const endereco = elem.ponto_de_onibus.endereco.split(",")
+          li.innerText = `${endereco[0]}, ${endereco[1]}, ${endereco[2] } `
 
-      // const lis = [...e.children]
-      // console.log(lis);
-      
-      
-      // setTimeout(() => {
-      //   let maiorHeight = 0;
-      //   for (const elem of lis) {
-      //     elem.offsetHeight > maiorHeight ? maiorHeight = elem.offsetHeight : maiorHeight;
-      //   }
-      //   for (const elem of lis) {
-      //     elem.style.height = maiorHeight
-      //   }
-
-        
-      // }, 500);
+          e.appendChild(li)
+        }
 
 
 
+        // const lis = [...e.children]
+        // console.log(lis);
 
-    })
+
+        // setTimeout(() => {
+        //   let maiorHeight = 0;
+        //   for (const elem of lis) {
+        //     elem.offsetHeight > maiorHeight ? maiorHeight = elem.offsetHeight : maiorHeight;
+        //   }
+        //   for (const elem of lis) {
+        //     elem.style.height = maiorHeight
+        //   }
+
+
+        // }, 500);
+
+
+
+
+      })
 
     }
 

@@ -5,19 +5,15 @@ var router = express.Router();
 /* GET home page. */
 router.get("/", async function (req, res, next) {
   try {
-    
   } catch (error) {}
 
-
-  res.render("catraca/pages/inicio.ejs", { layout: false });
+  res.render("catraca/pages/index.ejs", { layout: false });
 });
-
 
 // router.get("/inicio", async function (req, res, next) {
 //   try {
-   
-//   } catch (error) {}
 
+//   } catch (error) {}
 
 //   res.render("catraca/pages/incio.ejs", { layout: false });
 // });

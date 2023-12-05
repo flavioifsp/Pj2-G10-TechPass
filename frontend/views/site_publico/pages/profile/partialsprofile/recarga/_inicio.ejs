@@ -1,6 +1,13 @@
 <!-- RECARGA -->
 <section class="container-fluid mt-4" id="iniciopag">
 
+  <div id="alert">
+    <script>
+      alert("alert");
+    </script>
+  </div>
+
+
   <ul class="nav nav-tabs">
     <li class="nav-item">
       <button class="nav-link active">Minha Conta</button>
@@ -23,7 +30,7 @@
             <label for="valor" class="form-label visually-hidden">Valor</label>
             <div class="input-group">
               <span class="input-group-text">R$</span>
-              <input type="number" class="form-control" id="valor" placeholder="Digite o valor" required>
+              <input type="number" class="form-control" id="valor" name="valor" placeholder="Digite o valor" required>
             </div>
           </div>
 
@@ -41,5 +48,37 @@
 
 
 <script>
+  const form = new Inputs("form")
+  form.forms.addEventListener("submit", async (e) => {
+    e.preventDefault()
+
+    try {
+      const {
+        valor
+      } = form.allValues()
+
+      console.log(form.allValues());
+
+      const {id} = (await axios.get("http://localhost:9000/api/user/infos/?id", getCookie())).data
+
+      console.log(id);
+      const response = axios.patch(`http://localhost:9000/api/adm/passageiros/recarga/${id}/${valor}`)
+
+      localStorage.setItem("stopBusEdit", JSON.stringify({
+        cor: "success",
+        texto: ` vc recarregou a sua conta no valor de R$ ${valor}. Seu saldo agora é de R$${response.data.saldo}  `,
+        div: "#alert",
+      }))
+
+      location.reload()
+
+    } catch (error) {
+      console.error(error);
+
+    }
+
+
+  })
+
   AlternarDePag("btnPaia2", "recarga", "recarga2")
 </script>
