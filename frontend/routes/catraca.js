@@ -4,23 +4,15 @@ var router = express.Router();
 
 /* GET home page. */
 router.get("/", async function (req, res, next) {
-  try {
-  } catch (error) {}
 
-  res.render("catraca/pages/index.ejs", { layout: false });
+
+  res.render("catraca/pages/inicio.ejs", {
+    layout: "catraca/layouts/layoutCatraca.ejs",
+    iconimg: "../images/inicioCatraca.svg",
+    corback: `rgb(31,45,170)`,
+    title: "Catraca inicio",
+  });
 });
-
-
-
-
-
-
-
-
-
-
-
-
 
 // erro
 router.get("/erro", function (req, res, next) {
@@ -38,12 +30,6 @@ router.get("/success", function (req, res, next) {
   const SaldoRestante = "11,12";
   const SaldoGasto = "3";
 
-  // idoso
-  // const modalidade = "I"
-  // estudante
-  // const modalidade = "E"
-
-  // pcd (ex: cadeirante)
   const modalidade = "P";
 
   res.render("catraca/pages/success.ejs", {
