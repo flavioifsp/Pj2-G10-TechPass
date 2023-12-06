@@ -65,6 +65,34 @@ router.patch("/passageiros/recarga/:ic/:valor", async (req, res, next) => {
   }
 });
 
+router.get("/passageiros/recarga/:ic", async (req, res, next) => {
+  console.log(req.params);
+  try {
+    const { ic } = req.params;
+
+    const identificador = ic.match(/(,)|(\.)/g)
+      ? { cpf: ic }
+      : { id: parseInt(ic) };
+
+    const novaRecarga = await prisma.clientes.findFirstOrThrow({
+      where: identificador,
+      select: {
+        nome: true,
+      },
+    });
+
+    res.status(201).json(novaRecarga);
+  } catch (error) {
+    if (error.code === "P2025") {
+      res.status(200).json({status: error.code, msg: "nao encontrado"})
+    } else {
+      const erro = exception(error);
+      console.error(error);
+      res.status(erro.code).send(erro.msg);
+    }
+  }
+});
+
 router.get("/passageiros", autenticar, async (req, res, next) => {
   try {
     const allPassageiros = await prisma.clientes.findMany({

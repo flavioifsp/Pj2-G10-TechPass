@@ -16,6 +16,7 @@
   <script src="../js/validacao.js"></script>
   <script src="../js/TrocaDePag.js"></script>
   <script src="../js/alert.js"></script>
+  <script src="../js/objsValidacao.js"></script>
 
 </head>
 
@@ -55,11 +56,23 @@
     </nav>
 
     <section class="d-flex pb-5 flex-column align-items-end mx-auto col-sm-10 col-11 col-md-10 col-lg-7">
+
+
+
       <div style="width: 100%" class="mt-2">
+
         <h2 class="py-4 mb-0 mt-1 ms-3"><%= title %></h2>
 
-        <div id="info" class="rounded-4 px-3 py-4 bg-light bg-light shadow mx-md- mx-3">
-          <%- body %>
+        <div class="rounded-4 px-3 py-4 bg-light bg-light shadow mx-md- mx-3">
+          <div id="alert" class="w-100">
+            <script>
+              alert("alert");
+            </script>
+          </div>
+
+          <div id="info">
+            <%- body %>
+          </div>
         </div>
       </div>
     </section>

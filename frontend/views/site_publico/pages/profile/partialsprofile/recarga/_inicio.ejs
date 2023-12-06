@@ -1,13 +1,7 @@
 <!-- RECARGA -->
 <section class="container-fluid mt-4" id="iniciopag">
 
-  <div id="alert">
-    <script>
-      alert("alert");
-    </script>
-  </div>
-
-
+ 
   <ul class="nav nav-tabs">
     <li class="nav-item">
       <button class="nav-link active">Minha Conta</button>
@@ -49,6 +43,7 @@
 
 <script>
   const form = new Inputs("form")
+  form.allvalidacao(recargaVALID)
   form.forms.addEventListener("submit", async (e) => {
     e.preventDefault()
 

@@ -134,7 +134,7 @@ const validGeral = {
     min: 0,
     max: 500,
     btnoff: "required",
-    pattern: [".*", "turno valido", "escolha um tunro"],
+    pattern: [".*", "turno valido", "escolha um turno"],
   },
   // TELEFONE
   telefone: {
@@ -149,6 +149,12 @@ const validGeral = {
     btnoff: "required",
     pattern: [".*", "endereco valido", "endereco invalido"],
   },
+  valor:{
+    min: 0,
+    max: 5000,
+    btnoff: "required",
+    pattern: [".*", "valor valido", "valor invalido"],
+  }
 };
 
 const validEdit = {
@@ -160,10 +166,13 @@ const validEdit = {
   senha: { ...validGeral.senha, ...{ btnoff: null } },
   email: { ...validGeral.email, ...{ btnoff: null } },
   nome: { ...validGeral.nome, ...{ btnoff: null } },
-  endereco: {...validGeral.endereco, ...{btnoff: null}},
-  turno: {...validGeral.turno, ...{btnoff: null}},
-  local_de_trabalho_id: {...validGeral.local_de_trabalho_id, ...{btnoff: null}},
-  telefone: {...validGeral.telefone, ...{btnoff: null}},
+  endereco: { ...validGeral.endereco, ...{ btnoff: null } },
+  turno: { ...validGeral.turno, ...{ btnoff: null } },
+  local_de_trabalho_id: {
+    ...validGeral.local_de_trabalho_id,
+    ...{ btnoff: null },
+  },
+  telefone: { ...validGeral.telefone, ...{ btnoff: null } },
 };
 
 // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -244,9 +253,12 @@ const atendenteEDIT = {
   telefone: validEdit.telefone,
 };
 
-
-
-const loginVALID ={
+const loginVALID = {
   email: validGeral.email,
-  senha: validGeral.senha
-}
+  senha: validGeral.senha,
+};
+
+const recargaVALID = {
+  cpf: validGeral.cpf,
+  valor: validGeral.valor
+};

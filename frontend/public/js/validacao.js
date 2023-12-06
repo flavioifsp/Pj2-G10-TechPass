@@ -64,8 +64,26 @@ class Inputs {
   }
 
   // tudo isso é para validacao, está mt bagunçado
-  allvalidacao(restricao) {
+  allvalidacao(valids) {
     const inputsOBG = [];
+
+    const restricao = (() => {
+      const NAMEinput = [];
+      const montandoobj = {};
+
+      this.inputs(({ name }) => NAMEinput.push(name));
+
+      for (const key in valids) {
+        if (
+          Object.hasOwnProperty.call(valids, key) &&
+          NAMEinput.includes(key)
+        ) {
+          montandoobj[key] = valids[key];
+        }
+      }
+
+      return montandoobj;
+    })();
 
     this.inputs((input) => {
       const inputvalida = restricao[input.name];
@@ -214,7 +232,7 @@ class Inputs {
                   break;
                 }
               }
-            }, 400);
+            }, 500);
           });
 
           btndesativado();
@@ -256,10 +274,10 @@ class Inputs {
 
           // evento
           let eventoCustom = null;
+        
           if (
             !erroCustom &&
             inputvalida.customEvento &&
-            input.checkValidity() &&
             input.value.length != 0
           ) {
             for (const elem of inputvalida.customEvento) {
@@ -347,7 +365,6 @@ class Inputs {
             //   checar a restricao final
             if (
               input.checkValidity() &&
-              !eventoCustom &&
               !erroCustom &&
               input.value.length !== 0
             ) {
