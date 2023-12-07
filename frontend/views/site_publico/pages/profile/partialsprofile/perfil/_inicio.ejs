@@ -1,65 +1,53 @@
-<h4 class="mb-4">Suas Informaçôes Pessoais</h4>
-
-<div id="infoUserAll">
-
-  <div class="row mt-4">
-    <div class="col-lg-12">
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">NÃO-EDITAVEL</h5>
-          <div class="row mb-3 mt-4">
-            <div class="col-12">
-              <label for="nome" class="form-label">NOME COMPLETO</label>
-              <input type="text" class="form-control" name="nome" id="nome" disabled>
-            </div>
+          <div class="text-center mb-4">
+            <h2 class="card-title mb-0">Meu Perfil</h2>
+            <button type="button" class="btn btn-primary btn-sm" id="btnEditar">Editar</button>
           </div>
-          <div class="row mb-3">
-            <div class="col-6">
-              <label for="cpf" class="form-label">CPF</label>
-              <input type="text" name="cpf" class="form-control" id="cpf" disabled>
-            </div>
-            <div class="col-6">
-              <label for="nascimento" class="form-label">DATA DE NASCIMENTO</label>
-              <input type="date" class="form-control" name="nascimento" id="nascimento" disabled>
-            </div>
+          <hr class="my-4">
+
+          <div class="text-center">
+            <h4 class="card-title">John Doe</h4>
+            <p class="card-text text-muted">@johndoe</p>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <div class="row mt-4">
-    <div class="col-lg-12">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">EDITAVEIS</h5>
-
-          <div class="row mb-3 mt-4">
-            <div class="col-12 col-sm-6">
-              <label for="username" class="form-label">APELIDO</label>
-              <input type="text" class="form-control" name="username" id="username" disabled>
+          <div class="row mt-4">
+            <div class="col-md-6">
+              <div class="info-item">
+                <strong>CPF:</strong>
+                <p id="cpf">123.456.789-00</p>
+              </div>
             </div>
-            <div class="col-12 col-sm-6">
-              <label for="senha" class="form-label">SENHA</label>
-              <input type="password" class="form-control" disabled placeholder="********">
-            </div>
-            <div class="row mb-3 ">
-              <div class="col-12">
-                <label for="email" class="form-label">EMAIL</label>
-                <input type="email" name="email" class="form-control" id="email" disabled>
+            <div class="col-md-6">
+              <div class="info-item">
+                <strong>Data de Nascimento:</strong>
+                <p id="nascimento">01/01/1990</p>
               </div>
             </div>
           </div>
+
+          <div class="info-item">
+            <strong>Email:</strong>
+            <p id="email">john@example.com</p>
+          </div>
+
         </div>
       </div>
     </div>
   </div>
 </div>
 
+
+
+
 <div class="row mt-4">
   <div class="container d-flex justify-content-center">
-    <button type="click" class="btn btn-primary ms-auto me-1" id="btneditarInfoUser">EDITAR</button>
+    <button type="button" class="btn btn-primary" id="btnEditar">Editar</button>
   </div>
+</div>
 </div>
 
 
@@ -91,5 +79,5 @@
 
 
   infoUserAll.resetDeinfo("http://localhost:9000/api/user/infos");
-  AlternarDePag("btneditarInfoUser", "perfil", "atualizar")
+  // AlternarDePag("btneditarInfoUser", "perfil", "atualizar")
 </script>

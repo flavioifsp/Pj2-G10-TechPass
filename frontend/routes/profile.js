@@ -61,11 +61,6 @@ elemenu.addpag(
   "bi bi-wallet2",
   "Recarga"
 );
-elemenu.addpag(
-  "site_publico/pages/profile/partialsprofile/mycard/_inicio.ejs",
-  "/mycard",
-  "bi bi-credit-card-2-back",
-  "Meus Cartões"
-);
+
 
 module.exports = router;
