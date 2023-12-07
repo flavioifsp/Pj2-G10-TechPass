@@ -3,14 +3,15 @@ var express = require("express");
 var router = express.Router();
 
 /* GET home page. */
-router.get("/", async function (req, res, next) {
+router.get("/?", async function (req, res, next) {
 
 
   res.render("catraca/pages/inicio.ejs", {
     layout: "catraca/layouts/layoutCatraca.ejs",
-    iconimg: "../images/inicioCatraca.svg",
+    iconimg: "../../images/inicioCatraca.svg",
     corback: `rgb(31,45,170)`,
     title: "Catraca inicio",
+    linha: req.query.linha
   });
 });
 
@@ -18,7 +19,7 @@ router.get("/", async function (req, res, next) {
 router.get("/erro", function (req, res, next) {
   res.render("catraca/pages/erro.ejs", {
     layout: "catraca/layouts/layoutCatraca.ejs",
-    iconimg: "../images/aviso.png",
+    iconimg: "../../images/aviso.png",
     corback: "#E2E45C",
     title: "Catraca erro",
   });
@@ -26,21 +27,17 @@ router.get("/erro", function (req, res, next) {
 
 // sucesso
 router.get("/success", function (req, res, next) {
-  const nome = "leopaia";
-  const SaldoRestante = "11,12";
-  const SaldoGasto = "3";
 
-  const modalidade = "P";
 
   res.render("catraca/pages/success.ejs", {
     layout: "catraca/layouts/layoutCatraca.ejs",
-    iconimg: "../images/ok.png",
+    iconimg: "../../images/ok.png",
     corback: "#73D271",
     title: "Catraca sucesso",
-    nome,
-    SaldoRestante,
-    SaldoGasto,
-    modalidade,
+    // nome,
+    // SaldoRestante,
+    // SaldoGasto,
+    // modalidade,
   });
 });
 
@@ -51,7 +48,7 @@ router.get("/saldoOff", function (req, res, next) {
 
   res.render("catraca/pages/saldoOff.ejs", {
     layout: "catraca/layouts/layoutCatraca.ejs",
-    iconimg: "../images/insuficiente.png",
+    iconimg: "../../images/insuficiente.png",
     corback: "#df4a29",
     title: "saldo insuficiente",
   });

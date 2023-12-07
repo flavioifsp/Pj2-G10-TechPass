@@ -34,9 +34,9 @@ app.use("/catraca", catraca);
 app.use("/adm", adm);
 
 // lembrar de fazer um meio para aparecer uma msg de erro quando é redirecionado
-app.all("*", (req, res) => {
-  res.redirect("/");
-});
+// app.all("*", (req, res) => {
+//   res.redirect("/");
+// });
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

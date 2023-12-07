@@ -4,7 +4,7 @@ const axios = require("axios");
 const prisma = new (require("@prisma/client").PrismaClient)();
 const exception = require("../js/erro");
 
-router.get("/inicio/:viagem/:codigo/", async function (req, res, next) {
+router.get("/inicio/:linha/:codigo/", async function (req, res, next) {
   try {
     const getCartao = await prisma.cartoes_do_cliente.findUniqueOrThrow({
       where: {
@@ -16,14 +16,33 @@ router.get("/inicio/:viagem/:codigo/", async function (req, res, next) {
       },
     });
 
+    const tarifa = parseFloat(getCartao.tipos_de_cartao.tarifa);
+    const saldo = parseFloat(getCartao.clientes.saldo);
 
-    const tarifa = parseFloat(getCartao.tipos_de_cartao.tarifa)
-    const saldo  = parseFloat(getCartao.clientes.saldo)
-
-    
     if (saldo < tarifa) {
-      return res.status(402).json({ msg: "saldo insuficiente" });
+      return res.status(402).json({ msg: "saldo insuficiente", saldo, tarifa });
     }
+
+    const {id: viagem_id} = await prisma.viagem.findFirst({
+      where: {
+        AND: [
+          {
+            linhas: {
+              numero_linha: parseInt(req.params.linha),
+            },
+          },
+          {
+            duracao: 0,
+          },
+        ],
+      },
+
+      orderBy: {
+        inicio: "asc",
+      },
+    });
+
+  
 
     const response = await prisma.cartoes_do_cliente.update({
       where: {
@@ -39,7 +58,7 @@ router.get("/inicio/:viagem/:codigo/", async function (req, res, next) {
           create: {
             data: new Date(),
             historico_tarifa: tarifa,
-            viagem_id: parseInt(req.params.viagem),
+            viagem_id,
           },
         },
       },
@@ -47,7 +66,7 @@ router.get("/inicio/:viagem/:codigo/", async function (req, res, next) {
         clientes: {
           select: {
             nome: true,
-            saldo: true
+            saldo: true,
           },
         },
         tipos_de_cartao: {

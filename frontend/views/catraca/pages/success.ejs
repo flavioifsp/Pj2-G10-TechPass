@@ -1,7 +1,12 @@
 
-<h2 class="">passe a catraca, <%=nome%></h2>
+<h2 class="">passe a catraca, <%#nome%></h2>
 <div class="text-start  pt-3">
-    <h3 class="mb-3 mt-5">saldo restante: R$<%=SaldoRestante%></h1>
-    <h3 class="text-center">saldo gasto: R$<%=SaldoGasto%></h1>
+    <h3 class="mb-3 mt-5">saldo restante: R$<%#=SaldoRestante%></h1>
+    <h3 class="text-center">saldo gasto: R$<%#=SaldoGasto%></h1>
 </div>
 
+<script>
+    setTimeout(() => {
+        location.href = document.referrer
+    }, 3000);
+</script>

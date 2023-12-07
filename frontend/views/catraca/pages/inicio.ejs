@@ -2,8 +2,8 @@
 <div id="relogio"></div>
 
 
-<form id="formpaia" method="get" action="/catraca">
-  <input class=" w-25 position-absolute top-0" type="text" name="idCard" id="idCard">
+<form id="formpaia"  >
+  <input style="margin-top: -2000px;" class=" w-25 position-absolute top-0" type="text" name="idCard" id="idCard">
 </form>
 
 
@@ -28,15 +28,24 @@
     input.focus()
   })
 
-  // document.querySelector("form").addEventListener("submit", async (evt) => {
-  //   evt.preventDefault()
+  document.querySelector("form").addEventListener("submit", async (evt) => {
+    evt.preventDefault()
 
-  //   try {
+    try {
+      const {data, status} = await axios.get(`http://localhost:9000/api/catraca/inicio/${<%= linha%>}/${input.value}`)
 
-  //   } catch (error) {
+      if(data.code === "P2025") throw "cliente não encontrado"
 
-  //   }
+      if(status === 402) return location.href = "/catraca/saldoOff"
+
+      
+      location.href = "/catraca/success"
 
 
-  // })
+    } catch (error) {
+      location.href = "/catraca/erro/"
+    }
+
+
+  })
 </script>

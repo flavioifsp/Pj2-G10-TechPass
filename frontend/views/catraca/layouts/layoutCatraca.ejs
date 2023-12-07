@@ -7,24 +7,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title><%=title%></title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
 </head>
 
 
 <body class="container-fluid  p-0 vh-100" style=<%= `background-color:${corback};`%>>
 
 
-  <header class="align-items-center d-flex flex-column pt-5  text-uppercase h-25">
+  <header class="align-items-center d-flex flex-column pt-5   text-uppercase h-25">
     <%- body %>
   </header>
 
 
   <!-- img principal -->
-  <main class="position-absolute top-50 start-50 translate-middle  col-5 col-sm-4 col-md-3 col-xl-2">
+  <main class="position-absolute top-50 start-50 translate-middle   col-5 col-sm-4 col-md-3 col-xl-2">
     <img src="<%= iconimg%>" class="img-fluid ">
   </main>
 
 
   <%- include('../partials/_logo.ejs'); %>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </body>
+
 
 </html>
