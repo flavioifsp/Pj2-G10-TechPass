@@ -8,7 +8,7 @@ router.get("/inicio/:linha/:codigo/", async function (req, res, next) {
   try {
     const getCartao = await prisma.cartoes_do_cliente.findUniqueOrThrow({
       where: {
-        codigo_do_cartao: parseInt(req.params.codigo),
+        codigo_do_cartao: parseInt(req.params.codigo) || -10,
       },
       include: {
         clientes: true,
@@ -82,10 +82,10 @@ router.get("/inicio/:linha/:codigo/", async function (req, res, next) {
   } catch (error) {
     if (error.code === "P2025") {
       res.json(error);
-      console.log(error);
+     
     } else {
       const erro = exception(error);
-      console.log(erro);
+      console.error(erro);
       res.status(erro.code).json(erro.msg);
     }
   }
