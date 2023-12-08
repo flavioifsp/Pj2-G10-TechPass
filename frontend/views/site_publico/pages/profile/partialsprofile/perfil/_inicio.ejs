@@ -1,83 +1,76 @@
-<div class="container mt-4">
-  <div class="row justify-content-center">
-    <div class="col-lg-8">
-      <div class="card">
-        <div class="card-body">
-          <div class="text-center mb-4">
-            <h2 class="card-title mb-0">Meu Perfil</h2>
-            <button type="button" class="btn btn-primary btn-sm" id="btnEditar">Editar</button>
-          </div>
-          <hr class="my-4">
+<div id="alert">
+  <script>
+    alert("alert", 5000)
+  </script>
+</div>
 
-          <div class="text-center">
-            <h4 class="card-title">John Doe</h4>
-            <p class="card-text text-muted">@johndoe</p>
-          </div>
-
-          <div class="row mt-4">
-            <div class="col-md-6">
-              <div class="info-item">
-                <strong>CPF:</strong>
-                <p id="cpf">123.456.789-00</p>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="info-item">
-                <strong>Data de Nascimento:</strong>
-                <p id="nascimento">01/01/1990</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="info-item">
-            <strong>Email:</strong>
-            <p id="email">john@example.com</p>
-          </div>
-
-        </div>
-      </div>
-    </div>
+<section class="my-profile row">
+  <div class="col-md-6">
+    <ul class="list-group">
+      <li class="list-group-item active">
+        Informações Pessoais
+        <a id="btnEdit" class="btn btn-primary float-end">Editar</a>
+      </li>
+      <li class="list-group-item">
+        <span class="fw-bold">Nome:</span>
+        <span> <%= nome %> </span>
+      </li>
+      <li class="list-group-item">
+        <span class="fw-bold">Apelido:</span>
+        <span><%= username %></span>
+      </li>
+      <li class="list-group-item">
+        <span class="fw-bold">CPF:</span>
+        <span><%= cpf %></span>
+      </li>
+      <li class="list-group-item">
+        <span class="fw-bold">Data de Nascimento:</span>
+        <span>
+          <%=  new Date(nascimento).toLocaleDateString() %></span>
+      </li>
+      <li class="list-group-item">
+        <span class="fw-bold">Email:</span>
+        <span> <%= email %> </span>
+      </li>
+    </ul>
+    <ul class="list-group mt-4">
+      <li class="list-group-item active">
+        Saldo
+      </li>
+      <li class="list-group-item">
+        <span class="fw-bold">Disponivel:</span>
+        <span class="fw-bold text-primary">
+          R$ <%- parseFloat(saldo).toLocaleString() %>
+        </span>
+      </li>
+    </ul>
   </div>
-</div>
+  <div class="col-md-6">
+    <ul class="list-group">
+      <li class="list-group-item active">
+        Cartão de Crédito
+        <a href="#" class="btn btn-primary float-end">Detalhes</a>
+      </li>
+      <li class="list-group-item">
+        <span class="fw-bold">Bandeira:</span>
+        <span>
+          {{ cartaondeira }}</span>
+      </li>
+      <li class="list-group-item">
+        <span class="fw-bold">Número:</span>
+        <span>
+          {{ cartaomero }}</span>
+      </li>
+      <li class="list-group-item">
+        <span class="fw-bold">Limite:</span>
+        <span>
+          {{ cartaomite }}</span>
+      </li>
+    </ul>
 
-
-
-
-<div class="row mt-4">
-  <div class="container d-flex justify-content-center">
-    <button type="button" class="btn btn-primary" id="btnEditar">Editar</button>
   </div>
-</div>
-</div>
-
-
-
+</section>
 
 <script>
-  const infoUserAll = new Inputs("#infoUserAll");
-
-
-  const aviso = document.createElement("div");
-
-  const msgDeEdicao = localStorage.getItem("msg")
-  if (msgDeEdicao) {
-    aviso.innerHTML = `
-      <div class="alert alert-success py-3 d-flex" role="alert">
-        ${msgDeEdicao}!
-
-        <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
-      `
-
-    infoUserAll.forms.prepend(aviso)
-    setTimeout(() => {
-      infoUserAll.forms.removeChild(aviso)
-    }, 10000)
-
-    localStorage.clear("msg")
-  }
-
-
-  infoUserAll.resetDeinfo("http://localhost:9000/api/user/infos");
-  // AlternarDePag("btneditarInfoUser", "perfil", "atualizar")
+  AlternarDePag("btnEdit", "perfil", "atualizar")
 </script>

@@ -1,123 +1,88 @@
-<h4 class="mb-4">Informaçôes Pessoais</h4>
-<form class="needs-validation" novalidate="" id="formsPATCHuser">
-  <div class="row g-3">
-    <!-- <div class="col-12">
-      <label for="Nome" class="form-label">Nome Completo </label>
-      <input type="text" class="form-control" id="email" >
-      <div class="invalid-feedback">
-        Please enter a valid email address for shipping updates.
+<div class="container" id="paiadms">
+  <form action="/" method="post">
+    <div class="row">
+      <div class="col-md-6">
+        <label for="cpf">CPF</label>
+        <input type="text" class="form-control" id="cpf" name="cpf" value="<%= cpf %>" placeholder="000.000.000-00" />
       </div>
-    </div> -->
-
-    <div class="col-12">
-      <label for="username" class="form-label">Username</label>
-      <div class="input-group has-validation">
-        <input type="text" class="form-control" id="username" name="username" />
-        <div class="invalid-feedback">Your username is required.</div>
+      <div class="col-md-6">
+        <label for="nascimento">Data de nascimento</label>
+        <input type="date" class="form-control" id="nascimento" value="<%= nascimento.split("T")[0] %>" name="nascimento" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <label for="nome">Nome</label>
+        <input type="text" class="form-control" id="nome" name="nome" value="<%= nome %>" placeholder="Nome completo" />
+      </div>
+      <div class="col-md-6">
+        <label for="username">Username</label>
+        <input type="text" class="form-control" id="username" name="username" value="<%= username %>" placeholder="Nome de usuário" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <label for="email">E-mail</label>
+        <input type="email" class="form-control" id="email" name="email" value="<%= email %>" placeholder="Endereço de e-mail" />
+      </div>
+      <div class="col-md-6">
+        <label for="senha">Senha</label>
+        <input type="password" class="form-control" id="senha" name="senha" placeholder="Senha" />
       </div>
     </div>
 
-    <!-- <div class="col-sm-8 ">
-      <label for="CPF" class="form-label">CPF</label>
-      <input type="text" class="form-control" id="CPF" placeholder="" value="" required="">
-      <div class="invalid-feedback">
-        Valid CPF is required.
+    <div class="mt-5 d-flex justify-content-between">
+      <button type="button" class="btn btn btn-danger ms-2" id="btnCancel" onclick="location.reload()" style="width: fit-content">
+        Cancelar
+      </button>
+
+      <div>
+        <button type="button" class="btn btn btn-secondary ms-auto" id="btnRESET" style="width: fit-content" onclick="document.querySelector('form').reset()">
+          Resetar
+        </button>
+        <button type="submit" class="btn btn-warning" style="width: fit-content">
+          Salvar
+        </button>
       </div>
-    </div> -->
-
-    <!-- <div class="col-sm-4 col-5">
-      <label for="nasc" class="form-label">Nascimento</label>
-      <input type="date" class="form-control" id="nasc" placeholder="" value="" required="">
-      <div class="invalid-feedback">
-        Valid last name is required.
-      </div>
-    </div> -->
-
-    <div class="col-12">
-      <label for="email" class="form-label">Email </label>
-      <input type="email" class="form-control" id="email" name="email" />
     </div>
-
-    <div class="col-12">
-      <label for="senha" class="form-label">Nova senha</label>
-      <input type="senha" class="form-control" id="senha" name="senha" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" />
-    </div>
-
-
-  </div>
-
-  <hr class="my-4" />
-
-  <div class="d-flex px-1">
-    <button type="submit" class="btn btn-success submit" id="btn-salvar" style="width: fit-content">
-      SALVAR
-    </button>
-
-    <button type="button" class="btn btn btn-warning ms-auto" id="btnRESET" style="width: fit-content">
-      Resetar
-    </button>
-    <button type="button" class="btn btn btn-danger ms-2" id="btnCancel" onclick="location.reload()" style="width: fit-content">
-      Cancelar
-    </button>
-  </div>
-</form>
+  </form>
+</div>
 
 <script>
-  const formsPATCHuser = new Inputs("#formsPATCHuser");
+  const form = new Inputs("form")
 
-
-  formsPATCHuser.allvalidacao({
-    username: {
-      max: 90,
-      min: 3,
-      caractereNpermitido: ['NcaractereEspecial'],
-      pattern: [
-        "[a-zA-Z\\s_\\-\\d]{2,90}",
-        "apelido valido",
-        "apelido invalido",
-      ],
-      btnoff: "required"
-    },
-    senha: {
-      max: 50,
-      min: 8,
-      caractereNpermitido: ['NcaractereEspecial', 'Nacentuacao'],
-      pattern: ["^[a-zA-Z0-9\\sáéíóúâêîôûàèìòùãõäëïöüçãõẽĩũâêîôûũṹỹḿẽĩỹẽẽỹẽỹã\´`~^]{8,50}$", "senha valida", "senha invalido"],
-      btnoff: "required"
-    },
+  form.allvalidacao({
+    ...validEdit,
     email: {
-      max: 64,
-      pattern: [
-        "^[a-zA-Z0-9\\._+\\-]+@[a-zA-Z0-9\\.\\-]+\\.[a-zA-Z]{2,6}$",
-        "email valido",
-        "email invalido",
-      ],
+      ...validEdit.email,
       customEvento: [(async (value) => {
-        if (((await axios.get("http://localhost:9000/api/user/cadastrar/?email=" + value)).data.resultado.email)) {
+
+        if (value !== "<%= email%>" && (await axios.get("http://localhost:9000/api/user/cadastrar/?email=" + value)).data.resultado.email) {
           return "Esse email já está em uso"
         }
       })],
-      btnoff: "required"
-    },
+    }
   })
+  form.neutralidadeON()
 
+  document.addEventListener("submit", (evt) => {
+    evt.preventDefault()
 
-  // colocar as info do user no forms na primeira vez
-  formsPATCHuser.resetDeinfo("http://localhost:9000/api/user/infos");
+    try {
+      const response = axios.put("http://localhost:9000/api/user/", form.allValues(), getCookie("tokenUser"))
 
+      localStorage.setItem(
+        "alert",
+        JSON.stringify({
+          cor: "warning",
+          texto: `o seu Cadastro foi alterado`,
+          div: "#alert",
+        })
+      );
 
-  // resetar os form para a info do user
-  formsPATCHuser.forms.querySelector("#btnRESET").addEventListener("click", () => {
-    // requisitar as infos dnv
-    formsPATCHuser.resetDeinfo("http://localhost:9000/api/user/infos");
-
-    // limpar senhas
-    formsPATCHuser.forms.querySelector("#senha").value = "";
-
-  });
-
-  formsPATCHuser.patchInfo(`http://localhost:9000/api/user/patch/`, null, () => {
-    localStorage.setItem("msg", "Edição concluida")
-    location.reload()
+      location.reload()
+    } catch (error) {
+      console.error(error);
+    }
   })
 </script>

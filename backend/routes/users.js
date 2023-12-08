@@ -26,13 +26,14 @@ router.post("/cadastrar/", async function (req, res, next) {
     }
     if (
       typeof nascimento !== "string" ||
-      !nascimento.match(
-        /^\d{4}-\d{2}-\d{2}$/
-      )
+      !nascimento.match(/^\d{4}-\d{2}-\d{2}$/)
     ) {
       dadosinvalidos += "Nascimento ";
     }
-    if (typeof email !== "string" || !email.match(/(^[a-zA-Z0-9\\._+\-]+@[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,6}$)/)) {
+    if (
+      typeof email !== "string" ||
+      !email.match(/(^[a-zA-Z0-9\\._+\-]+@[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,6}$)/)
+    ) {
       dadosinvalidos += "Email ";
     }
     if (typeof cpf !== "string" || !cpf.match(/\d{3}\.\d{3}\.\d{3}-\d{2}/)) {
@@ -188,25 +189,46 @@ router.get("/infos/", autenticar, async (req, res) => {
   }
 });
 
-// atualizar clientes
-router.patch("/patch/", autenticar, async (req, res) => {
-  const { senha, email, username } = req.body;
-
+router.get("/infosAll", autenticar, async (req, res) => {
   try {
-    const data = {
-      email: email,
-      username: username,
-    };
+    res.json(
+      await prisma.clientes.findUniqueOrThrow({
+        where: {
+          id: req.userId,
+        },
+        include: {
+          cartoes_do_cliente: {
+            include: {
+              tipos_de_cartao: true,
+              embarque: true,
+            },
+          },
+        },
+      })
+    );
+  } catch (error) {
+    res.status(401).json({ message: "n encontrado", erro: error });
+    console.log(error);
+  }
+});
 
-    if (senha !== "") {
-      data.senha = await bcry.hash(senha, 10);
-    }
+// atualizar clientes
+router.put("/", autenticar, async (req, res) => {
+  try {
+    const { username, cpf, email, senha, nascimento, nome } = req.body;
 
     const user = await prisma.clientes.update({
       where: {
         id: req.userId,
       },
-      data: data,
+      data: {
+        cpf,
+        email,
+        senha: senha ? await bcry.hash(senha, 10) : undefined,
+        nascimento: new Date(nascimento),
+        nome,
+        username,
+      },
     });
 
     res.json({ message: "atualizado com sucesso" });

@@ -114,6 +114,17 @@ const validGeral = {
     ],
     btnoff: "required",
   },
+  username: {
+    max: 90,
+    min: 3,
+    caractereNpermitido: ['NcaractereEspecial'],
+    pattern: [
+      "[a-zA-Z\\s_\\-\\d]{2,90}",
+      "apelido valido",
+      "apelido invalido",
+    ],
+    btnoff: "required"
+  },
 
   // FOTO
   foto: {
@@ -157,23 +168,17 @@ const validGeral = {
   }
 };
 
-const validEdit = {
-  nome: { ...validGeral.nome, ...{ btnoff: null } },
-  nascimento: { ...validGeral.nascimento, ...{ btnoff: null } },
-  cnh: { ...validGeral.cnh, ...{ btnoff: null } },
-  foto: { ...validGeral.foto, ...{ btnoff: null } },
-  cpf: { ...validGeral.cpf, ...{ btnoff: null } },
-  senha: { ...validGeral.senha, ...{ btnoff: null } },
-  email: { ...validGeral.email, ...{ btnoff: null } },
-  nome: { ...validGeral.nome, ...{ btnoff: null } },
-  endereco: { ...validGeral.endereco, ...{ btnoff: null } },
-  turno: { ...validGeral.turno, ...{ btnoff: null } },
-  local_de_trabalho_id: {
-    ...validGeral.local_de_trabalho_id,
-    ...{ btnoff: null },
-  },
-  telefone: { ...validGeral.telefone, ...{ btnoff: null } },
-};
+
+
+
+const validEdit = {}
+for (const key in validGeral) {
+  if (Object.hasOwnProperty.call(validGeral, key)) {
+    const element = validGeral[key];
+
+    validEdit[key] = {...element, btnoff: null }
+  }
+}
 
 // -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // validações de forms

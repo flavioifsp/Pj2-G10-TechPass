@@ -1,5 +1,5 @@
 // a função lança um alert na div definida se encontrar a info no localstorage
-function alert(keyAlert = "stopBusCreate") {
+function alert(keyAlert = "stopBusCreate", ms = 10000) {
     const infoDaRes = localStorage.getItem(keyAlert);
     if (infoDaRes) {
       const {
@@ -27,6 +27,6 @@ function alert(keyAlert = "stopBusCreate") {
         if (alert) {
           divpai.removeChild(alert);
         }
-      }, 10000);
+      }, ms);
     }
   }

@@ -1,20 +1,23 @@
 const jwt = require("jsonwebtoken");
 
 function gerarCookieToken(id, miliSeg = 15000) {
-  return `token = ${jwt.sign({ id }, process.env.SECRET_KEY, {
+  return `tokenUser = ${jwt.sign({ id }, process.env.SECRET_KEY, {
     expiresIn: miliSeg,
   })}; max-age=${miliSeg}`;
 }
 
 function autenticar(req, res, next) {
-  let token = req.cookies.token;
-  if (!req.cookies.token) token = req.headers["authorization"].split(" ")[1];
+  let tokenUser =
+    req.cookies.tokenUser ||
+    (req.headers["authorization"]
+      ? req.headers["authorization"].split(" ")[1]
+      : false);
 
-  if (!token) {
+  if (!tokenUser) {
     return res.status(403).send("token nâo fornecido");
   }
 
-  jwt.verify(token, process.env.SECRET_KEY, (er, decoded) => {
+  jwt.verify(tokenUser, process.env.SECRET_KEY, (er, decoded) => {
     if (er) return res.status(401).send("falha na autenticacâo do token");
 
     req.userId = decoded.id;
@@ -52,7 +55,7 @@ function autenticarADM(autorizado = []) {
         }
       }
 
-      res.status(401).json({  msg: "você não está autorizado" });
+      res.status(401).json({ msg: "você não está autorizado" });
     });
   };
 }
