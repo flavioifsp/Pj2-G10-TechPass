@@ -1,6 +1,6 @@
 <div id="alert">
   <script>
-    alert("alert", 5000)
+    alert("alert", 5000);
   </script>
 </div>
 
@@ -25,8 +25,7 @@
       </li>
       <li class="list-group-item">
         <span class="fw-bold">Data de Nascimento:</span>
-        <span>
-          <%=  new Date(nascimento).toLocaleDateString() %></span>
+        <span> <%= new Date(nascimento).toLocaleDateString() %></span>
       </li>
       <li class="list-group-item">
         <span class="fw-bold">Email:</span>
@@ -34,9 +33,7 @@
       </li>
     </ul>
     <ul class="list-group mt-4">
-      <li class="list-group-item active">
-        Saldo
-      </li>
+      <li class="list-group-item active">Saldo</li>
       <li class="list-group-item">
         <span class="fw-bold">Disponivel:</span>
         <span class="fw-bold text-primary">
@@ -46,31 +43,53 @@
     </ul>
   </div>
   <div class="col-md-6">
-    <ul class="list-group">
+    <ul class="list-group accordion accordion-flush" id="cartoeslist">
       <li class="list-group-item active">
-        Cartão de Crédito
+        Historico dos Passes
         <a href="#" class="btn btn-primary float-end">Detalhes</a>
       </li>
-      <li class="list-group-item">
-        <span class="fw-bold">Bandeira:</span>
-        <span>
-          {{ cartaondeira }}</span>
-      </li>
-      <li class="list-group-item">
-        <span class="fw-bold">Número:</span>
-        <span>
-          {{ cartaomero }}</span>
-      </li>
-      <li class="list-group-item">
-        <span class="fw-bold">Limite:</span>
-        <span>
-          {{ cartaomite }}</span>
-      </li>
-    </ul>
 
+      <div class="overflow-auto" style="max-height: 320px">
+           <% cartoes_do_cliente.forEach((cartao, indice) => { %>
+      <li class="accordion-item list-group-item p-0">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed w-100 d-flex position-relative" style=".accordion-button::after {margin: 0px;}" type="button" data-bs-toggle="collapse" data-bs-target="#CARD<%= indice%>" aria-expanded="false">
+            <span class="card-title">
+              Passe <%= cartao.tipos_de_cartao.modalidade %>
+            </span>
+            <span class="badge bg-primary rounded-pill position-absolute top-50    translate-middle-y" style="right: 50px;">
+              <%= cartao.embarque.length %> embarques
+            </span>
+          </button>
+        </h2>
+        <div id="CARD<%= indice%>" class="accordion-collapse collapse" data-bs-parent="#cartoeslist">
+          <div class="accordion-body p-0">
+            <ul class="list-group list-group-flush overflow-auto" style="max-height: 260px">
+              <% cartao.embarque.forEach(({ data, viagem: { linhas } }) => { %>
+                <li class="list-group-item list-group-item-action">
+                  <div class="d-flex">
+                    <p class="m-0 text-primary"><strong>Linha:</strong> <%= linhas.numero_linha %> <%=linhas.bairroOrigem %>/<%= linhas.bairroDestino %></p>
+                  </div>
+                  <p class="m-0 text-muted"><strong>Data de embarque:</strong> <%= new Date(data).toLocaleString()   %></p>
+                </li>
+                
+                
+                
+                
+
+              <% }) %>
+            </ul>
+          </div>
+        </div>
+      </li>
+      <% }) %>
+      </div>
+   
+
+    </ul>
   </div>
 </section>
 
 <script>
-  AlternarDePag("btnEdit", "perfil", "atualizar")
+  AlternarDePag("btnEdit", "perfil", "atualizar");
 </script>

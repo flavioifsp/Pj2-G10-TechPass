@@ -200,12 +200,20 @@ router.get("/infosAll", autenticar, async (req, res) => {
           cartoes_do_cliente: {
             include: {
               tipos_de_cartao: true,
-              embarque: true,
+              embarque: {
+                include:{
+                  viagem: {
+                    include:{
+                      linhas: true
+                    }
+                  }
+                }
+              },
             },
           },
         },
       })
-    );
+    );  
   } catch (error) {
     res.status(401).json({ message: "n encontrado", erro: error });
     console.log(error);

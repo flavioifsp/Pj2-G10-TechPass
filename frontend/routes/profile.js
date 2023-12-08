@@ -53,6 +53,8 @@ class Menu {
 
 const elemenu = new Menu();
 
+
+
 elemenu.addpag(
   "site_publico/pages/profile/partialsprofile/perfil/_inicio.ejs",
   "/",

@@ -148,7 +148,7 @@
         content: `
                 <div class="p-0 m-0 text-dark">
                     <h4 class=" p-0 m-0">Tech Pass</h4>
-                    <p class=" p-0 m-0">ponto de recarga no ${umPonto.endereco.split(",")[2]}</p>
+                    <p class=" p-0 m-0">ponto de recarga no ${umPonto.endereco.split(",")[1]}</p>
                 </div>
             `,
         ariaLabel: "Tech Pass",
@@ -221,12 +221,12 @@
 
       lista.map((elem) => {
 
-        const bairro = elem.querySelector("p").textContent.split(",")[2].toLowerCase().trim().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "")
+        const bairro = elem.querySelector("p").textContent.split(",")[1].toLowerCase().trim().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "")
         const resultado = input.value.toLowerCase().trim().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "")
-        console.log(bairro, resultado)
+        
         if (!bairro.startsWith(resultado)) {
           elem.classList.add("d-none")
-          console.log("--------------------")
+          
         } else {
           elem.classList.remove("d-none")
         }
