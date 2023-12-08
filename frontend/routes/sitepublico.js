@@ -4,8 +4,8 @@ const axiosGet = require("../public/js/req_get_axios");
 const { default: axios } = require("axios");
 
 // infoPagNav se o cara está logado para o header
-async function UserInfoPagNav(token, headers) {
-  if (!token) {
+async function UserInfoPagNav(tokenUser, headers) {
+  if (!tokenUser) {
     return false;
   }
 
@@ -32,7 +32,7 @@ router.get("/", async function (req, res, next) {
     layout: "site_publico/layouts/layout_index.ejs",
     data: JSON.stringify(data),
     er,
-    navUser: await UserInfoPagNav(req.cookies.token, req.headers),
+    navUser: await UserInfoPagNav(req.cookies.tokenUser, req.headers),
   });
 });
 
@@ -49,7 +49,7 @@ router.get("/rotas&linhas", async function (req, res, next) {
     layout: "site_publico/layouts/layout_index.ejs",
     linhas: data,
     er,
-    navUser: await UserInfoPagNav(req.cookies.token, req.headers),
+    navUser: await UserInfoPagNav(req.cookies.tokenUser, req.headers),
   });
 });
 
@@ -58,7 +58,7 @@ router.get("/login", async function (req, res, next) {
   res.render("site_publico/pages/login", {
     title: "Entrar",
     layout: "site_publico/layouts/layout_auth.ejs",
-    navUser: (await UserInfoPagNav(req.cookies.token, req.headers))
+    navUser: (await UserInfoPagNav(req.cookies.tokenUser, req.headers))
   });
 });
 
@@ -66,7 +66,7 @@ router.get("/teste", async function (req, res, next) {
   res.render("site_publico/pages/teste", {
     title: "teste",
     layout: "site_publico/layouts/layout_auth.ejs",
-    navUser: (await UserInfoPagNav(req.cookies.token, req.headers))
+    navUser: (await UserInfoPagNav(req.cookies.tokenUser, req.headers))
   });
 });
 
@@ -76,7 +76,7 @@ router.get("/cadastrar", async function (req, res, next) {
   res.render("site_publico/pages/cadastrar", {
     title: "cadastrar",
     layout: "site_publico/layouts/layout_auth.ejs",
-    navUser: (await UserInfoPagNav(req.cookies.token, req.headers))
+    navUser: (await UserInfoPagNav(req.cookies.tokenUser, req.headers))
   });
 });
 

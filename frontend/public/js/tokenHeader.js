@@ -1,7 +1,7 @@
 // pegar meu token no cookir (funcao pega do gpt)
-function getCookie() {
+function getCookie(token = "token") {
   const value = "; " + document.cookie;
-  const parts = value.split("; " + "token" + "=");
+  const parts = value.split("; " + token + "=");
   if (parts.length === 2) {
     return {
       headers: {

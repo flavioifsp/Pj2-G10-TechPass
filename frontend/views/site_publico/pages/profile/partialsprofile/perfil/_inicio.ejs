@@ -1,95 +1,95 @@
-<h4 class="mb-4">Suas Informaçôes Pessoais</h4>
-
-<div id="infoUserAll">
-
-  <div class="row mt-4">
-    <div class="col-lg-12">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">NÃO-EDITAVEL</h5>
-          <div class="row mb-3 mt-4">
-            <div class="col-12">
-              <label for="nome" class="form-label">NOME COMPLETO</label>
-              <input type="text" class="form-control" name="nome" id="nome" disabled>
-            </div>
-          </div>
-          <div class="row mb-3">
-            <div class="col-6">
-              <label for="cpf" class="form-label">CPF</label>
-              <input type="text" name="cpf" class="form-control" id="cpf" disabled>
-            </div>
-            <div class="col-6">
-              <label for="nascimento" class="form-label">DATA DE NASCIMENTO</label>
-              <input type="date" class="form-control" name="nascimento" id="nascimento" disabled>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row mt-4">
-    <div class="col-lg-12">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">EDITAVEIS</h5>
-
-          <div class="row mb-3 mt-4">
-            <div class="col-12 col-sm-6">
-              <label for="username" class="form-label">APELIDO</label>
-              <input type="text" class="form-control" name="username" id="username" disabled>
-            </div>
-            <div class="col-12 col-sm-6">
-              <label for="senha" class="form-label">SENHA</label>
-              <input type="password" class="form-control" disabled placeholder="********">
-            </div>
-            <div class="row mb-3 ">
-              <div class="col-12">
-                <label for="email" class="form-label">EMAIL</label>
-                <input type="email" name="email" class="form-control" id="email" disabled>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+<div id="alert">
+  <script>
+    alert("alert", 5000);
+  </script>
 </div>
 
-<div class="row mt-4">
-  <div class="container d-flex justify-content-center">
-    <button type="click" class="btn btn-primary ms-auto me-1" id="btneditarInfoUser">EDITAR</button>
+<section class="my-profile row">
+  <div class="col-md-6">
+    <ul class="list-group">
+      <li class="list-group-item active">
+        Informações Pessoais
+        <a id="btnEdit" class="btn btn-primary float-end">Editar</a>
+      </li>
+      <li class="list-group-item">
+        <span class="fw-bold">Nome:</span>
+        <span> <%= nome %> </span>
+      </li>
+      <li class="list-group-item">
+        <span class="fw-bold">Apelido:</span>
+        <span><%= username %></span>
+      </li>
+      <li class="list-group-item">
+        <span class="fw-bold">CPF:</span>
+        <span><%= cpf %></span>
+      </li>
+      <li class="list-group-item">
+        <span class="fw-bold">Data de Nascimento:</span>
+        <span> <%= new Date(nascimento).toLocaleDateString() %></span>
+      </li>
+      <li class="list-group-item">
+        <span class="fw-bold">Email:</span>
+        <span> <%= email %> </span>
+      </li>
+    </ul>
+    <ul class="list-group mt-4">
+      <li class="list-group-item active">Saldo</li>
+      <li class="list-group-item">
+        <span class="fw-bold">Disponivel:</span>
+        <span class="fw-bold text-primary">
+          R$ <%- parseFloat(saldo).toLocaleString() %>
+        </span>
+      </li>
+    </ul>
   </div>
-</div>
+  <div class="col-md-6">
+    <ul class="list-group accordion accordion-flush" id="cartoeslist">
+      <li class="list-group-item active">
+        Historico dos Passes
+        <a href="#" class="btn btn-primary float-end">Detalhes</a>
+      </li>
 
+      <div class="overflow-auto" style="max-height: 320px">
+           <% cartoes_do_cliente.forEach((cartao, indice) => { %>
+      <li class="accordion-item list-group-item p-0">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed w-100 d-flex position-relative" style=".accordion-button::after {margin: 0px;}" type="button" data-bs-toggle="collapse" data-bs-target="#CARD<%= indice%>" aria-expanded="false">
+            <span class="card-title">
+              Passe <%= cartao.tipos_de_cartao.modalidade %>
+            </span>
+            <span class="badge bg-primary rounded-pill position-absolute top-50    translate-middle-y" style="right: 50px;">
+              <%= cartao.embarque.length %> embarques
+            </span>
+          </button>
+        </h2>
+        <div id="CARD<%= indice%>" class="accordion-collapse collapse" data-bs-parent="#cartoeslist">
+          <div class="accordion-body p-0">
+            <ul class="list-group list-group-flush overflow-auto" style="max-height: 260px">
+              <% cartao.embarque.forEach(({ data, viagem: { linhas } }) => { %>
+                <li class="list-group-item list-group-item-action">
+                  <div class="d-flex">
+                    <p class="m-0 text-primary"><strong>Linha:</strong> <%= linhas.numero_linha %> <%=linhas.bairroOrigem %>/<%= linhas.bairroDestino %></p>
+                  </div>
+                  <p class="m-0 text-muted"><strong>Data de embarque:</strong> <%= new Date(data).toLocaleString()   %></p>
+                </li>
+                
+                
+                
+                
 
+              <% }) %>
+            </ul>
+          </div>
+        </div>
+      </li>
+      <% }) %>
+      </div>
+   
 
+    </ul>
+  </div>
+</section>
 
 <script>
-  const infoUserAll = new Inputs("#infoUserAll");
-
-
-  const aviso = document.createElement("div");
-
-  const msgDeEdicao = localStorage.getItem("msg")
-  if (msgDeEdicao) {
-    aviso.innerHTML = `
-      <div class="alert alert-success py-3 d-flex" role="alert">
-        ${msgDeEdicao}!
-
-        <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
-      `
-
-    infoUserAll.forms.prepend(aviso)
-    setTimeout(() => {
-      infoUserAll.forms.removeChild(aviso)
-    }, 10000)
-
-    localStorage.clear("msg")
-  }
-
-
-  infoUserAll.resetDeinfo("http://localhost:9000/api/user/infos");
-  AlternarDePag("btneditarInfoUser", "perfil", "atualizar")
+  AlternarDePag("btnEdit", "perfil", "atualizar");
 </script>

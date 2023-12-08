@@ -38,16 +38,16 @@
             </a>
           </li>
           <li>
-            <a class="dropdown-item" href="/profile/payment">
+            <a class="dropdown-item" href="/profile/recarga">
               <font style="vertical-align: inherit">
-                <font style="vertical-align: inherit">Formas de Pagamento</font>
+                <span style="vertical-align: inherit">Recarga</font>
               </font>
             </a>
           </li>
           <li>
-            <a class="dropdown-item" href="/profile/mycard">
+            <a class="dropdown-item" href="/profile/historico">
               <font style="vertical-align: inherit">
-                <font style="vertical-align: inherit">Meus Cartões</span></span>
+                <font style="vertical-align: inherit">historico de viagem</span></span>
             </a>
           </li>
           <li>
@@ -66,7 +66,7 @@
         const profile = document.querySelector("#profile")
 
         profile.querySelector("#logout").addEventListener("click", () => {
-          document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+          document.cookie = "tokenUser=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
           location.reload();
         })
       </script>
@@ -125,7 +125,7 @@
         const profileMobi = document.querySelector("#profileMobi")
 
         profileMobi.querySelector("#logout").addEventListener("click", () => {
-          document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+          document.cookie = "tokenUser=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
           location.reload();
         })
       </script>

@@ -7,7 +7,7 @@ const bcry = require("bcryptjs");
 
 
 const autenticar =  require("../js/functionJWT").autenticarADM(["motorista", "atendente"])
-
+ 
 
 router.get("/lojas",  async (req, res, next) => {
   try {

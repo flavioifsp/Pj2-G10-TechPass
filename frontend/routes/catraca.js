@@ -26,7 +26,7 @@ router.get("/erro", function (req, res, next) {
 });
 
 // sucesso
-router.get("/success", function (req, res, next) {
+router.get("/success/?", function (req, res, next) {
 
 
   res.render("catraca/pages/success.ejs", {
@@ -34,23 +34,19 @@ router.get("/success", function (req, res, next) {
     iconimg: "../../images/ok.png",
     corback: "#73D271",
     title: "Catraca sucesso",
-    // nome,
-    // SaldoRestante,
-    // SaldoGasto,
-    // modalidade,
+    ...req.query
   });
 });
 
 // saldo insuficiente
-router.get("/saldoOff", function (req, res, next) {
-  const saldo = 2;
-  const tarifa = 3;
+router.get("/saldoOff/?", function (req, res, next) {
 
   res.render("catraca/pages/saldoOff.ejs", {
     layout: "catraca/layouts/layoutCatraca.ejs",
     iconimg: "../../images/insuficiente.png",
     corback: "#df4a29",
     title: "saldo insuficiente",
+    ...req.query
   });
 });
 
