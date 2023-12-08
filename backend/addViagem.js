@@ -1,7 +1,7 @@
 const prisma = new (require("@prisma/client").PrismaClient)();
 
 const onibus_id = 1;
-const motorista_SU_id = 81;
+const motorista_SU_id = 1;
 const linhas_id = 1;
 
 const paia = (async () => {

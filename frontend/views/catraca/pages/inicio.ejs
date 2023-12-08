@@ -32,7 +32,7 @@
     evt.preventDefault()
 
     try {
-      const {data, status} = await axios.get(`http://localhost:9000/api/catraca/inicio/${<%= linha%>}/${input.value}`)
+      const {data, status} = await axios.get(`http://localhost:9000/api/catraca/inicio/${<%=linha%>}/${input.value}`)
 
       if(data.code === "P2025") throw "cliente não encontrado"
 
