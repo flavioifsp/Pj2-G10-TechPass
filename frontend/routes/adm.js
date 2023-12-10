@@ -12,19 +12,6 @@ const menu = {
       },
     },
   },
-  funcionarios: {
-    header: "Funcionarios",
-    items: {
-      atendente: {
-        icon: "bx bxs-user-detail",
-        nome: "Atendentes",
-      },
-      motorista: {
-        icon: "bx bx-id-card",
-        nome: "Motoristas",
-      },
-    },
-  },
   clientes: {
     header: "Clientes",
     items: {
@@ -44,6 +31,19 @@ const menu = {
       card: {
         icon: "bx bxs-id-card",
         nome: "Cartões",
+      },
+    },
+  },
+  funcionarios: {
+    header: "Funcionarios",
+    items: {
+      atendente: {
+        icon: "bx bxs-user-detail",
+        nome: "Atendentes",
+      },
+      motorista: {
+        icon: "bx bx-id-card",
+        nome: "Motoristas",
       },
     },
   },
@@ -130,7 +130,7 @@ function verificarAutoridade(pagina) {
 
 
       req.token = { ...data, menu: menuF };
-console.log(autorizados);
+
       next();
     } catch (error) {
       const { response } = error;

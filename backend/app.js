@@ -18,6 +18,7 @@ const passageiro = require("./routes/passageiro")
 const lojas = require("./routes/lojas")
 const cartoes = require("./routes/cartoes")
 const onibus = require("./routes/onibus")
+const viagem = require("./routes/viagem")
 const app = express();
 
 // var whitelist = ['http://127.0.0.1:3000', 'http://localhost:3000']
@@ -52,6 +53,7 @@ app.use("/api/analise", analise);
 app.use("/api/adm", passageiro);
 app.use("/api/adm", lojas);
 app.use("/api/adm", cartoes);
+app.use("/api/adm/viagem", viagem);
 app.use("/api/onibus", onibus);
 
 app.all("*", (req, res) => {

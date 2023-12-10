@@ -31,10 +31,10 @@ router.post("/atendente", autenticar, multerCustom, async (req, res) => {
         nascimento: new Date(nascimento),
         nome,
         cpf,
+        foto,
 
         atendente: {
           create: {
-            foto,
             endereco,
             turno,
             telefone,
@@ -82,11 +82,11 @@ router.put("/atendente/:id", autenticar, multerCustom, async (req, res) => {
         nascimento: new Date(nascimento),
         nome,
         cpf,
+        foto,
         atendente: {
           update: {
             where: { superUser_id: superUserID },
             data: {
-              foto,
               endereco,
               turno,
               telefone,

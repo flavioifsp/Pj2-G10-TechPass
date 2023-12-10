@@ -16,10 +16,10 @@ router.post("/motorista", autenticar, multerCustom, async (req, res) => {
     const response = await prisma.motorista.create({
       data: {
         cnh,
-        foto,
         superuser: {
           create: {
             cpf,
+            foto,
             email,
             nascimento,
             nome,
@@ -88,11 +88,11 @@ router.put("/motorista/:id", autenticar, multerCustom, async (req, res) => {
       },
       data: {
         cnh,
-        foto,
         superuser: {
           update: {
             where: { id: parseInt(req.params.id) },
             data: {
+              foto,
               nome,
               senha: senha ? await bcry.hash(senha, 10) : undefined,
               email,

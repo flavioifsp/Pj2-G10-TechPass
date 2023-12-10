@@ -9,7 +9,6 @@ datasource db {
 
 model adm {
   superUser_id Int       @id @default(autoincrement()) @db.UnsignedInt
-  telefone     String?   @db.VarChar(13)
   cargo        String?   @db.VarChar(45)
   superuser    superuser @relation(fields: [superUser_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_ADM_superUser1")
 
@@ -22,7 +21,6 @@ model atendente {
   turno                String?      @db.VarChar(45)
   telefone             String?      @db.VarChar(13)
   endereco             String?      @db.VarChar(255)
-  foto                 String?      @db.VarChar(200)
   loja_recarga         loja_recarga @relation(fields: [local_de_trabalho_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_atendente_loja_recarga1")
   superuser            superuser    @relation(fields: [superUser_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_atendente_superUser1")
 
@@ -43,16 +41,16 @@ model clientes {
 }
 
 model embarque {
-  id                     Int                @id @default(autoincrement())
-  viagem_id              Int
-  clliente_tem_cartao_id Int
-  historico_tarifa       Decimal?           @db.Decimal(6, 2)
-  data                   DateTime?          @default(now()) @db.DateTime(0)
-  cliente_tem_cartao     cartoes_do_cliente @relation(fields: [clliente_tem_cartao_id], references: [codigo_do_cartao], onDelete: NoAction, onUpdate: NoAction, map: "fk_embarque_clliente_tem_cartao1")
-  viagem                 viagem             @relation(fields: [viagem_id], references: [id], onUpdate: Restrict, map: "fk_viagem_has_cliente_has_cartao_passe_viagem1")
+  id                 Int                @id @default(autoincrement())
+  cartaoDoCliente_id Int
+  viagem_id          Int
+  historico_tarifa   Decimal?           @db.Decimal(6, 2)
+  data               DateTime?          @default(now()) @db.DateTime(0)
+  cartoes_do_cliente cartoes_do_cliente @relation(fields: [cartaoDoCliente_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_embarque_cartoes_do_cliente1")
+  viagem             viagem             @relation(fields: [viagem_id], references: [id], onUpdate: Restrict, map: "fk_viagem_has_cliente_has_cartao_passe_viagem1")
 
-  @@index([clliente_tem_cartao_id], map: "fk_embarque_clliente_tem_cartao1_idx")
   @@index([viagem_id], map: "fk_viagem_has_cliente_has_cartao_passe_viagem1")
+  @@index([cartaoDoCliente_id], map: "fk_embarque_cartoes_do_cliente1_idx")
 }
 
 model horario_diario_saida {
@@ -87,7 +85,6 @@ model loja_recarga {
 
 model motorista {
   superUser_id Int       @id @db.UnsignedInt
-  foto         String?   @db.VarChar(200)
   cnh          String?   @db.VarChar(11)
   superuser    superuser @relation(fields: [superUser_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_motorista_superUser1")
   viagem       viagem[]
@@ -118,6 +115,7 @@ model superuser {
   nome       String     @db.VarChar(100)
   nascimento DateTime   @db.Date
   cpf        String     @db.VarChar(14)
+  foto       String?    @db.VarChar(200)
   adm        adm?
   atendente  atendente?
   motorista  motorista?
@@ -125,7 +123,7 @@ model superuser {
 
 model viagem {
   id              Int        @id @default(autoincrement())
-  inicio          DateTime?  @db.DateTime(0)
+  inicio          DateTime?  @default(now()) @db.DateTime(0)
   duracao         Int?
   linhas_id       Int        @db.UnsignedInt
   onibus_id       Int
@@ -153,7 +151,8 @@ model percurso {
 }
 
 model cartoes_do_cliente {
-  codigo_do_cartao Int             @id
+  id               Int             @id @default(autoincrement())
+  codigo_do_cartao Int?            @unique(map: "codigo_do_cartao_UNIQUE")
   clientes_id      Int
   cartao_id        Int
   clientes         clientes        @relation(fields: [clientes_id], references: [id], onUpdate: Restrict, map: "fk_clientes_has_cartao_passe_clientes")

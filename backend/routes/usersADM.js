@@ -4,7 +4,7 @@ const prisma = new (require("@prisma/client").PrismaClient)();
 const exception = require("../js/erro");
 const { gerarCookieTokenADM, autenticarADM } = require("../js/functionJWT");
 const bcry = require("bcryptjs");
-const autenticar =
+
   // post para login
   router.post("/login", async (req, res, next) => {
     const { email, senha } = req.body;
@@ -36,9 +36,7 @@ const autenticar =
             typeof userADM[key] === "object" &&
             key !== "nascimento"
           ) {
-            if (key === "adm") {
-              userADM.adm.foto = "/adm/adm.jpg"
-            }
+         
             return res.json({
               token: gerarCookieTokenADM({ ...userADM }, key),
             });

@@ -23,7 +23,7 @@ router.get("/inicio/:linha/:codigo/", async function (req, res, next) {
       return res.status(402).json({ msg: "saldo insuficiente", saldo, tarifa });
     }
 
-    const {id: viagem_id} = await prisma.viagem.findFirst({
+    const { id: viagem_id } = await prisma.viagem.findFirst({
       where: {
         AND: [
           {
@@ -41,8 +41,6 @@ router.get("/inicio/:linha/:codigo/", async function (req, res, next) {
         inicio: "asc",
       },
     });
-
-  
 
     const response = await prisma.cartoes_do_cliente.update({
       where: {
@@ -82,7 +80,6 @@ router.get("/inicio/:linha/:codigo/", async function (req, res, next) {
   } catch (error) {
     if (error.code === "P2025") {
       res.json(error);
-     
     } else {
       const erro = exception(error);
       console.error(erro);

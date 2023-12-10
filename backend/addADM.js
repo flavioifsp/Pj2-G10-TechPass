@@ -9,7 +9,8 @@ const nascimento = '1990-01-01';
 const nome = 'Gerente';
 const senha = 'senha123';
 const cargo = 'Gerente';
-const telefone = '123456789';
+const telefone = 'foto_adm/adm.jpg';
+const foto = '';
 
 
 (async () => {
@@ -21,6 +22,7 @@ const telefone = '123456789';
         nascimento: new Date(nascimento),
         nome: nome,
         senha: await bcry.hash(senha, 10),
+        foto,
         adm: {
           create: {
             cargo: cargo,
