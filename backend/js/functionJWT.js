@@ -40,7 +40,7 @@ function autenticarADM(autorizado = []) {
         : false);
 
     if (!token) {
-      return res.status(401).send("token nâo fornecido");
+      return res.status(403).send("token nâo fornecido");
     }
 
     jwt.verify(token, process.env.SECRET_KEY, (er, decoded) => {

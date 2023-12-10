@@ -5,8 +5,7 @@ const exception = require("../js/erro");
 const prisma = new PrismaClient();
 
 const autenticar = require("../js/functionJWT").autenticarADM([
-  "motorista",
-  "atendente",
+ "adm"
 ]);
 
 router.get("/card", async (req, res, next) => {

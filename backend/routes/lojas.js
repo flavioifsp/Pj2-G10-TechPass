@@ -6,7 +6,9 @@ const exception = require("../js/erro");
 const bcry = require("bcryptjs");
 
 
-const autenticar =  require("../js/functionJWT").autenticarADM(["motorista", "atendente"])
+const autenticar =  require("../js/functionJWT").autenticarADM([
+  "adm"
+])
  
 
 router.get("/lojas",  async (req, res, next) => {

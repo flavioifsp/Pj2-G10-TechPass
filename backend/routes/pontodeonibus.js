@@ -4,7 +4,7 @@ const axios = require("axios");
 const prisma = new (require("@prisma/client").PrismaClient)();
 const exception = require("../js/erro");
 
-const  autenticar = require("../js/functionJWT").autenticarADM(["motorista", "atendente"])
+const  autenticar = require("../js/functionJWT").autenticarADM(["adm"])
 
 
 

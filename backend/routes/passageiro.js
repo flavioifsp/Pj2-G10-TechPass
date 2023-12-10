@@ -5,7 +5,6 @@ const exception = require("../js/erro");
 const bcry = require("bcryptjs");
 
 const autenticar = require("../js/functionJWT").autenticarADM([
-  "motorista",
   "atendente",
 ]);
 

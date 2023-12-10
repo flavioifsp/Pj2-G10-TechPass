@@ -50,42 +50,45 @@
       </li>
 
       <div class="overflow-auto" style="max-height: 320px">
-           <% cartoes_do_cliente.forEach((cartao, indice) => { %>
-      <li class="accordion-item list-group-item p-0">
-        <h2 class="accordion-header">
-          <button class="accordion-button collapsed w-100 d-flex position-relative" style=".accordion-button::after {margin: 0px;}" type="button" data-bs-toggle="collapse" data-bs-target="#CARD<%= indice%>" aria-expanded="false">
-            <span class="card-title">
-              Passe <%= cartao.tipos_de_cartao.modalidade %>
-            </span>
-            <span class="badge bg-primary rounded-pill position-absolute top-50    translate-middle-y" style="right: 50px;">
-              <%= cartao.embarque.length %> embarques
-            </span>
-          </button>
-        </h2>
-        <div id="CARD<%= indice%>" class="accordion-collapse collapse" data-bs-parent="#cartoeslist">
-          <div class="accordion-body p-0">
-            <ul class="list-group list-group-flush overflow-auto" style="max-height: 260px">
-              <% cartao.embarque.forEach(({ data, viagem: { linhas } }) => { %>
+        <% cartoes_do_cliente.forEach((cartao, indice) => { %>
+        <li class="accordion-item list-group-item p-0">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed w-100 d-flex position-relative" style="
+                .accordion-button::after {
+                  margin: 0px;
+                }
+              " type="button" data-bs-toggle="collapse" data-bs-target="#CARD<%= indice%>" aria-expanded="false">
+              <span class="card-title">
+                Passe <%= cartao.tipos_de_cartao.modalidade %>
+              </span>
+              <span class="badge bg-primary rounded-pill position-absolute top-50 translate-middle-y" style="right: 50px">
+                <%= cartao.embarque.length %> embarques
+              </span>
+            </button>
+          </h2>
+          <div id="CARD<%= indice%>" class="accordion-collapse collapse" data-bs-parent="#cartoeslist">
+            <div class="accordion-body p-0">
+              <ul class="list-group list-group-flush overflow-auto" style="max-height: 260px">
+                <% cartao.embarque.forEach(({ data, viagem: { linhas } }) => {%>
                 <li class="list-group-item list-group-item-action">
                   <div class="d-flex">
-                    <p class="m-0 text-primary"><strong>Linha:</strong> <%= linhas.numero_linha %> <%=linhas.bairroOrigem %>/<%= linhas.bairroDestino %></p>
+                    <p class="m-0 text-primary">
+                      <strong>Linha:</strong> <%= linhas.numero_linha %>
+                      <%=linhas.bairroOrigem %>/<%= linhas.bairroDestino %>
+                    </p>
                   </div>
-                  <p class="m-0 text-muted"><strong>Data de embarque:</strong> <%= new Date(data).toLocaleString()   %></p>
+                  <p class="m-0 text-muted">
+                    <strong>Data de embarque:</strong> <%= newDate(data).toLocaleString() %>
+                  </p>
                 </li>
-                
-                
-                
-                
 
-              <% }) %>
-            </ul>
+                <% }) %>
+              </ul>
+            </div>
           </div>
-        </div>
-      </li>
-      <% }) %>
+        </li>
+        <% }) %>
       </div>
-   
-
     </ul>
   </div>
 </section>

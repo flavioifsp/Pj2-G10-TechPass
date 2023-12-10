@@ -6,8 +6,7 @@ const bcry = require("bcryptjs");
 const multerCustom = require("../js/multer.js")("motoristas");
 
 const autenticar = require("../js/functionJWT").autenticarADM([
-  "motorista",
-  "atendente",
+  "adm",
 ]);
 
 router.post("/motorista", autenticar, multerCustom, async (req, res) => {

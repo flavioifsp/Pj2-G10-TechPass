@@ -134,105 +134,35 @@
           <div class="menu-inner-shadow"></div>
 
           <ul class="menu-inner py-1">
-            <li class="menu-header small text-uppercase">
-              <span class="menu-header-text">Home</span>
-            </li>
-
-            <!-- Dashboard -->
-            <li class="menu-item" id="menuDashboard">
-              <a href="/adm" class="menu-link">
-                <i class="bar-chart-square tf-icons bx bx-bar-chart-square"></i>
-
-                <div data-i18n="Analytics ">Dasboard</div>
-              </a>
-            </li>
+           
 
             <!-- Forms & Tables -->
-
-            <!-- Forms -->
-            <li class="menu-header small text-uppercase">
-              <span class="menu-header-text">Funcionarios</span>
-            </li>
-            <li class="menu-item mb-2" id="menuAtendente">
-              <a href="/adm/atendente" class="menu-link">
-                <i class="bx bxs-user-detail"></i>
-                <div data-i18n="Form Elements" class="ps-2">Atendentes</div>
-              </a>
-            </li>
-
-            <li class="menu-item mb-2" id="menuMotorista">
-              <a href="/adm/motorista" class="menu-link">
-                <i class="bx bx-id-card"></i>
-                <div data-i18n="Form Elements" class="ps-2">Motoristas</div>
-              </a>
-            </li>
-
-            <li class="menu-header small text-uppercase">
-              <span class="menu-header-text">Clientes</span>
-            </li>
-
-            <!-- Forms -->
-            <li class="menu-item mb-2" id="menuPassageiros">
-              <a href="/adm/passageiros" class="menu-link">
-                <i class="bx bxs-group"></i>
-                <div data-i18n="Form Elements" class="ps-2">Passageiros</div>
-              </a>
-            </li>
-
-            <li class="menu-header small text-uppercase">
-              <span class="menu-header-text">gestao</span>
-            </li>
-
-            <li class="menu-item mb-2" id="menuLojas">
-              <a href="/adm/lojas" class="menu-link">
-                <i class="bx bxs-store-alt"></i>
-                <div data-i18n="Form Elements" class="ps-2">Lojas</div>
-              </a>
-            </li>
-            <li class="menu-item mb-2" id="menucard">
-              <a href="/adm/card" class="menu-link">
-                <i class='bx bxs-id-card'></i>
-                <div data-i18n="Form Elements" class="ps-2">Cartões</div>
-              </a>
-            </li>
-
-
-
-            <li class="menu-header small text-uppercase">
-              <span class="menu-header-text">Linhas/rotas</span>
-            </li>
-
-            <li class="menu-item mb-2" id="menuLinhas">
-              <a href="/adm/linhas" class="menu-link">
-                <i class="transfer tf-transfer bx bx-transfer"></i>
-                <div data-i18n="Form Elements" class="ps-2">Linhas</div>
-              </a>
-            </li>
-
-            <li class="menu-item mb-2" id="menuOnibus">
-              <a href="/adm/onibus" class="menu-link">
-                <i class="bx bx-bus"></i>
-                <div data-i18n="Form Elements" class="ps-2">Ônibus</div>
-              </a>
-            </li>
-
-            <li class="menu-item mb-2" id="menuPontoDeOnibus">
-              <a href="/adm/pontoDeOnibus" class="menu-link">
-                <i class="bx bx-location-plus"></i>
-                <div data-i18n="Form Elements" class="ps-2">
-                  Pontos De Ônibus
-                </div>
-              </a>
-            </li>
-
-
+          
+            
+            
+            
+            <% Object.keys(token.menu).forEach(areaKey => { %>
+              <!-- Header -->
+              <li class="menu-header small text-uppercase">
+                <span class="menu-header-text"><%= token.menu[areaKey].header %></span>
+              </li>
+            
+              <% Object.keys(token.menu[areaKey].items).forEach(itemKey => { %>
+                <!-- Menu Item -->
+                <li class="menu-item mb-2 <%= token.menu[areaKey].items[itemKey].active || ""%> " id="menu_<%=itemKey%>">
+                  <a href="/adm/<%=itemKey%>" class="menu-link">
+                    <i class="<%= token.menu[areaKey].items[itemKey].icon %>"></i>
+                    <div data-i18n="Form Elements" class="ps-2"><%= token.menu[areaKey].items[itemKey].nome %></div>
+                  </a>
+                </li>
+              <% }); %>
+            <% }); %>
+            
           
           </ul>
         </aside>
 
-        <script>
-          document.querySelector("<%=cont%>").classList.add("active");
-        </script>
+    
         <!-- / Menu -->
 
         <!-- Layout container -->
