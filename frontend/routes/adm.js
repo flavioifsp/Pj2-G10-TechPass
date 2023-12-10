@@ -82,7 +82,7 @@ function verificarAutoridade(pagina) {
           "pontoDeOnibus",
           "passageiros",
         ],
-        motorista: ["/", "passageiros"],
+        motorista: ["/"],
       };
 
       let autorizados = "";
@@ -95,7 +95,7 @@ function verificarAutoridade(pagina) {
           }
         }
       }
-
+    
       const { data } = await axios.get(
         "http://localhost:9000/api/userADM/confirmar/?" +
           autorizados.replace(/&$/, ""),
@@ -104,6 +104,7 @@ function verificarAutoridade(pagina) {
         }
       );
 
+      
       const menuF = {};
       for (const key in menu) {
         if (Object.hasOwnProperty.call(menu, key)) {
@@ -111,16 +112,15 @@ function verificarAutoridade(pagina) {
           for (const key2 in area) {
             if (Object.hasOwnProperty.call(area, key2)) {
               const items = area[key2];
-              if (key2 === pagina) {
-                items.active = "active";
-              }
-
-              console.log(permi[data.tipo].includes(key2), key2);
+  
               if (permi[data.tipo].includes(key2)) {
                 if (menuF[key]) {
-                  menuF[key].items[key2] = items;
+                  menuF[key].items[key2] = {...items}
                 } else {
-                  menuF[key] = { ...menu[key], items: { [key2]: items } };
+                  menuF[key] = { ...menu[key], items: { [key2]: {...items} } };
+                }
+                if (key2 === pagina) {
+                  menuF[key].items[key2].active = "active";
                 }
               }
             }
@@ -128,20 +128,20 @@ function verificarAutoridade(pagina) {
         }
       }
 
-      console.log(menuF.clientes);
 
       req.token = { ...data, menu: menuF };
-
+console.log(autorizados);
       next();
     } catch (error) {
       const { response } = error;
 
-      if (error.response === undefined) {
-        console.log(error);
+      console.log(error);
+      if (error.status === 401) {
+        res.status(error.status).redirect("/adm/");
       } else if (response.status === 403) {
         res.status(response.status).redirect("/adm/login");
       } else if (response.status === 401) {
-        res.status(response.status).redirect("/adm/");
+        res.status(error.status).redirect("/adm/");
       }
     }
   };
@@ -250,7 +250,9 @@ router.get(
         allPassageiros: allPassageiros || [],
         token: req.token,
       });
-    } catch (error) {}
+    } catch (error) {
+      
+    }
   }
 );
 
