@@ -1,0 +1,40 @@
+<div class="modal fade" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header border-bottom">
+        <h5 class="modal-title">Detalhes da Viagem</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <ul class="list-group list-group-flush">
+      
+          <li class="list-group-item">
+            <strong>Início:</strong> ${ new Date(objEjs.inicio).toLocaleString() }
+          </li>
+          <li class="list-group-item">
+            <strong>Duração (min):</strong> ${ objEjs.duracao }
+          </li>
+          <li class="list-group-item">
+            <strong>Linha:</strong> ${ objEjs.linhas.numero_linha } - Indo de ${ objEjs.linhas.bairroOrigem } para ${ objEjs.linhas.bairroDestino }
+          </li>
+          <li class="list-group-item">
+            <strong>Ônibus:</strong> Placa: ${ objEjs.onibus.placa } - Capacidade de ${ objEjs.onibus.quantidade_passageiros } passageiros 
+          </li>
+          <li class="list-group-item">
+            <strong>Motorista:</strong> ${ objEjs.motorista.superuser.nome }
+          </li>
+        </ul>
+      </div>
+      <div class="modal-footer justify-content-between border-top pt-1 pb-3">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Fechar
+        </button>
+
+
+        <button type="button" class="btn btn-primary" id="btnEmbarques">
+          Embarques
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

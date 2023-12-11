@@ -26,11 +26,11 @@
           <thead>
             <tr>
               <th>linha</th>
+              <th>percuso</th>
               <th>Horario de Partida</th>
-              <th>placa do onibus</th>
               <th>duração</th>
+              <th>placa do onibus</th>
               <th>finalizar</th>
-
             </tr>
           </thead>
           <tbody>
@@ -38,12 +38,14 @@
 
             <tr>
               <td><%= elem.linhas.numero_linha %></td>
+              <td><%= elem.linhas.bairroOrigem.trim() %>/ <%= elem.linhas.bairroDestino %></td>
+
               <td><%= new Date(elem.inicio).toLocaleString() %></td>
-              <td><%= elem.onibus.placa %></td>
               <td><%= elem.duracao ? elem.duracao+"m" : "em andamento" %></td>
+              <td><%= elem.onibus.placa %></td>
 
               <td>
-                <button class="btn btn-warning btn-sm" <%= elem.duracao ? "disabled" : "" %>  onclick="finalizar(<%= elem.id%>)">Finalizar</button>
+                <button class="btn btn-warning btn-sm" <%= elem.duracao ? "disabled" : "" %> onclick="finalizar(<%= elem.id%>)">Finalizar</button>
               </td>
             </tr>
             <% }) %>

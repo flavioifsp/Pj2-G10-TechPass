@@ -1,11 +1,10 @@
-<h1 class="mb-2">aproxime o cartão</h1>
-<div id="relogio"></div>
+<h1 class="mb-2 text-white">aproxime o cartão</h1>
+<div id="relogio" class="text-white"></div>
 
 
 <form id="formpaia">
   <input style="margin-top: -2000px;" class=" w-25 position-absolute top-0" type="text" name="idCard" id="idCard">
 </form>
-
 
 
 
@@ -16,10 +15,46 @@
   }
   // Atualizar o relógio a cada segundo
   setInterval(relogio, 500);
-  relogio()
+  relogio();
+
+  const aviso = document.createElement("div")
+  aviso.classList.add("position-absolute", "text-center")
+  aviso.style.left = "130px"
+  aviso.style.top = "130px"
+  aviso.style.width = "160px"
+  aviso.innerHTML = `
+      <i class="bi bi-exclamation-circle fs-1 text-danger"></i>
+      <p class="text-white text-break">Não tem uma viagem iniciada neste onibus</p>
+      `
+
+  async function verificarViagem() {
+    try {
 
 
+      const {
+        data
+      } = await axios.get(`http://localhost:9000/api/catraca/inicio/<%=onibus%>`);
 
+      if (!data) {
+        document.body.appendChild(aviso)
+      } else {
+        if (document.body.contains(aviso)){
+          document.body.removeChild(aviso)
+
+        }
+
+      }
+
+      console.log(data, status);
+    } catch (error) {
+      console.error(error);
+
+    }
+  }
+
+
+  document.addEventListener("DOMContentLoaded", verificarViagem)
+  setInterval(verificarViagem, 4000);
 
   const input = document.querySelector("input")
 
@@ -32,7 +67,10 @@
     evt.preventDefault()
 
     try {
-      const {data, status} = await axios.get(`http://localhost:9000/api/catraca/inicio/${<%=linha%>}/${input.value}`)
+      const {
+        data,
+        status
+      } = await axios.get(`http://localhost:9000/api/catraca/inicio/${<%=onibus%>}/${input.value}`)
 
       if (data.code === "P2025") throw "cliente não encontrado"
 

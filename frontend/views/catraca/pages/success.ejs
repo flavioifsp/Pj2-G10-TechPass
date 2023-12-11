@@ -1,12 +1,20 @@
-
-<h2 class="">passe a catraca, <%= nome%></h2>
-<div class="text-start  pt-3">
-    <h3 class="mb-3 mt-5">saldo restante: R$<%=saldo%></h1>
-    <h3 class="text-center">saldo gasto: R$<%= tarifa%></h1>
-</div>
+<section class="d-flex">
+  <div class="modal-content mx-auto">
+    <header class="modal-header">
+      <h2 class="modal-title ">Passe a catraca, <%= nome %></h2>
+    </header>
+    <section class="modal-body">
+      <div class="text-start pt-3">
+        <h3 class="modal-subheading ">Modalidade: <span class="text-danger"><%= modalidade %></span> </h3>
+        <h3 class="modal-subheading mb-3">Saldo Restante: R$<%= saldo %></h3>
+        <h3 class="modal-subheading text-center">Saldo Gasto: R$<%= tarifa %></h3>
+      </div>
+    </section>
+  </div>
+</section>
 
 <script>
-    setTimeout(() => {
-        location.href = document.referrer
-    }, 3000);
+  setTimeout(() => {
+    location.href = document.referrer
+  }, 3000);
 </script>

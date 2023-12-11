@@ -1,14 +1,26 @@
-
-
-<h2 class="text-white">SALDO INSUFICIENTE</h2>
-<div class="text-start text-white pt-3">
-    <h4>saldo disponivel: R$ <%= saldo%></h4>
-    <h4>saldo necessario: R$ <%=  tarifa%></h4>
+<div class="d-flex">
+  <div class="modal-content text-center">
+    <header class="modal-header">
+      <h2 class="modal-title text-white text-center">SALDO INSUFICIENTE</h2>
+    </header>
+    <section class="modal-body">
+      <div class="text-center text-white pt-3">
+        <h4 class="mt-5">
+          <i class="fas fa-coins"></i> Saldo disponível: R$ <%= saldo %>
+        </h4>
+        <h4 class="mb-3">
+          <i class="fas fa-coins"></i> Saldo necessário: R$ <%= tarifa %>
+        </h4>
+      </div>
+    </section>
+  </div>
 </div>
 
 
+
+
 <script>
-    setTimeout(() => {
-        location.href = document.referrer
-    }, 3000);
+  setTimeout(() => {
+    location.href = document.referrer
+  }, 3000);
 </script>

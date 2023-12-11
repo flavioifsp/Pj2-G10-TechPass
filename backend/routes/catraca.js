@@ -4,7 +4,7 @@ const axios = require("axios");
 const prisma = new (require("@prisma/client").PrismaClient)();
 const exception = require("../js/erro");
 
-router.get("/inicio/:linha/:codigo/", async function (req, res, next) {
+router.get("/inicio/:onibus/:codigo/", async function (req, res, next) {
   try {
     const getCartao = await prisma.cartoes_do_cliente.findUniqueOrThrow({
       where: {
@@ -27,12 +27,10 @@ router.get("/inicio/:linha/:codigo/", async function (req, res, next) {
       where: {
         AND: [
           {
-            linhas: {
-              numero_linha: parseInt(req.params.linha),
-            },
+            onibus_id: parseInt(req.params.onibus),
           },
           {
-            duracao: 0,
+            duracao: null,
           },
         ],
       },
@@ -85,6 +83,36 @@ router.get("/inicio/:linha/:codigo/", async function (req, res, next) {
       console.error(erro);
       res.status(erro.code).json(erro.msg);
     }
+  }
+});
+
+router.get("/inicio/:onibus/", async function (req, res, next) {
+  try {
+    const response = await prisma.viagem.findFirst({
+      where: {
+        AND: [
+          {
+            onibus_id: parseInt(req.params.onibus),
+          },
+          {
+            duracao: null,
+          },
+        ],
+      },
+      select: {
+        linhas: {
+          select: {
+            numero_linha: true,
+          },
+        },
+      },
+    });
+
+    res.status(200).json(response);
+  } catch (error) {
+    const erro = exception(error);
+    console.error(erro);
+    res.status(erro.code).json(erro.msg);
   }
 });
 

@@ -11,7 +11,7 @@ router.get("/?", async function (req, res, next) {
     iconimg: "../../images/inicioCatraca.svg",
     corback: `rgb(31,45,170)`,
     title: "Catraca inicio",
-    linha: req.query.linha
+    onibus: req.query.onibus
   });
 });
 

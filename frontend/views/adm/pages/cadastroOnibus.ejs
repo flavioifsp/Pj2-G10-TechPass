@@ -21,16 +21,19 @@
         <table id="PontosDeOnibus" class="table table-striped" style="width: 100%">
           <thead>
             <tr>
+              <th>ID</th>
               <th>placa</th>
               <th>quantidade passageiros</th>
               <th>possui_acessibilidade</th>
               <th>estado atual</th>
+              <th>Opções</th>
             </tr>
           </thead>
           <tbody>
             <% onibusAll.forEach((elem)=> { %>
 
             <tr>
+              <td><%= elem.id %></td>
               <td><%= elem.placa %></td>
               <td><%= elem.quantidade_passageiros %></td>
               <td><%= elem.possui_acessibilidade %></td>

@@ -43,13 +43,14 @@ router.get("/motorista/:id", async (req, res) => {
         onibus: true,
       },
       orderBy: [
-        {inicio:  "desc"},
-        {duracao: {
-          nulls: "first",
-          sort: "desc"
-        }},
-       
-      ]
+        { inicio: "desc" },
+        {
+          duracao: {
+            nulls: "first",
+            sort: "desc",
+          },
+        },
+      ],
     });
 
     res.status(200).json(response);
@@ -59,6 +60,7 @@ router.get("/motorista/:id", async (req, res) => {
     res.status(erro.code).send(erro.msg.toString());
   }
 });
+
 router.patch("/:id", async (req, res) => {
   try {
     let NovaDuracao = await prisma.viagem.findFirst({
@@ -89,6 +91,47 @@ router.patch("/:id", async (req, res) => {
           },
         },
       },
+    });
+
+    res.status(200).json(response);
+  } catch (error) {
+    const erro = exception(error);
+    console.log(erro);
+    res.status(erro.code).send(erro.msg.toString());
+  }
+});
+
+router.get("/", async (req, res) => {
+  try {
+    const response = await prisma.viagem.findMany({
+      include: {
+        linhas: true,
+        motorista: {
+          include: {
+            superuser: true,
+          },
+        },
+        onibus: true,
+        embarque: {
+          include: {
+            cartoes_do_cliente: {
+              include: {
+                clientes: true,
+                tipos_de_cartao: true,
+              },
+            },
+          },
+        },
+      },
+      orderBy: [
+        { inicio: "desc" },
+        {
+          duracao: {
+            nulls: "first",
+            sort: "desc",
+          },
+        },
+      ],
     });
 
     res.status(200).json(response);

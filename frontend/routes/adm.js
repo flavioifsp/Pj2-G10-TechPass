@@ -28,7 +28,7 @@ const menu = {
         icon: "bx bxs-group",
         nome: "Iniciar Viagem",
       },
-      "viagem/historico": {
+      "historicoViagens": {
         icon: "bx bxs-group",
         nome: "Historico",
       },
@@ -94,7 +94,7 @@ function verificarAutoridade(pagina) {
           "lojas",
           "pontoDeOnibus",
           "passageiros",
-          "viagem/historico",
+          "historicoViagens",
         ],
         motorista: ["/", "viagem"],
       };
@@ -364,6 +364,26 @@ router.get("/viagem", verificarAutoridade("viagem"), async (req, res, next) => {
       token: req.token,
     });
   } catch (error) {}
+});
+
+router.get("/historicoViagens", verificarAutoridade("historicoViagens"), async (req, res, next) => {
+  try {
+    const { data: viagens } = await axios.get(
+      "http://localhost:9000/api/adm/viagem/",
+      {
+        headers: req.headers,
+      }
+    );
+
+    res.render("adm/pages/historico_de_viagem.ejs", {
+      layout: "adm/layouts/layout-index.ejs",
+      viagens: viagens || [],
+
+      token: req.token,
+    });
+  } catch (error) {
+    console.error(error);
+  }
 });
 
 module.exports = router;
