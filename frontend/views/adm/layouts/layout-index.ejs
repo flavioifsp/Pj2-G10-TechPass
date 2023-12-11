@@ -61,7 +61,6 @@
       href="/adm/assets/vendor/css/theme-default.css"
       class="template-customizer-theme-css"
     />
-    <link rel="stylesheet" href="/adm/assets/css/demo.css" />
 
     <!-- Vendors CSS -->
     <link
@@ -287,6 +286,7 @@
         const tabela = document.querySelector(".table")
         if (tabela) {
           const ColNoOrden = JSON.parse( tabela.getAttribute("data-ColNoOrden")) || 3
+          const Order = JSON.parse( tabela.getAttribute("data-Order")) || [0, 'asc']
         
 
         new DataTable(tabela, {
@@ -294,6 +294,7 @@
             url: "/DataTables-1.13.8/Portuguese.json",
           },
           columnDefs: [{ orderable: false, targets: ColNoOrden }],
+          order: [Order]
         });
         }
         

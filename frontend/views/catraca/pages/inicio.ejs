@@ -103,9 +103,10 @@
       if (response && response.status === 402) {
         const {
           saldo,
-          tarifa
+          tarifa,
+          modalidade
         } = response.data
-        return location.href = `/catraca/saldoOff/?tarifa=${tarifa}&saldo=${encodeURIComponent(saldo)}`
+        return location.href = `/catraca/saldoOff/?tarifa=${tarifa}&saldo=${encodeURIComponent(saldo)}&modalidade=${modalidade}`
       }
 
 

@@ -20,10 +20,10 @@ router.get("/inicio/:onibus/:codigo/", async function (req, res, next) {
     const saldo = parseFloat(getCartao.clientes.saldo);
 
     if (saldo < tarifa) {
-      return res.status(402).json({ msg: "saldo insuficiente", saldo, tarifa });
+      return res.status(402).json({ msg: "saldo insuficiente", saldo, tarifa, modalidade: getCartao.tipos_de_cartao.modalidade });
     }
 
-    const { id: viagem_id } = await prisma.viagem.findFirst({
+    const { id: viagem_id } = await prisma.viagem.findFirstOrThrow({
       where: {
         AND: [
           {

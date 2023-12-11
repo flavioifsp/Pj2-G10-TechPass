@@ -26,7 +26,7 @@ const menu = {
     items: {
       viagem: {
         icon: "bx bxs-group",
-        nome: "Iniciar Viagem",
+        nome: "Suas Viagens",
       },
       "historicoViagens": {
         icon: "bx bxs-group",

@@ -78,13 +78,13 @@
                     </table>
                 </div>
                 <div class="modal-footer justify-content-between border-top pt-1 pb-3">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                      Fechar
+                  </button>
                     <button type="button" class="btn btn-info " onclick=' modalInfo(${JSON.stringify(
                       objEjs
                     )})'>
                        Voltar
-                    </button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                        Fechar
                     </button>
                 </div>
                 </div>
@@ -114,7 +114,7 @@
               } = embarque;
 
               const infos = [
-                " "+ new Date(data).toLocaleTimeString(),
+                " " + new Date(data).toLocaleTimeString(),
                 nome,
                 cpf,
                 modalidade,
