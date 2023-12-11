@@ -28,7 +28,7 @@ const menu = {
         icon: "bx bxs-group",
         nome: "Suas Viagens",
       },
-      "historicoViagens": {
+      historicoViagens: {
         icon: "bx bxs-group",
         nome: "Historico",
       },
@@ -185,9 +185,39 @@ router.get("/login", async (req, res) => {
 });
 
 router.get("/", verificarAutoridade("/"), async (req, res, next) => {
+  const infoAll = {};
+  try {
+    const { data: embarques } = await axios.get(
+      "http://localhost:9000/api/adm/analise/total/embarque/data"
+    );
+
+    const { data: viagens } = await axios.get(
+      "http://localhost:9000/api/adm/analise/total/viagem/inicio"
+    );
+    const { data: motoristas } = await axios.get(
+      "http://localhost:9000/api/adm/analise/total/motorista/null"
+    );
+    const { data: clientes } = await axios.get(
+      "http://localhost:9000/api/adm/analise/total/clientes/null"
+    );
+    const { data: atendentes } = await axios.get(
+      "http://localhost:9000/api/adm/analise/total/atendente/null"
+    );
+
+
+    infoAll.embarques = embarques
+    infoAll.motoristas = motoristas
+    infoAll.clientes = clientes
+    infoAll.atendentes = atendentes
+    infoAll.viagens = viagens
+  } catch (error) {
+    console.error(error);
+  }
+
   res.render("adm/pages/index.ejs", {
     layout: "adm/layouts/layout-index.ejs",
     token: req.token,
+    infoAll,
   });
 });
 
@@ -366,24 +396,28 @@ router.get("/viagem", verificarAutoridade("viagem"), async (req, res, next) => {
   } catch (error) {}
 });
 
-router.get("/historicoViagens", verificarAutoridade("historicoViagens"), async (req, res, next) => {
-  try {
-    const { data: viagens } = await axios.get(
-      "http://localhost:9000/api/adm/viagem/",
-      {
-        headers: req.headers,
-      }
-    );
+router.get(
+  "/historicoViagens",
+  verificarAutoridade("historicoViagens"),
+  async (req, res, next) => {
+    try {
+      const { data: viagens } = await axios.get(
+        "http://localhost:9000/api/adm/viagem/",
+        {
+          headers: req.headers,
+        }
+      );
 
-    res.render("adm/pages/historico_de_viagem.ejs", {
-      layout: "adm/layouts/layout-index.ejs",
-      viagens: viagens || [],
+      res.render("adm/pages/historico_de_viagem.ejs", {
+        layout: "adm/layouts/layout-index.ejs",
+        viagens: viagens || [],
 
-      token: req.token,
-    });
-  } catch (error) {
-    console.error(error);
+        token: req.token,
+      });
+    } catch (error) {
+      console.error(error);
+    }
   }
-});
+);
 
 module.exports = router;

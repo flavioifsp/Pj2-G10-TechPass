@@ -4,7 +4,7 @@
 
 'use strict';
 
-(function () {
+(async function () {
   let cardColor, headingColor, axisColor, shadeColor, borderColor;
 
   cardColor = config.colors.white;
@@ -12,14 +12,29 @@
   axisColor = config.colors.axisColor;
   borderColor = config.colors.borderColor;
 
+
+  const {data: infos} = await axios.get("http://localhost:9000/api/adm/analise/ClientesAtivos")
+
+  const infoMESES = infos.map((elem) => elem.mes)
+  const infoDATA = infos.map((elem) => elem.total)
+
+
+  const {data: infos2} = await axios.get("http://localhost:9000/api/adm/analise/totalEmbarquesBI")
+
+  const infoBIMESTRE = infos2.map((elem) => elem.mes)
+  const infoDATA2 = infos2.map((elem) => elem.total)
+
+
+  
+
   // Total Revenue Report Chart - Bar Chart
   // --------------------------------------------------------------------
   const totalRevenueChartEl = document.querySelector('#totalRevenueChart'),
     totalRevenueChartOptions = {
       series: [
         {
-          name: '2021',
-          data: [18, 7, 15, 29, 18, 12]
+          name: new Date().getFullYear(),
+          data: infoDATA
         },
        
       ],
@@ -75,7 +90,7 @@
         }
       },
       xaxis: {
-        categories: ['Jan', 'Mar', 'Maio', 'Jul','Out','Dez'],
+        categories: infoMESES,
         labels: {
           style: {
             fontSize: '13px',
@@ -95,7 +110,8 @@
             fontSize: '13px',
             colors: axisColor
           }
-        }
+        },
+        forceNiceScale: true,
       },
       responsive: [
         {
@@ -314,7 +330,9 @@
       },
       series: [
         {
-          data: [110, 270, 145, 245, 205, 285]
+          name: [new Date().getFullYear()],
+          
+          data: infoDATA2
         }
       ],
       xaxis: {

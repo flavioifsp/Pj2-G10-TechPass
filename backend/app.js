@@ -49,7 +49,7 @@ app.use("/api/user", users);
 app.use("/api/userADM", atendentes);
 app.use("/api/userADM", motorista);
 app.use("/api/userADM", userADM);
-app.use("/api/analise", analise);
+app.use("/api/adm/analise", analise);
 app.use("/api/adm", passageiro);
 app.use("/api/adm", lojas);
 app.use("/api/adm", cartoes);
