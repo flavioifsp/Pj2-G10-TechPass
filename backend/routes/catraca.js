@@ -116,4 +116,23 @@ router.get("/inicio/:onibus/", async function (req, res, next) {
   }
 });
 
+router.get("/tarifa", async function (req, res, next) {
+  try {
+    const response = await prisma.tipos_de_cartao.findFirst({
+      where: {
+        modalidade: "COMuM",
+      },
+      select: {
+        tarifa: true
+      },
+    });
+
+    res.status(200).json(response);
+  } catch (error) {
+    const erro = exception(error);
+    console.error(erro);
+    res.status(erro.code).json(erro.msg);
+  }
+});
+
 module.exports = router;

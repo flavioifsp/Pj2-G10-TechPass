@@ -1,6 +1,10 @@
-<h1 class="mb-2 text-white">aproxime o cartão</h1>
-<div id="relogio" class="text-white"></div>
-
+<section class="text-white text-center">
+  <h1 class="mb-0 ">aproxime o cartão</h1>
+  <div id="relogio" class=""></div>
+  <% if (tarifa) { %>
+  <h2 class="mt-5">TARIFA: R$<%= tarifa.toLocaleString()  %> </h2>
+  <% } %>
+</section>
 
 <form id="formpaia">
   <input style="margin-top: -2000px;" class=" w-25 position-absolute top-0" type="text" name="idCard" id="idCard">
@@ -38,7 +42,7 @@
       if (!data) {
         document.body.appendChild(aviso)
       } else {
-        if (document.body.contains(aviso)){
+        if (document.body.contains(aviso)) {
           document.body.removeChild(aviso)
 
         }
