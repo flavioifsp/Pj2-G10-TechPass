@@ -12,7 +12,7 @@
             <strong>Início:</strong> ${ new Date(objEjs.inicio).toLocaleString() }
           </li>
           <li class="list-group-item">
-            <strong>Duração (min):</strong> ${ objEjs.duracao }
+            <strong>Duração (min):</strong> ${ objEjs.duracao || "em andamento"}
           </li>
           <li class="list-group-item">
             <strong>Linha:</strong> ${ objEjs.linhas.numero_linha } - Indo de ${ objEjs.linhas.bairroOrigem } para ${ objEjs.linhas.bairroDestino }

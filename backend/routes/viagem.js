@@ -121,6 +121,9 @@ router.get("/", async (req, res) => {
               },
             },
           },
+          orderBy:{
+            data: "desc"
+          }
         },
       },
       orderBy: [
@@ -131,6 +134,7 @@ router.get("/", async (req, res) => {
             sort: "desc",
           },
         },
+        
       ],
     });
 
