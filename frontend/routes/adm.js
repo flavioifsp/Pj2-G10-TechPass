@@ -21,6 +21,19 @@ const menu = {
       },
     },
   },
+  viagem: {
+    header: "viagens",
+    items: {
+      viagem: {
+        icon: "bx bxs-group",
+        nome: "Iniciar Viagem",
+      },
+      "viagem/historico": {
+        icon: "bx bxs-group",
+        nome: "Historico",
+      },
+    },
+  },
   gestao: {
     header: "Gestão",
     items: {
@@ -81,8 +94,9 @@ function verificarAutoridade(pagina) {
           "lojas",
           "pontoDeOnibus",
           "passageiros",
+          "viagem/historico",
         ],
-        motorista: ["/"],
+        motorista: ["/", "viagem"],
       };
 
       let autorizados = "";
@@ -95,7 +109,7 @@ function verificarAutoridade(pagina) {
           }
         }
       }
-    
+
       const { data } = await axios.get(
         "http://localhost:9000/api/userADM/confirmar/?" +
           autorizados.replace(/&$/, ""),
@@ -104,7 +118,6 @@ function verificarAutoridade(pagina) {
         }
       );
 
-      
       const menuF = {};
       for (const key in menu) {
         if (Object.hasOwnProperty.call(menu, key)) {
@@ -112,12 +125,15 @@ function verificarAutoridade(pagina) {
           for (const key2 in area) {
             if (Object.hasOwnProperty.call(area, key2)) {
               const items = area[key2];
-  
+
               if (permi[data.tipo].includes(key2)) {
                 if (menuF[key]) {
-                  menuF[key].items[key2] = {...items}
+                  menuF[key].items[key2] = { ...items };
                 } else {
-                  menuF[key] = { ...menu[key], items: { [key2]: {...items} } };
+                  menuF[key] = {
+                    ...menu[key],
+                    items: { [key2]: { ...items } },
+                  };
                 }
                 if (key2 === pagina) {
                   menuF[key].items[key2].active = "active";
@@ -128,15 +144,15 @@ function verificarAutoridade(pagina) {
         }
       }
 
-
       req.token = { ...data, menu: menuF };
 
       next();
     } catch (error) {
       const { response } = error;
 
-      console.log(error);
-      if (error.status === 401) {
+      if (!error.status && !response) {
+        console.log(error);
+      } else if (error.status === 401) {
         res.status(error.status).redirect("/adm/");
       } else if (response.status === 403) {
         res.status(response.status).redirect("/adm/login");
@@ -250,9 +266,7 @@ router.get(
         allPassageiros: allPassageiros || [],
         token: req.token,
       });
-    } catch (error) {
-      
-    }
+    } catch (error) {}
   }
 );
 
@@ -315,6 +329,38 @@ router.get("/lojas", verificarAutoridade("lojas"), async (req, res, next) => {
     res.render("adm/pages/cadastroLojas.ejs", {
       layout: "adm/layouts/layout-index.ejs",
       allLojas: allLojas || [],
+      token: req.token,
+    });
+  } catch (error) {}
+});
+
+router.get("/viagem", verificarAutoridade("viagem"), async (req, res, next) => {
+  try {
+    const { data: onibus } = await axios.get(
+      "http://localhost:9000/api/onibus",
+      {
+        headers: req.headers,
+      }
+    );
+
+    const { data: linhas } = await axios.get(
+      "http://localhost:9000/api/linhas",
+      {
+        headers: req.headers,
+      }
+    );
+    const { data: viagemNfinalizada } = await axios.get(
+      "http://localhost:9000/api/adm/viagem/motorista/" + req.token.user.id,
+      {
+        headers: req.headers,
+      }
+    );
+
+    res.render("adm/pages/viagem.ejs", {
+      layout: "adm/layouts/layout-index.ejs",
+      viagemNfinalizada: viagemNfinalizada || [],
+      linhas: linhas || [],
+      onibus: onibus || [],
       token: req.token,
     });
   } catch (error) {}

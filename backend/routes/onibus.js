@@ -3,11 +3,10 @@ var router = express.Router();
 const prisma = new (require("@prisma/client").PrismaClient)();
 const exception = require("../js/erro");
 
-const autenticar = require("../js/functionJWT").autenticarADM([
-  "adm",
-]);
-
-router.post("/", autenticar, async (req, res) => {
+function autenticar(cargos_permitidos = ["adm"]) {
+  return require("../js/functionJWT").autenticarADM(cargos_permitidos);
+}
+router.post("/", autenticar(), async (req, res) => {
   try {
     const {
       placa,
@@ -22,7 +21,6 @@ router.post("/", autenticar, async (req, res) => {
         estado_atual,
         possui_acessibilidade,
         quantidade_passageiros: parseInt(quantidade_passageiros),
-
       },
     });
 
@@ -34,7 +32,7 @@ router.post("/", autenticar, async (req, res) => {
   }
 });
 
-router.get("/", autenticar, async (req, res) => {
+router.get("/", autenticar(["adm", "motorista"]), async (req, res) => {
   try {
     const response = await prisma.onibus.findMany();
 
@@ -46,7 +44,7 @@ router.get("/", autenticar, async (req, res) => {
   }
 });
 
-router.delete("/:id", autenticar, async (req, res) => {
+router.delete("/:id", autenticar(), async (req, res) => {
   try {
     const response = await prisma.onibus.delete({
       where: {
@@ -62,7 +60,7 @@ router.delete("/:id", autenticar, async (req, res) => {
   }
 });
 
-router.put("/:id", autenticar, async (req, res) => {
+router.put("/:id", autenticar(), async (req, res) => {
   try {
     const {
       placa,
