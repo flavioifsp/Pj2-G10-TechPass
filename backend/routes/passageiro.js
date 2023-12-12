@@ -34,10 +34,13 @@ router.patch("/passageiros/card/:id", autenticar, async (req, res, next) => {
 });
 router.delete("/passageiros/card/:id", autenticar, async (req, res, next) => {
   try {
-    const response = await prisma.cartoes_do_cliente.delete({
+    const response = await prisma.cartoes_do_cliente.update({
       where: {
         id: parseInt(req.params.id),
       },
+      data:{
+        codigo_do_cartao: null
+      }
     });
 
     res.status(200).json(response);
