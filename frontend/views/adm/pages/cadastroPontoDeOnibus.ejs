@@ -106,7 +106,8 @@
 
       const btnSalvarAlteracoes = modal.querySelector("#btnSalvarAlteracoes");
 
-      formsValidacaoEdit.allvalidacao(validGeral);
+      formsValidacaoEdit.allvalidacao(validEdit);
+      formsValidacaoEdit.neutralidadeON()
 
       formsValidacaoEdit.forms.addEventListener("submit", async (event) => {
         event.preventDefault();
@@ -148,4 +149,7 @@
 
 
   const modalInfo = criarFuncaoModal((objEjs) => `<%- include("../partials/modals/info/_pontoDeOnibus.ejs") %>`)
+
+
+  
 </script>

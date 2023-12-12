@@ -82,7 +82,7 @@
     btnDelet.addEventListener("click", async () => {
       try {
         const deletado = await axios.delete(
-          `http://localhost:9000/api/userADM/motorista/${objEjs.superUser_id}`,  getCookie()
+          `http://localhost:9000/api/userADM/motorista/${objEjs.superUser_id}`, getCookie()
 
 
         );

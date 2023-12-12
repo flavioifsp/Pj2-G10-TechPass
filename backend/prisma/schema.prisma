@@ -10,19 +10,19 @@ datasource db {
 model adm {
   superUser_id Int       @id @default(autoincrement()) @db.UnsignedInt
   cargo        String?   @db.VarChar(45)
-  superuser    superuser @relation(fields: [superUser_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_ADM_superUser1")
+  superuser    superuser @relation(fields: [superUser_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "fk_ADM_superUser1")
 
   @@index([superUser_id], map: "fk_ADM_superUser1_idx")
 }
 
 model atendente {
-  superUser_id         Int          @id @unique(map: "superUser_id_UNIQUE") @default(autoincrement()) @db.UnsignedInt
-  local_de_trabalho_id Int
-  turno                String?      @db.VarChar(45)
-  telefone             String?      @db.VarChar(13)
-  endereco             String?      @db.VarChar(255)
-  loja_recarga         loja_recarga @relation(fields: [local_de_trabalho_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_atendente_loja_recarga1")
-  superuser            superuser    @relation(fields: [superUser_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_atendente_superUser1")
+  superUser_id         Int           @id @unique(map: "superUser_id_UNIQUE") @default(autoincrement()) @db.UnsignedInt
+  local_de_trabalho_id Int?
+  turno                String?       @db.VarChar(45)
+  telefone             String?       @db.VarChar(13)
+  endereco             String?       @db.VarChar(255)
+  loja_recarga         loja_recarga? @relation(fields: [local_de_trabalho_id], references: [id], onUpdate: Restrict, map: "fk_atendente_loja_recarga1")
+  superuser            superuser     @relation(fields: [superUser_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "fk_atendente_superUser1")
 
   @@index([local_de_trabalho_id], map: "fk_atendente_loja_recarga1_idx")
   @@index([superUser_id], map: "fk_atendente_superUser1_idx")
@@ -41,13 +41,13 @@ model clientes {
 }
 
 model embarque {
-  id                 Int                @id @default(autoincrement())
-  cartaoDoCliente_id Int
+  id                 Int                 @id @default(autoincrement())
+  cartaoDoCliente_id Int?
   viagem_id          Int
-  historico_tarifa   Decimal?           @db.Decimal(6, 2)
-  data               DateTime?          @default(now()) @db.DateTime(0)
-  cartoes_do_cliente cartoes_do_cliente @relation(fields: [cartaoDoCliente_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_embarque_cartoes_do_cliente1")
-  viagem             viagem             @relation(fields: [viagem_id], references: [id], onUpdate: Restrict, map: "fk_viagem_has_cliente_has_cartao_passe_viagem1")
+  historico_tarifa   Decimal?            @db.Decimal(6, 2)
+  data               DateTime?           @default(now()) @db.DateTime(0)
+  cartoes_do_cliente cartoes_do_cliente? @relation(fields: [cartaoDoCliente_id], references: [id], onUpdate: Restrict, map: "fk_embarque_cartoes_do_cliente1")
+  viagem             viagem              @relation(fields: [viagem_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "fk_viagem_has_cliente_has_cartao_passe_viagem1")
 
   @@index([viagem_id], map: "fk_viagem_has_cliente_has_cartao_passe_viagem1")
   @@index([cartaoDoCliente_id], map: "fk_embarque_cartoes_do_cliente1_idx")
@@ -58,7 +58,7 @@ model horario_diario_saida {
   linhas_id        Int      @db.UnsignedInt
   horario_de_saida DateTime @db.Time(0)
   duracaoEstimada  Int?
-  linhas           linhas   @relation(fields: [linhas_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_horario_diario_saida_linhas1")
+  linhas           linhas   @relation(fields: [linhas_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "fk_horario_diario_saida_linhas1")
 
   @@index([linhas_id], map: "fk_horario_diario_saida_linhas1_idx")
 }
@@ -86,7 +86,7 @@ model loja_recarga {
 model motorista {
   superUser_id Int       @id @db.UnsignedInt
   cnh          String?   @db.VarChar(11)
-  superuser    superuser @relation(fields: [superUser_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_motorista_superUser1")
+  superuser    superuser @relation(fields: [superUser_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "fk_motorista_superUser1")
   viagem       viagem[]
 }
 
@@ -125,13 +125,13 @@ model viagem {
   id              Int        @id @default(autoincrement())
   inicio          DateTime?  @default(now()) @db.DateTime(0)
   duracao         Int?
-  linhas_id       Int        @db.UnsignedInt
-  onibus_id       Int
-  motorista_SU_id Int        @db.UnsignedInt
+  linhas_id       Int?       @db.UnsignedInt
+  onibus_id       Int?
+  motorista_SU_id Int?       @db.UnsignedInt
   embarque        embarque[]
-  linhas          linhas     @relation(fields: [linhas_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_viagem_linhas1")
-  motorista       motorista  @relation(fields: [motorista_SU_id], references: [superUser_id], onDelete: NoAction, onUpdate: NoAction, map: "fk_viagem_motorista1")
-  onibus          onibus     @relation(fields: [onibus_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_viagem_onibus1")
+  linhas          linhas?    @relation(fields: [linhas_id], references: [id], onUpdate: Restrict, map: "fk_viagem_linhas1")
+  motorista       motorista? @relation(fields: [motorista_SU_id], references: [superUser_id], onUpdate: Restrict, map: "fk_viagem_motorista1")
+  onibus          onibus?    @relation(fields: [onibus_id], references: [id], onUpdate: Restrict, map: "fk_viagem_onibus1")
 
   @@index([linhas_id], map: "fk_viagem_linhas1_idx")
   @@index([motorista_SU_id], map: "fk_viagem_motorista1_idx")
@@ -143,8 +143,8 @@ model percurso {
   ordem_do_percurso Int?
   linha_id          Int             @db.UnsignedInt
   pontoOnibus_id    Int
-  ponto_de_onibus   ponto_de_onibus @relation(fields: [pontoOnibus_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_rotas_pontoOnibus1")
-  linhas            linhas          @relation(fields: [linha_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_trajeto_paradas_linha1")
+  ponto_de_onibus   ponto_de_onibus @relation(fields: [pontoOnibus_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "fk_rotas_pontoOnibus1")
+  linhas            linhas          @relation(fields: [linha_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "fk_trajeto_paradas_linha1")
 
   @@index([pontoOnibus_id], map: "fk_rotas_pontoOnibus1_idx")
   @@index([linha_id], map: "fk_trajeto_paradas_linha1_idx")
@@ -155,8 +155,8 @@ model cartoes_do_cliente {
   codigo_do_cartao Int?            @unique(map: "codigo_do_cartao_UNIQUE")
   clientes_id      Int
   cartao_id        Int
-  clientes         clientes        @relation(fields: [clientes_id], references: [id], onUpdate: Restrict, map: "fk_clientes_has_cartao_passe_clientes")
-  tipos_de_cartao  tipos_de_cartao @relation(fields: [cartao_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_clliente_tem_cartao_cartao1")
+  clientes         clientes        @relation(fields: [clientes_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "fk_clientes_has_cartao_passe_clientes")
+  tipos_de_cartao  tipos_de_cartao @relation(fields: [cartao_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "fk_clliente_tem_cartao_cartao1")
   embarque         embarque[]
 
   @@index([clientes_id], map: "fk_clientes_has_cartao_passe_clientes")
