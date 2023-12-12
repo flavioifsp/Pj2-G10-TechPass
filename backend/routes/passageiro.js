@@ -4,9 +4,7 @@ const prisma = new (require("@prisma/client").PrismaClient)();
 const exception = require("../js/erro");
 const bcry = require("bcryptjs");
 
-const autenticar = require("../js/functionJWT").autenticarADM([
-  "atendente",
-]);
+const autenticar = require("../js/functionJWT").autenticarADM(["atendente"]);
 
 router.patch("/passageiros/card/:id", autenticar, async (req, res, next) => {
   try {
@@ -28,6 +26,22 @@ router.patch("/passageiros/card/:id", autenticar, async (req, res, next) => {
     });
 
     res.status(201).json(response);
+  } catch (error) {
+    const erro = exception(error);
+    console.error(error);
+    res.status(erro.code).send(erro.msg);
+  }
+});
+router.delete("/passageiros/card/:id", autenticar, async (req, res, next) => {
+  try {
+    
+    const response = await prisma.cartoes_do_cliente.delete({
+      where: {
+        id: parseInt(req.params.id),
+      },
+    });
+
+    res.status(200).json(response);
   } catch (error) {
     const erro = exception(error);
     console.error(error);
@@ -83,7 +97,7 @@ router.get("/passageiros/recarga/:ic", async (req, res, next) => {
     res.status(201).json(novaRecarga);
   } catch (error) {
     if (error.code === "P2025") {
-      res.status(200).json({status: error.code, msg: "nao encontrado"})
+      res.status(200).json({ status: error.code, msg: "nao encontrado" });
     } else {
       const erro = exception(error);
       console.error(error);
@@ -127,7 +141,6 @@ router.post("/passageiros", autenticar, async (req, res, next) => {
         nascimento,
         saldo: 0,
       },
-      
     });
 
     res.status(201).json(novoPassageiro);
