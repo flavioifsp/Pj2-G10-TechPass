@@ -16,7 +16,7 @@
 
   <div class="card">
     <div class="table-responsive text-nowrap">
-      <table id="PontosDeOnibus" class="table table-striped"  style="width: 100%">
+      <table id="PontosDeOnibus" class="table table-striped" style="width: 100%">
         <thead>
           <tr>
             <th>CEP</th>
@@ -56,226 +56,96 @@
 <!-- chamando o js do boostrap antes de criar a instancia -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 <script>
-  function modalDelet(objEjs) {
-    const divdelete = document.createElement("div");
+  const modalDelet = criarFuncaoModal(
+    (objEjs) => `<%- include('../partials/modals/delete/_pontoDeOnibus.ejs') %>`,
+    (modal, objEjs) => {
+      const btnDelet = modal.querySelector("#deletePontoId");
 
-    divdelete.innerHTML = `<%- include('../partials/modals/delete/_pontoDeOnibus.ejs') %>`;
+      btnDelet.addEventListener("click", async () => {
+        try {
+          const deletado = await axios.delete(
+            `http://localhost:9000/api/linhas/bus-stop/${objEjs.id}`, getCookie()
+          );
 
-    const modalDelete = divdelete.querySelector(".modal");
+          localStorage.setItem(
+            "stopBusDelete",
+            JSON.stringify({
+              cor: "danger",
+              texto: deletado.data.message,
+              div: "#alert",
+            })
+          );
 
-    document.body.appendChild(modalDelete);
-    const InstanciaBoostrapDoModal = new bootstrap.Modal(modalDelete);
+          location.reload();
+        } catch (error) {
 
-    InstanciaBoostrapDoModal.toggle();
-    document.body.removeChild(modalDelete);
+          if (error.response ) {
+            localStorage.setItem(
+              "stopBusDelete",
+              JSON.stringify({
+                cor: "danger",
+                texto: "Não foi possivel deletar esse ponto. ele está sendo utilizado em uma linha",
+                div: "#alert",
+              })
+            );
+            location.reload()
+          }
 
-    const btnDelet = modalDelete.querySelector("#deletePontoId");
 
-    btnDelet.addEventListener("click", async () => {
-      try {
-        const deletado = await axios.delete(
-          `http://localhost:9000/api/linhas/bus-stop/${objEjs.id}`, getCookie()
-        );
+          console.error(error);
+        }
+      });
+    }
 
-        localStorage.setItem(
-          "stopBusDelete",
-          JSON.stringify({
-            cor: "danger",
-            texto: deletado.data.message,
-            div: "#alert",
-          })
-        );
+  )
 
-        location.reload();
-      } catch (error) {
-        console.error(error);
-      }
-    });
-  }
+  const modalEdit = criarFuncaoModal(
+    (objEjs) => `<%- include("../partials/modals/edit/_pontoDeOnibus.ejs") %>`,
+    (modal, objEjs) => {
+      formsValidacaoEdit = new Inputs(modal.querySelector("form")); // pega todos os inputs do form
 
-  function modalEdit(objEjs) {
-    const div = document.createElement("div");
+      const btnSalvarAlteracoes = modal.querySelector("#btnSalvarAlteracoes");
 
-    div.innerHTML = `<%- include('../partials/modals/edit/_pontoDeOnibus.ejs') %>`;
+      formsValidacaoEdit.allvalidacao(validGeral);
 
-    const modal = div.querySelector(".modal");
+      formsValidacaoEdit.forms.addEventListener("submit", async (event) => {
+        event.preventDefault();
 
-    //selecionando o modoal  e adicionando o modal ao BODY do HTML
-    document.body.appendChild(modal);
+        try {
+          const valorEdit = formsValidacaoEdit.allValues();
+          valorEdit.id = objEjs.id;
 
-    const InstanciaBoostrapDoModal = new bootstrap.Modal(modal);
+          const {
+            data
+          } = await axios.get(
+            `https://brasilapi.com.br/api/cep/v2/${valorEdit.cepInput}`
+          );
 
-    InstanciaBoostrapDoModal.toggle();
+          valorEdit.lat = data.location.coordinates.latitude;
+          valorEdit.lng = data.location.coordinates.longitude;
 
-    formsValidacaoEdit = new Inputs("#resetForm"); // pega todos os inputs do form
-    const btnSalvarAlteracoes = document.querySelector("#btnSalvarAlteracoes");
+          const response = await axios.put(
+            `http://localhost:9000/api/linhas/bus-stop`, valorEdit,
+            getCookie()
+          );
 
-    formsValidacaoEdit.allvalidacao({
-      cepInput: {
-        min: 9,
-        max: 9,
-        caractereNpermitido: ["Nletra", "Nacentuacao"],
-        autopontuar: [/([\d]{6})([\d]{2})/, "$1-$2"],
-        pattern: ["(\\d{6}-\\d{2})", "cep valido", "cep invalido"],
-        customEvento: [
-          async (value) => {
-            try {
-              informacoesdaAPI = (
-                await axios.get(`https://brasilapi.com.br/api/cep/v2/${value}`, getCookie())
-              ).data;
+          localStorage.setItem(
+            "stopBusEdit",
+            JSON.stringify({
+              cor: "success",
+              texto: `O ponto do cep ${objEjs.cep} foi alterado para o cep ${valorEdit.cepInput} com sucesso`,
+              div: "#alert",
+            })
+          );
 
-              formsValidacaoEdit.inputs((input) => {
-                for (const info in informacoesdaAPI) {
-                  if (Object.hasOwnProperty.call(informacoesdaAPI, info)) {
-                    if (input.name == info) {
-                      input.value = informacoesdaAPI[info];
-                      input.focus();
-                      input.blur();
-                    }
-                  }
-                }
-              });
-            } catch (error) {
-              console.log(error);
-              if (error.response.status == 404)
-                return "insira um CEP que exista";
-            }
-          },
-        ],
-        btnoff: "apaiossk",
-      },
-      street: {
-        min: 3,
-        max: 255,
-        btnoff: "apaiossk",
-        caractereNpermitido: ["Nnumber", "NcaractereEspecial"],
-        pattern: [".*", "Rua valido", "Rua invalida"],
-      },
+          location.reload();
+        } catch (error) {
+          console.log(error);
+        }
+      });
+    }
+  )
 
-      neighborhood: {
-        min: 3,
-        max: 255,
-        btnoff: "apaiossk",
-        caractereNpermitido: ["Nnumber", "NcaractereEspecial"],
-        pattern: [".*", "Bairro valido", "Bairro invalido"],
-      },
 
-      city: {
-        min: 3,
-        max: 255,
-        btnoff: "apaiossk",
-        caractereNpermitido: ["Nnumber", "NcaractereEspecial"],
-        pattern: [".*", "Cidade valida", "Cidade invalida"],
-        // customEvento: [
-        //   (value) => {
-
-        //     if (objEjs.endereco.split(",")[2] !== value) {
-        //       console.log("paia deu certo", objEjs)
-
-        //     } else {
-        //       console.log("paiaDeu Errado")
-
-        //       return "deu erro"
-        //     }
-        //   }
-
-        // ]
-      },
-
-      state: {
-        min: 2,
-        max: 2,
-        btnoff: "apaiossk",
-        caractereNpermitido: ["Nnumber", "NcaractereEspecial"],
-        pattern: [".*", "Estado valido", "Estado invalido"],
-      },
-    });
-
-    formsValidacaoEdit.forms.addEventListener("submit", async (event) => {
-      event.preventDefault();
-
-      try {
-        const valorEdit = formsValidacaoEdit.allValues();
-        valorEdit.id = objEjs.id;
-
-        const {
-          data
-        } = await axios.get(
-          `https://brasilapi.com.br/api/cep/v2/${valorEdit.cepInput}`
-        );
-
-        valorEdit.lat = data.location.coordinates.latitude;
-        valorEdit.lng = data.location.coordinates.longitude;
-
-        const response = await axios.put(
-          `http://localhost:9000/api/linhas/bus-stop`, valorEdit,
-          getCookie()
-        );
-        console.log(response);
-
-        console.log(objEjs);
-        localStorage.setItem(
-          "stopBusEdit",
-          JSON.stringify({
-            cor: "success",
-            texto: `O ponto do cep ${objEjs.cep} foi alterado para o cep ${valorEdit.cepInput} com sucesso`,
-            div: "#alert",
-          })
-        );
-
-        location.reload();
-      } catch (error) {
-        console.log(error);
-      }
-    });
-
-    modal.addEventListener("hidden.bs.modal", () => {
-      // quando o modal for fechado esse evento acionara e excluira o modal do body
-      document.body.removeChild(modal);
-    });
-  }
-  // fim modalEdit
-
-  // criando uma função que recebe a informação em um objeto transformado pelo JSON.stringify
-  function modalInfo(objEjs) {
-    // transformando o objeto que está transformado em string para objeto dnv
-
-    // criando uma div no js
-    const umadiv = document.createElement("div");
-
-    // adicionando o innerHTML com um template
-    // https://www.w3schools.com/js/js_string_templates.asp
-    // e
-    // adicionando uma div de modal pego do site do boostrap
-    umadiv.innerHTML = `<%- include("../partials/modals/info/_pontoDeOnibus.ejs") %>`;
-
-    // o split divide uma string em substrings
-    // https://www.w3schools.com/jsref/jsref_split.asp
-
-    // criando uma variavel que recebe o modal dentro do umadiv
-    const modal = umadiv.querySelector(".modal");
-
-    // adicionando o modal ao BODY do HTML
-    document.body.appendChild(modal);
-
-    // criando uma instancia seguindo as instruções do boostrap
-    // https://getbootstrap.com/docs/5.3/components/modal/#how-it-works
-    const InstanciaBoostrapDoModal = new bootstrap.Modal(modal);
-
-    // abrindo o modal
-    InstanciaBoostrapDoModal.toggle();
-
-    // vai para a parte de eventos que encontrara mais informações
-    // https://getbootstrap.com/docs/5.3/components/modal/#how-it-works
-    modal.addEventListener("hidden.bs.modal", () => {
-      // quando o modal for fechado esse evento acionara e excluira o modal do body
-      document.body.removeChild(modal);
-    });
-    // fim da função
-  }
-
-  // veja a linha 117
-
-  // //  chamando a função com ela recebendo as informações da primeira linha
-  // modalPaia(<%-JSON.stringify(pontos[0])%>)
+  const modalInfo = criarFuncaoModal((objEjs) => `<%- include("../partials/modals/info/_pontoDeOnibus.ejs") %>`)
 </script>

@@ -117,13 +117,9 @@ const validGeral = {
   username: {
     max: 90,
     min: 3,
-    caractereNpermitido: ['NcaractereEspecial'],
-    pattern: [
-      "[a-zA-Z\\s_\\-\\d]{2,90}",
-      "apelido valido",
-      "apelido invalido",
-    ],
-    btnoff: "required"
+    caractereNpermitido: ["NcaractereEspecial"],
+    pattern: ["[a-zA-Z\\s_\\-\\d]{2,90}", "apelido valido", "apelido invalido"],
+    btnoff: "required",
   },
 
   // FOTO
@@ -160,23 +156,86 @@ const validGeral = {
     btnoff: "required",
     pattern: [".*", "endereco valido", "endereco invalido"],
   },
-  valor:{
+  valor: {
     min: 0,
     max: 5000,
     btnoff: "required",
     pattern: [".*", "valor valido", "valor invalido"],
-  }
+  },
+  cepInput: {
+    min: 9,
+    max: 9,
+    caractereNpermitido: ["Nletra", "Nacentuacao"],
+    autopontuar: [/([\d]{6})([\d]{2})/, "$1-$2"],
+    pattern: ["(\\d{6}-\\d{2})", "cep valido", "cep invalido"],
+    customEvento: [
+      async (value) => {
+        try {
+          informacoesdaAPI = (
+            await axios.get(
+              `https://brasilapi.com.br/api/cep/v2/${value}`,
+              getCookie()
+            )
+          ).data;
+
+          formsValidacaoEdit.inputs((input) => {
+            for (const info in informacoesdaAPI) {
+              if (Object.hasOwnProperty.call(informacoesdaAPI, info)) {
+                if (input.name == info) {
+                  input.value = informacoesdaAPI[info];
+                  input.focus();
+                  input.blur();
+                }
+              }
+            }
+          });
+        } catch (error) {
+          console.log(error);
+          if (error.response.status == 404) return "insira um CEP que exista";
+        }
+      },
+    ],
+    btnoff: "required",
+  },
+  street: {
+    min: 3,
+    max: 255,
+    btnoff: "required",
+    caractereNpermitido: ["Nnumber", "NcaractereEspecial"],
+    pattern: [".*", "Rua valido", "Rua invalida"],
+  },
+
+  neighborhood: {
+    min: 3,
+    max: 255,
+    btnoff: "required",
+    caractereNpermitido: ["Nnumber", "NcaractereEspecial"],
+    pattern: [".*", "Bairro valido", "Bairro invalido"],
+  },
+
+  city: {
+    min: 3,
+    max: 255,
+    btnoff: "required",
+    caractereNpermitido: ["Nnumber", "NcaractereEspecial"],
+    pattern: [".*", "Cidade valida", "Cidade invalida"],
+  },
+
+  state: {
+    min: 2,
+    max: 2,
+    btnoff: "required",
+    caractereNpermitido: ["Nnumber", "NcaractereEspecial"],
+    pattern: [".*", "Estado valido", "Estado invalido"],
+  },
 };
 
-
-
-
-const validEdit = {}
+const validEdit = {};
 for (const key in validGeral) {
   if (Object.hasOwnProperty.call(validGeral, key)) {
     const element = validGeral[key];
 
-    validEdit[key] = {...element, btnoff: null }
+    validEdit[key] = { ...element, btnoff: null };
   }
 }
 
@@ -265,5 +324,5 @@ const loginVALID = {
 
 const recargaVALID = {
   cpf: validGeral.cpf,
-  valor: validGeral.valor
+  valor: validGeral.valor,
 };
