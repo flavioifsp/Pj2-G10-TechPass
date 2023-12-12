@@ -53,7 +53,7 @@
             </button>
           </td>
           <td>
-            <button class="btn btn-success py-1 px-2" data-bs-target="#pontodeonibus<%= elem.id%>" onclick='modalRecarg(<%-JSON.stringify(elem)%>)'>
+            <button class="btn btn-success py-1 px-2" data-bs-target="#pontodeonibus<%= elem.id%>" onclick='modalRecarga(<%-JSON.stringify(elem)%>)'>
               Recarregar
             </button>
           </td>
@@ -79,6 +79,7 @@
 </div>
 
 <script>
+  // eu realmente aconselho a fechar essa função e fingir que não existe
   const modalCartao = criarFuncaoModal(
     (objEjs) => {
       return `
@@ -250,5 +251,305 @@
       });
     }
   );
-  // const modalRecarga
+
+
+
+
+  const modalDelet = criarFuncaoModal(
+    (objEjs) => `
+    <div class="modal fade" aria-labelledby="modalToggleLabel2" tabindex="-1" _mstvisible="0" style="display: none" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" _mstvisible="1">
+        <div class="modal-content" _mstvisible="2">
+          <div class="modal-header" _mstvisible="3">
+            <h5 class="modal-title text-warning" id="modalToggleLabel2" _msttexthash="66105" _msthash="311" _mstvisible="4">
+              Alerta!!!
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar" _mstaria-label="59709" _msthash="312" _mstvisible="4"></button>
+          </div>
+          <div class="modal-body" _msttexthash="1998048" _msthash="313" _mstvisible="3">
+            <span>
+              Tem certeza que desja excluir o cliente ${objEjs.nome}</strong>?</span>
+          </div>
+          <div class="modal-footer" _mstvisible="3">
+            <button class="btn btn-secondary" data-bs-dismiss="modal" _msttexthash="324714" _msthash="314" _mstvisible="4">
+              Cancelar
+            </button>
+            <button type="click" class="btn btn-danger" id="delete">
+              Sim, Deletar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    `, async (modal, objEjs) => {
+      const btnDelet = modal.querySelector("#delete");
+
+      btnDelet.addEventListener("click", async () => {
+        try {
+          const deletado = await axios.delete(
+            `http://localhost:9000/api/adm/passageiros/${objEjs.id}`, getCookie()
+          );
+          localStorage.setItem(
+            "alert",
+            JSON.stringify({
+              cor: "danger",
+              texto: `o cliente ${objEjs.nome} foi apagado`,
+              div: "#alert",
+            })
+          );
+
+          location.reload();
+        } catch (error) {
+          console.error(error);
+        }
+      });
+    }
+  )
+
+
+
+  const modalEdit = criarFuncaoModal(
+    (objEjs) => {
+      return `
+      
+              <div class="modal fade" id="exLargeModal" tabindex="-1" style="display: none;" aria-hidden="true">
+          <div class="modal-dialog modal modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header ">
+                <h1 class="modal-title fs-5" id="createlojaLabel">
+                  Adicionando novo Ônibus
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+
+              <form id="formCreateCliente" novalidate>
+                <div class="modal-body">
+                  <div class="row g-2">
+                    <!-- nome real -->
+                    <div class="col-12">
+                      <label for="nome" class="form-label">Nome Completo</label>
+                      <input class="form-control" id="nome" name="nome" type="text" value="${objEjs.nome}" />
+                    </div>
+
+                    <!-- username -->
+                    <div class="col-12 col-sm-8">
+                      <label for="username" class="form-label">Apelido (username)</label>
+                      <input name="username" id="username" class="form-control" type="text"  value="${objEjs.username}"/>
+                    </div>
+                    <!-- nasc -->
+                    <div class="col-sm-4 col-12">
+                      <label for="nascimento" class="form-label">Data de Nascimento</label>
+                      <input name="nascimento" id="nascimento" class="form-control" type="date" value="${objEjs.nascimento.split("T")[0]}" />
+                    </div>
+
+
+
+                    <div class=" col-6">
+                      <label for="senha" class="form-label">Senha</label>
+                      <input class="form-control" id="senha" name="senha" type="text"  />
+                    </div>
+
+                    <div class=" col-6">
+                      <label for="cpf" class="form-label">CPF</label>
+                      <input class="form-control" id="cpf" name="cpf" type="text" value="${objEjs.cpf}" />
+                    </div>
+
+
+                    <!-- email -->
+                    <div class="col-12">
+                      <label for="email" class="form-label">Email</label>
+                      <input name="email" id="email" class="form-control" type="email" placeholder="digite seu email"  value="${objEjs.email}"/>
+                    </div>
+                    <!-- cpf -->
+
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary btnvoltar">
+                    Cancelar
+                  </button>
+                  <button type="submit" class="btn btn-warning">alterar cliente</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      `
+    },
+    (modal, objEjs) => {
+
+      formsValidacaoEdit = new Inputs(modal.querySelector("form")) // pega todos os inputs do form
+
+
+
+
+      formsValidacaoEdit.forms.addEventListener("submit", async (event) => {
+
+        event.preventDefault()
+
+        try {
+
+          const data = formsValidacaoEdit.allValues({
+            nascimento: nascimento => new Date(nascimento).toISOString()
+          })
+
+          const response = await axios.put(`http://localhost:9000/api/adm/passageiros/${objEjs.id}`, data, getCookie())
+
+          localStorage.setItem("alert", JSON.stringify({
+            cor: "warning",
+            texto: `O cadastro do cliente do CPF ${objEjs.cpf} foi alterado`,
+            div: "#alert",
+          }))
+
+          location.reload()
+
+        } catch (error) {
+          console.log(error);
+        }
+
+
+      })
+
+
+
+      formsValidacaoEdit.allvalidacao(validEdit);
+      formsValidacaoEdit.neutralidadeON();
+      // formsValidacaoEdit.autovalidar()
+    })
+
+
+
+  const modalInfo = criarFuncaoModal((objEjs) => {
+    return `
+    <div class="modal fade" id="modalInformacoes" tabindex="-1" aria-labelledby="modalInformacoesLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalInformacoesLabel">Informações do cliente</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-bordered">
+          <tbody>
+            <tr>
+              <th>Nome</th>
+              <td>${objEjs.nome}</td>
+            </tr>
+
+            <tr>
+              <th>Usuário</th>
+              <td>${objEjs.username}</td>
+            </tr>
+         
+            <tr>
+              <th>CPF</th>
+              <td>${objEjs.cpf}</td>
+            </tr>
+             <tr>
+              <th>E-mail</th>
+              <td>${objEjs.email}</td>
+            </tr>
+            <tr>
+              <th>Senha</th>
+              <td>******</td>
+            </tr>
+            
+            <tr>
+              <th>Nascimento</th>
+              <td>${new Date(objEjs.nascimento).toLocaleDateString()}</td>
+            </tr>
+            <tr>
+              <th>Saldo</th>
+              <td>R$ ${ parseFloat(objEjs.saldo).toLocaleString() }</td>
+            </tr>
+          </tbody>
+        </table>
+
+     
+      </div>
+      <div class="modal-footer d-flex justify-content-between">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+        <button class="btn btn-success "  onclick='modalRecarga(${JSON.stringify(objEjs)})'>
+          Recarregar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+    `;
+  }, (modal, objEjs) => {
+   
+
+  });
+
+
+  const modalRecarga = criarFuncaoModal(
+    (objEJS) => `
+    <div class="modal fade" id="modalRecarga" tabindex="-1" aria-labelledby="modalRecargaLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content border border-primary rounded-lg shadow-lg">
+          <form>
+            <div class="modal-header bg-primary ">
+              <h5 class="modal-title text-white" id="modalRecargaLabel">Recarga de Conta</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4">
+              <div class="text-center mb-4">
+                <i class="fas fa-money-bill-alt fa-4x text-primary"></i>
+                <h5 class="text-primary">Para Paia Cabral</h5>
+              </div>
+              <div class="mb-3">
+                Saldo atual: R$${parseFloat(objEJS.saldo).toLocaleString() }
+              </div>
+              <div >
+                <label for="valor" class="form-label">Valor</label>
+                <div class="input-group">
+                  <span class="input-group-text">R$</span>
+                  <input type="number" class="form-control" step="0.01" value="" id="valor" name="valor" placeholder="Digite o valor" required>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer justify-content-between border-top pt-1 pb-3">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                Fechar
+              </button>
+              <button type="submit" class="btn btn-primary btn-block ms-auto">Recarregar</button>
+             
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    `, (modal, objEjs) => {
+      const form = new Inputs(modal.querySelector("form"))
+   
+      form.forms.addEventListener("submit", async (e) => {
+        e.preventDefault()
+
+        try {
+          const {
+            valor
+          } = form.allValues()
+
+
+
+          const response = await axios.patch(`http://localhost:9000/api/adm/passageiros/recarga/${objEjs.id}/${valor}`)
+
+          localStorage.setItem("alert", JSON.stringify({
+            cor: "success",
+            texto: ` A  conta do <strong>${objEjs.nome}</strong> foi recarregada no valor de <strong>R$ ${ parseFloat(valor).toFixed(2).replace(".", ",") }</strong> .`,
+            div: "#alert",
+          }))
+
+          location.reload()
+
+        } catch (error) {
+          console.error(error);
+
+        }
+      })
+    }
+  )
 </script>
+

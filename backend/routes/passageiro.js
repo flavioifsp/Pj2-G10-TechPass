@@ -34,7 +34,6 @@ router.patch("/passageiros/card/:id", autenticar, async (req, res, next) => {
 });
 router.delete("/passageiros/card/:id", autenticar, async (req, res, next) => {
   try {
-    
     const response = await prisma.cartoes_do_cliente.delete({
       where: {
         id: parseInt(req.params.id),
@@ -113,7 +112,13 @@ router.get("/passageiros", autenticar, async (req, res, next) => {
         cartoes_do_cliente: {
           include: {
             tipos_de_cartao: true,
+            embarque: {
+              include:{
+                viagem: true,
+              }
+            }
           },
+
         },
       },
     });
@@ -151,27 +156,26 @@ router.post("/passageiros", autenticar, async (req, res, next) => {
   }
 });
 
-router.put("/passageiros", autenticar, async (req, res, next) => {
+router.put("/passageiros/:id", autenticar, async (req, res, next) => {
   try {
-    const { id, nome, username, cpf, nascimento, email } = req.body;
+    const { nome, username, cpf, nascimento, email, senha } = req.body;
 
-    const novoPassageiro = await prisma.clientes.update({
+    const data = await prisma.clientes.update({
       where: {
-        id: id,
+        id: parseInt(req.params.id),
       },
 
       data: {
-        email,
-        cpf,
-        username,
         nome,
+        username,
+        cpf,
         nascimento,
+        email,
+        senha: senha ? await bcry.hash(senha, 10) : undefined,
       },
     });
 
-    res.status(201).json({
-      message: `Passageiro ${nome} adicionado com sucesso`,
-    });
+    res.status(201).json(data);
   } catch (error) {
     const erro = exception(error);
     console.error(error);
@@ -181,7 +185,7 @@ router.put("/passageiros", autenticar, async (req, res, next) => {
 
 router.delete("/passageiros/:id", autenticar, async (req, res) => {
   try {
-    const deleteLoja = await prisma.clientes.delete({
+    const data = await prisma.clientes.delete({
       where: {
         id: Number(req.params.id),
       },
@@ -190,7 +194,7 @@ router.delete("/passageiros/:id", autenticar, async (req, res) => {
       },
     });
 
-    res.status(200).send();
+    res.status(200).json(data);
   } catch (error) {
     const erro = exception(error);
     console.log(error);
