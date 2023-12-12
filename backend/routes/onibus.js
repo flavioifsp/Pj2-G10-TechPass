@@ -69,9 +69,9 @@ router.put("/:id", autenticar(), async (req, res) => {
       quantidade_passageiros,
     } = req.body;
 
-    const response = await prisma.motorista.update({
+    const response = await prisma.onibus.update({
       where: {
-        superUser_id: parseInt(req.params.id),
+        id: parseInt(req.params.id),
       },
       data: {
         placa,

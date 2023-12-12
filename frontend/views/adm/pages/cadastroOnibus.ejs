@@ -72,13 +72,13 @@
             </div>
             <div class="modal-body" _msttexthash="1998048" _msthash="313" _mstvisible="3">
               <span>
-                Tem certeza que desja excluir o cartão da modalidade ${objEjs.modalidade}?</span>
+                Tem certeza que desja excluir o onibus do ID <strong>${objEjs.id}</strong> ?</span>
             </div>
             <div class="modal-footer" _mstvisible="3">
               <button class="btn btn-secondary" data-bs-dismiss="modal" _msttexthash="324714" _msthash="314" _mstvisible="4">
                 Cancelar
               </button>
-              <button type="click" class="btn btn-danger" id="deletePontoId">
+              <button type="click" class="btn btn-danger" id="delete">
                 Sim, Deletar
               </button>
             </div>
@@ -87,19 +87,19 @@
       </div>
     `,
     (modal, objEjs) => {
-      const btnDelet = modal.querySelector("#deleteonibusId");
+      const btnDelet = modal.querySelector("#delete");
 
       btnDelet.addEventListener("click", async () => {
         try {
           const deletado = await axios.delete(
-            `http://localhost:9000/api/linhas/bus-stop/${objEjs.id}`, getCookie()
+            `http://localhost:9000/api/onibus/${objEjs.id}`, getCookie()
           );
 
           localStorage.setItem(
             "alert",
             JSON.stringify({
               cor: "danger",
-              texto: deletado.data.message,
+              texto: `o onibus de ID ${objEjs.id} foi apagado`,
               div: "#alert",
             })
           );
@@ -107,17 +107,105 @@
           location.reload();
         } catch (error) {
 
-          if (error.response) {
-            localStorage.setItem(
-              "alert",
-              JSON.stringify({
-                cor: "danger",
-                texto: "Não foi possivel deletar esse onibus. ele está sendo utilizado em uma linha",
-                div: "#alert",
-              })
-            );
-            location.reload()
-          }
+
+          console.error(error);
+        }
+      });
+    }
+
+  )
+
+
+
+  const modalEdit = criarFuncaoModal(
+    (objEjs) => `
+    <div class="modal fade" id="modalCreateonibus" tabindex="-1" aria-labelledby="formCreateonibusLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="formCreateonibusLabel">
+                Editando onibus
+              </h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <form novalidate  id="formCreateonibus">
+              <div class="modal-body">
+                <div class="row gy-3 gx-2">
+                  <!-- nome real -->
+                  <div class="col-6">
+                    <label for="placa" class="form-label">placa</label>
+                    <input class="form-control" id="placa" name="placa" type="text" value="${objEjs.placa}" />
+                  </div>
+                  <div class="col-6">
+                    <label for="quantidade_passageiros" class="form-label">quantidade passageiros</label>
+                    <input class="form-control" id="quantidade_passageiros" name="quantidade_passageiros" type="number" value="${objEjs.quantidade_passageiros}" />
+                  </div>
+                  <div class="col-6">
+                    <label for="estado_atual" class="form-label">estado atual</label>
+                    <select class="form-control" id="estado_atual" name="estado_atual" >
+                      <option  disabled>Selecione um estado</option>
+                      <option ${objEjs.estado_atual === "Funcionando" ? "selected" : ""} value="Funcionando">Funcionando</option>
+                      <option ${objEjs.estado_atual === "manutenção" ? "selected" : ""} value="manutenção">em manutenção</option>
+                      <option ${objEjs.estado_atual === "parado" ? "selected" : ""} value="parado">parado</option>
+                    </select>
+
+                  </div>
+                  <div class="col-6">
+                    <label for="possui_acessibilidade" class="form-label">possui acessibilidade?</label>
+                    <select class="form-control" id="possui_acessibilidade" name="possui_acessibilidade" >
+                      <option  disabled>Selecione um estado</option>
+                      <option ${objEjs.possui_acessibilidade === "sim" ? "selected" : ""} value="sim">sim</option>
+                      <option ${objEjs.possui_acessibilidade === "nao" ? "selected" : ""} value="nao">não</option>
+                    </select>
+
+                  </div>
+
+
+
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                  Cancelar
+                </button>
+                <button type="submit" class="btn btn-warning">Editar onibus</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+    `, (modal, objEjs) => {
+      const form = new Inputs(modal.querySelector("form"));
+
+
+
+      form.forms.addEventListener("submit", async (evt) => {
+        evt.preventDefault();
+
+        try {
+
+          const data = form.allValues()
+
+
+
+          const response = await axios.put(
+            "http://localhost:9000/api/onibus/" + objEjs.id,
+            data, getCookie()
+          );
+
+          localStorage.setItem(
+            "alert",
+            JSON.stringify({
+              cor: "warning",
+              texto: `o onibus de ID ${objEjs.id} foi editado`,
+              div: "#alert",
+            })
+          );
+
+          location.reload();
+        } catch (error) {
           console.error(error);
         }
       });

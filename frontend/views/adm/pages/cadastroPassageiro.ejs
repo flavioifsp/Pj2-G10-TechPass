@@ -190,10 +190,11 @@
 
       objEjs.cartoes_do_cliente.forEach((element, i) => {
 
+
         const div = document.createElement("li")
 
         div.innerHTML = `
-         <li class="list-group-item d-flex"> ${i + 1}) passe <strong> ${element.tipos_de_cartao.modalidade}</strong>  
+         <li class="list-group-item d-flex"><p class="m-0"> ${i + 1}) passe <strong>${" "+ element.tipos_de_cartao.modalidade}</strong>  </p>
           <button type="button" class="btn btn-danger py-1 px-2 ms-auto"  >
             <i class="bi bi-trash-fill"></i>
           </button>
