@@ -58,10 +58,13 @@ const validGeral = {
   },
   // NASC
   nascimento: {
-    caractereNpermitido: [],
-    pattern: [".*", "nascimento valido", "nascimento invalido"],
-    btnoff: "required",
+    max: "2024-12-31",
+    min: "1900-01-01",
+    pattern: ["", "nascimento valido", "nascimento invalido"],
+    btnoff: "required"
   },
+
+
   // CNH
   cnh: {
     min: 11,

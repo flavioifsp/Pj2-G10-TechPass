@@ -22,12 +22,12 @@
               <label for="modalidade" class="form-label">Modalidade</label>
               <input class="form-control" id="modalidade" name="modalidade" type="text" required />
             </div>
-            
+
             <div class="col-3">
               <label for="tarifa" class="form-label">tarifa</label>
-              <input class="form-control" id="tarifa" name="tarifa" step="0.01"  type="number" required />
+              <input class="form-control" id="tarifa" name="tarifa" step="0.01" type="number" required />
             </div>
-           
+
 
           </div>
         </div>
@@ -66,7 +66,7 @@
           "alert",
           JSON.stringify({
             cor: "success",
-            texto: `O cartao  ${response.data.modalidade} foi cadastrado `,
+            texto: response.data.message,
 
             div: "#alert",
           })

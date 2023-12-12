@@ -45,16 +45,14 @@ router.post("/card", autenticar, async (req, res, next) => {
 
 router.delete("/card/:id", autenticar, async (req, res) => {
   try {
-    const deleteLoja = await prisma.tipos_de_cartao.delete({
+    const data = await prisma.tipos_de_cartao.delete({
       where: {
         id: Number(req.params.id),
       },
-      select: {
-        id: true,
-      },
+     
     });
 
-    res.status(200).send();
+    res.status(200).json(data);
   } catch (error) {
     const erro = exception(error);
     console.log(error);
@@ -62,13 +60,13 @@ router.delete("/card/:id", autenticar, async (req, res) => {
   }
 });
 
-router.put("/card", autenticar, async (req, res, next) => {
+router.put("/card/:id", autenticar, async (req, res, next) => {
   try {
-    const { id, tarifa, modalidade } = req.body;
+    const {  tarifa, modalidade } = req.body;
 
     const novoCartao = await prisma.tipos_de_cartao.update({
       where: {
-        id: id,
+        id: parseInt(req.params.id),
       },
 
       data: {
@@ -76,10 +74,10 @@ router.put("/card", autenticar, async (req, res, next) => {
         modalidade,
       },
     });
-    console.log(novoCartao);
+
 
     res.status(201).json({
-      message: `Cartao ${modalidade} adicionado com sucesso`,
+      message: `Cartao ${modalidade} foi editado`,
     });
   } catch (error) {
     const erro = exception(error);

@@ -127,11 +127,10 @@ router.post("/passageiros", autenticar, async (req, res, next) => {
         nascimento,
         saldo: 0,
       },
+      
     });
 
-    res.status(201).json({
-      message: `Passageiro ${novoPassageiro.nome} adicionado com sucesso`,
-    });
+    res.status(201).json(novoPassageiro);
   } catch (error) {
     const erro = exception(error);
     console.error(error);

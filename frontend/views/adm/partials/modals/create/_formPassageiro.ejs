@@ -54,7 +54,7 @@
           <button type="button" class="btn btn-secondary btnvoltar">
             Cancelar
           </button>
-          <button type="submit" class="btn btn-primary">Concluir</button>
+          <button type="submit" class="btn btn-success">Criar cliente</button>
         </div>
       </form>
     </div>
@@ -70,9 +70,10 @@
   document.addEventListener("DOMContentLoaded", () => {
     const formsponto = new Inputs("#formCreateCliente");
 
-    // formsponto.allvalidacao({
 
-    // });
+
+    
+    formsponto.allvalidacao(validGeral)
 
     formsponto.forms.addEventListener("submit", async (evt) => {
       evt.preventDefault();
@@ -83,13 +84,13 @@
           nascimento: nascimento => new Date(nascimento).toISOString()
         })
 
-
-
         const response = await axios.post(
           "http://localhost:9000/api/adm/passageiros",
           data, getCookie()
         );
 
+
+        
         localStorage.setItem(
           "alert",
           JSON.stringify({
