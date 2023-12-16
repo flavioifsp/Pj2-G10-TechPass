@@ -37,7 +37,7 @@
             </td>
             <td><%= elem.superuser.nome %></td>
             <td>
-              <%= elem.loja_recarga.nome %>
+              <%= elem.loja_recarga  ? elem.loja_recarga.nome : `Não Existe Mais :(` %>
             </td>
             <td><%= elem.turno %></td>
             <td>
@@ -343,7 +343,7 @@
               </li>
               <li class="list-group-item">
                 Loja:
-                <span class="ms-1"> ${ objEjs.loja_recarga.nome }</span>
+                <span class="ms-1"> ${ objEjs.loja_recarga  ? objEjs.loja_recarga.nome : `Não Existe Mais :(`  }</span>
               </li>
               <li class="list-group-item border-bottom">
                 Turno:
