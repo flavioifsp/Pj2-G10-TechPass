@@ -38,9 +38,9 @@ router.delete("/passageiros/card/:id", autenticar, async (req, res, next) => {
       where: {
         id: parseInt(req.params.id),
       },
-      data:{
-        codigo_do_cartao: null
-      }
+      data: {
+        codigo_do_cartao: null,
+      },
     });
 
     res.status(200).json(response);
@@ -113,15 +113,15 @@ router.get("/passageiros", autenticar, async (req, res, next) => {
     const allPassageiros = await prisma.clientes.findMany({
       include: {
         cartoes_do_cliente: {
+          where: { codigo_do_cartao: { not: null } },
           include: {
             tipos_de_cartao: true,
             embarque: {
-              include:{
+              include: {
                 viagem: true,
-              }
-            }
+              },
+            },
           },
-
         },
       },
     });

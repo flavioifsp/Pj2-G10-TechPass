@@ -200,6 +200,15 @@ const validGeral = {
     ],
     btnoff: "required",
   },
+  cep: {
+    min: 9,
+    max: 9,
+    caractereNpermitido: ["Nletra", "Nacentuacao"],
+    autopontuar: [/([\d]{6})([\d]{2})/, "$1-$2"],
+    pattern: ["(\\d{6}-\\d{2})", "cep valido", "cep invalido"],
+    
+    btnoff: "required",
+  },
   street: {
     min: 3,
     max: 255,

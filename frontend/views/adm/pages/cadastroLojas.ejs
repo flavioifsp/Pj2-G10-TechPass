@@ -140,6 +140,7 @@
     let informacoesdaAPI;
 
     formsloja.allvalidacao({
+      ...validGeral,
       cep: {
         min: 9,
         max: 9,
@@ -179,17 +180,7 @@
           },
         ],
         btnoff: "required", //signiifica que é obrigatorio
-      },
-
-      nome: {
-        min: 3,
-        max: 45,
-        caractereNpermitido: ["Nnumber", "NcaractereEspecial"],
-        pattern: ["[a-zA-ZÀ-ú\s]{3,45}", "nome valido", "nome invalido"],
-        btnoff: "naoEobrigatorio",
-      },
-
-
+      }
     })
 
 
