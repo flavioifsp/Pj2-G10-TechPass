@@ -22,18 +22,20 @@ class Inputs {
     const valoresPuro = {};
 
     this.inputs(({ name, value }) => {
-      valoresPuro[name] = value;
+      if (value !== "") {
+        valoresPuro[name] = value;
+      }
     });
 
     // modificarFormData é um objeto composto de metodos para modificar os valores do input
     for (const key in modificarFormData) {
       if (Object.hasOwnProperty.call(modificarFormData, key)) {
         const valor = formobj.get(key);
+        const valorFormatado = modificarFormData[key](valor);
 
-        formobj.set(key, modificarFormData[key](valor));
-
-        if (valoresPuro) {
-          valoresPuro[key] = modificarFormData[key](valor);
+        if (valorFormatado && valorFormatado !== "") {
+          formobj.set(key, valorFormatado);
+          valoresPuro[key] = valorFormatado;
         }
       }
     }
@@ -48,6 +50,7 @@ class Inputs {
     });
 
     for (const [_, value] of formobj.entries()) {
+      console.log(_, value);
       if (typeof value == "object") {
         return formobj;
       }
@@ -274,7 +277,7 @@ class Inputs {
 
           // evento
           let eventoCustom = null;
-        
+
           if (
             !erroCustom &&
             inputvalida.customEvento &&
