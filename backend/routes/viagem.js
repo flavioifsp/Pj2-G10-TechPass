@@ -4,7 +4,11 @@ const axios = require("axios");
 const prisma = new (require("@prisma/client").PrismaClient)();
 const exception = require("../js/erro");
 
-router.post("/", async function (req, res, next) {
+const autenticar = require("../js/functionJWT").autenticarADM(["motorista"]);
+const autenticarADM = require("../js/functionJWT").autenticarADM(["adm"]);
+
+// iniciar viagem
+router.post("/", autenticar, async function (req, res, next) {
   try {
     const { motorista_SU_id, linhas_id, onibus_id } = req.body;
 
@@ -27,7 +31,8 @@ router.post("/", async function (req, res, next) {
   }
 });
 
-router.get("/motorista/:id", async (req, res) => {
+// todas as viagens do mtorista
+router.get("/motorista/:id", autenticar, async (req, res) => {
   try {
     const response = await prisma.viagem.findMany({
       where: {
@@ -61,7 +66,8 @@ router.get("/motorista/:id", async (req, res) => {
   }
 });
 
-router.patch("/:id", async (req, res) => {
+// finalizar viagem
+router.patch("/:id", autenticar, async (req, res) => {
   try {
     let NovaDuracao = await prisma.viagem.findFirst({
       where: {
@@ -101,7 +107,8 @@ router.patch("/:id", async (req, res) => {
   }
 });
 
-router.get("/", async (req, res) => {
+// historico de viagens
+router.get("/", autenticarADM, async (req, res) => {
   try {
     const response = await prisma.viagem.findMany({
       include: {
@@ -121,9 +128,9 @@ router.get("/", async (req, res) => {
               },
             },
           },
-          orderBy:{
-            data: "desc"
-          }
+          orderBy: {
+            data: "desc",
+          },
         },
       },
       orderBy: [
@@ -134,7 +141,6 @@ router.get("/", async (req, res) => {
             sort: "desc",
           },
         },
-        
       ],
     });
 

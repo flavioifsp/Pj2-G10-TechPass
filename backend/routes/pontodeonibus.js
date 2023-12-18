@@ -3,15 +3,15 @@ const router = express.Router();
 const axios = require("axios");
 const prisma = new (require("@prisma/client").PrismaClient)();
 const exception = require("../js/erro");
-
+const preencherCoord = require("../js/LatLong_corretos")
 const  autenticar = require("../js/functionJWT").autenticarADM(["adm"])
 
 
 
 // criar ponto de onibus
-router.post("/bus-stop", autenticar, async (req, res) => {
+router.post("/bus-stop", autenticar, preencherCoord, async (req, res) => {
   const { cep, street, state, city, neighborhood, lat, lng } = req.body;
-  console.log(req.body);
+
   try {
     const createBusStop = await prisma.ponto_de_onibus.create({
       data: {
@@ -35,7 +35,7 @@ router.post("/bus-stop", autenticar, async (req, res) => {
   }
 });
 
-router.put("/bus-stop", autenticar, async (req, res) => {
+router.put("/bus-stop", autenticar, preencherCoord,async (req, res) => {
   const { id, cepInput, street, state, city, neighborhood, lat, lng } =
     req.body;
 

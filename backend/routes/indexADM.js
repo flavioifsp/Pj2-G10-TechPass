@@ -3,11 +3,10 @@ var router = express.Router();
 const prisma = new (require("@prisma/client").PrismaClient)();
 const exception = require("../js/erro");
 
-// router.use(
-//   require("../js/functionJWT").autenticarADM(["motorista", "atendente", "adm"])
-// );
+const autenticar =  require("../js/functionJWT").autenticarADM(["motorista", "atendente", "adm"])
 
-router.get("/ClientesAtivos", async (req, res) => {
+
+router.get("/ClientesAtivos", autenticar, async (req, res) => {
   try {
     const clientesAtivos_bruto = await prisma.$queryRaw`
         SELECT 
@@ -43,7 +42,6 @@ router.get("/ClientesAtivos", async (req, res) => {
       );
     }
 
-  
     res.json(ClientesAtivos);
   } catch (error) {
     const erro = exception(error);
@@ -52,7 +50,7 @@ router.get("/ClientesAtivos", async (req, res) => {
   }
 });
 
-router.get("/totalEmbarquesBI", async (req, res) => {
+router.get("/totalEmbarquesBI",  autenticar, async (req, res) => {
   try {
     const allBRUTO = await prisma.$queryRaw`
         SELECT 
@@ -85,10 +83,10 @@ router.get("/totalEmbarquesBI", async (req, res) => {
   }
 });
 
-router.get("/total/:tabela/:data", async (req, res) => {
+router.get("/total/:tabela/:data", autenticar,  async (req, res) => {
   try {
     let condi = {};
-    
+
     console.log(req.params.data);
     if (req.params.data == null) {
       condi.where[req.params.data] = {

@@ -6,7 +6,7 @@ const menu = {
   inicio: {
     header: "inicio",
     items: {
-      "/": {
+      "": {
         icon: "bar-chart-square tf-icons bx bx-bar-chart-square",
         nome: "Dasboard",
       },
@@ -83,9 +83,9 @@ function verificarAutoridade(pagina) {
   return async (req, res, next) => {
     try {
       const permi = {
-        atendente: ["/", "passageiros"],
+        atendente: ["", "passageiros"],
         adm: [
-          "/",
+          "",
           "atendente",
           "motorista",
           "onibus",
@@ -96,7 +96,7 @@ function verificarAutoridade(pagina) {
           "passageiros",
           "historicoViagens",
         ],
-        motorista: ["/", "viagem"],
+        motorista: ["", "viagem"],
       };
 
       let autorizados = "";
@@ -184,32 +184,46 @@ router.get("/login", async (req, res) => {
   }
 });
 
-router.get("/", verificarAutoridade("/"), async (req, res, next) => {
+router.get("/", verificarAutoridade(""), async (req, res, next) => {
   const infoAll = {};
   try {
     const { data: embarques } = await axios.get(
-      "http://localhost:9000/api/adm/analise/total/embarque/data"
+      "http://localhost:9000/api/adm/analise/total/embarque/data",
+      {
+        headers: req.headers,
+      }
     );
 
     const { data: viagens } = await axios.get(
-      "http://localhost:9000/api/adm/analise/total/viagem/inicio"
+      "http://localhost:9000/api/adm/analise/total/viagem/inicio",
+      {
+        headers: req.headers,
+      }
     );
     const { data: motoristas } = await axios.get(
-      "http://localhost:9000/api/adm/analise/total/motorista/null"
+      "http://localhost:9000/api/adm/analise/total/motorista/null",
+      {
+        headers: req.headers,
+      }
     );
     const { data: clientes } = await axios.get(
-      "http://localhost:9000/api/adm/analise/total/clientes/null"
+      "http://localhost:9000/api/adm/analise/total/clientes/null",
+      {
+        headers: req.headers,
+      }
     );
     const { data: atendentes } = await axios.get(
-      "http://localhost:9000/api/adm/analise/total/atendente/null"
+      "http://localhost:9000/api/adm/analise/total/atendente/null",
+      {
+        headers: req.headers,
+      }
     );
 
-
-    infoAll.embarques = embarques
-    infoAll.motoristas = motoristas
-    infoAll.clientes = clientes
-    infoAll.atendentes = atendentes
-    infoAll.viagens = viagens
+    infoAll.embarques = embarques;
+    infoAll.motoristas = motoristas;
+    infoAll.clientes = clientes;
+    infoAll.atendentes = atendentes;
+    infoAll.viagens = viagens;
   } catch (error) {
     console.error(error);
   }

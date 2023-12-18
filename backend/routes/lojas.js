@@ -2,7 +2,7 @@ var express = require("express");
 var router = express.Router();
 const prisma = new (require("@prisma/client").PrismaClient)();
 const exception = require("../js/erro");
-
+const preencherCoord = require("../js/LatLong_corretos")
 const bcry = require("bcryptjs");
 
 
@@ -24,7 +24,7 @@ router.get("/lojas",  async (req, res, next) => {
   }
 });
 
-router.post("/lojas", autenticar, async (req, res, next) => {
+router.post("/lojas", autenticar, preencherCoord,async (req, res, next) => {
   try {
     let { nome, cep, street, state, city, neighborhood, lat, lng } = req.body;
 
@@ -53,7 +53,7 @@ router.post("/lojas", autenticar, async (req, res, next) => {
   }
 });
 
-router.put("/lojas",autenticar, async (req, res) => {
+router.put("/lojas",autenticar, preencherCoord,async (req, res) => {
   const { id, nome, cepInput, street, state, city, neighborhood, lat, lng } =
     req.body;
 

@@ -13,13 +13,13 @@
   borderColor = config.colors.borderColor;
 
 
-  const {data: infos} = await axios.get("http://localhost:9000/api/adm/analise/ClientesAtivos")
+  const {data: infos} = await axios.get("http://localhost:9000/api/adm/analise/ClientesAtivos", getCookie())
 
   const infoMESES = infos.map((elem) => elem.mes)
   const infoDATA = infos.map((elem) => elem.total)
 
 
-  const {data: infos2} = await axios.get("http://localhost:9000/api/adm/analise/totalEmbarquesBI")
+  const {data: infos2} = await axios.get("http://localhost:9000/api/adm/analise/totalEmbarquesBI", getCookie())
 
   const infoBIMESTRE = infos2.map((elem) => elem.mes)
   const infoDATA2 = infos2.map((elem) => elem.total)

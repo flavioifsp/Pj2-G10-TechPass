@@ -58,40 +58,42 @@
     let informacoesdaAPI;
     const inputCep = document.getElementById("cep");
 
-    formsponto.allvalidacao({...validGeral, cep: {
-      ...validGeral.cep,
-      customEvento: [
-        async (value) => {
-          try {
-            informacoesdaAPI = (
-              await axios.get(`https://brasilapi.com.br/api/cep/v2/${value}`)
-            ).data;
+    formsponto.allvalidacao({
+      cep: {
+        ...validGeral.cep,
+        customEvento: [
+          async (value) => {
+            try {
+              informacoesdaAPI = (
+                await axios.get(`https://brasilapi.com.br/api/cep/v2/${value}`)
+              ).data;
 
-            formsponto.inputs((input) => {
-              for (const info in informacoesdaAPI) {
-                if (Object.hasOwnProperty.call(informacoesdaAPI, info)) {
-                  if (input.name == info) {
-                    input.value = informacoesdaAPI[info];
-                    input.focus();
-                    input.blur();
+              formsponto.inputs((input) => {
+                for (const info in informacoesdaAPI) {
+                  if (Object.hasOwnProperty.call(informacoesdaAPI, info)) {
+                    if (input.name == info) {
+                      input.value = informacoesdaAPI[info];
+                      input.focus();
+                      input.blur();
+                    }
                   }
                 }
-              }
-            });
+              });
 
-            formsponto.inputs((input) => {
-              if (input !== inputCep) {
-                input.disabled = true;
-              }
-            });
-          } catch (error) {
-            console.log(error);
-            if (error.response.status == 404)
-              return "insira um CEP que exista";
-          }
-        },
-      ],
-    }});
+              formsponto.inputs((input) => {
+                if (input !== inputCep) {
+                  input.disabled = true;
+                }
+              });
+            } catch (error) {
+              console.log(error);
+              if (error.response.status == 404)
+                return "insira um CEP que exista";
+            }
+          },
+        ],
+      }
+    });
 
 
     formsponto.forms.addEventListener("submit", async (evt) => {

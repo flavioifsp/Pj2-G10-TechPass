@@ -51,6 +51,8 @@ router.delete("/passageiros/card/:id", autenticar, async (req, res, next) => {
   }
 });
 
+
+// do site publico
 router.patch("/passageiros/recarga/:ic/:valor", async (req, res, next) => {
   console.log(req.params);
   try {
@@ -80,6 +82,7 @@ router.patch("/passageiros/recarga/:ic/:valor", async (req, res, next) => {
   }
 });
 
+// do site publico; verificar o cep/id
 router.get("/passageiros/recarga/:ic", async (req, res, next) => {
   console.log(req.params);
   try {
