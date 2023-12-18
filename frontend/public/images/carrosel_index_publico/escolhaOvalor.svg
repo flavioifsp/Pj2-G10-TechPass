@@ -1,0 +1,11 @@
+ <svg class="img-fluid w-100" viewBox="0 0 24.00 24.00" fill="none" xmlns="http://www.w3.org/2000/svg">
+   <g id="SVGRepo_bgCarrier" stroke-width="0">
+     <rect x="0" y="0" width="24.00" height="24.00" rx="12" fill="#7ed0ec" strokewidth="0"></rect>
+   </g>
+   <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+   <g id="SVGRepo_iconCarrier">
+     <path d="M14.5 9C14.5 9 13.7609 8 11.9999 8C8.49998 8 8.49998 12 11.9999 12C15.4999 12 15.5 16 12 16C10.5 16 9.5 15 9.5 15" stroke="#323232" stroke-width="0.8399999999999999" stroke-linecap="round" stroke-linejoin="round">
+     </path>
+     <path d="M12 7V17" stroke="#323232" stroke-width="0.8399999999999999" stroke-linecap="round" stroke-linejoin="round"></path>
+   </g>
+ </svg>
