@@ -38,4 +38,29 @@ $aspect-ratios: (
   }
 }
 
+#carrosel_buttons_info .col-sm {
+  box-sizing: border-box;
+  @extend .mt-1, .py-4;
+  display: flex;
+  justify-content: center;
+  position: relative;
 
+  button {
+    position: relative;
+    z-index: 3;
+  }
+
+  #backgroundPaioso {
+    @extend .rounded-top-3, .bg-white;
+    position: absolute;
+    box-sizing: border-box;
+    top: 0px;
+    margin: auto;
+    padding-bottom: 232px;
+    z-index: 2;
+    height: 100%;
+    width: 100%;
+
+    // transition: left 2s ease-in-out, right 2s ease-in-out;
+  }
+}
