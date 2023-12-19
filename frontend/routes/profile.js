@@ -12,7 +12,7 @@ class Menu {
     const menu = this.array;
     menu.push({ href, icon, nome, active: "" });
 
-    let infos
+    let infos;
     router.get(href, async function (req, res, next) {
       try {
         const { username } = (
@@ -21,7 +21,7 @@ class Menu {
           })
         ).data;
 
-        infos = await objEjsF(req, res) || {};
+        infos = (await objEjsF(req, res)) || {};
         console.log(infos);
 
         menu[indi].active = "active";
@@ -34,7 +34,20 @@ class Menu {
         });
         menu[indi].active = "";
       } catch (error) {
-        console.log(error);
+        const { response } = error;
+
+        if (!error.status && !response) {
+          console.log(error);
+        } else if (response.status === 403) {
+          res
+            .status(response.status)
+            .cookie("loginRecarga", "true", {
+              expires: new Date(Date.now() + 900),
+            })
+            .redirect("/login");
+          return;
+        }
+
         res.json(error);
       }
     });
@@ -46,14 +59,12 @@ class Menu {
       const { pags } = req.params;
       const caminho = `site_publico/pages/profile/partialsprofile${href}/_${pags}`;
 
-      res.render(caminho, { layout: false,  ...infos});
+      res.render(caminho, { layout: false, ...infos });
     });
   }
 }
 
 const elemenu = new Menu();
-
-
 
 elemenu.addpag(
   "site_publico/pages/profile/partialsprofile/perfil/_inicio.ejs",

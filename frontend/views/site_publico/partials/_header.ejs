@@ -6,8 +6,10 @@
 
     <div class="collapse navbar-collapse column-gap-5 text-light" id="aaaa">
       <ul class="navbar-nav column-gap-1 ms-auto">
+
+        
         <li class="nav-item">
-          <a href="login" class="nav-link">Recarga Online</a>
+          <a href="/profile/recarga" class="nav-link">Recarga Online</a>
         </li>
 
         <li class="nav-item ms-5">
@@ -27,40 +29,28 @@
       </ul>
       <% } else{ %>
       <div class="dropdown text-end" data-bs-theme="dark" id="profile">
-        <a class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">
+        <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
           Olá, <%= navUser.username%>
-        </a>
-        <ul class="dropdown-menu text-small">
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end text-small">
           <li>
-            <a class="dropdown-item" href="/profile/">
-              <font style="vertical-align: inherit">
-                <font style="vertical-align: inherit">Perfil</span></span>
-            </a>
+            <a class="dropdown-item" href="/profile/">Perfil</a>
           </li>
           <li>
-            <a class="dropdown-item" href="/profile/recarga">
-              <font style="vertical-align: inherit">
-                <span style="vertical-align: inherit">Recarga</font>
-              </font>
-            </a>
+            <a class="dropdown-item" href="/profile/recarga">Recarga</a>
           </li>
           <li>
-            <a class="dropdown-item" href="/profile/historico">
-              <font style="vertical-align: inherit">
-                <font style="vertical-align: inherit">historico de viagem</span></span>
-            </a>
+            <a class="dropdown-item" href="/profile/historico">Histórico de viagens</a>
           </li>
           <li>
             <hr class="dropdown-divider" />
           </li>
           <li>
-            <a class="dropdown-item" id="logout">
-              <font style="vertical-align: inherit">
-                <font style="vertical-align: inherit">sair</span></span>
-            </a>
+            <a class="dropdown-item" id="logout">Sair</a>
           </li>
         </ul>
       </div>
+
 
       <script>
         const profile = document.querySelector("#profile")

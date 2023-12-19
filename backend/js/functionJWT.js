@@ -18,7 +18,7 @@ function autenticar(req, res, next) {
   }
 
   jwt.verify(tokenUser, process.env.SECRET_KEY, (er, decoded) => {
-    if (er) return res.status(401).send("falha na autenticacâo do token");
+    if (er) return res.status(403).send("falha na autenticacâo do token");
 
     req.userId = decoded.id;
     next();
