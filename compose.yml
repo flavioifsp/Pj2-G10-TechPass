@@ -1,0 +1,23 @@
+services:
+  db:
+    image: mysql/mysql-server:latest
+    container_name: techpass_db
+    environment:
+      - MYSQL_DATABASE=techpassdb
+      - MYSQL_USER=userTech
+      - MYSQL_PASSWORD=userTech
+    ports:
+      - '3306:3306'
+    volumes:
+      - ./docs/db/fakeData.sql:/docker-entrypoint-initdb.d/init.sql
+    
+  app:
+    build: .
+    container_name: techpass_app   
+    environment:
+      - DATABASE_URL=mysql://userTech:userTech@db:3306/techpassdb?ssl=false
+    ports:
+      - '3000:3000'
+      - '9000:9000'
+    depends_on:
+      - db
