@@ -61,7 +61,7 @@
   async function finalizar(id) {
     try {
       const response = await axios.patch(
-        "http://localhost:9000/api/adm/viagem/" + id,
+        "http://localhost:9000/api/adm/viagem/" + id,null,
         getCookie()
       );
 
