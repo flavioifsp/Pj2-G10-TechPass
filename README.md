@@ -1,12 +1,20 @@
 # TECHPASS - Sistema de Gerenciamento para Empresa de Ônibus
-> O Código está um pouco desorganizado por ser o nosso primeiro projeto.
 
 <p align="center">
+  <a href="https://axios-http.com/" target="_blank">
+    <img src="https://img.shields.io/badge/Axios-HTTP%20Client-5A29E4?style=for-the-badge&logo=axios" alt="Axios"/>
+  </a>
+  <a href="https://getbootstrap.com/" target="_blank">
+    <img src="https://img.shields.io/badge/Bootstrap-CSS%20Framework-7952B3?style=for-the-badge&logo=bootstrap" alt="Bootstrap"/>
+  </a>
   <a href="https://ejs.co/" target="_blank">
     <img src="https://img.shields.io/badge/EJS-Template%20Engine-8BC500?style=for-the-badge&logo=ejs" alt="EJS"/>
   </a>
   <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
     <img src="https://img.shields.io/badge/JavaScript-Linguagem-F7DF1E?style=for-the-badge&logo=javascript" alt="JavaScript"/>
+  </a>
+  <a href="https://expressjs.com/" target="_blank">
+    <img src="https://img.shields.io/badge/Express-Web%20Framework-000000?style=for-the-badge&logo=express" alt="Express"/>
   </a>
   <a href="https://www.prisma.io/" target="_blank">
     <img src="https://img.shields.io/badge/Prisma-ORM-2D3748?style=for-the-badge&logo=prisma" alt="Prisma"/>
@@ -14,8 +22,18 @@
   <a href="https://www.mysql.com/" target="_blank">
     <img src="https://img.shields.io/badge/MySQL-Database-4479A1?style=for-the-badge&logo=mysql" alt="MySQL"/>
   </a>
+  <a href="https://www.npmjs.com/package/bcryptjs" target="_blank">
+    <img src="https://img.shields.io/badge/Bcrypt.js-Security-00C7B7?style=for-the-badge&logo=lock" alt="Bcrypt.js"/>
+  </a>
+  <a href="https://jwt.io/" target="_blank">
+    <img src="https://img.shields.io/badge/JWT-Authentication-000000?style=for-the-badge&logo=jsonwebtokens" alt="JWT"/>
+  </a>
+  <a href="https://www.npmjs.com/package/multer" target="_blank">
+    <img src="https://img.shields.io/badge/Multer-File%20Upload-FF6F00?style=for-the-badge&logo=upload" alt="Multer"/>
+  </a>
 </p>
 
+> Este projeto foi desenvolvido enquanto estávamos aprendendo o básico, por isso várias boas práticas não foram seguidas. Os outros projetos que desenvolvemos tem uma qualidade superior.
 
 ## Descrição do projeto
 
@@ -58,6 +76,43 @@
 - **Integração RFID**: A catraca eletrônica utiliza tecnologia RFID para validar a entrada dos passageiros no sistema, garantindo a segurança e o controle de embarque.
 - **API do Google Maps**: A API do Google Maps é utilizada para exibir os pontos de ônibus no site público, permitindo uma visualização interativa e precisa dos trajetos e paradas.
 
+## Guia de Instalação e Acesso 
+
+### Como rodar a aplicação ▶️
+1. **Clone o repositório**:
+    ```sh
+    git clone https://github.com/flavioifsp/Pj2-G10-TechPass.git
+    ```
+
+2. **Entre na pasta do projeto**:
+    ```sh
+    cd Pj2-G10-TechPass
+    ```
+
+3. **Inicie os containers**:
+    > Certifique-se de que o Docker esteja instalado em sua máquina!
+    ```sh
+    docker compose up
+    ```
+
+5. **Teste o sistema** 👍
+
+### Áreas do Sistema
+
+- **Acesso Público**: [http://localhost:3000/](http://localhost:3000/)
+- **Painel Administrativo**: [http://localhost:3000/adm](http://localhost:3000/adm)
+- **Catraca**: [http://localhost:3000/catraca?onibus=ID_DO_ONIBUS](http://localhost:3000/catraca?onibus=ID_DO_ONIBUS)  
+  (Substitua **ID_DO_ONIBUS** pelo ID de um ônibus válido)
+
+### Contas de Teste
+
+| **Onde Usar**      | **Tipo de Usuário** | **Email**                 | **Senha**   |
+|--------------------|---------------------|---------------------------|-------------|
+| **Site Público**   | Cliente             | cliente@example.com        | 12345678    |
+| **Painel Admin**   | Administrador (Adm) | gerente@techpass.com       | senha123    |
+| **Painel Admin**   | Atendente           | atendente@gmail.com        | 12345678    |
+| **Painel Admin**   | Motorista           | motorista@gmail.com        | 12345678    |
+
 ## Tecnologias e Bibliotecas Utilizadas :books:
 
 - [Axios](https://axios-http.com/) - Biblioteca para fazer requisições HTTP
@@ -68,6 +123,7 @@
 - [Bcrypt.js](https://www.npmjs.com/package/bcryptjs) - Biblioteca para hash de senhas de forma segura
 - [JSON Web Token (JWT)](https://jwt.io/) - Biblioteca para criação e validação de tokens JWT
 - [Multer](https://www.npmjs.com/package/multer) - Middleware para upload de arquivos em Node.js
+
 
 ## Desenvolvedores :octocat:
 
