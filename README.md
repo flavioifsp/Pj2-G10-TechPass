@@ -35,46 +35,57 @@
 
 > Este projeto foi desenvolvido enquanto estávamos aprendendo o básico, por isso várias boas práticas não foram seguidas. Os outros projetos que desenvolvemos tem uma qualidade superior.
 
-## Descrição do projeto
+## Descrição
 
-**TechPass** é um sistema desenvolvido para empresas de transporte público, composto por três partes principais: um **site público**, um **site administrativo** e uma **catraca eletrônica com RFID** para validar a entrada dos passageiros. O sistema foi criado no 2º semestre do curso de [Informática para Web](https://www.ifspcaraguatatuba.edu.br/cursos/tecnico/tecnico-em-informatica-para-internet), como parte do **Projeto Integrado**. Ele permite que as empresas de ônibus gerenciem as viagens, os passageiros e as operações de forma mais eficiente e automatizada.
-### Funcionalidades
+O **TechPass** é uma solução de gestão de transporte público, desenvolvida entre **agosto a novembro de 2023** como parte do **Projeto Integrado** do curso de [Informática para Web](https://www.ifspcaraguatatuba.edu.br/cursos/tecnico/tecnico-em-informatica-para-internet). Seu objetivo é automatizar e otimizar a gestão de passageiros, operações e frota, oferecendo uma experiência eficiente para passageiros e colaboradores (administradores, motoristas e atendentes).
 
-#### **Gestão de Contas de Usuários**
-- **Cadastro de Usuários**: O administrador pode criar, editar e excluir contas de **motoristas**, **atendentes** e **clientes**. Cada tipo de conta possui permissões específicas definidas no momento da criação.
-- **Permissões Específicas por Tipo de Conta**:
-  - **Administrador**: Tem acesso total a todas as funcionalidades do sistema, podendo gerenciar ônibus, trajetos, pontos, usuários e visualizar relatórios completos.
-  - **Motorista**: Tem permissão para iniciar e finalizar viagens, com acesso restrito ao controle das viagens que realiza.
-  - **Atendente**: Pode criar, editar e recarregar cartões de clientes, além de gerenciar contas de clientes (sem acesso a funções administrativas ou operacionais avançadas).
-  - **Cliente**: Pode consultar e recarregar seus próprios cartões, visualizar histórico de viagens e consultar linhas de ônibus e horários.
+O sistema é composto por três módulos principais:
 
-#### **Gestão de Frota e Linhas de Ônibus**
-- **Cadastro e Edição de Ônibus**: O administrador pode cadastrar, editar ou excluir registros de ônibus, vinculando-os a trajetórias de linhas de transporte.
-- **Criação e Edição de Linhas de Ônibus**: O administrador pode criar novas linhas de ônibus, definir suas trajetórias e horários de operação. Essas informações são exibidas no site público para consulta dos passageiros.
-- **Gerenciamento de Pontos de Ônibus**: O administrador pode cadastrar e editar os pontos de ônibus, com a possibilidade de associá-los a trajetos específicos. As localizações dos pontos são exibidas no mapa público usando a API do Google Maps.
+1. **Site Público**: Portal para consulta de linhas, horários, pontos de ônibus, histórico de viagens, saldo e recarga de cartões.  
+2. **Painel Administrativo**: Plataforma para gerenciar usuários, viagens, dados operacionais e tipos de cartões.  
+3. **Catraca Eletrônica com RFID**: Sistema automatizado de controle de embarques, validando passageiros com tecnologia RFID.
+   
+## Funcionalidades
 
-#### **Catraca Eletrônica e Controle de Viagens**
-- **Validação de Entrada com RFID**: A catraca eletrônica realiza a validação de passageiros utilizando tecnologia RFID, garantindo o controle de embarque. Ela só permite a passagem de passageiros durante a viagem, quando o ônibus está em operação.
-- **Início e Término das Viagens**: O motorista pode iniciar uma viagem quando o ônibus começa seu trajeto, e finalizar ao chegar ao destino final. Após o término da viagem, o motorista pode criar uma nova viagem para a volta.
-- **Monitoramento de Viagens**: O sistema permite monitorar as viagens realizadas, incluindo os passageiros embarcados, motoristas e status das viagens.
+#### 1. Site Público (Passageiros)
 
-#### **Gerenciamento de Cartões e Recarga**
-- **Criação e Gerenciamento de Cartões**: O atendente pode criar cartões para novos clientes e recarregar cartões existentes, garantindo que os passageiros tenham saldo suficiente para utilizar o transporte.
-- **Recarregamento de Cartões**: Os atendentes podem recarregar os cartões de passageiros, incluindo a possibilidade de recarregar o saldo para terceiros, garantindo a facilidade de uso para os clientes.
+- **Localização de Lojas**: Mapa interativo com a localização das lojas de atendimento, utilizando API do Google Maps.  
+  ![Rolando a página inicial do site público onde está o mapa](https://gist.githubusercontent.com/6aleatorio6/0cef2af7cab5eff1fd4bc2c6ca6ed174/raw/31cb76ff17bf7f7bbd7ebfc93e1c3171d655cb35/index_public.gif)
+- **Consulta de Linhas e Horários**: Visualização de trajetos, horários e pontos de parada. ![apresentando pagina onde mostra as linhas](https://gist.githubusercontent.com/6aleatorio6/0cef2af7cab5eff1fd4bc2c6ca6ed174/raw/7ce853581a380157cd72146b2103ab83a273f1ca/linhas.gif)
+- **Histórico de Viagens e Saldo**: Acompanhamento do saldo e histórico de viagens realizadas.  
+- **Recarga de Cartões**: Recarga de cartões de transporte diretamente pelo site. *(GIF do fluxo de recarga aqui)*  
 
-#### **Consulta e Acompanhamento de Viagens para Clientes**
-- **Consulta de Histórico de Viagens**: Os clientes podem acessar seu histórico de viagens, permitindo que acompanhem as viagens realizadas e o saldo utilizado.
-- **Recarregamento de Cartão pelo Cliente**: Os clientes podem recarregar seus próprios cartões diretamente pelo site público, com a possibilidade de transferir saldo para outros cartões.
-- **Visualização de Linhas e Horários**: O site público exibe as linhas de ônibus disponíveis, incluindo horários de partida e chegada, pontos de parada e trajetos percorridos, com informações atualizadas pelo administrador.
-- **Visualização de Pontos de Ônibus no Mapa**: Utilizando a API do Google Maps, o site público exibe os pontos de ônibus no mapa, permitindo que os passageiros localizem facilmente os pontos de embarque.
+---
 
-#### **Dashboard Administrativo**
-- **Relatórios de Viagens**: O administrador pode acessar relatórios detalhados sobre as viagens realizadas, incluindo informações sobre passageiros, motoristas e dados operacionais.
-- **Visão Geral das Operações**: O dashboard oferece uma visão geral das operações, incluindo o total de motoristas, atendentes, clientes, viagens realizadas no ano e clientes ativos (aqueles que participaram de viagens recentemente).
+### 2. Painel Administrativo
 
-#### **Integrações e Tecnologias Utilizadas**
-- **Integração RFID**: A catraca eletrônica utiliza tecnologia RFID para validar a entrada dos passageiros no sistema, garantindo a segurança e o controle de embarque.
-- **API do Google Maps**: A API do Google Maps é utilizada para exibir os pontos de ônibus no site público, permitindo uma visualização interativa e precisa dos trajetos e paradas.
+O **Painel Administrativo** organiza suas funcionalidades com base no tipo de conta, atribuindo permissões específicas a cada perfil de usuário. A seguir, detalhamos as ferramentas disponíveis para cada perfil:
+
+#### Para Administradores
+
+- **Gestão de Usuários**: Criação, edição e remoção de contas de motoristas, atendentes e passageiros.  
+- **Cadastro de Lojas**: Gerenciamento de lojas vinculadas aos atendentes, facilitando o controle de operações.  
+- **Cadastro de Tipos de Cartões**: Definição de tipos de cartões com taxas variáveis.  
+- **Dashboard Operacional**: Exibição de dados como viagens realizadas, frotas em operação, motoristas e atendentes.
+  ![apresentando a parte adminstrativa pela conta de adm](https://gist.githubusercontent.com/6aleatorio6/0cef2af7cab5eff1fd4bc2c6ca6ed174/raw/0b520da5ab1eacf23428787d51772da6ea0f2f2f/adm_adm.gif)
+
+#### Para Atendentes
+
+- **Gestão de Contas de Usuários**: Criação e edição de contas de passageiros e recarga de cartões.  
+- **Emissão de Cartões**: Criação de novos cartões com base nos tipos cadastrados pelo administrador.  
+  ![apresentando a parte adminstrativa pela conta de uma atendente](https://gist.githubusercontent.com/6aleatorio6/0cef2af7cab5eff1fd4bc2c6ca6ed174/raw/4ea5b93036b01b3a68c77c13e6fc62a3389354b6/adm_atendente.gif)
+
+#### Para Motoristas
+
+- **Controle de Viagens**: Registro do início e término das viagens com monitoramento em tempo real. *(GIF registrando uma viagem aqui)*  
+ ![apresentando a parte adminstrativa pela conta de um motorista](https://gist.githubusercontent.com/6aleatorio6/0cef2af7cab5eff1fd4bc2c6ca6ed174/raw/d84f4f1ee941c5df0a9f08de502c54f1f2ed1b0a/adm_motorista.gif)
+---
+
+### 3. Catraca Eletrônica com RFID
+
+- **Validação de Cartões**: Controle automatizado de embarques via tecnologia RFID. *(GIF mostrando a validação de um cartão RFID aqui)*  
+- **Monitoramento em Tempo Real**: Registro de embarques e associação ao motorista e viagem correspondente.  
+
 
 ## Guia de Instalação e Acesso 
 
