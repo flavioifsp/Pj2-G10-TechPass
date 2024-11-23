@@ -53,7 +53,8 @@ O sistema é composto por três módulos principais:
   ![Rolando a página inicial do site público onde está o mapa](https://gist.githubusercontent.com/6aleatorio6/0cef2af7cab5eff1fd4bc2c6ca6ed174/raw/31cb76ff17bf7f7bbd7ebfc93e1c3171d655cb35/index_public.gif)
 - **Consulta de Linhas e Horários**: Visualização de trajetos, horários e pontos de parada. ![apresentando pagina onde mostra as linhas](https://gist.githubusercontent.com/6aleatorio6/0cef2af7cab5eff1fd4bc2c6ca6ed174/raw/7ce853581a380157cd72146b2103ab83a273f1ca/linhas.gif)
 - **Histórico de Viagens e Saldo**: Acompanhamento do saldo e histórico de viagens realizadas.  
-- **Recarga de Cartões**: Recarga de cartões de transporte diretamente pelo site. *(GIF do fluxo de recarga aqui)*  
+- **Recarga de Cartões**: Recarga de cartões de transporte diretamente pelo site.
+  ![mostrando área de login; histórico e recarga no site público](https://gist.githubusercontent.com/6aleatorio6/0cef2af7cab5eff1fd4bc2c6ca6ed174/raw/4da0f67a81abda8a71f0f4babfc313df3726d3c5/recargaEhistorico_publico.gif)
 
 ---
 
@@ -62,28 +63,24 @@ O sistema é composto por três módulos principais:
 O **Painel Administrativo** organiza suas funcionalidades com base no tipo de conta, atribuindo permissões específicas a cada perfil de usuário. A seguir, detalhamos as ferramentas disponíveis para cada perfil:
 
 #### Para Administradores
+  ![apresentando a parte adminstrativa pela conta de adm](https://gist.githubusercontent.com/6aleatorio6/0cef2af7cab5eff1fd4bc2c6ca6ed174/raw/0b520da5ab1eacf23428787d51772da6ea0f2f2f/adm_adm.gif)
 
 - **Gestão de Usuários**: Criação, edição e remoção de contas de motoristas, atendentes e passageiros.  
 - **Cadastro de Lojas**: Gerenciamento de lojas vinculadas aos atendentes, facilitando o controle de operações.  
 - **Cadastro de Tipos de Cartões**: Definição de tipos de cartões com taxas variáveis.  
 - **Dashboard Operacional**: Exibição de dados como viagens realizadas, frotas em operação, motoristas e atendentes.
-  ![apresentando a parte adminstrativa pela conta de adm](https://gist.githubusercontent.com/6aleatorio6/0cef2af7cab5eff1fd4bc2c6ca6ed174/raw/0b520da5ab1eacf23428787d51772da6ea0f2f2f/adm_adm.gif)
 
 #### Para Atendentes
+  ![apresentando a parte adminstrativa pela conta de uma atendente](https://gist.githubusercontent.com/6aleatorio6/0cef2af7cab5eff1fd4bc2c6ca6ed174/raw/4ea5b93036b01b3a68c77c13e6fc62a3389354b6/adm_atendente.gif)
 
 - **Gestão de Contas de Usuários**: Criação e edição de contas de passageiros e recarga de cartões.  
 - **Emissão de Cartões**: Criação de novos cartões com base nos tipos cadastrados pelo administrador.  
-  ![apresentando a parte adminstrativa pela conta de uma atendente](https://gist.githubusercontent.com/6aleatorio6/0cef2af7cab5eff1fd4bc2c6ca6ed174/raw/4ea5b93036b01b3a68c77c13e6fc62a3389354b6/adm_atendente.gif)
 
 #### Para Motoristas
+ ![apresentando um motorista iniciando uma viagem e a catraca em diferentes telas](https://gist.githubusercontent.com/6aleatorio6/0cef2af7cab5eff1fd4bc2c6ca6ed174/raw/f1d04d06aa45993716e3fafea68511fcc80f9d0b/adm_motorista-catraca.gif)
 
-- **Controle de Viagens**: Registro do início e término das viagens com monitoramento em tempo real. *(GIF registrando uma viagem aqui)*  
- ![apresentando a parte adminstrativa pela conta de um motorista](https://gist.githubusercontent.com/6aleatorio6/0cef2af7cab5eff1fd4bc2c6ca6ed174/raw/d84f4f1ee941c5df0a9f08de502c54f1f2ed1b0a/adm_motorista.gif)
----
-
-### 3. Catraca Eletrônica com RFID
-
-- **Validação de Cartões**: Controle automatizado de embarques via tecnologia RFID. *(GIF mostrando a validação de um cartão RFID aqui)*  
+- **Controle de Viagens**: Registro do início e término das viagens com monitoramento em tempo real.
+- **Validação de Cartões**: Controle automatizado de embarques via tecnologia RFID. 
 - **Monitoramento em Tempo Real**: Registro de embarques e associação ao motorista e viagem correspondente.  
 
 
