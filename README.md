@@ -53,7 +53,7 @@ O **TechPass** é um sistema completo para **gestão de transporte público**, d
 O sistema é composto por três módulos principais:
 
 1. **Site Público**: A área pública do sistema, onde são disponibilizadas informações importantes sobre a empresa, como itinerários das linhas e a localização das lojas no mapa. Os clientes também podem acessar sua conta para visualizar o histórico de viagens e recarregar o saldo do cartão.
-2. **Painel Administrativo**: Acesso restrito para administradores, atendentes e motoristas, com permissões específicas para cada tipo de conta. Esse módulo permite a gestão de dados, controle de operações e monitoramento em tempo real das atividades do sistema..
+2. **Painel Administrativo**: Acesso restrito para administradores, atendentes e motoristas, com permissões específicas para cada tipo de conta. Esse módulo permite a gestão de dados, controle de operações e supervisão das atividades do sistema.
 3. **Catraca Eletrônica**: Sistema automatizado de controle de embarques, utilizando **cartões RFID** para validar e liberar o acesso dos passageiros nos veículos.
 
 ## ✨ **Funcionalidades**
